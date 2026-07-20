@@ -68,3 +68,20 @@ The result is written to `data/model/component_model_candidate.json`. A failed g
 - Bonus is still an approximation rather than a complete BPS event model.
 - The attack-state distribution is position-specific, not yet player-archetype-specific.
 - New signings and early-season players remain dependent on positional priors.
+
+## Initial held-out result
+
+The first production run covered 12,937 eligible 2024/25 player-gameweek predictions.
+
+| Metric | player-sim-2.0 | component candidate | Result |
+|---|---:|---:|---|
+| MAE | 1.8250 | 1.7773 | candidate better |
+| RMSE | 2.6666 | 2.6687 | control better |
+| rank correlation | 0.4582 | 0.4422 | control better |
+| top-10 hit rate | 0.1543 | 0.1600 | candidate better |
+| captaincy regret | 9.2000 | 9.2571 | control better |
+| 6+ Brier | 0.10971 | 0.10945 | candidate better |
+| 10+ Brier | 0.02938 | 0.02937 | candidate better |
+| 15+ Brier | 0.00614 | 0.00613 | candidate better |
+
+The candidate failed the rank-correlation and RMSE gates, so it was not promoted. Its component outputs remain available in shadow mode for diagnosis and future ensemble work.

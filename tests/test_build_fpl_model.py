@@ -241,8 +241,17 @@ class ModelTests(unittest.TestCase):
                 json.dumps({"datasets": [{"path": "data/chatgpt/players.csv"}]}),
                 encoding="utf-8",
             )
+            (data_dir / "model").mkdir(parents=True)
+            (data_dir / "model" / "component_model_candidate.json").write_text(
+                json.dumps({"status": "candidate_not_applied_to_live_model"}),
+                encoding="utf-8",
+            )
             summary = build_model(data_dir)
             self.assertEqual(summary["fixture_projection_rows"], 1)
+            self.assertEqual(
+                summary["challenger_status"],
+                "candidate_not_applied_to_live_model",
+            )
             self.assertTrue((data_dir / "chatgpt" / "projection_summary.json").is_file())
             self.assertTrue((data_dir / "chatgpt" / "prediction_accuracy.csv").is_file())
             self.assertTrue((data_dir / "chatgpt" / "scouting_observations.csv").is_file())
