@@ -945,6 +945,19 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     fixture_history = read_csv(chatgpt_dir / "player_fixtures.csv")
     past_seasons = read_csv(data_dir / "history" / "current_player_past_seasons.csv")
     observations = read_observations(data_dir / "scouting" / "observations.jsonl")
+    component_candidate_path = data_dir / "model" / "component_model_candidate.json"
+    component_candidate_status = "shadow_candidate_pending_held_out_evidence"
+    if component_candidate_path.is_file():
+        try:
+            component_candidate = json.loads(
+                component_candidate_path.read_text(encoding="utf-8")
+            )
+            component_candidate_status = str(
+                component_candidate.get("status")
+                or component_candidate_status
+            )
+        except (json.JSONDecodeError, OSError):
+            component_candidate_status = "shadow_candidate_assessment_unreadable"
     if not players or not teams or not fixtures:
         raise ValueError("Core FPL datasets are missing; run the collection workflow first")
 
@@ -1039,7 +1052,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "generated_at": generated_at,
         "model_version": MODEL_VERSION,
         "challenger_model_version": COMPONENT_MODEL_VERSION,
-        "challenger_status": "shadow_candidate_pending_held_out_evidence",
+        "challenger_status": component_candidate_status,
         "scoring_rules_version": SCORING_RULES_VERSION,
         "simulations_per_player_fixture": DEFAULT_SIMULATIONS,
         "method": "Deterministic player-level simulation of FPL returns using minutes, attacking involvement, clean sheets, saves, defensive contributions, disciplinary events and bonus, with a separately auditable qualitative overlay.",
