@@ -1,0 +1,340 @@
+{
+  "generated_at": "2026-07-20T09:45:36+00:00",
+  "model_version": "baseline-1.0",
+  "method": "Transparent shrinkage baseline combining expected minutes, xG/xA, fixture difficulty, clean-sheet probability, recent points and historical position priors.",
+  "player_feature_rows": 841,
+  "team_feature_rows": 20,
+  "fixture_projection_rows": 0,
+  "player_horizon_rows": 841,
+  "top_next_gameweek": [
+    {
+      "player_id": 1,
+      "web_name": "Raya",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 6.2,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 2,
+      "web_name": "Arrizabalaga",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 4.0,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 3,
+      "web_name": "Hein",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 4.0,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 4,
+      "web_name": "Setford",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 3.9,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 5,
+      "web_name": "Gabriel",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 7.3,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 6,
+      "web_name": "Saliba",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 6.3,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 7,
+      "web_name": "Calafiori",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.6,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 8,
+      "web_name": "J.Timber",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 6.0,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 9,
+      "web_name": "Kiwior",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.4,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 10,
+      "web_name": "Lewis-Skelly",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.0,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 11,
+      "web_name": "White",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.1,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 13,
+      "web_name": "Clarke",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 3.7,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 14,
+      "web_name": "Kacurri",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 3.9,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 15,
+      "web_name": "Nichols",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 3.7,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 16,
+      "web_name": "Saka",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 10.0,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 17,
+      "web_name": "Ødegaard",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 7.8,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 18,
+      "web_name": "Madueke",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.8,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 19,
+      "web_name": "Martinelli",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.8,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 20,
+      "web_name": "Trossard",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.6,
+      "expected_points_next_1": 0
+    },
+    {
+      "player_id": 21,
+      "web_name": "Rice",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 7.2,
+      "expected_points_next_1": 0
+    }
+  ],
+  "top_next_three_gameweeks": [
+    {
+      "player_id": 1,
+      "web_name": "Raya",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 6.2,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 2,
+      "web_name": "Arrizabalaga",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 4.0,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 3,
+      "web_name": "Hein",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 4.0,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 4,
+      "web_name": "Setford",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 3.9,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 5,
+      "web_name": "Gabriel",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 7.3,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 6,
+      "web_name": "Saliba",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 6.3,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 7,
+      "web_name": "Calafiori",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.6,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 8,
+      "web_name": "J.Timber",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 6.0,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 9,
+      "web_name": "Kiwior",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.4,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 10,
+      "web_name": "Lewis-Skelly",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.0,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 11,
+      "web_name": "White",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.1,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 13,
+      "web_name": "Clarke",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 3.7,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 14,
+      "web_name": "Kacurri",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 3.9,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 15,
+      "web_name": "Nichols",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 3.7,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 16,
+      "web_name": "Saka",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 10.0,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 17,
+      "web_name": "Ødegaard",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 7.8,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 18,
+      "web_name": "Madueke",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.8,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 19,
+      "web_name": "Martinelli",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.8,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 20,
+      "web_name": "Trossard",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.6,
+      "expected_points_next_3": 0
+    },
+    {
+      "player_id": 21,
+      "web_name": "Rice",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 7.2,
+      "expected_points_next_3": 0
+    }
+  ],
+  "prediction_snapshot_created": null,
+  "evaluated_gameweeks": 0,
+  "limitations": [
+    "This is a baseline model and does not yet include betting odds or confirmed team news.",
+    "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage.",
+    "Predictions should be interpreted as central estimates, not certainties."
+  ]
+}
