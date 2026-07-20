@@ -152,6 +152,44 @@ class ModelTests(unittest.TestCase):
             self.assertIsNone(second["snapshot_created_this_run"])
             self.assertEqual(len(second["prediction_snapshots"]), 1)
 
+    def test_qualitative_overlay_is_separate_and_auditable(self) -> None:
+        player_features = build_player_features(self.players, self.history)
+        team_features = build_team_features(self.teams, self.history, self.fixtures)
+        observation = {
+            "observation_id": "obs-example",
+            "observed_at": "2026-01-25T17:00:00+00:00",
+            "recorded_at": "2026-01-25T18:00:00+00:00",
+            "observer": "David",
+            "player_id": 10,
+            "raw_note": "Playing higher, moving sharply and expected to start.",
+            "attacking_role": 2,
+            "movement_sharpness": 2,
+            "fitness_energy": 1,
+            "minutes_security": 1,
+            "set_piece_role": 0,
+            "team_reliance": 1,
+            "tactical_fit": 1,
+            "confidence": 1,
+            "expires_at": "2026-02-10T00:00:00+00:00",
+            "status": "active",
+        }
+        projections, _ = build_projections(
+            self.players,
+            player_features,
+            team_features,
+            self.fixtures,
+            {},
+            [],
+            [observation],
+            simulations=1000,
+        )
+        projection = projections[0]
+        self.assertEqual(projection["qualitative_observation_count"], 1)
+        self.assertEqual(projection["qualitative_observation_ids"], "obs-example")
+        self.assertGreater(projection["qualitative_attack_multiplier"], 1)
+        self.assertGreater(projection["qualitative_minutes_delta"], 0)
+        self.assertGreater(projection["expected_points"], projection["quantitative_expected_points"])
+
     def test_team_features_use_fixture_club_after_transfer(self) -> None:
         history = [{**self.history[0], "fixture": 100, "team_id": 2}]
         features = build_team_features(self.teams, history, self.fixtures)
@@ -181,6 +219,13 @@ class ModelTests(unittest.TestCase):
             self.assertEqual(summary["fixture_projection_rows"], 1)
             self.assertTrue((data_dir / "chatgpt" / "projection_summary.json").is_file())
             self.assertTrue((data_dir / "chatgpt" / "prediction_accuracy.csv").is_file())
+            self.assertTrue((data_dir / "chatgpt" / "scouting_observations.csv").is_file())
+            with (data_dir / "chatgpt" / "player_projections.csv").open(
+                encoding="utf-8", newline=""
+            ) as handle:
+                projection_rows = list(csv.DictReader(handle))
+            self.assertIn("probability_15_plus", projection_rows[0])
+            self.assertIn("quantitative_expected_points", projection_rows[0])
             manifest = json.loads(
                 (data_dir / "chatgpt" / "manifest.json").read_text(encoding="utf-8")
             )
