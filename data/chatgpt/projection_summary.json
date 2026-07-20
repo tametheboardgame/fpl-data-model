@@ -1,6 +1,8 @@
 {
-  "generated_at": "2026-07-20T10:50:34+00:00",
+  "generated_at": "2026-07-20T12:06:18+00:00",
   "model_version": "player-sim-2.0",
+  "challenger_model_version": "player-sim-3.0-candidate",
+  "challenger_status": "shadow_candidate_pending_held_out_evidence",
   "scoring_rules_version": "fpl-2025-26",
   "simulations_per_player_fixture": 600,
   "method": "Deterministic player-level simulation of FPL returns using minutes, attacking involvement, clean sheets, saves, defensive contributions, disciplinary events and bonus, with a separately auditable qualitative overlay.",
@@ -12,10 +14,13 @@
   "qualitatively_adjusted_fixture_rows": 0,
   "top_next_gameweek": [],
   "top_next_three_gameweeks": [],
+  "component_top_next_gameweek": [],
+  "component_top_next_three_gameweeks": [],
   "prediction_snapshot_created": null,
   "evaluated_gameweeks": 0,
   "limitations": [
-    "The simulator is a transparent baseline distribution and does not yet include betting odds or confirmed team news.",
+    "The component simulator is a shadow challenger and is not the live recommendation model until held-out evidence supports promotion.",
+    "Neither simulator yet includes betting odds or confirmed team news.",
     "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage.",
     "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
     "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly."
