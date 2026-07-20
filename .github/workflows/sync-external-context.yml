@@ -2,6 +2,11 @@ name: Sync external FPL context
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/sync-external-context.yml"
   schedule:
     - cron: "20 */2 * * *"
 
