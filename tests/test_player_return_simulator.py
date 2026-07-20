@@ -3,6 +3,10 @@ from __future__ import annotations
 import unittest
 
 from src.player_return_simulator import simulate_player_fixture
+from src.component_player_simulator import (
+    build_component_inputs,
+    simulate_component_player_fixture,
+)
 
 
 class PlayerReturnSimulatorTests(unittest.TestCase):
@@ -44,6 +48,57 @@ class PlayerReturnSimulatorTests(unittest.TestCase):
         )
         self.assertGreater(explosive["expected_points"], ordinary["expected_points"])
         self.assertGreater(explosive["probability_15_plus"], ordinary["probability_15_plus"])
+
+    def test_component_simulation_is_auditable_and_deterministic(self) -> None:
+        inputs = {
+            **self.inputs(),
+            "starter_minutes_mean": 82,
+            "substitute_minutes_mean": 19,
+        }
+        first = simulate_component_player_fixture(
+            inputs, simulations=2000, seed_parts=(200, 10)
+        )
+        second = simulate_component_player_fixture(
+            inputs, simulations=2000, seed_parts=(200, 10)
+        )
+        self.assertEqual(first["expected_points"], second["expected_points"])
+        self.assertAlmostEqual(
+            sum(first["expected_points_components"].values()),
+            first["expected_points"],
+            places=8,
+        )
+        self.assertGreater(first["probability_60_plus"], 0)
+        self.assertGreater(first["attacking_return_probability"], 0)
+
+    def test_component_minutes_separate_starters_and_substitutes(self) -> None:
+        feature = {
+            "fixtures_6": 6,
+            "start_rate_6": 0.5,
+            "appearance_rate_6": 1.0,
+            "starter_average_minutes_6": 84,
+            "substitute_average_minutes_6": 18,
+            "minutes_6": 300,
+            "minutes_10": 500,
+            "xg_per_90_6": 0.4,
+            "xg_per_90_10": 0.3,
+            "xa_per_90_6": 0.2,
+            "xa_per_90_10": 0.15,
+        }
+        inputs = build_component_inputs(
+            {**self.inputs(), "availability_probability": 1.0},
+            feature,
+            {
+                "start_rate": 0.45,
+                "appearance_rate": 0.65,
+                "xg_per_90": 0.2,
+                "xa_per_90": 0.16,
+            },
+        )
+        self.assertGreater(inputs["starter_minutes_mean"], 70)
+        self.assertLess(inputs["substitute_minutes_mean"], 30)
+        self.assertGreater(
+            inputs["appearance_probability"], inputs["start_probability"]
+        )
 
     def test_defensive_contributions_are_scored_for_defenders(self) -> None:
         inputs = {

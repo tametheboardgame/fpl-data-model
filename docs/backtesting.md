@@ -41,6 +41,7 @@ Double-gameweek fixtures are predicted independently and combined before player-
 - expected minutes multiplied by a fixed position scoring rate
 - raw `player-sim-2.0`
 - development-calibrated `player-sim-2.0`
+- shadow `player-sim-3.0-candidate` component simulator
 
 ## Metrics
 
@@ -55,4 +56,4 @@ Double-gameweek fixtures are predicted independently and combined before player-
 
 No qualitative observations are backfilled. They did not exist with trustworthy pre-deadline timestamps and would introduce hindsight bias. Historical scoring also excludes defensive-contribution points because those rules did not apply in the evaluation seasons.
 
-Candidate calibration parameters remain separate from the live model until held-out evidence supports applying them.
+Candidate calibration parameters remain separate from the live model until held-out evidence supports applying them. The Phase 12 component model is evaluated against the unchanged `player-sim-2.0` control and remains in shadow mode unless it passes every documented promotion gate.

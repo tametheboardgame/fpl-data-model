@@ -40,7 +40,7 @@ The files under `data/chatgpt/` are the conversational interface to the model:
 - `detailed_history_manifest.json`: status and row counts for the daily detailed-history synchronisation
 - `player_rolling_features.csv`: player form and usage over the last 3, 6 and 10 fixtures
 - `team_rolling_features.csv`: team attack and defence form over the last 3, 6 and 10 fixtures
-- `player_projections.csv`: fixture-level player return distributions, including expected points, percentiles and 6+, 10+ and 15+ probabilities
+- `player_projections.csv`: fixture-level player return distributions, including the live expected points and a shadow component-model breakdown with percentiles and 6+, 10+ and 15+ probabilities
 - `player_projection_horizons.csv`: player expected points, distribution ranges, minutes and value over the next 1, 3, 5 and 6 gameweeks
 - `projection_summary.json`: model version, row counts, limitations and leading projections
 - `prediction_index.json`: index of immutable pre-deadline prediction snapshots
@@ -53,7 +53,7 @@ Historical files under `data/history/` include one compact player market snapsho
 
 Pre-deadline projections are written under `data/predictions/gwNN/`. Each timestamped file is immutable, so later results cannot rewrite what the model genuinely predicted before a deadline.
 
-Walk-forward evidence under `data/backtests/` includes detailed compressed predictions, gameweek metrics, model comparisons, held-out probability calibration and a compact success summary. Candidate calibration parameters are stored under `data/model/` but are not applied to live predictions until they improve the held-out season.
+Walk-forward evidence under `data/backtests/` includes detailed compressed predictions, gameweek metrics, model comparisons, held-out probability calibration and a compact success summary. Candidate calibration and component-model assessments are stored under `data/model/` but are not applied to live predictions until they clear explicit held-out promotion gates.
 
 Latest source responses are also retained under `data/raw/latest/` for troubleshooting and future transformations.
 
@@ -84,7 +84,7 @@ Pull requests perform the complete collection and validation process without com
 5. FPL-points distributions and multi-gameweek totals over the next six gameweeks.
 6. Immutable snapshots within eight hours of a deadline, followed by separate quantitative and qualitative accuracy evaluation when results arrive.
 
-The current model is `player-sim-2.0`. It is intentionally transparent and auditable. The simulation is seeded by model version, fixture and player, so unchanged inputs produce unchanged outputs. It remains a benchmark rather than a claim of optimal predictive performance, and does not yet include betting odds or confirmed team news.
+The current live model remains `player-sim-2.0`. Phase 12 adds `player-sim-3.0-candidate` in shadow mode with explicit appearance, minutes, attacking and FPL scoring components. It uses position-aware shrinkage and wider, correlated attacking-return distributions, while preserving the live model as an unchanged benchmark. See [`docs/component_model.md`](docs/component_model.md).
 
 `.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Expected-points and probability calibration are fitted on 2022/23–2023/24 and assessed once on the held-out 2024/25 season.
 

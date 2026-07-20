@@ -10,6 +10,7 @@ on:
     paths:
       - "src/backtest_fpl_model.py"
       - "src/player_return_simulator.py"
+      - "src/component_player_simulator.py"
       - "src/build_fpl_model.py"
       - "tests/test_backtest_fpl_model.py"
       - ".github/workflows/backtest-fpl-model.yml"

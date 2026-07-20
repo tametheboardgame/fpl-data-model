@@ -93,6 +93,8 @@ class ModelTests(unittest.TestCase):
     def test_builds_rolling_features_and_projection(self) -> None:
         self.assertIn("probability_15_plus", PROJECTION_FIELDS)
         self.assertIn("quantitative_expected_points", PROJECTION_FIELDS)
+        self.assertIn("component_expected_points", PROJECTION_FIELDS)
+        self.assertIn("component_probability_15_plus", PROJECTION_FIELDS)
         player_features = build_player_features(self.players, self.history)
         team_features = build_team_features(self.teams, self.history)
         priors = {
@@ -120,9 +122,30 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(len(projections), 1)
         self.assertGreater(projections[0]["expected_minutes"], 80)
         self.assertGreater(projections[0]["expected_points"], 0)
+        self.assertGreater(projections[0]["component_expected_points"], 0)
+        self.assertGreater(projections[0]["component_probability_60_plus"], 0)
+        component_sum = sum(
+            projections[0][field]
+            for field in (
+                "component_appearance_points",
+                "component_goal_points",
+                "component_assist_points",
+                "component_clean_sheet_points",
+                "component_goals_conceded_points",
+                "component_save_points",
+                "component_penalty_save_points",
+                "component_defensive_contribution_points",
+                "component_bonus_points",
+                "component_discipline_points",
+            )
+        )
+        self.assertAlmostEqual(
+            component_sum, projections[0]["component_expected_points"], delta=0.01
+        )
         self.assertAlmostEqual(
             horizons[0]["expected_points_next_1"], projections[0]["expected_points"], places=3
         )
+        self.assertGreater(horizons[0]["component_expected_points_next_1"], 0)
 
     def test_creates_immutable_predeadline_snapshot(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -229,6 +252,8 @@ class ModelTests(unittest.TestCase):
                 projection_rows = list(csv.DictReader(handle))
             self.assertIn("probability_15_plus", projection_rows[0])
             self.assertIn("quantitative_expected_points", projection_rows[0])
+            self.assertIn("component_expected_points", projection_rows[0])
+            self.assertIn("component_appearance_points", projection_rows[0])
             manifest = json.loads(
                 (data_dir / "chatgpt" / "manifest.json").read_text(encoding="utf-8")
             )
