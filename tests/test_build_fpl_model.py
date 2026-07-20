@@ -8,6 +8,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from src.build_fpl_model import (
+    ENSEMBLE_MODEL_VERSION,
     PROJECTION_FIELDS,
     build_model,
     build_player_features,
@@ -124,6 +125,17 @@ class ModelTests(unittest.TestCase):
         self.assertGreater(projections[0]["expected_points"], 0)
         self.assertGreater(projections[0]["component_expected_points"], 0)
         self.assertGreater(projections[0]["component_probability_60_plus"], 0)
+        self.assertEqual(projections[0]["model_version"], ENSEMBLE_MODEL_VERSION)
+        self.assertAlmostEqual(
+            projections[0]["expected_points"],
+            0.8 * projections[0]["control_expected_points"]
+            + 0.2 * projections[0]["component_expected_points"],
+            delta=0.001,
+        )
+        self.assertEqual(
+            projections[0]["probability_15_plus"],
+            projections[0]["component_probability_15_plus"],
+        )
         component_sum = sum(
             projections[0][field]
             for field in (
@@ -246,8 +258,31 @@ class ModelTests(unittest.TestCase):
                 json.dumps({"status": "candidate_not_applied_to_live_model"}),
                 encoding="utf-8",
             )
+            (data_dir / "model" / "ensemble_model_candidate.json").write_text(
+                json.dumps(
+                    {
+                        "status": "recommended_for_live_promotion",
+                        "assessment": {
+                            "selection": {
+                                "selected_point_weight": 0.2,
+                                "selected_probability_weights": {
+                                    "6": 0.5,
+                                    "10": 0.4,
+                                    "15": 1.0,
+                                },
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
             summary = build_model(data_dir)
             self.assertEqual(summary["fixture_projection_rows"], 1)
+            self.assertEqual(summary["model_version"], ENSEMBLE_MODEL_VERSION)
+            self.assertEqual(
+                summary["ensemble_status"], "recommended_for_live_promotion"
+            )
+            self.assertEqual(summary["ensemble_point_weight"], 0.2)
             self.assertEqual(
                 summary["challenger_status"],
                 "candidate_not_applied_to_live_model",
