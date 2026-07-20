@@ -49,6 +49,26 @@ def finalise(data_dir: Path) -> dict[str, Any]:
             "confirmed blank/double gameweeks and a sufficiently strong forecast edge."
         )
         decision_path.write_text(json.dumps(decision, indent=2) + "\n", encoding="utf-8")
+    datasets = manifest.setdefault("datasets", [])
+    existing = {item.get("path") for item in datasets}
+    for path in (
+        "data/chatgpt/external_context_accuracy.csv",
+        "data/chatgpt/external_context_evaluation.json",
+    ):
+        if path not in existing:
+            datasets.append({"path": path})
+    if manifest:
+        (chatgpt / "manifest.json").write_text(
+            json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
+        )
+    projection_path = chatgpt / "projection_summary.json"
+    if projection_path.is_file():
+        projection = read_json(projection_path, {})
+        projection["evaluated_external_context_signals"] = evaluation["evaluated_signals"]
+        projection["chip_state_status"] = chip_state["status"]
+        projection_path.write_text(
+            json.dumps(projection, indent=2) + "\n", encoding="utf-8"
+        )
     return {"external_evaluation": evaluation, "chip_state": chip_state}
 
 
