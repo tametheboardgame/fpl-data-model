@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T08:57:30+00:00",
+  "generated_at": "2026-07-20T09:26:26+00:00",
   "season": "2025/26",
   "source": "https://fantasy.premierleague.com/api",
   "team_id": 6435140,
@@ -14,7 +14,13 @@
       "path": "data/chatgpt/fpl_summary.json"
     },
     {
+      "path": "data/chatgpt/manager_history.json"
+    },
+    {
       "path": "data/chatgpt/my_gameweek_history.csv"
+    },
+    {
+      "path": "data/chatgpt/my_transfers.csv"
     },
     {
       "path": "data/chatgpt/my_team.json"
@@ -27,6 +33,9 @@
     },
     {
       "path": "data/chatgpt/teams.csv"
+    },
+    {
+      "path": "data/chatgpt/snapshot_index.json"
     }
   ],
   "row_counts": {
@@ -34,6 +43,8 @@
     "teams": 20,
     "fixtures": 380,
     "player_gameweeks": 29747,
-    "my_gameweek_history": 38
-  }
+    "my_gameweek_history": 38,
+    "my_transfers": 77
+  },
+  "latest_daily_snapshot": "history/player_snapshots/2026-07-20.csv"
 }
