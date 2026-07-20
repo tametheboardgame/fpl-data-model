@@ -152,6 +152,13 @@ class ModelTests(unittest.TestCase):
             self.assertIsNone(second["snapshot_created_this_run"])
             self.assertEqual(len(second["prediction_snapshots"]), 1)
 
+    def test_team_features_use_fixture_club_after_transfer(self) -> None:
+        history = [{**self.history[0], "fixture": 100, "team_id": 2}]
+        features = build_team_features(self.teams, history, self.fixtures)
+        by_team = {row["team_id"]: row for row in features}
+        self.assertEqual(by_team[1]["matches_3"], 1)
+        self.assertEqual(by_team[2]["matches_3"], 0)
+
     def test_end_to_end_model_build(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             data_dir = Path(temporary)
@@ -166,10 +173,20 @@ class ModelTests(unittest.TestCase):
             (data_dir / "chatgpt" / "current_gameweek.json").write_text(
                 json.dumps({"current": {"id": 6}, "next": None}), encoding="utf-8"
             )
+            (data_dir / "chatgpt" / "manifest.json").write_text(
+                json.dumps({"datasets": [{"path": "data/chatgpt/players.csv"}]}),
+                encoding="utf-8",
+            )
             summary = build_model(data_dir)
             self.assertEqual(summary["fixture_projection_rows"], 1)
             self.assertTrue((data_dir / "chatgpt" / "projection_summary.json").is_file())
             self.assertTrue((data_dir / "chatgpt" / "prediction_accuracy.csv").is_file())
+            manifest = json.loads(
+                (data_dir / "chatgpt" / "manifest.json").read_text(encoding="utf-8")
+            )
+            self.assertIn(
+                {"path": "data/chatgpt/projection_summary.json"}, manifest["datasets"]
+            )
 
 
 if __name__ == "__main__":
