@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T11:22:22+00:00",
+  "generated_at": "2026-07-20T11:29:03+00:00",
   "model_version": "player-sim-2.0",
   "development_seasons": [
     "2022-23",
@@ -47,7 +47,19 @@
     "brier_10_plus": 0.03,
     "brier_15_plus": 0.00632
   },
-  "expected_points_calibration_recommended": true,
+  "expected_points_calibration_assessment": {
+    "gameweeks": 35,
+    "overall_mae_improvement": 0.003839,
+    "overall_relative_mae_improvement": 0.002103,
+    "mean_gameweek_mae_improvement": 0.003797,
+    "normal_approximation_95pct_ci_lower": 0.000552,
+    "normal_approximation_95pct_ci_upper": 0.007042,
+    "minimum_practical_relative_improvement": 0.005,
+    "statistically_positive_95pct": true,
+    "practically_material": false,
+    "recommended": false
+  },
+  "expected_points_calibration_recommended": false,
   "held_out_mae_change": -0.0038,
   "probability_calibration_recommended": {
     "6": false,
