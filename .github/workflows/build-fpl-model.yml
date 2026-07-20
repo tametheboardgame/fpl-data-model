@@ -9,7 +9,10 @@ on:
       - main
     paths:
       - "src/build_fpl_model.py"
+      - "src/player_return_simulator.py"
+      - "src/scouting_observations.py"
       - ".github/workflows/build-fpl-model.yml"
+      - "data/scouting/**"
       - "data/chatgpt/players.csv"
       - "data/chatgpt/fixtures.csv"
       - "data/chatgpt/player_fixtures.csv"
@@ -42,6 +45,9 @@ jobs:
 
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
+
+      - name: Validate qualitative scouting observations
+        run: python -m src.scouting_observations validate --path data/scouting/observations.jsonl
 
       - name: Build rolling features and projections
         run: python -m src.build_fpl_model --data-dir data
