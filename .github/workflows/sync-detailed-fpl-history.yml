@@ -50,5 +50,6 @@ jobs:
             echo "No detailed history changes to commit"
           else
             git commit -m "Update detailed FPL history"
+            git pull --rebase origin main
             git push
           fi
