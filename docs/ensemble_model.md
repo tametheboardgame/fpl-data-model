@@ -36,3 +36,29 @@ Live promotion requires:
 The fitted weights, every development trial and the held-out verdict are written to `data/model/ensemble_model_candidate.json`.
 
 The ensemble remains shadow-only unless all criteria pass.
+
+## Held-out result and promotion
+
+Development selected these frozen weights:
+
+- expected points: 20% component model
+- 6+ probability: 50% component model
+- 10+ probability: 40% component model
+- 15+ probability: 100% component model
+
+On 12,937 held-out 2024/25 predictions, the hybrid produced:
+
+| Metric | player-sim-2.0 | hybrid |
+|---|---:|---:|
+| MAE | 1.8250 | 1.8120 |
+| RMSE | 2.6666 | 2.6620 |
+| rank correlation | 0.4582 | 0.4575 |
+| top-10 hit rate | 0.1543 | 0.1571 |
+| captaincy regret | 9.2000 | 9.2000 |
+| 6+ Brier | 0.10971 | 0.10917 |
+| 10+ Brier | 0.02938 | 0.02934 |
+| 15+ Brier | 0.00614 | 0.00613 |
+
+Every promotion criterion passed. The frozen hybrid is therefore exposed as `player-ensemble-1.0` for live recommendations.
+
+Every output retains the `player-sim-2.0` control and `player-sim-3.0-candidate` component values, so the ensemble can be inspected or reverted without losing either underlying forecast.

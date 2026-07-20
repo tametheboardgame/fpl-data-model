@@ -26,6 +26,14 @@ from src.update_fpl_data import utc_now, write_csv, write_json
 
 
 MODEL_VERSION = "player-sim-2.0"
+ENSEMBLE_MODEL_VERSION = "player-ensemble-1.0"
+DEFAULT_ENSEMBLE_CONFIG = {
+    "enabled": True,
+    "status": "recommended_for_live_promotion",
+    "model_version": ENSEMBLE_MODEL_VERSION,
+    "point_weight": 0.2,
+    "probability_weights": {"6": 0.5, "10": 0.4, "15": 1.0},
+}
 FORECAST_GAMEWEEKS = 6
 MODEL_DATASETS = [
     "player_rolling_features.csv",
@@ -41,6 +49,13 @@ MODEL_DATASETS = [
 ]
 PROJECTION_FIELDS = [
     "model_version",
+    "control_model_version",
+    "challenger_model_version",
+    "ensemble_status",
+    "ensemble_point_weight",
+    "ensemble_probability_6_plus_weight",
+    "ensemble_probability_10_plus_weight",
+    "ensemble_probability_15_plus_weight",
     "scoring_rules_version",
     "simulation_count",
     "gameweek",
@@ -79,7 +94,16 @@ PROJECTION_FIELDS = [
     "probability_10_plus",
     "probability_15_plus",
     "probability_3_or_fewer",
-    "challenger_model_version",
+    "control_quantitative_expected_points",
+    "control_qualitative_expected_points_delta",
+    "control_expected_points",
+    "control_points_p10",
+    "control_points_p50",
+    "control_points_p90",
+    "control_probability_6_plus",
+    "control_probability_10_plus",
+    "control_probability_15_plus",
+    "control_probability_3_or_fewer",
     "component_quantitative_expected_points",
     "component_qualitative_expected_points_delta",
     "component_expected_points",
@@ -160,6 +184,47 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return []
     with path.open(encoding="utf-8", newline="") as handle:
         return list(csv.DictReader(handle))
+
+
+def load_ensemble_config(path: Path) -> dict[str, Any]:
+    disabled = {
+        "enabled": False,
+        "status": "candidate_not_available",
+        "model_version": MODEL_VERSION,
+        "point_weight": 0.0,
+        "probability_weights": {"6": 0.0, "10": 0.0, "15": 0.0},
+    }
+    if not path.is_file():
+        return disabled
+    try:
+        candidate = json.loads(path.read_text(encoding="utf-8"))
+        if candidate.get("status") != "recommended_for_live_promotion":
+            return {**disabled, "status": str(candidate.get("status") or "not_recommended")}
+        selection = candidate.get("assessment", {}).get("selection", {})
+        point_weight = max(0.0, min(1.0, number(selection.get("selected_point_weight"))))
+        probability_weights = {
+            str(threshold): max(
+                0.0,
+                min(
+                    1.0,
+                    number(
+                        selection.get("selected_probability_weights", {}).get(
+                            str(threshold)
+                        )
+                    ),
+                ),
+            )
+            for threshold in (6, 10, 15)
+        }
+        return {
+            "enabled": True,
+            "status": "recommended_for_live_promotion",
+            "model_version": ENSEMBLE_MODEL_VERSION,
+            "point_weight": point_weight,
+            "probability_weights": probability_weights,
+        }
+    except (json.JSONDecodeError, OSError, TypeError, AttributeError):
+        return {**disabled, "status": "candidate_assessment_unreadable"}
 
 
 def ordered_fields(rows: list[dict[str, Any]], preferred: list[str]) -> list[str]:
@@ -432,11 +497,33 @@ def build_projections(
     past_seasons: list[dict[str, Any]],
     observations: list[dict[str, Any]] | None = None,
     simulations: int = DEFAULT_SIMULATIONS,
+    ensemble_config: dict[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     feature_by_player = {integer(row.get("player_id")): row for row in player_features}
     feature_by_team = {integer(row.get("team_id")): row for row in team_features}
     past_by_code = latest_past_seasons(past_seasons)
     observations = observations or []
+    ensemble_config = ensemble_config or DEFAULT_ENSEMBLE_CONFIG
+    ensemble_point_weight = max(
+        0.0, min(1.0, number(ensemble_config.get("point_weight")))
+    )
+    ensemble_probability_weights = {
+        str(threshold): max(
+            0.0,
+            min(
+                1.0,
+                number(
+                    ensemble_config.get("probability_weights", {}).get(
+                        str(threshold)
+                    )
+                ),
+            ),
+        )
+        for threshold in (6, 10, 15)
+    }
+    live_model_version = str(
+        ensemble_config.get("model_version") or MODEL_VERSION
+    )
     future = [
         row
         for row in fixtures
@@ -551,6 +638,47 @@ def build_projections(
                 simulations=simulations,
                 seed_parts=(*seed, "component-shared"),
             )
+            ensemble_quantitative_samples = [
+                (1 - ensemble_point_weight) * control
+                + ensemble_point_weight * component
+                for control, component in zip(
+                    quantitative["points_samples"],
+                    component_quantitative["points_samples"],
+                )
+            ]
+            ensemble_adjusted_samples = [
+                (1 - ensemble_point_weight) * control
+                + ensemble_point_weight * component
+                for control, component in zip(
+                    adjusted["points_samples"],
+                    component_adjusted["points_samples"],
+                )
+            ]
+            ensemble_quantitative_expected_points = statistics.fmean(
+                ensemble_quantitative_samples
+            )
+            ensemble_expected_points = statistics.fmean(
+                ensemble_adjusted_samples
+            )
+            ensemble_probabilities = {
+                str(threshold): (
+                    (1 - ensemble_probability_weights[str(threshold)])
+                    * number(adjusted.get(f"probability_{threshold}_plus"))
+                    + ensemble_probability_weights[str(threshold)]
+                    * number(
+                        component_adjusted.get(
+                            f"probability_{threshold}_plus"
+                        )
+                    )
+                )
+                for threshold in (6, 10, 15)
+            }
+            ensemble_probability_3_or_fewer = (
+                (1 - ensemble_point_weight)
+                * number(adjusted.get("probability_3_or_fewer"))
+                + ensemble_point_weight
+                * number(component_adjusted.get("probability_3_or_fewer"))
+            )
             quantitative_expected_minutes = quantitative["expected_minutes_simulated"]
             expected_minutes = adjusted["expected_minutes_simulated"]
             expected_goals = (
@@ -560,7 +688,14 @@ def build_projections(
                 adjusted_simulation_inputs["xa_per_90"] * expected_minutes / 90
             )
             projection = {
-                "model_version": MODEL_VERSION,
+                "model_version": live_model_version,
+                "control_model_version": MODEL_VERSION,
+                "challenger_model_version": COMPONENT_MODEL_VERSION,
+                "ensemble_status": ensemble_config.get("status"),
+                "ensemble_point_weight": ensemble_point_weight,
+                "ensemble_probability_6_plus_weight": ensemble_probability_weights["6"],
+                "ensemble_probability_10_plus_weight": ensemble_probability_weights["10"],
+                "ensemble_probability_15_plus_weight": ensemble_probability_weights["15"],
                 "scoring_rules_version": SCORING_RULES_VERSION,
                 "simulation_count": simulations,
                 "gameweek": integer(fixture.get("gameweek")),
@@ -589,19 +724,47 @@ def build_projections(
                 "expected_goals": round(expected_goals, 4),
                 "expected_assists": round(expected_assists, 4),
                 "clean_sheet_probability": round(cs_probability, 4),
-                "quantitative_expected_points": round(quantitative["expected_points"], 4),
-                "qualitative_expected_points_delta": round(
-                    adjusted["expected_points"] - quantitative["expected_points"], 4
+                "quantitative_expected_points": round(
+                    ensemble_quantitative_expected_points, 4
                 ),
-                "expected_points": round(adjusted["expected_points"], 4),
-                "points_p10": adjusted["points_p10"],
-                "points_p50": adjusted["points_p50"],
-                "points_p90": adjusted["points_p90"],
-                "probability_6_plus": round(adjusted["probability_6_plus"], 4),
-                "probability_10_plus": round(adjusted["probability_10_plus"], 4),
-                "probability_15_plus": round(adjusted["probability_15_plus"], 4),
-                "probability_3_or_fewer": round(adjusted["probability_3_or_fewer"], 4),
-                "challenger_model_version": COMPONENT_MODEL_VERSION,
+                "qualitative_expected_points_delta": round(
+                    ensemble_expected_points
+                    - ensemble_quantitative_expected_points,
+                    4,
+                ),
+                "expected_points": round(ensemble_expected_points, 4),
+                "points_p10": percentile(ensemble_adjusted_samples, 0.10),
+                "points_p50": percentile(ensemble_adjusted_samples, 0.50),
+                "points_p90": percentile(ensemble_adjusted_samples, 0.90),
+                "probability_6_plus": round(ensemble_probabilities["6"], 4),
+                "probability_10_plus": round(ensemble_probabilities["10"], 4),
+                "probability_15_plus": round(ensemble_probabilities["15"], 4),
+                "probability_3_or_fewer": round(
+                    ensemble_probability_3_or_fewer, 4
+                ),
+                "control_quantitative_expected_points": round(
+                    quantitative["expected_points"], 4
+                ),
+                "control_qualitative_expected_points_delta": round(
+                    adjusted["expected_points"] - quantitative["expected_points"],
+                    4,
+                ),
+                "control_expected_points": round(adjusted["expected_points"], 4),
+                "control_points_p10": adjusted["points_p10"],
+                "control_points_p50": adjusted["points_p50"],
+                "control_points_p90": adjusted["points_p90"],
+                "control_probability_6_plus": round(
+                    adjusted["probability_6_plus"], 4
+                ),
+                "control_probability_10_plus": round(
+                    adjusted["probability_10_plus"], 4
+                ),
+                "control_probability_15_plus": round(
+                    adjusted["probability_15_plus"], 4
+                ),
+                "control_probability_3_or_fewer": round(
+                    adjusted["probability_3_or_fewer"], 4
+                ),
                 "component_quantitative_expected_points": round(
                     component_quantitative["expected_points"], 4
                 ),
@@ -669,8 +832,10 @@ def build_projections(
             samples_by_player[player_id].append(
                 {
                     "gameweek": projection["gameweek"],
-                    "quantitative": quantitative["points_samples"],
-                    "adjusted": adjusted["points_samples"],
+                    "quantitative": ensemble_quantitative_samples,
+                    "adjusted": ensemble_adjusted_samples,
+                    "control_quantitative": quantitative["points_samples"],
+                    "control_adjusted": adjusted["points_samples"],
                     "component_quantitative": component_quantitative["points_samples"],
                     "component_adjusted": component_adjusted["points_samples"],
                 }
@@ -685,8 +850,14 @@ def build_projections(
         player_id = integer(player.get("player_id"))
         rows = by_player.get(player_id, [])
         base = {
-            "model_version": MODEL_VERSION,
+            "model_version": live_model_version,
+            "control_model_version": MODEL_VERSION,
             "challenger_model_version": COMPONENT_MODEL_VERSION,
+            "ensemble_status": ensemble_config.get("status"),
+            "ensemble_point_weight": ensemble_point_weight,
+            "ensemble_probability_6_plus_weight": ensemble_probability_weights["6"],
+            "ensemble_probability_10_plus_weight": ensemble_probability_weights["10"],
+            "ensemble_probability_15_plus_weight": ensemble_probability_weights["15"],
             "player_id": player_id,
             "player_code": player.get("player_code"),
             "web_name": player.get("web_name"),
@@ -716,6 +887,10 @@ def build_projections(
                 sum(row["component_adjusted"][index] for row in sample_rows)
                 for index in range(simulations)
             ] if sample_rows else []
+            combined_control_samples = [
+                sum(row["control_adjusted"][index] for row in sample_rows)
+                for index in range(simulations)
+            ] if sample_rows else []
             base[f"expected_points_next_{horizon}"] = round(points, 3)
             base[f"quantitative_expected_points_next_{horizon}"] = round(
                 quantitative_points, 3
@@ -728,6 +903,21 @@ def build_projections(
             base[f"points_p10_next_{horizon}"] = percentile(combined_samples, 0.10)
             base[f"points_p50_next_{horizon}"] = percentile(combined_samples, 0.50)
             base[f"points_p90_next_{horizon}"] = percentile(combined_samples, 0.90)
+            base[f"control_expected_points_next_{horizon}"] = round(
+                statistics.fmean(combined_control_samples)
+                if combined_control_samples
+                else 0,
+                3,
+            )
+            base[f"control_points_p10_next_{horizon}"] = percentile(
+                combined_control_samples, 0.10
+            )
+            base[f"control_points_p50_next_{horizon}"] = percentile(
+                combined_control_samples, 0.50
+            )
+            base[f"control_points_p90_next_{horizon}"] = percentile(
+                combined_control_samples, 0.90
+            )
             base[f"component_expected_points_next_{horizon}"] = round(
                 statistics.fmean(combined_component_samples)
                 if combined_component_samples
@@ -803,6 +993,13 @@ def write_prediction_snapshot(
                     "target_gameweek",
                     "deadline_time",
                     "model_version",
+                    "control_model_version",
+                    "challenger_model_version",
+                    "ensemble_status",
+                    "ensemble_point_weight",
+                    "ensemble_probability_6_plus_weight",
+                    "ensemble_probability_10_plus_weight",
+                    "ensemble_probability_15_plus_weight",
                     "player_id",
                     "player_code",
                     "web_name",
@@ -818,7 +1015,10 @@ def write_prediction_snapshot(
                     "points_p50_next_1",
                     "points_p90_next_1",
                     "value_next_1",
-                    "challenger_model_version",
+                    "control_expected_points_next_1",
+                    "control_points_p10_next_1",
+                    "control_points_p50_next_1",
+                    "control_points_p90_next_1",
                     "component_expected_points_next_1",
                     "component_points_p10_next_1",
                     "component_points_p50_next_1",
@@ -835,7 +1035,9 @@ def write_prediction_snapshot(
     )
     index = {
         "generated_at": generated_at,
-        "model_version": MODEL_VERSION,
+        "model_version": (
+            horizons[0].get("model_version") if horizons else MODEL_VERSION
+        ),
         "snapshot_created_this_run": created,
         "prediction_snapshots": files,
     }
@@ -945,6 +1147,9 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     fixture_history = read_csv(chatgpt_dir / "player_fixtures.csv")
     past_seasons = read_csv(data_dir / "history" / "current_player_past_seasons.csv")
     observations = read_observations(data_dir / "scouting" / "observations.jsonl")
+    ensemble_config = load_ensemble_config(
+        data_dir / "model" / "ensemble_model_candidate.json"
+    )
     component_candidate_path = data_dir / "model" / "component_model_candidate.json"
     component_candidate_status = "shadow_candidate_pending_held_out_evidence"
     if component_candidate_path.is_file():
@@ -972,6 +1177,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         priors,
         past_seasons,
         observations,
+        ensemble_config=ensemble_config,
     )
 
     write_csv(
@@ -991,7 +1197,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     write_csv(chatgpt_dir / "player_projections.csv", projections, projection_fields)
     horizon_fields = ordered_fields(
         horizons,
-        ["model_version", "challenger_model_version", "player_id", "player_code", "web_name", "team_id", "team_name", "position", "price"],
+        ["model_version", "control_model_version", "challenger_model_version", "ensemble_status", "player_id", "player_code", "web_name", "team_id", "team_name", "position", "price"],
     )
     write_csv(chatgpt_dir / "player_projection_horizons.csv", horizons, horizon_fields)
     observation_fields = [
@@ -1050,12 +1256,16 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     write_json(chatgpt_dir / "qualitative_signal_summary.json", qualitative_summary)
     summary = {
         "generated_at": generated_at,
-        "model_version": MODEL_VERSION,
+        "model_version": ensemble_config["model_version"],
+        "control_model_version": MODEL_VERSION,
         "challenger_model_version": COMPONENT_MODEL_VERSION,
+        "ensemble_status": ensemble_config["status"],
+        "ensemble_point_weight": ensemble_config["point_weight"],
+        "ensemble_probability_weights": ensemble_config["probability_weights"],
         "challenger_status": component_candidate_status,
         "scoring_rules_version": SCORING_RULES_VERSION,
         "simulations_per_player_fixture": DEFAULT_SIMULATIONS,
-        "method": "Deterministic player-level simulation of FPL returns using minutes, attacking involvement, clean sheets, saves, defensive contributions, disciplinary events and bonus, with a separately auditable qualitative overlay.",
+        "method": "Development-selected ensemble of the live ranking control and component return simulator, with separately audited quantitative, component and qualitative layers.",
         "player_feature_rows": len(player_features),
         "team_feature_rows": len(team_features),
         "fixture_projection_rows": len(projections),
@@ -1073,7 +1283,8 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "prediction_snapshot_created": prediction_index.get("snapshot_created_this_run"),
         "evaluated_gameweeks": evaluation.get("evaluated_gameweeks"),
         "limitations": [
-            "The component simulator is a shadow challenger and is not the live recommendation model until held-out evidence supports promotion.",
+            "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
+            "The control and component models remain available beside every ensemble recommendation for audit.",
             "Neither simulator yet includes betting odds or confirmed team news.",
             "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage.",
             "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",

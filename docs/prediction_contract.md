@@ -20,11 +20,16 @@ Every player-fixture projection includes:
 - 10th, 50th and 90th FPL-points percentiles
 - probabilities of 6+, 10+ and 15+ points and of scoring 3 or fewer
 - the qualitative observation IDs and bounded signals used
-- model, scoring-rules and simulation versions
+- live ensemble, control, component, scoring-rules and simulation versions
+- the frozen ensemble weights applied to expected points and return probabilities
 
 ## FPL return simulation
 
-`player-sim-2.0` uses deterministic Monte Carlo samples. The scoring implementation covers:
+The live recommendation model is `player-ensemble-1.0`. It blends the unchanged `player-sim-2.0` control with the auditable `player-sim-3.0-candidate` component simulator using weights selected only on 2022/23-2023/24 and validated on 2024/25.
+
+The control and component forecasts remain separate in every output. The ensemble uses 20% component weight for expected points, 50% for 6+ probability, 40% for 10+ probability and 100% for 15+ probability.
+
+Both underlying models use deterministic Monte Carlo samples. The scoring implementation covers:
 
 - appearance and 60-minute points
 - position-specific goal points and three points per assist
@@ -35,7 +40,7 @@ Every player-fixture projection includes:
 - yellow cards, red cards, own goals and missed penalties
 - 2025/26 defensive-contribution thresholds
 
-The simulation is seeded by model version, fixture and player. Unchanged inputs therefore produce unchanged distributions.
+The simulations are seeded by model version, fixture and player. Unchanged inputs therefore produce unchanged distributions. The ensemble is a deterministic combination of those distributions.
 
 ## Qualitative overlay
 
