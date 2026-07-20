@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T13:19:31+00:00",
+  "generated_at": "2026-07-20T13:55:17+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -13,12 +13,15 @@
   "challenger_status": "candidate_not_applied_to_live_model",
   "scoring_rules_version": "fpl-2025-26",
   "simulations_per_player_fixture": 600,
-  "method": "Development-selected ensemble of the live ranking control and component return simulator, with separately audited quantitative, component and qualitative layers.",
+  "method": "Development-selected ensemble with separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
   "player_feature_rows": 841,
   "team_feature_rows": 20,
   "fixture_projection_rows": 0,
   "player_horizon_rows": 841,
   "scouting_observation_rows": 0,
+  "external_context_signal_rows": 0,
+  "active_external_context_signal_rows": 0,
+  "decision_support_status": "waiting_for_future_fixtures",
   "qualitatively_adjusted_fixture_rows": 0,
   "top_next_gameweek": [],
   "top_next_three_gameweeks": [],
@@ -29,8 +32,8 @@
   "limitations": [
     "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
     "The control and component models remain available beside every ensemble recommendation for audit.",
-    "Neither simulator yet includes betting odds or confirmed team news.",
-    "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage.",
+    "External context is source-weighted and applied only to decision support until prospective evidence justifies changing the validated ensemble.",
+    "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage unless a timestamped decision-layer signal is present.",
     "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
     "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly."
   ]
