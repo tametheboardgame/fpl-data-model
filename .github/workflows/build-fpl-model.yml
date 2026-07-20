@@ -18,6 +18,8 @@ on:
       - "data/chatgpt/player_fixtures.csv"
       - "data/history/current_player_past_seasons.csv"
       - "data/history/position_priors.csv"
+      - "data/model/ensemble_model_candidate.json"
+      - "data/model/component_model_candidate.json"
 
 permissions:
   contents: write
