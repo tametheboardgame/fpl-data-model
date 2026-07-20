@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T11:29:03+00:00",
+  "generated_at": "2026-07-20T12:09:49+00:00",
   "model_version": "player-sim-2.0",
   "seasons": [
     "2022-23",
@@ -45,6 +45,70 @@
     "brier_6_plus": 0.1099,
     "brier_10_plus": 0.03,
     "brier_15_plus": 0.00632
+  },
+  "held_out_component_sim_metrics": {
+    "model": "component_sim",
+    "rows": 12937,
+    "gameweeks": 35,
+    "mae": 1.7773,
+    "rmse": 2.6687,
+    "bias": -0.074,
+    "mean_gameweek_spearman": 0.4422,
+    "top_10_hit_rate": 0.16,
+    "top_25_hit_rate": 0.2034,
+    "mean_captaincy_regret": 9.2571,
+    "brier_6_plus": 0.10945,
+    "brier_10_plus": 0.02937,
+    "brier_15_plus": 0.00613
+  },
+  "component_model_assessment": {
+    "candidate_model_version": "player-sim-3.0-candidate",
+    "control_model_version": "player-sim-2.0",
+    "held_out_candidate_metrics": {
+      "model": "component_sim",
+      "rows": 12937,
+      "gameweeks": 35,
+      "mae": 1.7773,
+      "rmse": 2.6687,
+      "bias": -0.074,
+      "mean_gameweek_spearman": 0.4422,
+      "top_10_hit_rate": 0.16,
+      "top_25_hit_rate": 0.2034,
+      "mean_captaincy_regret": 9.2571,
+      "brier_6_plus": 0.10945,
+      "brier_10_plus": 0.02937,
+      "brier_15_plus": 0.00613
+    },
+    "held_out_control_metrics": {
+      "model": "player_sim",
+      "rows": 12937,
+      "gameweeks": 35,
+      "mae": 1.825,
+      "rmse": 2.6666,
+      "bias": 0.054,
+      "mean_gameweek_spearman": 0.4582,
+      "top_10_hit_rate": 0.1543,
+      "top_25_hit_rate": 0.2034,
+      "mean_captaincy_regret": 9.2,
+      "brier_6_plus": 0.10971,
+      "brier_10_plus": 0.02938,
+      "brier_15_plus": 0.00614
+    },
+    "rank_correlation_change": -0.016,
+    "mae_change": -0.0477,
+    "rmse_change": 0.0021,
+    "return_probability_brier_improvements": {
+      "6": true,
+      "10": true,
+      "15": true
+    },
+    "promotion_criteria": {
+      "improves_rank_correlation": false,
+      "improves_rmse": false,
+      "mae_within_half_percent_of_player_sim_2": true,
+      "improves_at_least_two_return_probability_brier_scores": true
+    },
+    "recommended_for_live_promotion": false
   },
   "success_criteria": {
     "beats_best_baseline_mae": false,
