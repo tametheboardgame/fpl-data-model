@@ -31,6 +31,7 @@ def decision_projection(
     values = context.get("values", {})
     strengths = context.get("strengths", {})
     multiplier = 1.0
+    upside_score = 0.0
     reasons: list[str] = []
 
     if "availability_probability" in values:
@@ -56,12 +57,27 @@ def decision_projection(
         multiplier *= 1 + strength * (target - 1)
         reasons.append(f"attacking-role multiplier {target:.2f}")
 
+    upside_weights = {
+        "anytime_goal_probability": 0.50,
+        "clean_sheet_probability": 0.25,
+        "penalty_taker_probability": 0.15,
+        "set_piece_share": 0.10,
+    }
+    for signal_type, importance in upside_weights.items():
+        if signal_type not in values:
+            continue
+        target = number(values[signal_type])
+        strength = number(strengths.get(signal_type))
+        upside_score += importance * target * strength
+        reasons.append(f"{signal_type.replace('_', ' ')} {target:.0%}")
+
     multiplier = max(0.0, min(1.35, multiplier))
     decision_points = base_points * multiplier
     return {
         "model_expected_points": round(base_points, 3),
         "context_multiplier": round(multiplier, 4),
         "decision_expected_points": round(decision_points, 3),
+        "external_upside_score": round(min(1.0, upside_score), 4),
         "context_signal_count": integer(context.get("signal_count")),
         "context_signal_ids": context.get("signal_ids", []),
         "context_source_ids": context.get("source_ids", []),
@@ -169,6 +185,7 @@ def build_decision_support(
         starters,
         key=lambda row: (
             number(row.get("decision_expected_points")),
+            number(row.get("external_upside_score")),
             number(row.get("probability_10_plus_next_1")),
             number(row.get("points_p90_next_1")),
         ),
@@ -248,6 +265,7 @@ def build_decision_support(
         ),
         key=lambda row: (
             number(row.get("decision_expected_points")),
+            number(row.get("external_upside_score")),
             number(row.get("probability_10_plus_next_1")),
         ),
         reverse=True,
