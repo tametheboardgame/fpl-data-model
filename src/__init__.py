@@ -1,0 +1,1 @@
+"""FPL data model package."""
