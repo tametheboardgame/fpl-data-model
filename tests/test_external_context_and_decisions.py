@@ -241,6 +241,19 @@ class DecisionTests(unittest.TestCase):
         players.append(
             {"player_id": 99, "team_id": 20, "selected_by_percent": "4.2"}
         )
+        context_signals = [
+            {
+                "signal_id": "market-99",
+                "observed_at": self.now.isoformat(),
+                "source_id": "confirmed_lineup",
+                "signal_type": "anytime_goal_probability",
+                "value": 0.6,
+                "confidence": 1,
+                "player_id": 99,
+                "gameweek": 1,
+                "status": "active",
+            }
+        ]
         decision = build_decision_support(
             horizons,
             players,
@@ -251,7 +264,7 @@ class DecisionTests(unittest.TestCase):
                 "squad": squad,
             },
             {"next": {"id": 1}},
-            [],
+            context_signals,
             self.registry,
             self.now.isoformat(),
         )
@@ -259,6 +272,9 @@ class DecisionTests(unittest.TestCase):
         self.assertEqual(len(decision["recommended_lineup"]), 11)
         self.assertIsNotNone(decision["captaincy"]["captain"])
         self.assertEqual(decision["differentials"][0]["player_id"], 99)
+        self.assertGreater(
+            decision["differentials"][0]["external_upside_score"], 0
+        )
         self.assertTrue(
             any(item["buy"]["player_id"] == 99 for item in decision["transfer_shortlist"])
         )
