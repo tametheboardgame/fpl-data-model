@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-07-20T11:22:22+00:00",
+  "model_version": "player-sim-2.0",
+  "seasons": [
+    "2022-23",
+    "2023-24",
+    "2024-25"
+  ],
+  "development_seasons": [
+    "2022-23",
+    "2023-24"
+  ],
+  "held_out_season": "2024-25",
+  "historical_source_rows": 83835,
+  "eligible_prediction_rows": 37633,
+  "backtested_gameweeks": 104,
+  "simulations_per_player_fixture": 300,
+  "eligibility": "At least three prior fixture rows and at least one appearance in the last three fixtures.",
+  "held_out_player_sim_metrics": {
+    "model": "player_sim",
+    "rows": 12937,
+    "gameweeks": 35,
+    "mae": 1.825,
+    "rmse": 2.6666,
+    "bias": 0.054,
+    "mean_gameweek_spearman": 0.4582,
+    "top_10_hit_rate": 0.1543,
+    "top_25_hit_rate": 0.2034,
+    "mean_captaincy_regret": 9.2,
+    "brier_6_plus": 0.10971,
+    "brier_10_plus": 0.02938,
+    "brier_15_plus": 0.00614
+  },
+  "held_out_calibrated_metrics": {
+    "model": "calibrated_player_sim",
+    "rows": 12937,
+    "gameweeks": 35,
+    "mae": 1.8212,
+    "rmse": 2.6626,
+    "bias": 0.053,
+    "mean_gameweek_spearman": 0.4582,
+    "top_10_hit_rate": 0.1543,
+    "top_25_hit_rate": 0.2034,
+    "mean_captaincy_regret": 9.2,
+    "brier_6_plus": 0.1099,
+    "brier_10_plus": 0.03,
+    "brier_15_plus": 0.00632
+  },
+  "success_criteria": {
+    "beats_best_baseline_mae": false,
+    "best_baseline_mae_model": "position_average",
+    "best_baseline_mae": 1.771,
+    "beats_best_baseline_rank_correlation": true,
+    "best_baseline_rank_model": "minutes_only",
+    "best_baseline_rank_correlation": 0.4196,
+    "calibration_improves_held_out_mae": true,
+    "calibration_improves_all_probability_brier_scores": false
+  },
+  "limitations": [
+    "The historical archive does not contain timestamped qualitative observations, so only the quantitative model is backtested.",
+    "Players are evaluated only after three prior fixture rows, excluding early-season and immediate new-signing decisions.",
+    "Historical team context is reconstructed from official player-level expected statistics rather than betting markets.",
+    "The simulator uses simplified bonus and disciplinary-event distributions."
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-07-20T11:22:22+00:00",
+  "model_version": "player-sim-2.0",
+  "development_seasons": [
+    "2022-23",
+    "2023-24"
+  ],
+  "held_out_season": "2024-25",
+  "development_rows": 24696,
+  "held_out_rows": 12937,
+  "expected_points_calibration": {
+    "intercept": 0.355279,
+    "slope": 0.83786
+  },
+  "probability_multipliers": {
+    "6": 1.040273,
+    "10": 2.050509,
+    "15": 3.519693
+  },
+  "held_out_raw_metrics": {
+    "model": "player_sim",
+    "rows": 12937,
+    "gameweeks": 35,
+    "mae": 1.825,
+    "rmse": 2.6666,
+    "bias": 0.054,
+    "mean_gameweek_spearman": 0.4582,
+    "top_10_hit_rate": 0.1543,
+    "top_25_hit_rate": 0.2034,
+    "mean_captaincy_regret": 9.2,
+    "brier_6_plus": 0.10971,
+    "brier_10_plus": 0.02938,
+    "brier_15_plus": 0.00614
+  },
+  "held_out_calibrated_metrics": {
+    "model": "calibrated_player_sim",
+    "rows": 12937,
+    "gameweeks": 35,
+    "mae": 1.8212,
+    "rmse": 2.6626,
+    "bias": 0.053,
+    "mean_gameweek_spearman": 0.4582,
+    "top_10_hit_rate": 0.1543,
+    "top_25_hit_rate": 0.2034,
+    "mean_captaincy_regret": 9.2,
+    "brier_6_plus": 0.1099,
+    "brier_10_plus": 0.03,
+    "brier_15_plus": 0.00632
+  },
+  "expected_points_calibration_recommended": true,
+  "held_out_mae_change": -0.0038,
+  "probability_calibration_recommended": {
+    "6": false,
+    "10": false,
+    "15": false
+  },
+  "methodology": "All calibration parameters were fitted only on the development seasons and assessed on 2024/25."
+}
