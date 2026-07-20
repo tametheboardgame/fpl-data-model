@@ -290,6 +290,8 @@ class DecisionTests(unittest.TestCase):
             self.now.isoformat(),
         )
         self.assertEqual(decision["status"], "waiting_for_future_fixtures")
+        self.assertEqual(decision["recommended_lineup"], [])
+        self.assertIsNone(decision["captaincy"]["captain"])
         self.assertEqual(decision["transfer_shortlist"], [])
 
 
