@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-07-20T12:06:18+00:00",
-  "model_version": "player-sim-2.0",
+  "generated_at": "2026-07-20T13:19:31+00:00",
+  "model_version": "player-ensemble-1.0",
+  "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
-  "challenger_status": "shadow_candidate_pending_held_out_evidence",
+  "ensemble_status": "recommended_for_live_promotion",
+  "ensemble_point_weight": 0.2,
+  "ensemble_probability_weights": {
+    "6": 0.5,
+    "10": 0.4,
+    "15": 1.0
+  },
+  "challenger_status": "candidate_not_applied_to_live_model",
   "scoring_rules_version": "fpl-2025-26",
   "simulations_per_player_fixture": 600,
-  "method": "Deterministic player-level simulation of FPL returns using minutes, attacking involvement, clean sheets, saves, defensive contributions, disciplinary events and bonus, with a separately auditable qualitative overlay.",
+  "method": "Development-selected ensemble of the live ranking control and component return simulator, with separately audited quantitative, component and qualitative layers.",
   "player_feature_rows": 841,
   "team_feature_rows": 20,
   "fixture_projection_rows": 0,
@@ -19,7 +27,8 @@
   "prediction_snapshot_created": null,
   "evaluated_gameweeks": 0,
   "limitations": [
-    "The component simulator is a shadow challenger and is not the live recommendation model until held-out evidence supports promotion.",
+    "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
+    "The control and component models remain available beside every ensemble recommendation for audit.",
     "Neither simulator yet includes betting odds or confirmed team news.",
     "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage.",
     "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
