@@ -36,6 +36,10 @@ jobs:
             echo "API_FOOTBALL_KEY is not configured; leaving the provider dormant"
             exit 0
           fi
+          if [ "${{ github.event_name }}" != "workflow_dispatch" ] && grep -q '"status": "plan_blocked"' data/context/provider_status.json; then
+            echo "API-Football current season is blocked by the active plan; scheduled retry skipped"
+            exit 0
+          fi
           python -m src.sync_api_football_context --data-dir data --max-requests 8
       - name: Validate external context
         if: always()
