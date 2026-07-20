@@ -88,6 +88,8 @@ The current live model remains `player-sim-2.0`. Phase 12 adds `player-sim-3.0-c
 
 The initial held-out run improved MAE from 1.8250 to 1.7773 and marginally improved all three return-probability Brier scores. It reduced rank correlation from 0.4582 to 0.4422 and made RMSE 0.0021 worse, so the promotion gate correctly left it in shadow mode.
 
+A development-selected hybrid now tests whether Version 2's ranking can be retained while borrowing Version 3's point and return-probability accuracy. Point and probability blend weights are fitted only on 2022/23-2023/24, frozen, then assessed on 2024/25. See [`docs/ensemble_model.md`](docs/ensemble_model.md).
+
 `.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Expected-points and probability calibration are fitted on 2022/23–2023/24 and assessed once on the held-out 2024/25 season.
 
 ## Local use
