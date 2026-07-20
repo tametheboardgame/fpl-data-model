@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-20T13:58:00+00:00",
-  "decision_version": "fpl-decisions-1.0",
+  "generated_at": "2026-07-20T14:17:45+00:00",
+  "decision_version": "fpl-decisions-1.1",
   "model_version": "player-ensemble-1.0",
   "status": "waiting_for_future_fixtures",
   "target_gameweek": null,
@@ -22,7 +22,33 @@
     "triple_captain_expected_extra_points": 0,
     "wildcard_candidate_transfer_count": 0,
     "advisory_only": true,
-    "reason": "Chip recommendations require confirmed blank/double gameweeks and the manager's remaining-chip state."
+    "reason": "Chip availability is tracked explicitly; recommendations still require confirmed blank/double gameweeks and a sufficiently strong forecast edge.",
+    "chip_state": {
+      "season": "2025/26",
+      "status": "ready",
+      "chips": {
+        "wildcard": {
+          "used": 2,
+          "allowance": 2,
+          "remaining": 0
+        },
+        "freehit": {
+          "used": 2,
+          "allowance": 2,
+          "remaining": 0
+        },
+        "bboost": {
+          "used": 2,
+          "allowance": 2,
+          "remaining": 0
+        },
+        "3xc": {
+          "used": 2,
+          "allowance": 2,
+          "remaining": 0
+        }
+      }
+    }
   },
   "audit": {
     "players_evaluated": 841,

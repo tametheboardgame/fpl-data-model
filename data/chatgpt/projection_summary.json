@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T13:58:00+00:00",
+  "generated_at": "2026-07-20T14:17:45+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -36,5 +36,7 @@
     "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage unless a timestamped decision-layer signal is present.",
     "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
     "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly."
-  ]
+  ],
+  "evaluated_external_context_signals": 0,
+  "chip_state_status": "ready"
 }
