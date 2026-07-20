@@ -10,10 +10,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
+from src.player_return_simulator import (
+    DEFAULT_SIMULATIONS,
+    SCORING_RULES_VERSION,
+    percentile,
+    simulate_player_fixture,
+)
+from src.scouting_observations import SIGNAL_FIELDS, qualitative_adjustment, read_observations
 from src.update_fpl_data import utc_now, write_csv, write_json
 
 
-MODEL_VERSION = "baseline-1.0"
+MODEL_VERSION = "player-sim-2.0"
+FORECAST_GAMEWEEKS = 6
 MODEL_DATASETS = [
     "player_rolling_features.csv",
     "team_rolling_features.csv",
@@ -23,6 +31,8 @@ MODEL_DATASETS = [
     "prediction_index.json",
     "prediction_accuracy.csv",
     "prediction_evaluation.json",
+    "scouting_observations.csv",
+    "qualitative_signal_summary.json",
 ]
 POSITION_CODES = {
     "Goalkeeper": "GK",
@@ -34,13 +44,11 @@ POSITION_CODES = {
     "MID": "MID",
     "FWD": "FWD",
 }
-GOAL_POINTS = {"GK": 6, "DEF": 6, "MID": 5, "FWD": 4}
-CLEAN_SHEET_POINTS = {"GK": 4, "DEF": 4, "MID": 1, "FWD": 0}
 FALLBACK_PRIORS = {
-    "GK": {"start_rate": 0.55, "appearance_rate": 0.58, "average_minutes_per_fixture": 50, "points_per_90": 4.0, "xg_per_90": 0, "xa_per_90": 0.01, "saves_per_90": 3.0, "bonus_per_90": 0.25},
-    "DEF": {"start_rate": 0.48, "appearance_rate": 0.62, "average_minutes_per_fixture": 48, "points_per_90": 3.8, "xg_per_90": 0.05, "xa_per_90": 0.07, "saves_per_90": 0, "bonus_per_90": 0.18},
-    "MID": {"start_rate": 0.45, "appearance_rate": 0.65, "average_minutes_per_fixture": 47, "points_per_90": 4.2, "xg_per_90": 0.20, "xa_per_90": 0.16, "saves_per_90": 0, "bonus_per_90": 0.22},
-    "FWD": {"start_rate": 0.43, "appearance_rate": 0.62, "average_minutes_per_fixture": 45, "points_per_90": 4.3, "xg_per_90": 0.36, "xa_per_90": 0.12, "saves_per_90": 0, "bonus_per_90": 0.25},
+    "GK": {"start_rate": 0.55, "appearance_rate": 0.58, "average_minutes_per_fixture": 50, "points_per_90": 4.0, "xg_per_90": 0, "xa_per_90": 0.01, "saves_per_90": 3.0, "bonus_per_90": 0.25, "defensive_contribution_per_90": 0, "yellow_cards_per_90": 0.05},
+    "DEF": {"start_rate": 0.48, "appearance_rate": 0.62, "average_minutes_per_fixture": 48, "points_per_90": 3.8, "xg_per_90": 0.05, "xa_per_90": 0.07, "saves_per_90": 0, "bonus_per_90": 0.18, "defensive_contribution_per_90": 8.0, "yellow_cards_per_90": 0.16},
+    "MID": {"start_rate": 0.45, "appearance_rate": 0.65, "average_minutes_per_fixture": 47, "points_per_90": 4.2, "xg_per_90": 0.20, "xa_per_90": 0.16, "saves_per_90": 0, "bonus_per_90": 0.22, "defensive_contribution_per_90": 6.0, "yellow_cards_per_90": 0.15},
+    "FWD": {"start_rate": 0.43, "appearance_rate": 0.62, "average_minutes_per_fixture": 45, "points_per_90": 4.3, "xg_per_90": 0.36, "xa_per_90": 0.12, "saves_per_90": 0, "bonus_per_90": 0.25, "defensive_contribution_per_90": 3.0, "yellow_cards_per_90": 0.12},
 }
 
 
@@ -101,6 +109,11 @@ def recent_metrics(rows: list[dict[str, Any]], window: int) -> dict[str, Any]:
         f"saves_per_90_{window}": round(total("saves") * per90, 4),
         f"bonus_per_90_{window}": round(total("bonus") * per90, 4),
         f"defensive_contribution_per_90_{window}": round(total("defensive_contribution") * per90, 4),
+        f"yellow_cards_per_90_{window}": round(total("yellow_cards") * per90, 4),
+        f"red_cards_per_90_{window}": round(total("red_cards") * per90, 4),
+        f"own_goals_per_90_{window}": round(total("own_goals") * per90, 4),
+        f"penalties_missed_per_90_{window}": round(total("penalties_missed") * per90, 4),
+        f"penalties_saved_per_90_{window}": round(total("penalties_saved") * per90, 4),
         f"clean_sheet_rate_{window}": round(total("clean_sheets") / starts, 4) if starts else 0,
     }
 
@@ -274,11 +287,18 @@ def projection_inputs(
         "start_probability": max(0, min(1, availability * start_rate)),
         "appearance_probability": max(0, min(1, availability * max(start_rate, appearance_rate))),
         "expected_minutes": max(0, min(90, availability * average_minutes)),
+        "minutes_deviation": max(6, number(feature.get("minutes_standard_deviation_6"))),
         "points_per_90": blended_rate(number(feature.get("points_per_90_10")), minutes_10, number(prior.get("points_per_90"))),
         "xg_per_90": blended_rate(number(feature.get("xg_per_90_10")), minutes_10, number(prior.get("xg_per_90"))),
         "xa_per_90": blended_rate(number(feature.get("xa_per_90_10")), minutes_10, number(prior.get("xa_per_90"))),
         "saves_per_90": blended_rate(number(feature.get("saves_per_90_10")), minutes_10, number(prior.get("saves_per_90"))),
         "bonus_per_90": blended_rate(number(feature.get("bonus_per_90_10")), minutes_10, number(prior.get("bonus_per_90"))),
+        "defensive_contribution_per_90": blended_rate(number(feature.get("defensive_contribution_per_90_10")), minutes_10, number(prior.get("defensive_contribution_per_90"))),
+        "yellow_cards_per_90": blended_rate(number(feature.get("yellow_cards_per_90_10")), minutes_10, number(prior.get("yellow_cards_per_90"))),
+        "red_cards_per_90": blended_rate(number(feature.get("red_cards_per_90_10")), minutes_10, number(prior.get("red_cards_per_90"))),
+        "own_goals_per_90": blended_rate(number(feature.get("own_goals_per_90_10")), minutes_10, number(prior.get("own_goals_per_90"))),
+        "penalties_missed_per_90": blended_rate(number(feature.get("penalties_missed_per_90_10")), minutes_10, number(prior.get("penalties_missed_per_90"))),
+        "penalties_saved_per_90": blended_rate(number(feature.get("penalties_saved_per_90_10")), minutes_10, number(prior.get("penalties_saved_per_90"))),
     }
 
 
@@ -307,22 +327,35 @@ def build_projections(
     fixtures: list[dict[str, Any]],
     priors: dict[str, dict[str, Any]],
     past_seasons: list[dict[str, Any]],
+    observations: list[dict[str, Any]] | None = None,
+    simulations: int = DEFAULT_SIMULATIONS,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     feature_by_player = {integer(row.get("player_id")): row for row in player_features}
     feature_by_team = {integer(row.get("team_id")): row for row in team_features}
     past_by_code = latest_past_seasons(past_seasons)
-    future = [row for row in fixtures if not truthy(row.get("finished")) and integer(row.get("gameweek"))]
+    observations = observations or []
+    future = [
+        row
+        for row in fixtures
+        if not truthy(row.get("finished")) and integer(row.get("gameweek"))
+    ]
     future.sort(key=lambda row: (integer(row.get("gameweek")), row.get("kickoff_time") or ""))
+    forecast_gameweeks = sorted({integer(row.get("gameweek")) for row in future})[
+        :FORECAST_GAMEWEEKS
+    ]
+    future = [row for row in future if integer(row.get("gameweek")) in forecast_gameweeks]
 
     projections: list[dict[str, Any]] = []
+    samples_by_player: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for player in players:
         player_id = integer(player.get("player_id"))
         team_id = integer(player.get("team_id"))
         position = POSITION_CODES.get(str(player.get("position")), "MID")
         prior = priors.get(position, FALLBACK_PRIORS[position])
+        player_feature = feature_by_player.get(player_id, {})
         inputs = projection_inputs(
             player,
-            feature_by_player.get(player_id, {}),
+            player_feature,
             prior,
             past_by_code.get(integer(player.get("player_code"))),
         )
@@ -336,56 +369,110 @@ def build_projections(
             difficulty = integer(
                 fixture.get("home_difficulty") if is_home else fixture.get("away_difficulty")
             ) or 3
-            attack_factor = max(0.60, min(1.45, 1 + (3 - difficulty) * 0.12 + (0.04 if is_home else -0.02)))
-            expected_minutes = inputs["expected_minutes"]
-            expected_goals = inputs["xg_per_90"] * expected_minutes / 90 * attack_factor
-            expected_assists = inputs["xa_per_90"] * expected_minutes / 90 * attack_factor
+            attack_factor = max(
+                0.60,
+                min(1.45, 1 + (3 - difficulty) * 0.12 + (0.04 if is_home else -0.02)),
+            )
             cs_probability = clean_sheet_probability(
                 difficulty,
                 is_home,
                 feature_by_team.get(team_id),
                 feature_by_team.get(opponent_id),
             )
-            appearance_points = inputs["appearance_probability"] + inputs["start_probability"]
-            attacking_points = expected_goals * GOAL_POINTS[position] + expected_assists * 3
-            clean_sheet_points = cs_probability * CLEAN_SHEET_POINTS[position] * inputs["start_probability"]
-            save_points = inputs["saves_per_90"] * expected_minutes / 90 / 3 if position == "GK" else 0
-            bonus_points = min(3 * inputs["appearance_probability"], inputs["bonus_per_90"] * expected_minutes / 90)
-            component_xpts = appearance_points + attacking_points + clean_sheet_points + save_points + bonus_points
-            form_xpts = inputs["points_per_90"] * expected_minutes / 90 * attack_factor
-            expected_points = 0.65 * component_xpts + 0.35 * form_xpts
-            projections.append(
+            qualitative = qualitative_adjustment(
+                observations, player, str(fixture.get("kickoff_time") or utc_now())
+            )
+            base_simulation_inputs = {
+                **inputs,
+                "position": position,
+                "clean_sheet_probability": cs_probability,
+                "xg_per_90": inputs["xg_per_90"] * attack_factor,
+                "xa_per_90": inputs["xa_per_90"] * attack_factor,
+            }
+            adjusted_simulation_inputs = {
+                **base_simulation_inputs,
+                "expected_minutes": max(
+                    0, min(90, inputs["expected_minutes"] + qualitative["minutes_delta"])
+                ),
+                "xg_per_90": base_simulation_inputs["xg_per_90"]
+                * qualitative["attack_multiplier"],
+                "xa_per_90": base_simulation_inputs["xa_per_90"]
+                * qualitative["attack_multiplier"],
+            }
+            seed = (integer(fixture.get("fixture_id")), player_id)
+            quantitative = simulate_player_fixture(
+                base_simulation_inputs,
+                simulations=simulations,
+                seed_parts=(*seed, "shared"),
+            )
+            adjusted = simulate_player_fixture(
+                adjusted_simulation_inputs,
+                simulations=simulations,
+                seed_parts=(*seed, "shared"),
+            )
+            quantitative_expected_minutes = quantitative["expected_minutes_simulated"]
+            expected_minutes = adjusted["expected_minutes_simulated"]
+            expected_goals = (
+                adjusted_simulation_inputs["xg_per_90"] * expected_minutes / 90
+            )
+            expected_assists = (
+                adjusted_simulation_inputs["xa_per_90"] * expected_minutes / 90
+            )
+            projection = {
+                "model_version": MODEL_VERSION,
+                "scoring_rules_version": SCORING_RULES_VERSION,
+                "simulation_count": simulations,
+                "gameweek": integer(fixture.get("gameweek")),
+                "fixture_id": integer(fixture.get("fixture_id")),
+                "kickoff_time": fixture.get("kickoff_time"),
+                "player_id": player_id,
+                "player_code": player.get("player_code"),
+                "web_name": player.get("web_name"),
+                "team_id": team_id,
+                "team_name": player.get("team_name"),
+                "position": player.get("position"),
+                "price": number(player.get("price")),
+                "opponent_team_id": opponent_id,
+                "opponent": fixture.get("away_team") if is_home else fixture.get("home_team"),
+                "is_home": is_home,
+                "difficulty": difficulty,
+                "availability_probability": round(inputs["availability_probability"], 4),
+                "appearance_probability": round(inputs["appearance_probability"], 4),
+                "start_probability": round(inputs["start_probability"], 4),
+                "quantitative_expected_minutes": round(quantitative_expected_minutes, 2),
+                "qualitative_minutes_delta": qualitative["minutes_delta"],
+                "expected_minutes": round(expected_minutes, 2),
+                "minutes_p10": adjusted["minutes_p10"],
+                "minutes_p50": adjusted["minutes_p50"],
+                "minutes_p90": adjusted["minutes_p90"],
+                "expected_goals": round(expected_goals, 4),
+                "expected_assists": round(expected_assists, 4),
+                "clean_sheet_probability": round(cs_probability, 4),
+                "quantitative_expected_points": round(quantitative["expected_points"], 4),
+                "qualitative_expected_points_delta": round(
+                    adjusted["expected_points"] - quantitative["expected_points"], 4
+                ),
+                "expected_points": round(adjusted["expected_points"], 4),
+                "points_p10": adjusted["points_p10"],
+                "points_p50": adjusted["points_p50"],
+                "points_p90": adjusted["points_p90"],
+                "probability_6_plus": round(adjusted["probability_6_plus"], 4),
+                "probability_10_plus": round(adjusted["probability_10_plus"], 4),
+                "probability_15_plus": round(adjusted["probability_15_plus"], 4),
+                "probability_3_or_fewer": round(adjusted["probability_3_or_fewer"], 4),
+                "qualitative_observation_count": qualitative["observation_count"],
+                "qualitative_observation_ids": "|".join(qualitative["observation_ids"]),
+                "qualitative_confidence": qualitative["combined_confidence"],
+                "qualitative_attack_multiplier": qualitative["attack_multiplier"],
+            }
+            for field, value in qualitative["signals"].items():
+                projection[f"qualitative_{field}"] = value
+            projections.append(projection)
+            samples_by_player[player_id].append(
                 {
-                    "model_version": MODEL_VERSION,
-                    "gameweek": integer(fixture.get("gameweek")),
-                    "fixture_id": integer(fixture.get("fixture_id")),
-                    "kickoff_time": fixture.get("kickoff_time"),
-                    "player_id": player_id,
-                    "player_code": player.get("player_code"),
-                    "web_name": player.get("web_name"),
-                    "team_id": team_id,
-                    "team_name": player.get("team_name"),
-                    "position": player.get("position"),
-                    "price": number(player.get("price")),
-                    "opponent_team_id": opponent_id,
-                    "opponent": fixture.get("away_team") if is_home else fixture.get("home_team"),
-                    "is_home": is_home,
-                    "difficulty": difficulty,
-                    "availability_probability": round(inputs["availability_probability"], 4),
-                    "appearance_probability": round(inputs["appearance_probability"], 4),
-                    "start_probability": round(inputs["start_probability"], 4),
-                    "expected_minutes": round(expected_minutes, 2),
-                    "expected_goals": round(expected_goals, 4),
-                    "expected_assists": round(expected_assists, 4),
-                    "clean_sheet_probability": round(cs_probability, 4),
-                    "appearance_points": round(appearance_points, 4),
-                    "attacking_points": round(attacking_points, 4),
-                    "clean_sheet_points": round(clean_sheet_points, 4),
-                    "save_points": round(save_points, 4),
-                    "bonus_points": round(bonus_points, 4),
-                    "component_expected_points": round(component_xpts, 4),
-                    "form_expected_points": round(form_xpts, 4),
-                    "expected_points": round(max(0, expected_points), 4),
+                    "gameweek": projection["gameweek"],
+                    "quantitative": quantitative["points_samples"],
+                    "adjusted": adjusted["points_samples"],
                 }
             )
 
@@ -411,10 +498,31 @@ def build_projections(
             included = set(future_gameweeks[:horizon])
             selected = [row for row in rows if integer(row.get("gameweek")) in included]
             points = sum(number(row.get("expected_points")) for row in selected)
+            quantitative_points = sum(
+                number(row.get("quantitative_expected_points")) for row in selected
+            )
             minutes = sum(number(row.get("expected_minutes")) for row in selected)
+            sample_rows = [
+                row
+                for row in samples_by_player.get(player_id, [])
+                if integer(row.get("gameweek")) in included
+            ]
+            combined_samples = [
+                sum(row["adjusted"][index] for row in sample_rows)
+                for index in range(simulations)
+            ] if sample_rows else []
             base[f"expected_points_next_{horizon}"] = round(points, 3)
+            base[f"quantitative_expected_points_next_{horizon}"] = round(
+                quantitative_points, 3
+            )
+            base[f"qualitative_points_delta_next_{horizon}"] = round(
+                points - quantitative_points, 3
+            )
             base[f"expected_minutes_next_{horizon}"] = round(minutes, 2)
             base[f"value_next_{horizon}"] = round(points / number(player.get("price")), 4) if number(player.get("price")) else 0
+            base[f"points_p10_next_{horizon}"] = percentile(combined_samples, 0.10)
+            base[f"points_p50_next_{horizon}"] = percentile(combined_samples, 0.50)
+            base[f"points_p90_next_{horizon}"] = percentile(combined_samples, 0.90)
         horizons.append(base)
     return projections, horizons
 
@@ -468,8 +576,13 @@ def write_prediction_snapshot(
                     "team_name",
                     "position",
                     "price",
+                    "quantitative_expected_points_next_1",
+                    "qualitative_points_delta_next_1",
                     "expected_points_next_1",
                     "expected_minutes_next_1",
+                    "points_p10_next_1",
+                    "points_p50_next_1",
+                    "points_p90_next_1",
                     "value_next_1",
                 ]
                 write_csv(path, rows, fields)
@@ -504,6 +617,7 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
         rows = read_csv(snapshots[-1])
         gameweek = integer(rows[0].get("target_gameweek")) if rows else 0
         errors = []
+        quantitative_errors = []
         predictions = []
         actual_values = []
         for row in rows:
@@ -511,13 +625,22 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
             if (gameweek, player_id) not in actual:
                 continue
             predicted = number(row.get("expected_points_next_1"))
+            quantitative_predicted = number(
+                row.get("quantitative_expected_points_next_1")
+                if row.get("quantitative_expected_points_next_1") not in {None, ""}
+                else predicted
+            )
             observed = actual[(gameweek, player_id)]
             errors.append(predicted - observed)
+            quantitative_errors.append(quantitative_predicted - observed)
             predictions.append(predicted)
             actual_values.append(observed)
         if not errors:
             continue
         mae = sum(abs(error) for error in errors) / len(errors)
+        quantitative_mae = sum(abs(error) for error in quantitative_errors) / len(
+            quantitative_errors
+        )
         rmse = math.sqrt(sum(error * error for error in errors) / len(errors))
         results.append(
             {
@@ -526,6 +649,8 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
                 "prediction_snapshot": str(snapshots[-1].relative_to(data_dir)).replace("\\", "/"),
                 "players_evaluated": len(errors),
                 "mean_absolute_error": round(mae, 4),
+                "quantitative_mean_absolute_error": round(quantitative_mae, 4),
+                "qualitative_mae_improvement": round(quantitative_mae - mae, 4),
                 "root_mean_squared_error": round(rmse, 4),
                 "mean_bias": round(sum(errors) / len(errors), 4),
                 "average_predicted_points": round(sum(predictions) / len(predictions), 4),
@@ -538,6 +663,8 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
         "prediction_snapshot",
         "players_evaluated",
         "mean_absolute_error",
+        "quantitative_mean_absolute_error",
+        "qualitative_mae_improvement",
         "root_mean_squared_error",
         "mean_bias",
         "average_predicted_points",
@@ -576,6 +703,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     fixtures = read_csv(chatgpt_dir / "fixtures.csv")
     fixture_history = read_csv(chatgpt_dir / "player_fixtures.csv")
     past_seasons = read_csv(data_dir / "history" / "current_player_past_seasons.csv")
+    observations = read_observations(data_dir / "scouting" / "observations.jsonl")
     if not players or not teams or not fixtures:
         raise ValueError("Core FPL datasets are missing; run the collection workflow first")
 
@@ -589,6 +717,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         fixtures,
         priors,
         past_seasons,
+        observations,
     )
 
     write_csv(
@@ -611,27 +740,81 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         ["model_version", "player_id", "player_code", "web_name", "team_id", "team_name", "position", "price"],
     )
     write_csv(chatgpt_dir / "player_projection_horizons.csv", horizons, horizon_fields)
+    observation_fields = [
+        "observation_id",
+        "observed_at",
+        "recorded_at",
+        "observer",
+        "season",
+        "gameweek",
+        "fixture_id",
+        "player_id",
+        "player_code",
+        "player_name",
+        "source_type",
+        "raw_note",
+        "retracts_observation_id",
+        *SIGNAL_FIELDS,
+        "confidence",
+        "valid_from",
+        "expires_at",
+        "status",
+    ]
+    write_csv(
+        chatgpt_dir / "scouting_observations.csv",
+        observations,
+        ordered_fields(observations, observation_fields),
+    )
 
     generated_at = utc_now()
     current_gameweek = json.loads((chatgpt_dir / "current_gameweek.json").read_text(encoding="utf-8"))
     prediction_index = write_prediction_snapshot(data_dir, current_gameweek, horizons, generated_at)
     evaluation = evaluate_predictions(data_dir)
+    qualitative_projection_rows = sum(
+        integer(row.get("qualitative_observation_count")) > 0 for row in projections
+    )
+    retracted_observation_ids = {
+        str(observation.get("retracts_observation_id"))
+        for observation in observations
+        if observation.get("status") == "retracted"
+        and observation.get("retracts_observation_id")
+    }
+    qualitative_summary = {
+        "generated_at": generated_at,
+        "observation_rows": len(observations),
+        "active_observation_rows": sum(
+            observation.get("status", "active") == "active"
+            and str(observation.get("observation_id")) not in retracted_observation_ids
+            for observation in observations
+        ),
+        "fixture_projections_adjusted": qualitative_projection_rows,
+        "maximum_minutes_adjustment": 12,
+        "attack_multiplier_bounds": [0.8, 1.2],
+        "signal_half_life_days": 14,
+        "principle": "Raw human observations are preserved and evaluated separately from the quantitative forecast.",
+    }
+    write_json(chatgpt_dir / "qualitative_signal_summary.json", qualitative_summary)
     summary = {
         "generated_at": generated_at,
         "model_version": MODEL_VERSION,
-        "method": "Transparent shrinkage baseline combining expected minutes, xG/xA, fixture difficulty, clean-sheet probability, recent points and historical position priors.",
+        "scoring_rules_version": SCORING_RULES_VERSION,
+        "simulations_per_player_fixture": DEFAULT_SIMULATIONS,
+        "method": "Deterministic player-level simulation of FPL returns using minutes, attacking involvement, clean sheets, saves, defensive contributions, disciplinary events and bonus, with a separately auditable qualitative overlay.",
         "player_feature_rows": len(player_features),
         "team_feature_rows": len(team_features),
         "fixture_projection_rows": len(projections),
         "player_horizon_rows": len(horizons),
+        "scouting_observation_rows": len(observations),
+        "qualitatively_adjusted_fixture_rows": qualitative_projection_rows,
         "top_next_gameweek": top_projection_rows(horizons, "expected_points_next_1"),
         "top_next_three_gameweeks": top_projection_rows(horizons, "expected_points_next_3"),
         "prediction_snapshot_created": prediction_index.get("snapshot_created_this_run"),
         "evaluated_gameweeks": evaluation.get("evaluated_gameweeks"),
         "limitations": [
-            "This is a baseline model and does not yet include betting odds or confirmed team news.",
+            "The simulator is a transparent baseline distribution and does not yet include betting odds or confirmed team news.",
             "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage.",
-            "Predictions should be interpreted as central estimates, not certainties.",
+            "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
+            "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly.",
         ],
     }
     write_json(chatgpt_dir / "projection_summary.json", summary)
@@ -640,7 +823,9 @@ def build_model(data_dir: Path) -> dict[str, Any]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build rolling FPL features and baseline projections")
+    parser = argparse.ArgumentParser(
+        description="Build rolling features and player-level FPL return distributions"
+    )
     parser.add_argument("--data-dir", type=Path, default=Path("data"))
     args = parser.parse_args()
     print(json.dumps(build_model(args.data_dir), indent=2))
