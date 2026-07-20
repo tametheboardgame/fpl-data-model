@@ -13,6 +13,12 @@ from typing import Any, Iterable
 
 from src.build_fpl_model import FALLBACK_PRIORS, MODEL_VERSION, number, recent_metrics, truthy
 from src.player_return_simulator import percentile, simulate_player_fixture
+from src.component_player_simulator import (
+    COMPONENT_FIELDS,
+    COMPONENT_MODEL_VERSION,
+    build_component_inputs,
+    simulate_component_player_fixture,
+)
 from src.update_fpl_data import utc_now, write_csv, write_json
 
 
@@ -43,6 +49,32 @@ PREDICTION_FIELDS = [
     "minutes_only_prediction",
     "player_sim_prediction",
     "calibrated_player_sim_prediction",
+    "component_sim_prediction",
+    "component_probability_6_plus",
+    "component_probability_10_plus",
+    "component_probability_15_plus",
+    "component_points_p10",
+    "component_points_p50",
+    "component_points_p90",
+    "component_predicted_minutes",
+    "component_probability_start",
+    "component_probability_60_plus",
+    "component_expected_goals",
+    "component_expected_assists",
+    "component_goal_return_probability",
+    "component_assist_return_probability",
+    "component_attacking_return_probability",
+    "component_clean_sheet_return_probability",
+    "component_appearance_points",
+    "component_goal_points",
+    "component_assist_points",
+    "component_clean_sheet_points",
+    "component_goals_conceded_points",
+    "component_save_points",
+    "component_penalty_save_points",
+    "component_defensive_contribution_points",
+    "component_bonus_points",
+    "component_discipline_points",
     "probability_6_plus",
     "probability_10_plus",
     "probability_15_plus",
@@ -65,6 +97,7 @@ MODEL_FIELDS = {
     "minutes_only": "minutes_only_prediction",
     "player_sim": "player_sim_prediction",
     "calibrated_player_sim": "calibrated_player_sim_prediction",
+    "component_sim": "component_sim_prediction",
 }
 
 
@@ -234,11 +267,26 @@ def fixture_prediction(
     }
     # Defensive-contribution points did not exist in the seasons under test.
     inputs["defensive_contribution_per_90"] = 0
-    return simulate_player_fixture(
+    seed = (row.get("season"), row.get("gameweek"), row.get("fixture"), player_key(row))
+    legacy = simulate_player_fixture(
         inputs,
         simulations=simulations,
-        seed_parts=(row.get("season"), row.get("gameweek"), row.get("fixture"), player_key(row)),
+        seed_parts=seed,
     )
+    component_inputs = build_component_inputs(
+        inputs,
+        {**metrics_3, **metrics_6, **metrics_10},
+        prior,
+    )
+    component_inputs["xg_per_90"] *= attack_factor
+    component_inputs["xa_per_90"] *= attack_factor
+    component_inputs["defensive_contribution_per_90"] = 0
+    component = simulate_component_player_fixture(
+        component_inputs,
+        simulations=simulations,
+        seed_parts=(*seed, "component"),
+    )
+    return {"legacy": legacy, "component": component}
 
 
 def walk_forward_season(
@@ -283,13 +331,22 @@ def walk_forward_season(
                     )
                 )
             combined_samples = [
-                sum(result["points_samples"][index] for result in simulation_rows)
+                sum(result["legacy"]["points_samples"][index] for result in simulation_rows)
+                for index in range(simulations)
+            ]
+            component_samples = [
+                sum(result["component"]["points_samples"][index] for result in simulation_rows)
                 for index in range(simulations)
             ]
             actual_points = sum(number(row.get("total_points")) for row in target_rows)
             actual_minutes = sum(number(row.get("minutes")) for row in target_rows)
             predicted_minutes = sum(
-                number(result.get("expected_minutes_simulated")) for result in simulation_rows
+                number(result["legacy"].get("expected_minutes_simulated"))
+                for result in simulation_rows
+            )
+            component_predicted_minutes = sum(
+                number(result["component"].get("expected_minutes_simulated"))
+                for result in simulation_rows
             )
             history_points = [number(row.get("total_points")) for row in history]
             position_average = (
@@ -325,6 +382,82 @@ def walk_forward_season(
                     4,
                 ),
                 "player_sim_prediction": round(statistics.fmean(combined_samples), 4),
+                "component_sim_prediction": round(
+                    statistics.fmean(component_samples), 4
+                ),
+                "component_probability_6_plus": round(
+                    sum(value >= 6 for value in component_samples) / simulations, 4
+                ),
+                "component_probability_10_plus": round(
+                    sum(value >= 10 for value in component_samples) / simulations, 4
+                ),
+                "component_probability_15_plus": round(
+                    sum(value >= 15 for value in component_samples) / simulations, 4
+                ),
+                "component_points_p10": percentile(component_samples, 0.10),
+                "component_points_p50": percentile(component_samples, 0.50),
+                "component_points_p90": percentile(component_samples, 0.90),
+                "component_predicted_minutes": round(component_predicted_minutes, 2),
+                "component_probability_start": round(
+                    statistics.fmean(
+                        number(result["component"].get("probability_start"))
+                        for result in simulation_rows
+                    ),
+                    4,
+                ),
+                "component_probability_60_plus": round(
+                    statistics.fmean(
+                        number(result["component"].get("probability_60_plus"))
+                        for result in simulation_rows
+                    ),
+                    4,
+                ),
+                "component_expected_goals": round(
+                    sum(
+                        number(result["component"].get("expected_goals_simulated"))
+                        for result in simulation_rows
+                    ),
+                    4,
+                ),
+                "component_expected_assists": round(
+                    sum(
+                        number(result["component"].get("expected_assists_simulated"))
+                        for result in simulation_rows
+                    ),
+                    4,
+                ),
+                "component_goal_return_probability": round(
+                    statistics.fmean(
+                        number(result["component"].get("goal_return_probability"))
+                        for result in simulation_rows
+                    ),
+                    4,
+                ),
+                "component_assist_return_probability": round(
+                    statistics.fmean(
+                        number(result["component"].get("assist_return_probability"))
+                        for result in simulation_rows
+                    ),
+                    4,
+                ),
+                "component_attacking_return_probability": round(
+                    statistics.fmean(
+                        number(result["component"].get("attacking_return_probability"))
+                        for result in simulation_rows
+                    ),
+                    4,
+                ),
+                "component_clean_sheet_return_probability": round(
+                    statistics.fmean(
+                        number(
+                            result["component"].get(
+                                "clean_sheet_return_probability"
+                            )
+                        )
+                        for result in simulation_rows
+                    ),
+                    4,
+                ),
                 "probability_6_plus": round(
                     sum(value >= 6 for value in combined_samples) / simulations, 4
                 ),
@@ -342,6 +475,18 @@ def walk_forward_season(
                 "actual_10_plus": int(actual_points >= 10),
                 "actual_15_plus": int(actual_points >= 15),
             }
+            for component_field in COMPONENT_FIELDS:
+                prediction[f"component_{component_field}"] = round(
+                    sum(
+                        number(
+                            result["component"]["expected_points_components"].get(
+                                component_field
+                            )
+                        )
+                        for result in simulation_rows
+                    ),
+                    4,
+                )
             predictions.append(prediction)
 
         for row in rows:
@@ -467,8 +612,13 @@ def grouped_metrics(rows: list[dict[str, Any]], model: str) -> dict[str, Any]:
         "top_25_hit_rate": round(statistics.fmean(top_25), 4),
         "mean_captaincy_regret": round(statistics.fmean(captain_regret), 4),
     }
-    if model in {"player_sim", "calibrated_player_sim"}:
-        prefix = "calibrated_" if model == "calibrated_player_sim" else ""
+    probability_prefixes = {
+        "player_sim": "",
+        "calibrated_player_sim": "calibrated_",
+        "component_sim": "component_",
+    }
+    if model in probability_prefixes:
+        prefix = probability_prefixes[model]
         for threshold in (6, 10, 15):
             probability_field = f"{prefix}probability_{threshold}_plus"
             result[f"brier_{threshold}_plus"] = round(
@@ -487,14 +637,19 @@ def gameweek_metrics(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         grouped[(str(row.get("season")), integer(row.get("gameweek")))].append(row)
     output = []
     for (season, gameweek), group in sorted(grouped.items()):
-        metrics = grouped_metrics(group, "player_sim")
-        output.append({"season": season, "gameweek": gameweek, **metrics})
+        for model in ("player_sim", "component_sim"):
+            metrics = grouped_metrics(group, model)
+            output.append({"season": season, "gameweek": gameweek, **metrics})
     return output
 
 
 def probability_calibration_bins(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     output = []
-    for model, prefix in (("player_sim", ""), ("calibrated_player_sim", "calibrated_")):
+    for model, prefix in (
+        ("player_sim", ""),
+        ("calibrated_player_sim", "calibrated_"),
+        ("component_sim", "component_"),
+    ):
         for threshold in (6, 10, 15):
             grouped: dict[int, list[dict[str, Any]]] = defaultdict(list)
             probability_field = f"{prefix}probability_{threshold}_plus"
@@ -633,14 +788,51 @@ def run_backtest(
     development_comparison = [grouped_metrics(development, model) for model in MODEL_FIELDS]
     raw = next(row for row in comparison if row["model"] == "player_sim")
     calibrated = next(row for row in comparison if row["model"] == "calibrated_player_sim")
+    challenger = next(row for row in comparison if row["model"] == "component_sim")
     baselines = [
         row
         for row in comparison
-        if row["model"] not in {"player_sim", "calibrated_player_sim"}
+        if row["model"] not in {
+            "player_sim",
+            "calibrated_player_sim",
+            "component_sim",
+        }
     ]
     best_baseline_mae = min(baselines, key=lambda row: row["mae"])
     best_baseline_rank = max(baselines, key=lambda row: row["mean_gameweek_spearman"])
     calibration_assessment = calibration_materiality(held_out)
+    brier_improvements = {
+        str(threshold): challenger[f"brier_{threshold}_plus"]
+        < raw[f"brier_{threshold}_plus"]
+        for threshold in (6, 10, 15)
+    }
+    challenger_criteria = {
+        "improves_rank_correlation": challenger["mean_gameweek_spearman"]
+        > raw["mean_gameweek_spearman"],
+        "improves_rmse": challenger["rmse"] < raw["rmse"],
+        "mae_within_half_percent_of_player_sim_2": challenger["mae"]
+        <= raw["mae"] * 1.005,
+        "improves_at_least_two_return_probability_brier_scores": sum(
+            brier_improvements.values()
+        )
+        >= 2,
+    }
+    challenger_assessment = {
+        "candidate_model_version": COMPONENT_MODEL_VERSION,
+        "control_model_version": MODEL_VERSION,
+        "held_out_candidate_metrics": challenger,
+        "held_out_control_metrics": raw,
+        "rank_correlation_change": round(
+            challenger["mean_gameweek_spearman"]
+            - raw["mean_gameweek_spearman"],
+            4,
+        ),
+        "mae_change": round(challenger["mae"] - raw["mae"], 4),
+        "rmse_change": round(challenger["rmse"] - raw["rmse"], 4),
+        "return_probability_brier_improvements": brier_improvements,
+        "promotion_criteria": challenger_criteria,
+        "recommended_for_live_promotion": all(challenger_criteria.values()),
+    }
     calibration_report = {
         "generated_at": utc_now(),
         "model_version": MODEL_VERSION,
@@ -693,6 +885,8 @@ def run_backtest(
         "eligibility": "At least three prior fixture rows and at least one appearance in the last three fixtures.",
         "held_out_player_sim_metrics": raw,
         "held_out_calibrated_metrics": calibrated,
+        "held_out_component_sim_metrics": challenger,
+        "component_model_assessment": challenger_assessment,
         "success_criteria": success,
         "limitations": [
             "The historical archive does not contain timestamped qualitative observations, so only the quantitative model is backtested.",
@@ -736,25 +930,31 @@ def run_backtest(
             metric_rows.append({"scope": scope, **grouped_metrics(scoped_rows, model)})
     for season in seasons:
         season_prediction_rows = [row for row in predictions if row.get("season") == season]
-        metric_rows.append(
-            {
-                "scope": f"season_{season}",
-                **grouped_metrics(season_prediction_rows, "player_sim"),
-            }
-        )
+        for model in ("player_sim", "component_sim"):
+            metric_rows.append(
+                {
+                    "scope": f"season_{season}",
+                    **grouped_metrics(season_prediction_rows, model),
+                }
+            )
     for position in ("GK", "DEF", "MID", "FWD"):
         position_rows = [row for row in held_out if row.get("position") == position]
-        metric_rows.append(
-            {"scope": f"held_out_position_{position}", **grouped_metrics(position_rows, "player_sim")}
-        )
+        for model in ("player_sim", "component_sim"):
+            metric_rows.append(
+                {
+                    "scope": f"held_out_position_{position}",
+                    **grouped_metrics(position_rows, model),
+                }
+            )
     for venue in (True, False):
         venue_rows = [row for row in held_out if bool(row.get("was_home")) is venue]
-        metric_rows.append(
-            {
-                "scope": "held_out_home" if venue else "held_out_away",
-                **grouped_metrics(venue_rows, "player_sim"),
-            }
-        )
+        for model in ("player_sim", "component_sim"):
+            metric_rows.append(
+                {
+                    "scope": "held_out_home" if venue else "held_out_away",
+                    **grouped_metrics(venue_rows, model),
+                }
+            )
     metric_fields = ["scope", *list(metric_rows[0].keys())]
     metric_fields = list(dict.fromkeys(metric_fields + sorted({key for row in metric_rows for key in row})))
     write_csv(backtest_dir / "backtest_metrics.csv", metric_rows, metric_fields)
@@ -777,6 +977,18 @@ def run_backtest(
     )
     write_json(backtest_dir / "backtest_summary.json", summary)
     write_json(backtest_dir / "calibration_report.json", calibration_report)
+    write_json(
+        model_dir / "component_model_candidate.json",
+        {
+            "generated_at": utc_now(),
+            "status": (
+                "recommended_for_live_promotion"
+                if challenger_assessment["recommended_for_live_promotion"]
+                else "candidate_not_applied_to_live_model"
+            ),
+            "assessment": challenger_assessment,
+        },
+    )
     write_json(
         model_dir / "candidate_calibration_parameters.json",
         {
