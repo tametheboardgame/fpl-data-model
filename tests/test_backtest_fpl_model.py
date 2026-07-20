@@ -114,8 +114,19 @@ class BacktestTests(unittest.TestCase):
             self.assertTrue(
                 (data_dir / "model" / "component_model_candidate.json").is_file()
             )
+            self.assertTrue(
+                (data_dir / "model" / "ensemble_model_candidate.json").is_file()
+            )
             self.assertIn("held_out_component_sim_metrics", summary)
             self.assertIn("component_model_assessment", summary)
+            self.assertIn("held_out_hybrid_sim_metrics", summary)
+            self.assertIn("hybrid_model_assessment", summary)
+            selection = summary["hybrid_model_assessment"]["selection"]
+            self.assertIn(selection["selected_point_weight"], [index / 10 for index in range(11)])
+            self.assertEqual(
+                set(selection["selected_probability_weights"]),
+                {"6", "10", "15"},
+            )
             calibration = json.loads(
                 (data_dir / "backtests" / "calibration_report.json").read_text()
             )
