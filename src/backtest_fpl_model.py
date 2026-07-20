@@ -29,6 +29,8 @@ BACKTEST_SIMULATIONS = 300
 MINIMUM_PRIOR_FIXTURES = 3
 MINIMUM_RELATIVE_CALIBRATION_IMPROVEMENT = 0.005
 CALIBRATION_CONFIDENCE_Z = 1.96
+HYBRID_WEIGHT_GRID = [index / 10 for index in range(11)]
+HYBRID_RANK_TOLERANCE = 0.002
 PREDICTION_FIELDS = [
     "season",
     "gameweek",
@@ -75,6 +77,10 @@ PREDICTION_FIELDS = [
     "component_defensive_contribution_points",
     "component_bonus_points",
     "component_discipline_points",
+    "hybrid_sim_prediction",
+    "hybrid_probability_6_plus",
+    "hybrid_probability_10_plus",
+    "hybrid_probability_15_plus",
     "probability_6_plus",
     "probability_10_plus",
     "probability_15_plus",
@@ -98,6 +104,7 @@ MODEL_FIELDS = {
     "player_sim": "player_sim_prediction",
     "calibrated_player_sim": "calibrated_player_sim_prediction",
     "component_sim": "component_sim_prediction",
+    "hybrid_sim": "hybrid_sim_prediction",
 }
 
 
@@ -544,6 +551,28 @@ def apply_calibration(
             )
 
 
+def apply_hybrid(
+    rows: list[dict[str, Any]],
+    point_weight: float,
+    probability_weights: dict[str, float],
+) -> None:
+    point_weight = clamp(point_weight, 0, 1)
+    for row in rows:
+        row["hybrid_sim_prediction"] = round(
+            (1 - point_weight) * number(row.get("player_sim_prediction"))
+            + point_weight * number(row.get("component_sim_prediction")),
+            4,
+        )
+        for threshold in (6, 10, 15):
+            weight = clamp(number(probability_weights.get(str(threshold))), 0, 1)
+            row[f"hybrid_probability_{threshold}_plus"] = round(
+                (1 - weight) * number(row.get(f"probability_{threshold}_plus"))
+                + weight
+                * number(row.get(f"component_probability_{threshold}_plus")),
+                4,
+            )
+
+
 def ranks(values: list[float]) -> list[float]:
     ordered = sorted(enumerate(values), key=lambda item: item[1])
     output = [0.0] * len(values)
@@ -616,6 +645,7 @@ def grouped_metrics(rows: list[dict[str, Any]], model: str) -> dict[str, Any]:
         "player_sim": "",
         "calibrated_player_sim": "calibrated_",
         "component_sim": "component_",
+        "hybrid_sim": "hybrid_",
     }
     if model in probability_prefixes:
         prefix = probability_prefixes[model]
@@ -631,13 +661,86 @@ def grouped_metrics(rows: list[dict[str, Any]], model: str) -> dict[str, Any]:
     return result
 
 
+def select_hybrid_weights(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Choose blend weights on development data without reading held-out results."""
+    trial_metrics = []
+    neutral_probability_weights = {
+        str(threshold): 0.5 for threshold in (6, 10, 15)
+    }
+    for weight in HYBRID_WEIGHT_GRID:
+        apply_hybrid(rows, weight, neutral_probability_weights)
+        trial_metrics.append(
+            {
+                "weight": weight,
+                **grouped_metrics(rows, "hybrid_sim"),
+            }
+        )
+    best_rank = max(
+        number(row.get("mean_gameweek_spearman")) for row in trial_metrics
+    )
+    rank_safe = [
+        row
+        for row in trial_metrics
+        if number(row.get("mean_gameweek_spearman"))
+        >= best_rank - HYBRID_RANK_TOLERANCE
+    ]
+    selected_points = min(
+        rank_safe,
+        key=lambda row: (
+            number(row.get("mae")),
+            number(row.get("rmse")),
+            -number(row.get("mean_gameweek_spearman")),
+            number(row.get("weight")),
+        ),
+    )
+
+    probability_weights: dict[str, float] = {}
+    probability_trials: dict[str, list[dict[str, float]]] = {}
+    for threshold in (6, 10, 15):
+        candidates = []
+        for weight in HYBRID_WEIGHT_GRID:
+            probability_field = f"hybrid_probability_{threshold}_plus"
+            for row in rows:
+                row[probability_field] = round(
+                    (1 - weight)
+                    * number(row.get(f"probability_{threshold}_plus"))
+                    + weight
+                    * number(row.get(f"component_probability_{threshold}_plus")),
+                    4,
+                )
+            brier = statistics.fmean(
+                (
+                    number(row.get(probability_field))
+                    - number(row.get(f"actual_{threshold}_plus"))
+                )
+                ** 2
+                for row in rows
+            )
+            candidates.append({"weight": weight, "brier": round(brier, 7)})
+        selected = min(
+            candidates,
+            key=lambda row: (number(row.get("brier")), number(row.get("weight"))),
+        )
+        probability_weights[str(threshold)] = number(selected.get("weight"))
+        probability_trials[str(threshold)] = candidates
+
+    return {
+        "selected_point_weight": number(selected_points.get("weight")),
+        "selected_probability_weights": probability_weights,
+        "rank_tolerance": HYBRID_RANK_TOLERANCE,
+        "point_weight_trials": trial_metrics,
+        "probability_weight_trials": probability_trials,
+        "fitted_rows": len(rows),
+    }
+
+
 def gameweek_metrics(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     grouped: dict[tuple[str, int], list[dict[str, Any]]] = defaultdict(list)
     for row in rows:
         grouped[(str(row.get("season")), integer(row.get("gameweek")))].append(row)
     output = []
     for (season, gameweek), group in sorted(grouped.items()):
-        for model in ("player_sim", "component_sim"):
+        for model in ("player_sim", "component_sim", "hybrid_sim"):
             metrics = grouped_metrics(group, model)
             output.append({"season": season, "gameweek": gameweek, **metrics})
     return output
@@ -649,6 +752,7 @@ def probability_calibration_bins(rows: list[dict[str, Any]]) -> list[dict[str, A
         ("player_sim", ""),
         ("calibrated_player_sim", "calibrated_"),
         ("component_sim", "component_"),
+        ("hybrid_sim", "hybrid_"),
     ):
         for threshold in (6, 10, 15):
             grouped: dict[int, list[dict[str, Any]]] = defaultdict(list)
@@ -783,12 +887,19 @@ def run_backtest(
     linear = linear_calibration(development)
     scales = probability_scales(development)
     apply_calibration(predictions, linear, scales)
+    hybrid_selection = select_hybrid_weights(development)
+    apply_hybrid(
+        predictions,
+        hybrid_selection["selected_point_weight"],
+        hybrid_selection["selected_probability_weights"],
+    )
 
     comparison = [grouped_metrics(held_out, model) for model in MODEL_FIELDS]
     development_comparison = [grouped_metrics(development, model) for model in MODEL_FIELDS]
     raw = next(row for row in comparison if row["model"] == "player_sim")
     calibrated = next(row for row in comparison if row["model"] == "calibrated_player_sim")
     challenger = next(row for row in comparison if row["model"] == "component_sim")
+    hybrid = next(row for row in comparison if row["model"] == "hybrid_sim")
     baselines = [
         row
         for row in comparison
@@ -796,6 +907,7 @@ def run_backtest(
             "player_sim",
             "calibrated_player_sim",
             "component_sim",
+            "hybrid_sim",
         }
     ]
     best_baseline_mae = min(baselines, key=lambda row: row["mae"])
@@ -832,6 +944,48 @@ def run_backtest(
         "return_probability_brier_improvements": brier_improvements,
         "promotion_criteria": challenger_criteria,
         "recommended_for_live_promotion": all(challenger_criteria.values()),
+    }
+    hybrid_brier_improvements = {
+        str(threshold): hybrid[f"brier_{threshold}_plus"]
+        <= raw[f"brier_{threshold}_plus"]
+        for threshold in (6, 10, 15)
+    }
+    hybrid_promotion_criteria = {
+        "rank_correlation_within_tolerance": hybrid[
+            "mean_gameweek_spearman"
+        ]
+        >= raw["mean_gameweek_spearman"] - HYBRID_RANK_TOLERANCE,
+        "mae_improves_by_at_least_half_percent": hybrid["mae"]
+        <= raw["mae"] * 0.995,
+        "rmse_not_worse": hybrid["rmse"] <= raw["rmse"],
+        "top_10_hit_rate_not_worse": hybrid["top_10_hit_rate"]
+        >= raw["top_10_hit_rate"],
+        "captaincy_regret_not_worse": hybrid["mean_captaincy_regret"]
+        <= raw["mean_captaincy_regret"],
+        "at_least_two_probability_brier_scores_not_worse": sum(
+            hybrid_brier_improvements.values()
+        )
+        >= 2,
+    }
+    hybrid_assessment = {
+        "model": "development_selected_hybrid",
+        "control_model_version": MODEL_VERSION,
+        "component_model_version": COMPONENT_MODEL_VERSION,
+        "selection": hybrid_selection,
+        "held_out_hybrid_metrics": hybrid,
+        "held_out_control_metrics": raw,
+        "rank_correlation_change": round(
+            hybrid["mean_gameweek_spearman"]
+            - raw["mean_gameweek_spearman"],
+            4,
+        ),
+        "mae_change": round(hybrid["mae"] - raw["mae"], 4),
+        "rmse_change": round(hybrid["rmse"] - raw["rmse"], 4),
+        "return_probability_brier_improvements": hybrid_brier_improvements,
+        "promotion_criteria": hybrid_promotion_criteria,
+        "recommended_for_live_promotion": all(
+            hybrid_promotion_criteria.values()
+        ),
     }
     calibration_report = {
         "generated_at": utc_now(),
@@ -887,6 +1041,8 @@ def run_backtest(
         "held_out_calibrated_metrics": calibrated,
         "held_out_component_sim_metrics": challenger,
         "component_model_assessment": challenger_assessment,
+        "held_out_hybrid_sim_metrics": hybrid,
+        "hybrid_model_assessment": hybrid_assessment,
         "success_criteria": success,
         "limitations": [
             "The historical archive does not contain timestamped qualitative observations, so only the quantitative model is backtested.",
@@ -930,7 +1086,7 @@ def run_backtest(
             metric_rows.append({"scope": scope, **grouped_metrics(scoped_rows, model)})
     for season in seasons:
         season_prediction_rows = [row for row in predictions if row.get("season") == season]
-        for model in ("player_sim", "component_sim"):
+        for model in ("player_sim", "component_sim", "hybrid_sim"):
             metric_rows.append(
                 {
                     "scope": f"season_{season}",
@@ -939,7 +1095,7 @@ def run_backtest(
             )
     for position in ("GK", "DEF", "MID", "FWD"):
         position_rows = [row for row in held_out if row.get("position") == position]
-        for model in ("player_sim", "component_sim"):
+        for model in ("player_sim", "component_sim", "hybrid_sim"):
             metric_rows.append(
                 {
                     "scope": f"held_out_position_{position}",
@@ -948,7 +1104,7 @@ def run_backtest(
             )
     for venue in (True, False):
         venue_rows = [row for row in held_out if bool(row.get("was_home")) is venue]
-        for model in ("player_sim", "component_sim"):
+        for model in ("player_sim", "component_sim", "hybrid_sim"):
             metric_rows.append(
                 {
                     "scope": "held_out_home" if venue else "held_out_away",
@@ -977,6 +1133,18 @@ def run_backtest(
     )
     write_json(backtest_dir / "backtest_summary.json", summary)
     write_json(backtest_dir / "calibration_report.json", calibration_report)
+    write_json(
+        model_dir / "ensemble_model_candidate.json",
+        {
+            "generated_at": utc_now(),
+            "status": (
+                "recommended_for_live_promotion"
+                if hybrid_assessment["recommended_for_live_promotion"]
+                else "candidate_not_applied_to_live_model"
+            ),
+            "assessment": hybrid_assessment,
+        },
+    )
     write_json(
         model_dir / "component_model_candidate.json",
         {
