@@ -36,6 +36,18 @@
       "name": "Manually verified observation",
       "reliability": 0.8,
       "freshness_half_life_hours": 72
+    },
+    {
+      "source_id": "api_football_injury",
+      "name": "API-Football injury report",
+      "reliability": 0.85,
+      "freshness_half_life_hours": 48
+    },
+    {
+      "source_id": "api_football_confirmed_lineup",
+      "name": "API-Football confirmed line-up",
+      "reliability": 0.98,
+      "freshness_half_life_hours": 8
     }
   ]
 }
