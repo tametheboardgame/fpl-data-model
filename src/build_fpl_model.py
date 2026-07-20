@@ -14,6 +14,16 @@ from src.update_fpl_data import utc_now, write_csv, write_json
 
 
 MODEL_VERSION = "baseline-1.0"
+MODEL_DATASETS = [
+    "player_rolling_features.csv",
+    "team_rolling_features.csv",
+    "player_projections.csv",
+    "player_projection_horizons.csv",
+    "projection_summary.json",
+    "prediction_index.json",
+    "prediction_accuracy.csv",
+    "prediction_evaluation.json",
+]
 POSITION_CODES = {
     "Goalkeeper": "GK",
     "Defender": "DEF",
@@ -126,12 +136,24 @@ def build_player_features(
 
 
 def build_team_features(
-    teams: list[dict[str, Any]], fixture_history: list[dict[str, Any]]
+    teams: list[dict[str, Any]],
+    fixture_history: list[dict[str, Any]],
+    fixtures: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
+    fixture_teams = {
+        integer(row.get("fixture_id")): (
+            integer(row.get("home_team_id")),
+            integer(row.get("away_team_id")),
+        )
+        for row in fixtures or []
+    }
     grouped: dict[tuple[int, int], list[dict[str, Any]]] = defaultdict(list)
     for row in fixture_history:
-        team_id = integer(row.get("team_id"))
         fixture_id = integer(row.get("fixture"))
+        home_team, away_team = fixture_teams.get(fixture_id, (0, 0))
+        team_id = (
+            home_team if truthy(row.get("was_home")) else away_team
+        ) or integer(row.get("team_id"))
         if team_id and fixture_id:
             grouped[(team_id, fixture_id)].append(row)
 
@@ -398,7 +420,11 @@ def build_projections(
 
 
 def top_projection_rows(rows: list[dict[str, Any]], field: str, limit: int = 20) -> list[dict[str, Any]]:
-    selected = sorted(rows, key=lambda row: number(row.get(field)), reverse=True)[:limit]
+    selected = sorted(
+        (row for row in rows if number(row.get(field)) > 0),
+        key=lambda row: number(row.get(field)),
+        reverse=True,
+    )[:limit]
     fields = ["player_id", "web_name", "team_name", "position", "price", field]
     return [{key: row.get(key) for key in fields} for row in selected]
 
@@ -528,6 +554,21 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
     return summary
 
 
+def update_dataset_manifest(chatgpt_dir: Path) -> None:
+    path = chatgpt_dir / "manifest.json"
+    if not path.is_file():
+        return
+    manifest = json.loads(path.read_text(encoding="utf-8"))
+    datasets = manifest.setdefault("datasets", [])
+    existing = {item.get("path") for item in datasets}
+    for name in MODEL_DATASETS:
+        dataset_path = f"data/chatgpt/{name}"
+        if (chatgpt_dir / name).is_file() and dataset_path not in existing:
+            datasets.append({"path": dataset_path})
+            existing.add(dataset_path)
+    write_json(path, manifest)
+
+
 def build_model(data_dir: Path) -> dict[str, Any]:
     chatgpt_dir = data_dir / "chatgpt"
     players = read_csv(chatgpt_dir / "players.csv")
@@ -539,7 +580,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         raise ValueError("Core FPL datasets are missing; run the collection workflow first")
 
     player_features = build_player_features(players, fixture_history)
-    team_features = build_team_features(teams, fixture_history)
+    team_features = build_team_features(teams, fixture_history, fixtures)
     priors = load_priors(data_dir / "history" / "position_priors.csv")
     projections, horizons = build_projections(
         players,
@@ -594,6 +635,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         ],
     }
     write_json(chatgpt_dir / "projection_summary.json", summary)
+    update_dataset_manifest(chatgpt_dir)
     return summary
 
 
