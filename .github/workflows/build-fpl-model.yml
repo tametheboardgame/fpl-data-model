@@ -13,6 +13,9 @@ on:
       - "src/scouting_observations.py"
       - "src/external_context.py"
       - "src/fpl_decisions.py"
+      - "src/fpl_chips.py"
+      - "src/evaluate_external_context.py"
+      - "src/finalise_external_context.py"
       - ".github/workflows/build-fpl-model.yml"
       - "data/scouting/**"
       - "data/context/**"
@@ -38,28 +41,23 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
-
       - name: Install dependencies
         run: python -m pip install --requirement requirements.txt
-
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
-
       - name: Validate qualitative scouting observations
         run: python -m src.scouting_observations validate --path data/scouting/observations.jsonl
-
       - name: Validate external context
         run: python -m src.external_context validate --signals data/context/signals.jsonl --sources data/context/sources.json
-
       - name: Build rolling features and projections
         run: python -m src.build_fpl_model --data-dir data
-
+      - name: Score context and attach chip state
+        run: python -m src.finalise_external_context --data-dir data
       - name: Commit model outputs
         run: |
           git config user.name "github-actions[bot]"

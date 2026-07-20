@@ -105,6 +105,27 @@ class ExternalContextTests(unittest.TestCase):
         )
         self.assertEqual(result["signal_ids"], ["lineup-10"])
 
+    def test_only_latest_snapshot_from_same_source_affects_decision(self) -> None:
+        signals = [
+            {
+                "signal_id": "old", "observed_at": (self.now - timedelta(hours=1)).isoformat(),
+                "source_id": "market", "signal_type": "start_probability", "value": 0,
+                "player_id": 10, "fixture_id": 100, "status": "active",
+            },
+            {
+                "signal_id": "new", "observed_at": self.now.isoformat(),
+                "source_id": "market", "signal_type": "start_probability", "value": 1,
+                "player_id": 10, "fixture_id": 100, "status": "active",
+            },
+        ]
+        result = resolved_context(
+            signals, self.registry, {"player_id": 10, "team_id": 1},
+            {"fixture_id": 100}, self.now,
+        )
+        self.assertEqual(result["signal_ids"], ["new"])
+        self.assertEqual(result["values"]["start_probability"], 1)
+        self.assertEqual(result["signals"][0]["state"], "superseded")
+
     def test_fixture_only_signal_does_not_leak_without_fixture_context(self) -> None:
         signal = {
             "signal_id": "fixture-only",
