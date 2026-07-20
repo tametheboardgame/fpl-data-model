@@ -50,6 +50,8 @@ The files under `data/chatgpt/` are the conversational interface to the model:
 - `qualitative_signal_summary.json`: observation counts, adjustment limits and application status
 - `external_context_signals.csv`: validated team-news, market and role signals with source provenance
 - `external_context_summary.json`: freshness, reliability and active-signal summary
+- `external_context_accuracy.csv`: leakage-safe Brier scores and minutes errors for pre-kickoff context signals
+- `external_context_evaluation.json`: compact prospective context-evaluation summary by source and signal type
 - `fpl_decisions.json`: recommended line-up, captaincy, transfers, differentials and chip indicators
 
 Historical files under `data/history/` include one compact player market snapshot per day, a separate snapshot within eight hours of each deadline, prior-season records for players in the current FPL database, a normalised multi-season player-gameweek archive and historical position priors.
@@ -96,6 +98,8 @@ The development-selected hybrid passed every held-out gate and is now the live r
 
 Phase 14 adds a provider-independent external-context journal, explicit source reliability and freshness decay, plus squad-specific decision support. External signals remain separately attributable and do not silently overwrite the validated ensemble. See [`docs/external_context_and_decisions.md`](docs/external_context_and_decisions.md).
 
+Phase 15 adds an API-Football adapter for injuries and confirmed line-ups, a quota-bounded two-hourly sync, newest-snapshot resolution, leakage-safe prospective scoring and explicit season-aware chip state. See [`docs/phase15_automation.md`](docs/phase15_automation.md).
+
 `.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Expected-points and probability calibration are fitted on 2022/23–2023/24 and assessed once on the held-out 2024/25 season.
 
 ## Local use
@@ -122,13 +126,14 @@ python -m src.sync_historical_fpl --output-dir data
 python -m src.scouting_observations validate --path data/scouting/observations.jsonl
 python -m src.external_context validate --signals data/context/signals.jsonl --sources data/context/sources.json
 python -m src.build_fpl_model --data-dir data
+python -m src.finalise_external_context --data-dir data
 python -m src.backtest_fpl_model --data-dir data
 ```
 
 ## Planned extensions
 
 - Parquet historical archive and DuckDB analytical views
-- Automated provider adapters for bookmaker markets and confirmed team news
-- Prospective evaluation and possible promotion of external-context features
-- Chip-state collection and blank/double-gameweek optimisation
+- Bookmaker-market normalisation and a second independent team-news source
+- Prospective promotion gates for external-context features after sufficient samples exist
+- Blank/double-gameweek chip optimisation
 - Mini-league and rival analysis
