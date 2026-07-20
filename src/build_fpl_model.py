@@ -22,6 +22,13 @@ from src.component_player_simulator import (
     simulate_component_player_fixture,
 )
 from src.scouting_observations import SIGNAL_FIELDS, qualitative_adjustment, read_observations
+from src.external_context import (
+    context_summary,
+    load_source_registry,
+    read_context_signals,
+    write_signal_csv,
+)
+from src.fpl_decisions import build_decision_support, write_decision_support
 from src.update_fpl_data import utc_now, write_csv, write_json
 
 
@@ -46,6 +53,9 @@ MODEL_DATASETS = [
     "prediction_evaluation.json",
     "scouting_observations.csv",
     "qualitative_signal_summary.json",
+    "external_context_signals.csv",
+    "external_context_summary.json",
+    "fpl_decisions.json",
 ]
 PROJECTION_FIELDS = [
     "model_version",
@@ -903,6 +913,21 @@ def build_projections(
             base[f"points_p10_next_{horizon}"] = percentile(combined_samples, 0.10)
             base[f"points_p50_next_{horizon}"] = percentile(combined_samples, 0.50)
             base[f"points_p90_next_{horizon}"] = percentile(combined_samples, 0.90)
+            for threshold in (6, 10, 15):
+                base[f"probability_{threshold}_plus_next_{horizon}"] = round(
+                    sum(value >= threshold for value in combined_samples)
+                    / len(combined_samples)
+                    if combined_samples
+                    else 0,
+                    4,
+                )
+            base[f"probability_3_or_fewer_next_{horizon}"] = round(
+                sum(value <= 3 for value in combined_samples)
+                / len(combined_samples)
+                if combined_samples
+                else 0,
+                4,
+            )
             base[f"control_expected_points_next_{horizon}"] = round(
                 statistics.fmean(combined_control_samples)
                 if combined_control_samples
@@ -1147,6 +1172,10 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     fixture_history = read_csv(chatgpt_dir / "player_fixtures.csv")
     past_seasons = read_csv(data_dir / "history" / "current_player_past_seasons.csv")
     observations = read_observations(data_dir / "scouting" / "observations.jsonl")
+    source_registry = load_source_registry(data_dir / "context" / "sources.json")
+    context_signals = read_context_signals(
+        data_dir / "context" / "signals.jsonl", source_registry
+    )
     ensemble_config = load_ensemble_config(
         data_dir / "model" / "ensemble_model_candidate.json"
     )
@@ -1228,6 +1257,27 @@ def build_model(data_dir: Path) -> dict[str, Any]:
 
     generated_at = utc_now()
     current_gameweek = json.loads((chatgpt_dir / "current_gameweek.json").read_text(encoding="utf-8"))
+    my_team_path = chatgpt_dir / "my_team.json"
+    my_team = (
+        json.loads(my_team_path.read_text(encoding="utf-8"))
+        if my_team_path.is_file()
+        else {"available": False, "squad": []}
+    )
+    write_signal_csv(chatgpt_dir / "external_context_signals.csv", context_signals)
+    external_summary = context_summary(
+        context_signals, source_registry, generated_at
+    )
+    write_json(chatgpt_dir / "external_context_summary.json", external_summary)
+    decision_support = build_decision_support(
+        horizons,
+        players,
+        my_team,
+        current_gameweek,
+        context_signals,
+        source_registry,
+        generated_at,
+    )
+    write_decision_support(chatgpt_dir / "fpl_decisions.json", decision_support)
     prediction_index = write_prediction_snapshot(data_dir, current_gameweek, horizons, generated_at)
     evaluation = evaluate_predictions(data_dir)
     qualitative_projection_rows = sum(
@@ -1265,12 +1315,15 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "challenger_status": component_candidate_status,
         "scoring_rules_version": SCORING_RULES_VERSION,
         "simulations_per_player_fixture": DEFAULT_SIMULATIONS,
-        "method": "Development-selected ensemble of the live ranking control and component return simulator, with separately audited quantitative, component and qualitative layers.",
+        "method": "Development-selected ensemble with separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
         "player_feature_rows": len(player_features),
         "team_feature_rows": len(team_features),
         "fixture_projection_rows": len(projections),
         "player_horizon_rows": len(horizons),
         "scouting_observation_rows": len(observations),
+        "external_context_signal_rows": len(context_signals),
+        "active_external_context_signal_rows": external_summary["active_signal_rows"],
+        "decision_support_status": decision_support["status"],
         "qualitatively_adjusted_fixture_rows": qualitative_projection_rows,
         "top_next_gameweek": top_projection_rows(horizons, "expected_points_next_1"),
         "top_next_three_gameweeks": top_projection_rows(horizons, "expected_points_next_3"),
@@ -1285,8 +1338,8 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "limitations": [
             "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
             "The control and component models remain available beside every ensemble recommendation for audit.",
-            "Neither simulator yet includes betting odds or confirmed team news.",
-            "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage.",
+            "External context is source-weighted and applied only to decision support until prospective evidence justifies changing the validated ensemble.",
+            "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage unless a timestamped decision-layer signal is present.",
             "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
             "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly.",
         ],
