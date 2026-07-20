@@ -81,6 +81,10 @@ class BacktestTests(unittest.TestCase):
         self.assertEqual(
             original_gw4["player_sim_prediction"], repeated_gw4["player_sim_prediction"]
         )
+        self.assertEqual(
+            original_gw4["component_sim_prediction"],
+            repeated_gw4["component_sim_prediction"],
+        )
         self.assertNotEqual(original_gw4["actual_points"], repeated_gw4["actual_points"])
 
     def test_end_to_end_backtest_writes_held_out_report(self) -> None:
@@ -107,6 +111,11 @@ class BacktestTests(unittest.TestCase):
             self.assertTrue(
                 (data_dir / "model" / "candidate_calibration_parameters.json").is_file()
             )
+            self.assertTrue(
+                (data_dir / "model" / "component_model_candidate.json").is_file()
+            )
+            self.assertIn("held_out_component_sim_metrics", summary)
+            self.assertIn("component_model_assessment", summary)
             calibration = json.loads(
                 (data_dir / "backtests" / "calibration_report.json").read_text()
             )
