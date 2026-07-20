@@ -10,7 +10,10 @@ REQUIRED_FILES = [
     "manifest.json",
     "current_gameweek.json",
     "fpl_summary.json",
+    "manager_history.json",
     "my_team.json",
+    "my_transfers.csv",
+    "snapshot_index.json",
     "players.csv",
     "teams.csv",
     "fixtures.csv",
@@ -47,6 +50,24 @@ def validate(data_dir: Path) -> None:
     my_team = json.loads((directory / "my_team.json").read_text(encoding="utf-8"))
     if "team_id" not in my_team or "available" not in my_team:
         raise ValueError("my_team.json does not contain the required identity fields")
+
+    with (directory / "players.csv").open(encoding="utf-8", newline="") as handle:
+        player_fields = set(csv.DictReader(handle).fieldnames or [])
+    required_player_fields = {
+        "player_code",
+        "price_change_gameweek",
+        "expected_points_next_gameweek",
+        "penalties_order",
+    }
+    if not required_player_fields.issubset(player_fields):
+        raise ValueError("players.csv is missing expanded semantic fields")
+
+    snapshot_index = json.loads(
+        (directory / "snapshot_index.json").read_text(encoding="utf-8")
+    )
+    snapshot_path = snapshot_index.get("latest_daily_snapshot")
+    if not snapshot_path or not (data_dir / snapshot_path).is_file():
+        raise ValueError("The latest daily player snapshot is missing")
 
     print(f"Validated {players} players, {teams} teams and {fixtures} fixtures")
 

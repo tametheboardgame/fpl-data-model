@@ -78,6 +78,10 @@ def write_csv(path: Path, rows: Iterable[dict[str, Any]], fieldnames: list[str])
     return len(materialised)
 
 
+def price(value: Any) -> float | None:
+    return round(value / 10, 1) if isinstance(value, (int, float)) else None
+
+
 def current_and_next_event(events: list[dict[str, Any]]) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
     current = next((event for event in events if event.get("is_current")), None)
     next_event = next((event for event in events if event.get("is_next")), None)
@@ -95,22 +99,34 @@ def player_rows(bootstrap: dict[str, Any]) -> list[dict[str, Any]]:
         rows.append(
             {
                 "player_id": player.get("id"),
+                "player_code": player.get("code"),
                 "web_name": player.get("web_name"),
                 "first_name": player.get("first_name"),
                 "second_name": player.get("second_name"),
                 "team_id": player.get("team"),
+                "team_code": team.get("code"),
                 "team_name": team.get("name"),
                 "team_short_name": team.get("short_name"),
                 "position": POSITION_NAMES.get(player.get("element_type"), "Unknown"),
-                "price": round((player.get("now_cost") or 0) / 10, 1),
+                "price": price(player.get("now_cost")),
+                "price_change_gameweek": price(player.get("cost_change_event")),
+                "price_change_season": price(player.get("cost_change_start")),
                 "status": player.get("status"),
                 "news": player.get("news"),
+                "news_added": player.get("news_added"),
+                "chance_of_playing_this_round": player.get("chance_of_playing_this_round"),
                 "chance_of_playing_next_round": player.get("chance_of_playing_next_round"),
                 "selected_by_percent": player.get("selected_by_percent"),
                 "form": player.get("form"),
                 "points_per_game": player.get("points_per_game"),
+                "expected_points_this_gameweek": player.get("ep_this"),
+                "expected_points_next_gameweek": player.get("ep_next"),
+                "value_form": player.get("value_form"),
+                "value_season": player.get("value_season"),
                 "total_points": player.get("total_points"),
                 "event_points": player.get("event_points"),
+                "dreamteam_count": player.get("dreamteam_count"),
+                "in_dreamteam": player.get("in_dreamteam"),
                 "minutes": player.get("minutes"),
                 "starts": player.get("starts"),
                 "goals_scored": player.get("goals_scored"),
@@ -124,12 +140,28 @@ def player_rows(bootstrap: dict[str, Any]) -> list[dict[str, Any]]:
                 "expected_assists": player.get("expected_assists"),
                 "expected_goal_involvements": player.get("expected_goal_involvements"),
                 "expected_goals_conceded": player.get("expected_goals_conceded"),
+                "defensive_contribution": player.get("defensive_contribution"),
+                "clearances_blocks_interceptions": player.get("clearances_blocks_interceptions"),
+                "recoveries": player.get("recoveries"),
+                "tackles": player.get("tackles"),
                 "influence": player.get("influence"),
                 "creativity": player.get("creativity"),
                 "threat": player.get("threat"),
                 "ict_index": player.get("ict_index"),
                 "transfers_in_event": player.get("transfers_in_event"),
                 "transfers_out_event": player.get("transfers_out_event"),
+                "transfers_in_season": player.get("transfers_in"),
+                "transfers_out_season": player.get("transfers_out"),
+                "penalties_order": player.get("penalties_order"),
+                "penalties_text": player.get("penalties_text"),
+                "direct_free_kicks_order": player.get("direct_free_kicks_order"),
+                "direct_free_kicks_text": player.get("direct_free_kicks_text"),
+                "corners_and_indirect_free_kicks_order": player.get(
+                    "corners_and_indirect_free_kicks_order"
+                ),
+                "corners_and_indirect_free_kicks_text": player.get(
+                    "corners_and_indirect_free_kicks_text"
+                ),
             }
         )
     return rows
@@ -139,6 +171,8 @@ def team_rows(bootstrap: dict[str, Any]) -> list[dict[str, Any]]:
     return [
         {
             "team_id": team.get("id"),
+            "team_code": team.get("code"),
+            "pulse_id": team.get("pulse_id"),
             "name": team.get("name"),
             "short_name": team.get("short_name"),
             "strength": team.get("strength"),
@@ -208,6 +242,10 @@ def gameweek_rows(
         "expected_assists",
         "expected_goal_involvements",
         "expected_goals_conceded",
+        "defensive_contribution",
+        "clearances_blocks_interceptions",
+        "recoveries",
+        "tackles",
         "total_points",
     ]
     for event, payload in sorted(live_by_event.items()):
@@ -226,6 +264,112 @@ def gameweek_rows(
             row.update({field: stats.get(field) for field in stat_fields})
             rows.append(row)
     return rows
+
+
+def personal_transfer_rows(
+    transfers: list[dict[str, Any]], bootstrap: dict[str, Any]
+) -> list[dict[str, Any]]:
+    players = {player["id"]: player for player in bootstrap.get("elements", [])}
+    teams = {team["id"]: team for team in bootstrap.get("teams", [])}
+    rows: list[dict[str, Any]] = []
+    for transfer in transfers:
+        player_in = players.get(transfer.get("element_in"), {})
+        player_out = players.get(transfer.get("element_out"), {})
+        team_in = teams.get(player_in.get("team"), {})
+        team_out = teams.get(player_out.get("team"), {})
+        rows.append(
+            {
+                "gameweek": transfer.get("event"),
+                "transfer_time": transfer.get("time"),
+                "player_in_id": transfer.get("element_in"),
+                "player_in": player_in.get("web_name"),
+                "player_in_team": team_in.get("name"),
+                "player_in_position": POSITION_NAMES.get(player_in.get("element_type"), "Unknown"),
+                "purchase_price": price(transfer.get("element_in_cost")),
+                "player_out_id": transfer.get("element_out"),
+                "player_out": player_out.get("web_name"),
+                "player_out_team": team_out.get("name"),
+                "player_out_position": POSITION_NAMES.get(player_out.get("element_type"), "Unknown"),
+                "selling_price": price(transfer.get("element_out_cost")),
+            }
+        )
+    return rows
+
+
+SNAPSHOT_FIELDS = [
+    "observed_at",
+    "player_id",
+    "player_code",
+    "web_name",
+    "team_id",
+    "team_code",
+    "team_name",
+    "position",
+    "price",
+    "price_change_gameweek",
+    "price_change_season",
+    "status",
+    "news",
+    "news_added",
+    "chance_of_playing_this_round",
+    "chance_of_playing_next_round",
+    "selected_by_percent",
+    "form",
+    "expected_points_this_gameweek",
+    "expected_points_next_gameweek",
+    "transfers_in_event",
+    "transfers_out_event",
+    "transfers_in_season",
+    "transfers_out_season",
+    "penalties_order",
+    "direct_free_kicks_order",
+    "corners_and_indirect_free_kicks_order",
+]
+
+
+def write_player_snapshots(
+    output_dir: Path,
+    players: list[dict[str, Any]],
+    generated_at: str,
+    next_event: dict[str, Any] | None,
+) -> dict[str, Any]:
+    snapshot_rows = []
+    for player in players:
+        row = {field: player.get(field) for field in SNAPSHOT_FIELDS}
+        row["observed_at"] = generated_at
+        snapshot_rows.append(row)
+
+    history_dir = output_dir / "history"
+    daily_dir = history_dir / "player_snapshots"
+    deadline_dir = history_dir / "deadline_snapshots"
+    daily_path = daily_dir / f"{generated_at[:10]}.csv"
+    if not daily_path.exists():
+        write_csv(daily_path, snapshot_rows, SNAPSHOT_FIELDS)
+
+    deadline_path: Path | None = None
+    if next_event and next_event.get("deadline_time"):
+        deadline = datetime.fromisoformat(next_event["deadline_time"].replace("Z", "+00:00"))
+        observed = datetime.fromisoformat(generated_at)
+        hours_to_deadline = (deadline - observed).total_seconds() / 3600
+        if 0 <= hours_to_deadline <= 8:
+            deadline_path = deadline_dir / f"gw{int(next_event['id']):02d}.csv"
+            if not deadline_path.exists():
+                write_csv(deadline_path, snapshot_rows, SNAPSHOT_FIELDS)
+
+    daily_files = sorted(
+        str(path.relative_to(output_dir)).replace("\\", "/") for path in daily_dir.glob("*.csv")
+    )
+    deadline_files = sorted(
+        str(path.relative_to(output_dir)).replace("\\", "/") for path in deadline_dir.glob("*.csv")
+    )
+    index = {
+        "generated_at": generated_at,
+        "latest_daily_snapshot": daily_files[-1] if daily_files else None,
+        "daily_snapshots": daily_files,
+        "deadline_snapshots": deadline_files,
+    }
+    write_json(output_dir / "chatgpt" / "snapshot_index.json", index)
+    return index
 
 
 def personal_team_payload(
@@ -303,6 +447,7 @@ def build_datasets(
     profile: dict[str, Any] | None,
     history: dict[str, Any] | None,
     picks: dict[str, Any] | None,
+    transfers: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     chatgpt_dir = output_dir / "chatgpt"
     raw_dir = output_dir / "raw" / "latest"
@@ -315,6 +460,8 @@ def build_datasets(
     fixture_data = fixture_rows(fixtures, bootstrap)
     gameweeks = gameweek_rows(live_by_event, bootstrap)
     my_team = personal_team_payload(team_id, profile, history, picks, bootstrap)
+    my_transfers = personal_transfer_rows(transfers or [], bootstrap)
+    snapshot_index = write_player_snapshots(output_dir, players, generated_at, next_event)
 
     player_fields = list(players[0].keys()) if players else ["player_id"]
     team_fields = list(teams[0].keys()) if teams else ["team_id"]
@@ -322,6 +469,20 @@ def build_datasets(
     gameweek_fields = list(gameweeks[0].keys()) if gameweeks else ["gameweek", "player_id"]
     history_rows = (history or {}).get("current", [])
     history_fields = sorted({key for row in history_rows for key in row}) or ["event"]
+    transfer_fields = list(my_transfers[0].keys()) if my_transfers else [
+        "gameweek",
+        "transfer_time",
+        "player_in_id",
+        "player_in",
+        "player_in_team",
+        "player_in_position",
+        "purchase_price",
+        "player_out_id",
+        "player_out",
+        "player_out_team",
+        "player_out_position",
+        "selling_price",
+    ]
 
     counts = {
         "players": write_csv(chatgpt_dir / "players.csv", players, player_fields),
@@ -330,6 +491,9 @@ def build_datasets(
         "player_gameweeks": write_csv(chatgpt_dir / "player_gameweeks.csv", gameweeks, gameweek_fields),
         "my_gameweek_history": write_csv(
             chatgpt_dir / "my_gameweek_history.csv", history_rows, history_fields
+        ),
+        "my_transfers": write_csv(
+            chatgpt_dir / "my_transfers.csv", my_transfers, transfer_fields
         ),
     }
 
@@ -352,6 +516,13 @@ def build_datasets(
 
     write_json(chatgpt_dir / "current_gameweek.json", current_gameweek)
     write_json(chatgpt_dir / "my_team.json", my_team)
+    write_json(
+        chatgpt_dir / "manager_history.json",
+        {
+            "past_seasons": (history or {}).get("past", []),
+            "chips": (history or {}).get("chips", []),
+        },
+    )
     write_json(chatgpt_dir / "fpl_summary.json", summary)
     write_json(raw_dir / "bootstrap-static.json", bootstrap)
     write_json(raw_dir / "fixtures.json", fixtures)
@@ -361,16 +532,21 @@ def build_datasets(
         write_json(raw_dir / "entry-history.json", history)
     if picks is not None:
         write_json(raw_dir / "latest-picks.json", picks)
+    if transfers is not None:
+        write_json(raw_dir / "entry-transfers.json", transfers)
 
     files = [
         "current_gameweek.json",
         "fixtures.csv",
         "fpl_summary.json",
+        "manager_history.json",
         "my_gameweek_history.csv",
+        "my_transfers.csv",
         "my_team.json",
         "player_gameweeks.csv",
         "players.csv",
         "teams.csv",
+        "snapshot_index.json",
     ]
     manifest = {
         "generated_at": generated_at,
@@ -379,6 +555,7 @@ def build_datasets(
         "team_id": team_id,
         "datasets": [{"path": f"data/chatgpt/{name}"} for name in files],
         "row_counts": counts,
+        "latest_daily_snapshot": snapshot_index.get("latest_daily_snapshot"),
     }
     write_json(chatgpt_dir / "manifest.json", manifest)
     return manifest
@@ -413,8 +590,17 @@ def collect(client: FPLClient, output_dir: Path, team_id: int) -> dict[str, Any]
         if profile and latest_event
         else None
     )
+    transfers = client.get(f"entry/{team_id}/transfers/", optional=True) if profile else None
     return build_datasets(
-        output_dir, team_id, bootstrap, fixtures, live_by_event, profile, history, picks
+        output_dir,
+        team_id,
+        bootstrap,
+        fixtures,
+        live_by_event,
+        profile,
+        history,
+        picks,
+        transfers if isinstance(transfers, list) else None,
     )
 
 
