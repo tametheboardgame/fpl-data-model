@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-07-20T09:45:46+00:00",
+  "source": "https://github.com/vaastav/Fantasy-Premier-League",
+  "requested_seasons": [
+    "2018-19",
+    "2019-20",
+    "2020-21",
+    "2021-22",
+    "2022-23",
+    "2023-24",
+    "2024-25"
+  ],
+  "imported_seasons": [
+    "2018-19",
+    "2019-20",
+    "2020-21",
+    "2021-22",
+    "2022-23",
+    "2023-24",
+    "2024-25"
+  ],
+  "season_row_counts": {
+    "2018-19": 21790,
+    "2019-20": 22560,
+    "2020-21": 24365,
+    "2021-22": 25447,
+    "2022-23": 26505,
+    "2023-24": 29725,
+    "2024-25": 27605
+  },
+  "total_rows": 177997,
+  "content_sha256": "6fa35808b35ca6f28dea4b479604da8e363ca53c9b7819e2b82da447aa7ee41a",
+  "failed_seasons": [],
+  "excluded_fields": {
+    "xP": "Excluded because the upstream archive warns it can contain post-match information."
+  },
+  "files": [
+    "data/history/historical_player_gameweeks.csv.gz",
+    "data/history/position_priors.csv"
+  ]
+}
