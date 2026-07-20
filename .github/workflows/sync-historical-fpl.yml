@@ -1,0 +1,55 @@
+name: Sync historical FPL data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 4 * * 0"
+  push:
+    branches:
+      - main
+    paths:
+      - "src/sync_historical_fpl.py"
+      - ".github/workflows/sync-historical-fpl.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: historical-fpl-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Synchronise historical seasons
+        run: python -m src.sync_historical_fpl --output-dir data
+
+      - name: Commit historical data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/history
+          if git diff --cached --quiet; then
+            echo "No historical changes to commit"
+          else
+            git commit -m "Update historical FPL data"
+            git pull --rebase origin main
+            git push
+          fi
