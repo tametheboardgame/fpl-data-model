@@ -53,6 +53,8 @@ Historical files under `data/history/` include one compact player market snapsho
 
 Pre-deadline projections are written under `data/predictions/gwNN/`. Each timestamped file is immutable, so later results cannot rewrite what the model genuinely predicted before a deadline.
 
+Walk-forward evidence under `data/backtests/` includes detailed compressed predictions, gameweek metrics, model comparisons, held-out probability calibration and a compact success summary. Candidate calibration parameters are stored under `data/model/` but are not applied to live predictions until they improve the held-out season.
+
 Latest source responses are also retained under `data/raw/latest/` for troubleshooting and future transformations.
 
 Qualitative observations live under `data/scouting/` as an append-only JSONL journal. The raw note is retained alongside bounded signals for role, movement, fitness, minutes security, set pieces, team reliance and tactical fit. See [`docs/prediction_contract.md`](docs/prediction_contract.md) for the complete model contract.
@@ -84,6 +86,8 @@ Pull requests perform the complete collection and validation process without com
 
 The current model is `player-sim-2.0`. It is intentionally transparent and auditable. The simulation is seeded by model version, fixture and player, so unchanged inputs produce unchanged outputs. It remains a benchmark rather than a claim of optimal predictive performance, and does not yet include betting odds or confirmed team news.
 
+`.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Expected-points and probability calibration are fitted on 2022/23–2023/24 and assessed once on the held-out 2024/25 season.
+
 ## Local use
 
 Install the dependency:
@@ -107,6 +111,7 @@ python -m src.sync_detailed_history --output-dir data --max-workers 8
 python -m src.sync_historical_fpl --output-dir data
 python -m src.scouting_observations validate --path data/scouting/observations.jsonl
 python -m src.build_fpl_model --data-dir data
+python -m src.backtest_fpl_model --data-dir data
 ```
 
 ## Planned extensions
