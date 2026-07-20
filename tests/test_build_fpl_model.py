@@ -158,6 +158,8 @@ class ModelTests(unittest.TestCase):
             horizons[0]["expected_points_next_1"], projections[0]["expected_points"], places=3
         )
         self.assertGreater(horizons[0]["component_expected_points_next_1"], 0)
+        self.assertIn("probability_10_plus_next_1", horizons[0])
+        self.assertIn("probability_15_plus_next_1", horizons[0])
 
     def test_creates_immutable_predeadline_snapshot(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -290,6 +292,15 @@ class ModelTests(unittest.TestCase):
             self.assertTrue((data_dir / "chatgpt" / "projection_summary.json").is_file())
             self.assertTrue((data_dir / "chatgpt" / "prediction_accuracy.csv").is_file())
             self.assertTrue((data_dir / "chatgpt" / "scouting_observations.csv").is_file())
+            self.assertTrue((data_dir / "chatgpt" / "external_context_signals.csv").is_file())
+            self.assertTrue((data_dir / "chatgpt" / "external_context_summary.json").is_file())
+            self.assertTrue((data_dir / "chatgpt" / "fpl_decisions.json").is_file())
+            decisions = json.loads(
+                (data_dir / "chatgpt" / "fpl_decisions.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(decisions["decision_version"], "fpl-decisions-1.0")
             with (data_dir / "chatgpt" / "player_projections.csv").open(
                 encoding="utf-8", newline=""
             ) as handle:

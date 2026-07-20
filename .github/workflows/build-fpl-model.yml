@@ -11,8 +11,11 @@ on:
       - "src/build_fpl_model.py"
       - "src/player_return_simulator.py"
       - "src/scouting_observations.py"
+      - "src/external_context.py"
+      - "src/fpl_decisions.py"
       - ".github/workflows/build-fpl-model.yml"
       - "data/scouting/**"
+      - "data/context/**"
       - "data/chatgpt/players.csv"
       - "data/chatgpt/fixtures.csv"
       - "data/chatgpt/player_fixtures.csv"
@@ -50,6 +53,9 @@ jobs:
 
       - name: Validate qualitative scouting observations
         run: python -m src.scouting_observations validate --path data/scouting/observations.jsonl
+
+      - name: Validate external context
+        run: python -m src.external_context validate --signals data/context/signals.jsonl --sources data/context/sources.json
 
       - name: Build rolling features and projections
         run: python -m src.build_fpl_model --data-dir data

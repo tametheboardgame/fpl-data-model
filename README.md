@@ -48,6 +48,9 @@ The files under `data/chatgpt/` are the conversational interface to the model:
 - `prediction_evaluation.json`: compact prediction-accuracy history
 - `scouting_observations.csv`: conversational copy of timestamped qualitative match observations
 - `qualitative_signal_summary.json`: observation counts, adjustment limits and application status
+- `external_context_signals.csv`: validated team-news, market and role signals with source provenance
+- `external_context_summary.json`: freshness, reliability and active-signal summary
+- `fpl_decisions.json`: recommended line-up, captaincy, transfers, differentials and chip indicators
 
 Historical files under `data/history/` include one compact player market snapshot per day, a separate snapshot within eight hours of each deadline, prior-season records for players in the current FPL database, a normalised multi-season player-gameweek archive and historical position priors.
 
@@ -82,13 +85,16 @@ Pull requests perform the complete collection and validation process without com
 3. Deterministic player-level simulations covering appearances, attacking returns, clean sheets, saves, goals conceded, defensive contributions, discipline and bonus.
 4. A separately auditable qualitative overlay with bounded, decaying adjustments.
 5. FPL-points distributions and multi-gameweek totals over the next six gameweeks.
-6. Immutable snapshots within eight hours of a deadline, followed by separate quantitative and qualitative accuracy evaluation when results arrive.
+6. Freshness-weighted external context and squad-specific line-up, captaincy, transfer, differential and chip decision support.
+7. Immutable snapshots within eight hours of a deadline, followed by separate quantitative and qualitative accuracy evaluation when results arrive.
 
 The original control model remains `player-sim-2.0`. Phase 12 adds `player-sim-3.0-candidate` in shadow mode with explicit appearance, minutes, attacking and FPL scoring components. It uses position-aware shrinkage and wider, correlated attacking-return distributions, while preserving the live model as an unchanged benchmark. See [`docs/component_model.md`](docs/component_model.md).
 
 The initial held-out run improved MAE from 1.8250 to 1.7773 and marginally improved all three return-probability Brier scores. It reduced rank correlation from 0.4582 to 0.4422 and made RMSE 0.0021 worse, so the promotion gate correctly left it in shadow mode.
 
 The development-selected hybrid passed every held-out gate and is now the live recommendation surface as `player-ensemble-1.0`. It uses 20% component weight for expected points, 50% for 6+, 40% for 10+ and 100% for 15+. The unchanged Version 2 control and Version 3 component outputs remain beside each recommendation for audit. See [`docs/ensemble_model.md`](docs/ensemble_model.md).
+
+Phase 14 adds a provider-independent external-context journal, explicit source reliability and freshness decay, plus squad-specific decision support. External signals remain separately attributable and do not silently overwrite the validated ensemble. See [`docs/external_context_and_decisions.md`](docs/external_context_and_decisions.md).
 
 `.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Expected-points and probability calibration are fitted on 2022/23–2023/24 and assessed once on the held-out 2024/25 season.
 
@@ -114,6 +120,7 @@ python -m src.validate_fpl_data --data-dir data
 python -m src.sync_detailed_history --output-dir data --max-workers 8
 python -m src.sync_historical_fpl --output-dir data
 python -m src.scouting_observations validate --path data/scouting/observations.jsonl
+python -m src.external_context validate --signals data/context/signals.jsonl --sources data/context/sources.json
 python -m src.build_fpl_model --data-dir data
 python -m src.backtest_fpl_model --data-dir data
 ```
@@ -121,9 +128,7 @@ python -m src.backtest_fpl_model --data-dir data
 ## Planned extensions
 
 - Parquet historical archive and DuckDB analytical views
-- Betting-market and team-strength features
-- Confirmed team-news and workload features
-- Calibrated model ensembles and uncertainty intervals
-- Captaincy analysis
-- Transfer recommendations
+- Automated provider adapters for bookmaker markets and confirmed team news
+- Prospective evaluation and possible promotion of external-context features
+- Chip-state collection and blank/double-gameweek optimisation
 - Mini-league and rival analysis
