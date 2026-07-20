@@ -32,12 +32,13 @@ class TransformTests(unittest.TestCase):
                 },
             ],
             "teams": [
-                {"id": 1, "name": "Home FC", "short_name": "HOM", "strength": 3},
-                {"id": 2, "name": "Away FC", "short_name": "AWY", "strength": 4},
+                {"id": 1, "code": 101, "name": "Home FC", "short_name": "HOM", "strength": 3},
+                {"id": 2, "code": 102, "name": "Away FC", "short_name": "AWY", "strength": 4},
             ],
             "elements": [
                 {
                     "id": 10,
+                    "code": 10010,
                     "web_name": "Example",
                     "first_name": "Test",
                     "second_name": "Player",
@@ -49,6 +50,9 @@ class TransformTests(unittest.TestCase):
                     "event_points": 7,
                     "form": "6.0",
                     "transfers_in_event": 100,
+                    "cost_change_event": 1,
+                    "ep_next": "5.5",
+                    "penalties_order": 1,
                 }
             ],
         }
@@ -76,7 +80,11 @@ class TransformTests(unittest.TestCase):
             "summary_overall_rank": 500,
             "summary_event_points": 7,
         }
-        self.history = {"current": [{"event": 1, "points": 7, "total_points": 7}]}
+        self.history = {
+            "current": [{"event": 1, "points": 7, "total_points": 7}],
+            "past": [{"season_name": "2025/26", "total_points": 7, "rank": 500}],
+            "chips": [{"name": "3xc", "event": 1}],
+        }
         self.picks = {
             "active_chip": None,
             "entry_history": {"event": 1, "points": 7, "bank": 5, "value": 1000},
@@ -92,6 +100,16 @@ class TransformTests(unittest.TestCase):
                 }
             ],
         }
+        self.transfers = [
+            {
+                "event": 1,
+                "time": "2025-08-14T12:00:00Z",
+                "element_in": 10,
+                "element_in_cost": 75,
+                "element_out": 10,
+                "element_out_cost": 74,
+            }
+        ]
 
     def test_event_and_season_helpers(self) -> None:
         current, following = current_and_next_event(self.bootstrap["events"])
@@ -111,6 +129,7 @@ class TransformTests(unittest.TestCase):
                 self.profile,
                 self.history,
                 self.picks,
+                self.transfers,
             )
             self.assertEqual(manifest["team_id"], 6435140)
             self.assertEqual(manifest["row_counts"]["players"], 1)
@@ -123,6 +142,19 @@ class TransformTests(unittest.TestCase):
                 rows = list(csv.DictReader(handle))
             self.assertEqual(rows[0]["price"], "7.5")
             self.assertEqual(rows[0]["team_name"], "Home FC")
+            self.assertEqual(rows[0]["player_code"], "10010")
+            self.assertEqual(rows[0]["expected_points_next_gameweek"], "5.5")
+
+            with (output / "chatgpt" / "my_transfers.csv").open(newline="") as handle:
+                transfers = list(csv.DictReader(handle))
+            self.assertEqual(transfers[0]["player_in"], "Example")
+            self.assertEqual(transfers[0]["selling_price"], "7.4")
+
+            snapshot_index = json.loads(
+                (output / "chatgpt" / "snapshot_index.json").read_text()
+            )
+            self.assertTrue(snapshot_index["latest_daily_snapshot"])
+            self.assertTrue((output / snapshot_index["latest_daily_snapshot"]).is_file())
 
     def test_unavailable_team_is_non_fatal(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
