@@ -11,6 +11,8 @@ Can the quantitative player-return model predict individual FPL points better th
 
 Expected-points regression and probability multipliers are fitted only on the development seasons. The held-out season is used once to decide whether the candidate calibration generalises.
 
+Expected-points calibration is recommended only when its held-out MAE gain is both statistically positive across gameweeks at the 95% level and practically material, defined as at least a 0.5% relative reduction. This prevents negligible numerical movement from being promoted into the live model.
+
 ## Walk-forward reconstruction
 
 For each gameweek, the backtester:
