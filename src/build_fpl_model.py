@@ -16,6 +16,11 @@ from src.player_return_simulator import (
     percentile,
     simulate_player_fixture,
 )
+from src.component_player_simulator import (
+    COMPONENT_MODEL_VERSION,
+    build_component_inputs,
+    simulate_component_player_fixture,
+)
 from src.scouting_observations import SIGNAL_FIELDS, qualitative_adjustment, read_observations
 from src.update_fpl_data import utc_now, write_csv, write_json
 
@@ -74,6 +79,37 @@ PROJECTION_FIELDS = [
     "probability_10_plus",
     "probability_15_plus",
     "probability_3_or_fewer",
+    "challenger_model_version",
+    "component_quantitative_expected_points",
+    "component_qualitative_expected_points_delta",
+    "component_expected_points",
+    "component_expected_minutes",
+    "component_probability_start",
+    "component_probability_60_plus",
+    "component_expected_goals",
+    "component_expected_assists",
+    "component_expected_saves",
+    "component_goal_return_probability",
+    "component_assist_return_probability",
+    "component_attacking_return_probability",
+    "component_clean_sheet_return_probability",
+    "component_points_p10",
+    "component_points_p50",
+    "component_points_p90",
+    "component_probability_6_plus",
+    "component_probability_10_plus",
+    "component_probability_15_plus",
+    "component_probability_3_or_fewer",
+    "component_appearance_points",
+    "component_goal_points",
+    "component_assist_points",
+    "component_clean_sheet_points",
+    "component_goals_conceded_points",
+    "component_save_points",
+    "component_penalty_save_points",
+    "component_defensive_contribution_points",
+    "component_bonus_points",
+    "component_discipline_points",
     "qualitative_observation_count",
     "qualitative_observation_ids",
     "qualitative_confidence",
@@ -141,6 +177,18 @@ def recent_metrics(rows: list[dict[str, Any]], window: int) -> dict[str, Any]:
         number(row.get("starts")) > 0 or number(row.get("minutes")) >= 60
         for row in selected
     )
+    starter_minutes = [
+        number(row.get("minutes"))
+        for row in selected
+        if number(row.get("starts")) > 0 or number(row.get("minutes")) >= 60
+    ]
+    substitute_minutes = [
+        number(row.get("minutes"))
+        for row in selected
+        if 0 < number(row.get("minutes")) < 60
+        and not number(row.get("starts")) > 0
+    ]
+    sixty_plus = sum(number(row.get("minutes")) >= 60 for row in selected)
 
     def total(field: str) -> float:
         return sum(number(row.get(field)) for row in selected)
@@ -152,6 +200,9 @@ def recent_metrics(rows: list[dict[str, Any]], window: int) -> dict[str, Any]:
         f"start_rate_{window}": round(starts / fixture_count, 4) if fixture_count else 0,
         f"average_minutes_{window}": round(minutes / fixture_count, 2) if fixture_count else 0,
         f"average_minutes_when_appearing_{window}": round(minutes / appearances, 2) if appearances else 0,
+        f"starter_average_minutes_{window}": round(statistics.fmean(starter_minutes), 2) if starter_minutes else 0,
+        f"substitute_average_minutes_{window}": round(statistics.fmean(substitute_minutes), 2) if substitute_minutes else 0,
+        f"sixty_plus_rate_{window}": round(sixty_plus / fixture_count, 4) if fixture_count else 0,
         f"minutes_standard_deviation_{window}": round(statistics.pstdev(minutes_values), 2) if len(minutes_values) > 1 else 0,
         f"minutes_{window}": round(minutes, 2),
         f"points_per_90_{window}": round(total("total_points") * per90, 4),
@@ -451,6 +502,34 @@ def build_projections(
                 "xa_per_90": base_simulation_inputs["xa_per_90"]
                 * qualitative["attack_multiplier"],
             }
+            component_base_inputs = build_component_inputs(
+                base_simulation_inputs, player_feature, prior
+            )
+            component_base_inputs["xg_per_90"] *= attack_factor
+            component_base_inputs["xa_per_90"] *= attack_factor
+            component_adjusted_inputs = {
+                **component_base_inputs,
+                "starter_minutes_mean": max(
+                    45,
+                    min(
+                        90,
+                        number(component_base_inputs.get("starter_minutes_mean"))
+                        + qualitative["minutes_delta"],
+                    ),
+                ),
+                "substitute_minutes_mean": max(
+                    1,
+                    min(
+                        45,
+                        number(component_base_inputs.get("substitute_minutes_mean"))
+                        + qualitative["minutes_delta"] * 0.25,
+                    ),
+                ),
+                "xg_per_90": component_base_inputs["xg_per_90"]
+                * qualitative["attack_multiplier"],
+                "xa_per_90": component_base_inputs["xa_per_90"]
+                * qualitative["attack_multiplier"],
+            }
             seed = (integer(fixture.get("fixture_id")), player_id)
             quantitative = simulate_player_fixture(
                 base_simulation_inputs,
@@ -461,6 +540,16 @@ def build_projections(
                 adjusted_simulation_inputs,
                 simulations=simulations,
                 seed_parts=(*seed, "shared"),
+            )
+            component_quantitative = simulate_component_player_fixture(
+                component_base_inputs,
+                simulations=simulations,
+                seed_parts=(*seed, "component-shared"),
+            )
+            component_adjusted = simulate_component_player_fixture(
+                component_adjusted_inputs,
+                simulations=simulations,
+                seed_parts=(*seed, "component-shared"),
             )
             quantitative_expected_minutes = quantitative["expected_minutes_simulated"]
             expected_minutes = adjusted["expected_minutes_simulated"]
@@ -512,11 +601,68 @@ def build_projections(
                 "probability_10_plus": round(adjusted["probability_10_plus"], 4),
                 "probability_15_plus": round(adjusted["probability_15_plus"], 4),
                 "probability_3_or_fewer": round(adjusted["probability_3_or_fewer"], 4),
+                "challenger_model_version": COMPONENT_MODEL_VERSION,
+                "component_quantitative_expected_points": round(
+                    component_quantitative["expected_points"], 4
+                ),
+                "component_qualitative_expected_points_delta": round(
+                    component_adjusted["expected_points"]
+                    - component_quantitative["expected_points"],
+                    4,
+                ),
+                "component_expected_points": round(component_adjusted["expected_points"], 4),
+                "component_expected_minutes": round(
+                    component_adjusted["expected_minutes_simulated"], 2
+                ),
+                "component_probability_start": round(
+                    component_adjusted["probability_start"], 4
+                ),
+                "component_probability_60_plus": round(
+                    component_adjusted["probability_60_plus"], 4
+                ),
+                "component_expected_goals": round(
+                    component_adjusted["expected_goals_simulated"], 4
+                ),
+                "component_expected_assists": round(
+                    component_adjusted["expected_assists_simulated"], 4
+                ),
+                "component_expected_saves": round(
+                    component_adjusted["expected_saves_simulated"], 4
+                ),
+                "component_goal_return_probability": round(
+                    component_adjusted["goal_return_probability"], 4
+                ),
+                "component_assist_return_probability": round(
+                    component_adjusted["assist_return_probability"], 4
+                ),
+                "component_attacking_return_probability": round(
+                    component_adjusted["attacking_return_probability"], 4
+                ),
+                "component_clean_sheet_return_probability": round(
+                    component_adjusted["clean_sheet_return_probability"], 4
+                ),
+                "component_points_p10": component_adjusted["points_p10"],
+                "component_points_p50": component_adjusted["points_p50"],
+                "component_points_p90": component_adjusted["points_p90"],
+                "component_probability_6_plus": round(
+                    component_adjusted["probability_6_plus"], 4
+                ),
+                "component_probability_10_plus": round(
+                    component_adjusted["probability_10_plus"], 4
+                ),
+                "component_probability_15_plus": round(
+                    component_adjusted["probability_15_plus"], 4
+                ),
+                "component_probability_3_or_fewer": round(
+                    component_adjusted["probability_3_or_fewer"], 4
+                ),
                 "qualitative_observation_count": qualitative["observation_count"],
                 "qualitative_observation_ids": "|".join(qualitative["observation_ids"]),
                 "qualitative_confidence": qualitative["combined_confidence"],
                 "qualitative_attack_multiplier": qualitative["attack_multiplier"],
             }
+            for field, value in component_adjusted["expected_points_components"].items():
+                projection[f"component_{field}"] = round(value, 4)
             for field, value in qualitative["signals"].items():
                 projection[f"qualitative_{field}"] = value
             projections.append(projection)
@@ -525,6 +671,8 @@ def build_projections(
                     "gameweek": projection["gameweek"],
                     "quantitative": quantitative["points_samples"],
                     "adjusted": adjusted["points_samples"],
+                    "component_quantitative": component_quantitative["points_samples"],
+                    "component_adjusted": component_adjusted["points_samples"],
                 }
             )
 
@@ -538,6 +686,7 @@ def build_projections(
         rows = by_player.get(player_id, [])
         base = {
             "model_version": MODEL_VERSION,
+            "challenger_model_version": COMPONENT_MODEL_VERSION,
             "player_id": player_id,
             "player_code": player.get("player_code"),
             "web_name": player.get("web_name"),
@@ -563,6 +712,10 @@ def build_projections(
                 sum(row["adjusted"][index] for row in sample_rows)
                 for index in range(simulations)
             ] if sample_rows else []
+            combined_component_samples = [
+                sum(row["component_adjusted"][index] for row in sample_rows)
+                for index in range(simulations)
+            ] if sample_rows else []
             base[f"expected_points_next_{horizon}"] = round(points, 3)
             base[f"quantitative_expected_points_next_{horizon}"] = round(
                 quantitative_points, 3
@@ -575,6 +728,35 @@ def build_projections(
             base[f"points_p10_next_{horizon}"] = percentile(combined_samples, 0.10)
             base[f"points_p50_next_{horizon}"] = percentile(combined_samples, 0.50)
             base[f"points_p90_next_{horizon}"] = percentile(combined_samples, 0.90)
+            base[f"component_expected_points_next_{horizon}"] = round(
+                statistics.fmean(combined_component_samples)
+                if combined_component_samples
+                else 0,
+                3,
+            )
+            base[f"component_points_p10_next_{horizon}"] = percentile(
+                combined_component_samples, 0.10
+            )
+            base[f"component_points_p50_next_{horizon}"] = percentile(
+                combined_component_samples, 0.50
+            )
+            base[f"component_points_p90_next_{horizon}"] = percentile(
+                combined_component_samples, 0.90
+            )
+            base[f"component_probability_10_plus_next_{horizon}"] = round(
+                sum(value >= 10 for value in combined_component_samples)
+                / len(combined_component_samples)
+                if combined_component_samples
+                else 0,
+                4,
+            )
+            base[f"component_probability_15_plus_next_{horizon}"] = round(
+                sum(value >= 15 for value in combined_component_samples)
+                / len(combined_component_samples)
+                if combined_component_samples
+                else 0,
+                4,
+            )
         horizons.append(base)
     return projections, horizons
 
@@ -636,6 +818,13 @@ def write_prediction_snapshot(
                     "points_p50_next_1",
                     "points_p90_next_1",
                     "value_next_1",
+                    "challenger_model_version",
+                    "component_expected_points_next_1",
+                    "component_points_p10_next_1",
+                    "component_points_p50_next_1",
+                    "component_points_p90_next_1",
+                    "component_probability_10_plus_next_1",
+                    "component_probability_15_plus_next_1",
                 ]
                 write_csv(path, rows, fields)
                 created = str(path.relative_to(data_dir)).replace("\\", "/")
@@ -789,7 +978,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     write_csv(chatgpt_dir / "player_projections.csv", projections, projection_fields)
     horizon_fields = ordered_fields(
         horizons,
-        ["model_version", "player_id", "player_code", "web_name", "team_id", "team_name", "position", "price"],
+        ["model_version", "challenger_model_version", "player_id", "player_code", "web_name", "team_id", "team_name", "position", "price"],
     )
     write_csv(chatgpt_dir / "player_projection_horizons.csv", horizons, horizon_fields)
     observation_fields = [
@@ -849,6 +1038,8 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     summary = {
         "generated_at": generated_at,
         "model_version": MODEL_VERSION,
+        "challenger_model_version": COMPONENT_MODEL_VERSION,
+        "challenger_status": "shadow_candidate_pending_held_out_evidence",
         "scoring_rules_version": SCORING_RULES_VERSION,
         "simulations_per_player_fixture": DEFAULT_SIMULATIONS,
         "method": "Deterministic player-level simulation of FPL returns using minutes, attacking involvement, clean sheets, saves, defensive contributions, disciplinary events and bonus, with a separately auditable qualitative overlay.",
@@ -860,10 +1051,17 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "qualitatively_adjusted_fixture_rows": qualitative_projection_rows,
         "top_next_gameweek": top_projection_rows(horizons, "expected_points_next_1"),
         "top_next_three_gameweeks": top_projection_rows(horizons, "expected_points_next_3"),
+        "component_top_next_gameweek": top_projection_rows(
+            horizons, "component_expected_points_next_1"
+        ),
+        "component_top_next_three_gameweeks": top_projection_rows(
+            horizons, "component_expected_points_next_3"
+        ),
         "prediction_snapshot_created": prediction_index.get("snapshot_created_this_run"),
         "evaluated_gameweeks": evaluation.get("evaluated_gameweeks"),
         "limitations": [
-            "The simulator is a transparent baseline distribution and does not yet include betting odds or confirmed team news.",
+            "The component simulator is a shadow challenger and is not the live recommendation model until held-out evidence supports promotion.",
+            "Neither simulator yet includes betting odds or confirmed team news.",
             "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage.",
             "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
             "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly.",
