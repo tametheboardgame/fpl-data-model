@@ -290,13 +290,35 @@ def resolved_context(
     sources = source_map(registry)
     grouped: dict[str, list[tuple[dict[str, Any], float]]] = defaultdict(list)
     matched: list[dict[str, Any]] = []
-    for signal in signals:
+    candidates = [
+        signal for signal in signals if signal_matches(signal, player, fixture)
+    ]
+    latest: dict[tuple[Any, ...], dict[str, Any]] = {}
+    for signal in candidates:
+        observed_at = parse_time(signal.get("observed_at"))
+        if observed_at is None or observed_at > resolved_as_of:
+            continue
+        key = (
+            signal.get("source_id"), signal.get("signal_type"),
+            integer(signal.get("player_id")), integer(signal.get("team_id")),
+            integer(signal.get("fixture_id")), integer(signal.get("gameweek")),
+        )
+        current = latest.get(key)
+        if current is None or observed_at > (
+            parse_time(current.get("observed_at")) or datetime.min.replace(tzinfo=timezone.utc)
+        ):
+            latest[key] = signal
+    effective_ids = {str(signal.get("signal_id")) for signal in latest.values()}
+    for signal in candidates:
         if not signal_matches(signal, player, fixture):
             continue
         source = sources.get(str(signal.get("source_id")))
         if not source:
             continue
-        weight, state = signal_weight(signal, source, resolved_as_of)
+        if str(signal.get("signal_id")) not in effective_ids:
+            weight, state = 0.0, "superseded"
+        else:
+            weight, state = signal_weight(signal, source, resolved_as_of)
         matched.append(
             {
                 "signal_id": signal.get("signal_id"),
