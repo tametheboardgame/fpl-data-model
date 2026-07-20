@@ -280,7 +280,20 @@ def main() -> None:
     key = os.environ.get("API_FOOTBALL_KEY", "").strip()
     if not key:
         raise SystemExit("API_FOOTBALL_KEY is not configured")
-    print(json.dumps(sync(args.data_dir, ApiFootballClient(key, args.max_requests)), indent=2))
+    try:
+        status = sync(args.data_dir, ApiFootballClient(key, args.max_requests))
+    except Exception as exc:
+        status = {
+            "provider": "API-Football",
+            "status": "error",
+            "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+            "error_type": type(exc).__name__,
+            "error": str(exc)[:500],
+        }
+        _write_json(args.data_dir / "context" / "provider_status.json", status)
+        print(json.dumps(status, indent=2))
+        raise
+    print(json.dumps(status, indent=2))
 
 
 if __name__ == "__main__":
