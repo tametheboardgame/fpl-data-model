@@ -1,0 +1,41 @@
+{
+  "schema_version": "external-context-1.0",
+  "sources": [
+    {
+      "source_id": "confirmed_lineup",
+      "name": "Confirmed starting line-up",
+      "reliability": 1.0,
+      "freshness_half_life_hours": 8
+    },
+    {
+      "source_id": "official_club",
+      "name": "Official club or competition update",
+      "reliability": 1.0,
+      "freshness_half_life_hours": 72
+    },
+    {
+      "source_id": "bookmaker_market",
+      "name": "Aggregated bookmaker market",
+      "reliability": 0.85,
+      "freshness_half_life_hours": 24
+    },
+    {
+      "source_id": "predicted_lineup",
+      "name": "Predicted line-up provider",
+      "reliability": 0.7,
+      "freshness_half_life_hours": 24
+    },
+    {
+      "source_id": "trusted_reporter",
+      "name": "Trusted reporter",
+      "reliability": 0.75,
+      "freshness_half_life_hours": 48
+    },
+    {
+      "source_id": "manual_verified",
+      "name": "Manually verified observation",
+      "reliability": 0.8,
+      "freshness_half_life_hours": 72
+    }
+  ]
+}
