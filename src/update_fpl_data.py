@@ -548,6 +548,17 @@ def build_datasets(
         "teams.csv",
         "snapshot_index.json",
     ]
+    model_files = [
+        "player_rolling_features.csv",
+        "team_rolling_features.csv",
+        "player_projections.csv",
+        "player_projection_horizons.csv",
+        "projection_summary.json",
+        "prediction_index.json",
+        "prediction_accuracy.csv",
+        "prediction_evaluation.json",
+    ]
+    files.extend(name for name in model_files if (chatgpt_dir / name).exists())
     manifest = {
         "generated_at": generated_at,
         "season": infer_season(events),
