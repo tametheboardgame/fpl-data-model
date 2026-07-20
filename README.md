@@ -86,6 +86,8 @@ Pull requests perform the complete collection and validation process without com
 
 The current live model remains `player-sim-2.0`. Phase 12 adds `player-sim-3.0-candidate` in shadow mode with explicit appearance, minutes, attacking and FPL scoring components. It uses position-aware shrinkage and wider, correlated attacking-return distributions, while preserving the live model as an unchanged benchmark. See [`docs/component_model.md`](docs/component_model.md).
 
+The initial held-out run improved MAE from 1.8250 to 1.7773 and marginally improved all three return-probability Brier scores. It reduced rank correlation from 0.4582 to 0.4422 and made RMSE 0.0021 worse, so the promotion gate correctly left it in shadow mode.
+
 `.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Expected-points and probability calibration are fitted on 2022/23–2023/24 and assessed once on the held-out 2024/25 season.
 
 ## Local use
