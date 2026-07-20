@@ -262,13 +262,17 @@ def signal_matches(
         ("gameweek", integer(fixture.get("gameweek"))),
     ]
     targeted = False
+    matched_known_target = False
     for field, actual in checks:
         expected = integer(signal.get(field))
         if expected:
             targeted = True
+            if not actual:
+                continue
+            matched_known_target = True
             if expected != actual:
                 return False
-    return targeted
+    return targeted and matched_known_target
 
 
 def resolved_context(
