@@ -21,6 +21,8 @@ HELD_OUT_SEASON = "2024-25"
 DEFAULT_SEASONS = [*DEVELOPMENT_SEASONS, HELD_OUT_SEASON]
 BACKTEST_SIMULATIONS = 300
 MINIMUM_PRIOR_FIXTURES = 3
+MINIMUM_RELATIVE_CALIBRATION_IMPROVEMENT = 0.005
+CALIBRATION_CONFIDENCE_Z = 1.96
 PREDICTION_FIELDS = [
     "season",
     "gameweek",
@@ -521,6 +523,79 @@ def probability_calibration_bins(rows: list[dict[str, Any]]) -> list[dict[str, A
     return output
 
 
+def calibration_materiality(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Require calibration gains to be both statistically credible and practically useful."""
+    by_gameweek: dict[tuple[str, int], list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        by_gameweek[(str(row.get("season")), integer(row.get("gameweek")))].append(row)
+
+    gameweek_improvements = []
+    for gameweek_rows in by_gameweek.values():
+        gameweek_improvements.append(
+            statistics.fmean(
+                abs(number(row.get("actual_points")) - number(row.get("player_sim_prediction")))
+                - abs(
+                    number(row.get("actual_points"))
+                    - number(row.get("calibrated_player_sim_prediction"))
+                )
+                for row in gameweek_rows
+            )
+        )
+
+    if not rows or not gameweek_improvements:
+        return {
+            "gameweeks": 0,
+            "overall_mae_improvement": 0.0,
+            "overall_relative_mae_improvement": 0.0,
+            "mean_gameweek_mae_improvement": 0.0,
+            "normal_approximation_95pct_ci_lower": 0.0,
+            "normal_approximation_95pct_ci_upper": 0.0,
+            "minimum_practical_relative_improvement": MINIMUM_RELATIVE_CALIBRATION_IMPROVEMENT,
+            "statistically_positive_95pct": False,
+            "practically_material": False,
+            "recommended": False,
+        }
+
+    raw_errors = [
+        abs(number(row.get("actual_points")) - number(row.get("player_sim_prediction")))
+        for row in rows
+    ]
+    calibrated_errors = [
+        abs(
+            number(row.get("actual_points"))
+            - number(row.get("calibrated_player_sim_prediction"))
+        )
+        for row in rows
+    ]
+    raw_mae = statistics.fmean(raw_errors)
+    overall_improvement = raw_mae - statistics.fmean(calibrated_errors)
+    relative_improvement = overall_improvement / raw_mae if raw_mae else 0.0
+    mean_gameweek_improvement = statistics.fmean(gameweek_improvements)
+    standard_error = (
+        statistics.stdev(gameweek_improvements) / math.sqrt(len(gameweek_improvements))
+        if len(gameweek_improvements) > 1
+        else 0.0
+    )
+    ci_lower = mean_gameweek_improvement - CALIBRATION_CONFIDENCE_Z * standard_error
+    ci_upper = mean_gameweek_improvement + CALIBRATION_CONFIDENCE_Z * standard_error
+    statistically_positive = ci_lower > 0
+    practically_material = (
+        relative_improvement >= MINIMUM_RELATIVE_CALIBRATION_IMPROVEMENT
+    )
+    return {
+        "gameweeks": len(gameweek_improvements),
+        "overall_mae_improvement": round(overall_improvement, 6),
+        "overall_relative_mae_improvement": round(relative_improvement, 6),
+        "mean_gameweek_mae_improvement": round(mean_gameweek_improvement, 6),
+        "normal_approximation_95pct_ci_lower": round(ci_lower, 6),
+        "normal_approximation_95pct_ci_upper": round(ci_upper, 6),
+        "minimum_practical_relative_improvement": MINIMUM_RELATIVE_CALIBRATION_IMPROVEMENT,
+        "statistically_positive_95pct": statistically_positive,
+        "practically_material": practically_material,
+        "recommended": statistically_positive and practically_material,
+    }
+
+
 def write_gzip_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("wb") as raw:
@@ -565,6 +640,7 @@ def run_backtest(
     ]
     best_baseline_mae = min(baselines, key=lambda row: row["mae"])
     best_baseline_rank = max(baselines, key=lambda row: row["mean_gameweek_spearman"])
+    calibration_assessment = calibration_materiality(held_out)
     calibration_report = {
         "generated_at": utc_now(),
         "model_version": MODEL_VERSION,
@@ -576,7 +652,8 @@ def run_backtest(
         "probability_multipliers": scales,
         "held_out_raw_metrics": raw,
         "held_out_calibrated_metrics": calibrated,
-        "expected_points_calibration_recommended": calibrated["mae"] < raw["mae"],
+        "expected_points_calibration_assessment": calibration_assessment,
+        "expected_points_calibration_recommended": calibration_assessment["recommended"],
         "held_out_mae_change": round(calibrated["mae"] - raw["mae"], 4),
         "probability_calibration_recommended": {
             str(threshold): calibrated[f"brier_{threshold}_plus"]
@@ -593,7 +670,10 @@ def run_backtest(
         > best_baseline_rank["mean_gameweek_spearman"],
         "best_baseline_rank_model": best_baseline_rank["model"],
         "best_baseline_rank_correlation": best_baseline_rank["mean_gameweek_spearman"],
-        "calibration_improves_held_out_mae": calibrated["mae"] < raw["mae"],
+        "calibration_reduces_held_out_mae": calibrated["mae"] < raw["mae"],
+        "calibration_materially_improves_held_out_mae": calibration_assessment[
+            "recommended"
+        ],
         "calibration_improves_all_probability_brier_scores": all(
             calibration_report["probability_calibration_recommended"].values()
         ),
