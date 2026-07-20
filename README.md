@@ -10,7 +10,7 @@ This repository collects current and historical Fantasy Premier League data and 
 
 FPL APIs → GitHub Actions → Python processing → CSV and JSON datasets → ChatGPT
 
-The workflow runs every six hours and can also be started manually. It retrieves public FPL data, builds a compact ChatGPT-facing export layer, validates the outputs and commits refreshed datasets to the repository.
+The automated workflows retrieve public FPL data, preserve historical observations, build leakage-safe rolling features and publish a transparent expected-points baseline for conversation and decision support.
 
 ## Current personal team
 
@@ -38,8 +38,18 @@ The files under `data/chatgpt/` are the conversational interface to the model:
 - `my_transfers.csv`: players bought and sold, prices and transfer times
 - `manager_history.json`: previous season summaries and chip usage
 - `detailed_history_manifest.json`: status and row counts for the daily detailed-history synchronisation
+- `player_rolling_features.csv`: player form and usage over the last 3, 6 and 10 fixtures
+- `team_rolling_features.csv`: team attack and defence form over the last 3, 6 and 10 fixtures
+- `player_projections.csv`: fixture-level expected minutes, goals, assists, clean sheets and points
+- `player_projection_horizons.csv`: player expected points, minutes and value over the next 1, 3, 5 and 6 gameweeks
+- `projection_summary.json`: model version, row counts, limitations and leading projections
+- `prediction_index.json`: index of immutable pre-deadline prediction snapshots
+- `prediction_accuracy.csv`: gameweek-level MAE, RMSE and bias once results are known
+- `prediction_evaluation.json`: compact prediction-accuracy history
 
-Historical files under `data/history/` include one compact player market snapshot per day, a separate snapshot within eight hours of each deadline, and prior-season records for players in the current FPL database.
+Historical files under `data/history/` include one compact player market snapshot per day, a separate snapshot within eight hours of each deadline, prior-season records for players in the current FPL database, a normalised multi-season player-gameweek archive and historical position priors.
+
+Pre-deadline projections are written under `data/predictions/gwNN/`. Each timestamped file is immutable, so later results cannot rewrite what the model genuinely predicted before a deadline.
 
 Latest source responses are also retained under `data/raw/latest/` for troubleshooting and future transformations.
 
@@ -56,6 +66,18 @@ Latest source responses are also retained under `data/raw/latest/` for troublesh
 Pull requests perform the complete collection and validation process without committing generated data.
 
 `.github/workflows/sync-detailed-fpl-history.yml` runs daily and builds match-level history from each player's official FPL element summary. This preserves opponent, home/away status, price, ownership, transfers, minutes, underlying statistics and points separately for each fixture.
+
+`.github/workflows/sync-historical-fpl.yml` runs weekly and imports completed seasons from the public [Vaastav FPL archive](https://github.com/vaastav/Fantasy-Premier-League). The import currently covers 2018/19 through 2024/25. The upstream `xP` field is deliberately excluded because it may contain post-match information and would create look-ahead bias.
+
+`.github/workflows/build-fpl-model.yml` runs every six hours after refreshed inputs. It builds:
+
+1. Rolling player and team features from match-level data.
+2. Expected minutes from recent starts, minutes, availability, prior-season usage and historical position priors.
+3. Expected points from expected goals and assists, fixture difficulty, venue, clean-sheet probability, saves, bonus and recent points.
+4. Multi-gameweek totals and value estimates.
+5. Immutable snapshots within eight hours of a deadline, followed by automatic accuracy evaluation when results arrive.
+
+The current model is `baseline-1.0`. It is intentionally transparent and auditable. It is a starting benchmark rather than a claim of optimal predictive performance, and does not yet include betting odds or confirmed team news.
 
 ## Local use
 
@@ -77,14 +99,16 @@ Refresh the datasets:
 python -m src.update_fpl_data --team-id 6435140 --output-dir data
 python -m src.validate_fpl_data --data-dir data
 python -m src.sync_detailed_history --output-dir data --max-workers 8
+python -m src.sync_historical_fpl --output-dir data
+python -m src.build_fpl_model --data-dir data
 ```
 
 ## Planned extensions
 
-- Multi-season historical FPL archive
 - Parquet historical archive and DuckDB analytical views
-- Expected-points model
-- Fixture-adjusted form
+- Betting-market and team-strength features
+- Confirmed team-news and workload features
+- Calibrated model ensembles and uncertainty intervals
 - Captaincy analysis
 - Transfer recommendations
 - Mini-league and rival analysis
