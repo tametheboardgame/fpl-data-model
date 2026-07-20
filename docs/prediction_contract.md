@@ -48,6 +48,20 @@ The quantitative forecast is always retained. Qualitative notes can modify expec
 
 Qualitative performance is evaluated against the untouched quantitative prediction after results arrive. Historical qualitative backfilling is prohibited because it would introduce hindsight bias.
 
+## External context and decision layer
+
+Phase 14 accepts timestamped availability, line-up, expected-minutes, market, clean-sheet, penalty and set-piece signals from a registered source. Each signal is weighted by declared source reliability, signal confidence and freshness.
+
+The validated ensemble forecast is retained as `model_expected_points`. High-value availability, minutes and starting-role signals may produce a bounded `decision_expected_points` value, with every signal ID, source ID and reason attached. This decision value is not treated as a promoted simulator feature until prospective evidence demonstrates improvement.
+
+The squad-specific decision contract includes:
+
+- a legal recommended starting XI and bench order
+- captain and vice-captain choices, using expected points first and haul probability as a tie-breaker
+- affordable same-position transfer pairs ranked by three-gameweek expected-points gain
+- differentials at 10% ownership or lower
+- advisory chip indicators that explicitly acknowledge missing chip-state or blank/double-gameweek information
+
 ## Interpretation
 
 Expected points is the average across plausible returns. The percentile range describes uncertainty, while the 10+ and 15+ probabilities describe upside relevant to captaincy and differential decisions. A high team win probability is neither required nor sufficient for a high individual FPL projection.
