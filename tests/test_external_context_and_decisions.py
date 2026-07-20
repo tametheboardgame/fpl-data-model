@@ -83,6 +83,48 @@ class ExternalContextTests(unittest.TestCase):
         self.assertEqual(result["signal_ids"], ["lineup-10"])
         self.assertEqual(result["values"]["start_probability"], 1)
 
+    def test_player_signal_can_resolve_at_horizon_without_fixture_id(self) -> None:
+        signal = {
+            "signal_id": "lineup-10",
+            "observed_at": self.now.isoformat(),
+            "source_id": "confirmed_lineup",
+            "signal_type": "start_probability",
+            "value": 1,
+            "confidence": 1,
+            "player_id": 10,
+            "fixture_id": 100,
+            "gameweek": 1,
+            "status": "active",
+        }
+        result = resolved_context(
+            [signal],
+            self.registry,
+            {"player_id": 10, "team_id": 1},
+            {"gameweek": 1},
+            self.now,
+        )
+        self.assertEqual(result["signal_ids"], ["lineup-10"])
+
+    def test_fixture_only_signal_does_not_leak_without_fixture_context(self) -> None:
+        signal = {
+            "signal_id": "fixture-only",
+            "observed_at": self.now.isoformat(),
+            "source_id": "confirmed_lineup",
+            "signal_type": "clean_sheet_probability",
+            "value": 0.8,
+            "confidence": 1,
+            "fixture_id": 100,
+            "status": "active",
+        }
+        result = resolved_context(
+            [signal],
+            self.registry,
+            {"player_id": 10, "team_id": 1},
+            {"gameweek": 1},
+            self.now,
+        )
+        self.assertEqual(result["signal_count"], 0)
+
     def test_validates_append_only_journal(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
