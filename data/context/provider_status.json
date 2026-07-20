@@ -1,7 +1,8 @@
 {
   "provider": "API-Football",
-  "status": "error",
+  "status": "plan_blocked",
   "generated_at": "2026-07-20T14:58:23+00:00",
-  "error_type": "RuntimeError",
-  "error": "API-Football error: {'plan': 'Free plans do not have access to this season, try from 2022 to 2024.'}"
+  "error_type": "ApiFootballPlanError",
+  "error": "Free plans do not have access to this season, try from 2022 to 2024.",
+  "required_action": "Upgrade API-Football for current-season access or replace the live provider."
 }
