@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import gzip
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -106,6 +107,16 @@ class BacktestTests(unittest.TestCase):
             self.assertTrue(
                 (data_dir / "model" / "candidate_calibration_parameters.json").is_file()
             )
+            calibration = json.loads(
+                (data_dir / "backtests" / "calibration_report.json").read_text()
+            )
+            assessment = calibration["expected_points_calibration_assessment"]
+            self.assertEqual(
+                calibration["expected_points_calibration_recommended"],
+                assessment["recommended"],
+            )
+            self.assertEqual(assessment["gameweeks"], 5)
+            self.assertIn("calibration_materially_improves_held_out_mae", summary["success_criteria"])
 
 
 if __name__ == "__main__":
