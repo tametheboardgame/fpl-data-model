@@ -276,6 +276,14 @@ def build_decision_support(
     status = "ready" if target_gameweek and any(
         number(row.get("decision_expected_points")) > 0 for row in evaluated
     ) else "waiting_for_future_fixtures"
+    if status != "ready":
+        starters = []
+        bench = []
+        captain_pool = []
+        captain = None
+        transfer_candidates = []
+        differentials = []
+        bench_points = 0
     return {
         "generated_at": generated_at,
         "decision_version": DECISION_VERSION,
