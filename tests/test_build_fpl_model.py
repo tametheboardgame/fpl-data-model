@@ -8,6 +8,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from src.build_fpl_model import (
+    PROJECTION_FIELDS,
     build_model,
     build_player_features,
     build_projections,
@@ -90,6 +91,8 @@ class ModelTests(unittest.TestCase):
         ]
 
     def test_builds_rolling_features_and_projection(self) -> None:
+        self.assertIn("probability_15_plus", PROJECTION_FIELDS)
+        self.assertIn("quantitative_expected_points", PROJECTION_FIELDS)
         player_features = build_player_features(self.players, self.history)
         team_features = build_team_features(self.teams, self.history)
         priors = {
