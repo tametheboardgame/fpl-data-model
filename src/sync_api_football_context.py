@@ -25,6 +25,10 @@ TEAM_ALIASES = {
 }
 
 
+class ApiFootballPlanError(RuntimeError):
+    pass
+
+
 def parse_time(value: Any) -> datetime | None:
     if not value:
         return None
@@ -209,6 +213,9 @@ class ApiFootballClient:
         response.raise_for_status()
         payload = response.json()
         if payload.get("errors"):
+            errors = payload["errors"]
+            if isinstance(errors, dict) and errors.get("plan"):
+                raise ApiFootballPlanError(str(errors["plan"]))
             raise RuntimeError(f"API-Football error: {payload['errors']}")
         return payload
 
@@ -282,6 +289,18 @@ def main() -> None:
         raise SystemExit("API_FOOTBALL_KEY is not configured")
     try:
         status = sync(args.data_dir, ApiFootballClient(key, args.max_requests))
+    except ApiFootballPlanError as exc:
+        status = {
+            "provider": "API-Football",
+            "status": "plan_blocked",
+            "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+            "error_type": type(exc).__name__,
+            "error": str(exc)[:500],
+            "required_action": "Upgrade API-Football for current-season access or replace the live provider.",
+        }
+        _write_json(args.data_dir / "context" / "provider_status.json", status)
+        print(json.dumps(status, indent=2))
+        return
     except Exception as exc:
         status = {
             "provider": "API-Football",
