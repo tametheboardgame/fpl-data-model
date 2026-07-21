@@ -30,6 +30,33 @@ def _actual_value(signal_type: str, row: dict[str, Any]) -> float | None:
     return None
 
 
+def _team_actual_value(
+    signal_type: str, team_id: int, fixture: dict[str, Any]
+) -> float | None:
+    home_id = integer(fixture.get("home_team_id"))
+    away_id = integer(fixture.get("away_team_id"))
+    if team_id not in {home_id, away_id}:
+        return None
+    home_score = fixture.get("home_score")
+    away_score = fixture.get("away_score")
+    if home_score in {None, ""} or away_score in {None, ""}:
+        return None
+    own_score, opponent_score = (
+        (number(home_score), number(away_score))
+        if team_id == home_id
+        else (number(away_score), number(home_score))
+    )
+    if signal_type == "match_win_probability":
+        return float(own_score > opponent_score)
+    if signal_type == "team_score_probability":
+        return float(own_score > 0)
+    if signal_type == "clean_sheet_probability":
+        return float(opponent_score == 0)
+    if signal_type == "team_expected_goals":
+        return own_score
+    return None
+
+
 def evaluate_external_signals(
     signals: list[dict[str, Any]],
     player_fixtures: list[dict[str, Any]],
@@ -45,20 +72,29 @@ def evaluate_external_signals(
         for row in fixtures
         if integer(row.get("fixture_id"))
     }
+    fixture_by_id = {
+        integer(row.get("fixture_id")): row
+        for row in fixtures
+        if integer(row.get("fixture_id"))
+    }
     evaluated: list[dict[str, Any]] = []
     skipped_after_kickoff = 0
     for signal in signals:
         player_id = integer(signal.get("player_id"))
+        team_id = integer(signal.get("team_id"))
         fixture_id = integer(signal.get("fixture_id"))
         row = actual.get((player_id, fixture_id))
-        if not row:
-            continue
         observed = parse_time(signal.get("observed_at"))
         kickoff = kickoff_by_fixture.get(fixture_id)
         if not observed or not kickoff or observed >= kickoff:
             skipped_after_kickoff += 1
             continue
-        target = _actual_value(str(signal.get("signal_type")), row)
+        signal_type = str(signal.get("signal_type"))
+        target = _actual_value(signal_type, row) if row else None
+        if target is None and team_id:
+            target = _team_actual_value(
+                signal_type, team_id, fixture_by_id.get(fixture_id, {})
+            )
         if target is None:
             continue
         prediction = number(signal.get("value"))
@@ -70,6 +106,7 @@ def evaluate_external_signals(
                 "source_id": signal.get("source_id"),
                 "signal_type": signal.get("signal_type"),
                 "player_id": player_id,
+                "team_id": team_id,
                 "fixture_id": fixture_id,
                 "observed_at": signal.get("observed_at"),
                 "kickoff_time": kickoff.isoformat(),
@@ -111,7 +148,7 @@ def write_external_evaluation(
 ) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     fields = [
-        "signal_id", "source_id", "signal_type", "player_id", "fixture_id",
+        "signal_id", "source_id", "signal_type", "player_id", "team_id", "fixture_id",
         "observed_at", "kickoff_time", "predicted", "actual", "metric", "error",
         "leakage_safe",
     ]
