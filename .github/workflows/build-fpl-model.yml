@@ -41,12 +41,15 @@ on:
       - "src/fpl_rules.py"
       - "src/fpl_transfers.py"
       - "src/fpl_prospective.py"
+      - "src/fpl_gameweek_operations.py"
       - "src/evaluate_external_context.py"
       - "src/finalise_external_context.py"
       - "tests/test_phase19_prospective.py"
       - "tests/test_phase20_initial_squad.py"
+      - "tests/test_phase21_gameweek_operations.py"
       - "docs/phase19_prospective_evaluation.md"
       - "docs/phase20_initial_squad_readiness.md"
+      - "docs/phase21_gameweek_operations.md"
       - ".github/workflows/build-fpl-model.yml"
       - "data/scouting/**"
       - "data/context/**"
@@ -102,6 +105,9 @@ jobs:
           fi
           if [ -d data/prospective ]; then
             git add data/prospective
+          fi
+          if [ -d data/operations ]; then
+            git add data/operations
           fi
           if git diff --cached --quiet; then
             echo "No model changes to commit"
