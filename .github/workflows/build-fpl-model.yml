@@ -19,6 +19,7 @@ on:
       - "src/fpl_chips.py"
       - "src/fpl_rules.py"
       - "src/fpl_transfers.py"
+      - "src/fpl_prospective.py"
       - "src/evaluate_external_context.py"
       - "src/finalise_external_context.py"
       - ".github/workflows/build-fpl-model.yml"
@@ -48,8 +49,11 @@ on:
       - "src/fpl_chips.py"
       - "src/fpl_rules.py"
       - "src/fpl_transfers.py"
+      - "src/fpl_prospective.py"
       - "src/evaluate_external_context.py"
       - "src/finalise_external_context.py"
+      - "tests/test_phase19_prospective.py"
+      - "docs/phase19_prospective_evaluation.md"
       - ".github/workflows/build-fpl-model.yml"
       - "data/scouting/**"
       - "data/context/**"
@@ -101,6 +105,9 @@ jobs:
           git add data/chatgpt
           if [ -d data/predictions ]; then
             git add data/predictions
+          fi
+          if [ -d data/prospective ]; then
+            git add data/prospective
           fi
           if git diff --cached --quiet; then
             echo "No model changes to commit"

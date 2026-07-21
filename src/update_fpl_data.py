@@ -515,12 +515,10 @@ def build_datasets(
     }
 
     write_json(chatgpt_dir / "current_gameweek.json", current_gameweek)
-    write_json(chatgpt_dir / "gameweeks.json", events)
     write_json(chatgpt_dir / "my_team.json", my_team)
     write_json(
         chatgpt_dir / "manager_history.json",
         {
-            "current": (history or {}).get("current", []),
             "past_seasons": (history or {}).get("past", []),
             "chips": (history or {}).get("chips", []),
         },
@@ -539,7 +537,6 @@ def build_datasets(
 
     files = [
         "current_gameweek.json",
-        "gameweeks.json",
         "fixtures.csv",
         "fpl_summary.json",
         "manager_history.json",
@@ -562,6 +559,9 @@ def build_datasets(
         "prediction_evaluation.json",
         "scouting_observations.csv",
         "qualitative_signal_summary.json",
+        "prospective_index.json",
+        "prospective_evaluation.csv",
+        "prospective_evaluation.json",
     ]
     files.extend(name for name in model_files if (chatgpt_dir / name).exists())
     manifest = {
