@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-21T09:18:19+00:00",
-  "decision_version": "fpl-decisions-1.3",
+  "generated_at": "2026-07-21T09:31:14+00:00",
+  "decision_version": "fpl-decisions-1.4",
   "model_version": "player-ensemble-1.0",
   "status": "waiting_for_future_fixtures",
   "target_gameweek": null,
@@ -335,6 +335,13 @@
     "horizon_gameweeks": [],
     "routes": []
   },
+  "chip_optimisation": {
+    "status": "waiting_for_routes",
+    "horizon_gameweeks": [],
+    "recommendation": null,
+    "schedule": [],
+    "candidates": []
+  },
   "differentials": [],
   "chip_indicators": {
     "chip_state": {
@@ -436,8 +443,10 @@
     "bench_boost_expected_bench_points": 0,
     "triple_captain_expected_extra_points": 0,
     "wildcard_candidate_transfer_count": 0,
-    "advisory_only": true,
-    "reason": "Chip availability is tracked by half-season and transfer value is net of any immediate hit; chip recommendations still require confirmed blank/double gameweeks and a sufficiently strong forecast edge."
+    "advisory_only": false,
+    "optimisation_status": "waiting_for_routes",
+    "current_gameweek_recommendation": null,
+    "reason": "Phase 18 compares each available chip with the no-chip transfer routes, accounts for half-season expiry and enforces one chip per Gameweek."
   },
   "audit": {
     "players_evaluated": 841,
