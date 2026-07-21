@@ -1,0 +1,66 @@
+{
+  "initial_squad_version": "fpl-initial-squad-1.0",
+  "status": "waiting_for_launch_data",
+  "target_season": "2026/27",
+  "budget": 100.0,
+  "readiness": {
+    "ready": false,
+    "checks": {
+      "official_season": {
+        "passed": false,
+        "observed": "2025/26"
+      },
+      "gameweek_1_is_next": {
+        "passed": false,
+        "observed": null
+      },
+      "gameweek_1_deadline": {
+        "passed": false,
+        "observed": null
+      },
+      "twenty_clubs": {
+        "passed": true,
+        "observed": 20
+      },
+      "complete_player_pool": {
+        "passed": true,
+        "observed": 841,
+        "minimum": 300
+      },
+      "unique_player_ids": {
+        "passed": true,
+        "observed": 841
+      },
+      "position_coverage": {
+        "passed": true,
+        "observed": {
+          "Goalkeeper": 97,
+          "Defender": 270,
+          "Midfielder": 379,
+          "Forward": 95
+        }
+      },
+      "future_fixture_horizon": {
+        "passed": false,
+        "observed": [],
+        "minimum_gameweeks": 3
+      },
+      "season_scoring_rules": {
+        "passed": false,
+        "observed": "fpl-2025-26"
+      }
+    },
+    "missing": [
+      "official_season",
+      "gameweek_1_is_next",
+      "gameweek_1_deadline",
+      "future_fixture_horizon",
+      "season_scoring_rules"
+    ]
+  },
+  "recommended_strategy": null,
+  "recommended_squad": [],
+  "strategy_comparison": [],
+  "planned_transfer_route": null,
+  "principle": "No player names are emitted until official launch data passes every readiness check."
+}
