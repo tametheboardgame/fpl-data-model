@@ -6,9 +6,10 @@ from pathlib import Path
 from typing import Any
 
 from src.external_context import number, resolved_context
+from src.fpl_chips import derive_chip_state
 
 
-DECISION_VERSION = "fpl-decisions-1.0"
+DECISION_VERSION = "fpl-decisions-1.1"
 
 
 def integer(value: Any) -> int:
@@ -59,7 +60,9 @@ def decision_projection(
 
     upside_weights = {
         "anytime_goal_probability": 0.50,
+        "team_score_probability": 0.30,
         "clean_sheet_probability": 0.25,
+        "match_win_probability": 0.05,
         "penalty_taker_probability": 0.15,
         "set_piece_share": 0.10,
     }
@@ -70,6 +73,9 @@ def decision_projection(
         strength = number(strengths.get(signal_type))
         upside_score += importance * target * strength
         reasons.append(f"{signal_type.replace('_', ' ')} {target:.0%}")
+    if "team_expected_goals" in values:
+        target = number(values["team_expected_goals"])
+        reasons.append(f"bookmaker-derived team expected goals {target:.2f}")
 
     multiplier = max(0.0, min(1.35, multiplier))
     decision_points = base_points * multiplier
@@ -137,9 +143,13 @@ def build_decision_support(
     context_signals: list[dict[str, Any]],
     source_registry: dict[str, Any],
     generated_at: str | None = None,
+    manager_history: dict[str, Any] | None = None,
+    season: str | None = None,
+    chip_rules: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     generated_at = generated_at or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     next_event = current_gameweek.get("next") or {}
+    chip_state = derive_chip_state(manager_history, season, chip_rules)
     target_gameweek = integer(next_event.get("id")) or None
     by_player = {integer(row.get("player_id")): row for row in players}
     by_horizon = {integer(row.get("player_id")): row for row in horizons}
@@ -307,6 +317,7 @@ def build_decision_support(
         "transfer_shortlist": transfer_candidates[:20],
         "differentials": differentials,
         "chip_indicators": {
+            "chip_state": chip_state,
             "bench_boost_expected_bench_points": round(bench_points, 3),
             "triple_captain_expected_extra_points": round(
                 number(captain.get("decision_expected_points")) if captain else 0, 3
@@ -317,8 +328,8 @@ def build_decision_support(
             ),
             "advisory_only": True,
             "reason": (
-                "Chip recommendations require confirmed blank/double gameweeks and "
-                "the manager's remaining-chip state."
+                "Chip availability is tracked explicitly; recommendations still require "
+                "confirmed blank/double gameweeks and a sufficiently strong forecast edge."
             ),
         },
         "audit": {
