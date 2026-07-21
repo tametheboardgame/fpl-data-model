@@ -63,9 +63,8 @@ def finalise(data_dir: Path) -> dict[str, Any]:
         decision["free_transfer_state"] = transfer_state
         decision.setdefault("chip_indicators", {})["chip_state"] = chip_state
         decision["chip_indicators"]["reason"] = (
-            "Chip availability is tracked by half-season and transfer value is net "
-            "of any immediate hit; chip recommendations still require confirmed "
-            "blank/double gameweeks and a sufficiently strong forecast edge."
+            "Phase 18 compares each available chip with the no-chip transfer routes, "
+            "accounts for half-season expiry and enforces one chip per Gameweek."
         )
         decision_path.write_text(json.dumps(decision, indent=2) + "\n", encoding="utf-8")
 
