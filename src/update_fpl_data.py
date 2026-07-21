@@ -563,6 +563,8 @@ def build_datasets(
         "prospective_evaluation.csv",
         "prospective_evaluation.json",
         "initial_squad_plan.json",
+        "gameweek_report.json",
+        "gameweek_report.md",
     ]
     files.extend(name for name in model_files if (chatgpt_dir / name).exists())
     manifest = {
