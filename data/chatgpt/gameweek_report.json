@@ -1,0 +1,83 @@
+{
+  "operations_version": "fpl-gameweek-operations-1.0",
+  "generated_at": "2026-07-21T11:54:44+00:00",
+  "status": "waiting_for_recommendations",
+  "decision_status": "waiting_for_future_fixtures",
+  "decision_version": "fpl-decisions-1.7",
+  "target_gameweek": null,
+  "deadline": {
+    "deadline_time": null,
+    "deadline_time_uk": null,
+    "hours_remaining": null
+  },
+  "recommendation": {
+    "starting_xi": [],
+    "bench_order": [],
+    "captain": null,
+    "vice_captain": null,
+    "transfers": [],
+    "transfer_action": "unavailable",
+    "hit_cost": 0
+  },
+  "chip_recommendation": {
+    "action": "unavailable",
+    "chip": null,
+    "reason": "Decision support is not ready."
+  },
+  "six_gameweek_plan": {
+    "status": "waiting_for_projections",
+    "horizon_gameweeks": [],
+    "net_gain_vs_hold": null,
+    "gameweek_plan": []
+  },
+  "availability_risks": [],
+  "warnings": [
+    {
+      "code": "provider_plan_blocked",
+      "severity": "low",
+      "message": "API-Football is unavailable under the current plan; recommendations use the remaining sources."
+    }
+  ],
+  "providers": [
+    {
+      "file": "odds_api_status.json",
+      "provider": "The Odds API",
+      "status": "waiting_for_fpl_fixtures",
+      "generated_at": "2026-07-21T08:05:27+00:00",
+      "required_action": null,
+      "error": null
+    },
+    {
+      "file": "provider_status.json",
+      "provider": "API-Football",
+      "status": "plan_blocked",
+      "generated_at": "2026-07-20T14:58:23+00:00",
+      "required_action": "Upgrade API-Football for current-season access or replace the live provider.",
+      "error": "Free plans do not have access to this season, try from 2022 to 2024."
+    }
+  ],
+  "source_freshness": {
+    "official_fpl_generated_at": "2026-07-21T11:54:19+00:00",
+    "external_context_generated_at": "2026-07-21T11:54:44+00:00",
+    "active_external_signals": 0,
+    "expired_external_signals": 0
+  },
+  "fixture_signature": [],
+  "deadline_freeze": {
+    "status": "waiting_for_deadline",
+    "immutable_snapshot": null
+  },
+  "advisory_only": true,
+  "automatic_fpl_actions": false,
+  "material_changes": [
+    {
+      "type": "initial_report",
+      "summary": "Initial operational report created."
+    }
+  ],
+  "material_change": true,
+  "change_summary": "Initial operational report created.",
+  "decision_fingerprint": "5107c6965af724bae195dd6f5285876ecde27a7572557c7c17ea8a3212204779",
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
+}

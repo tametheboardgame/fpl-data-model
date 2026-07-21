@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-21T10:30:20+00:00",
-  "decision_version": "fpl-decisions-1.6",
+  "generated_at": "2026-07-21T11:54:44+00:00",
+  "decision_version": "fpl-decisions-1.7",
   "model_version": "player-ensemble-1.0",
   "status": "waiting_for_future_fixtures",
   "target_gameweek": null,
@@ -524,5 +524,20 @@
     "evaluated_gameweeks": 0,
     "snapshot_created_this_run": null,
     "minimum_gameweeks_for_evidence": 10
+  },
+  "gameweek_operations": {
+    "version": "fpl-gameweek-operations-1.0",
+    "status": "waiting_for_recommendations",
+    "target_gameweek": null,
+    "material_change": true,
+    "change_summary": "Initial operational report created.",
+    "deadline_freeze": {
+      "status": "waiting_for_deadline",
+      "immutable_snapshot": null
+    },
+    "warning_count": 1,
+    "report_json": "data/chatgpt/gameweek_report.json",
+    "report_markdown": "data/chatgpt/gameweek_report.md",
+    "advisory_only": true
   }
 }
