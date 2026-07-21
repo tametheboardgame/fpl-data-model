@@ -95,6 +95,22 @@ class OddsNormalisationTests(unittest.TestCase):
 
     def test_matches_real_fpl_fixture_column_names(self) -> None:
         self.assertEqual(match_events([provider_event()], [fpl_fixture()]), {"market-100": fpl_fixture()})
+        brighton_event = {
+            "id": "market-101",
+            "commence_time": "2026-08-15T15:00:00Z",
+            "home_team": "Brighton and Hove Albion",
+            "away_team": "Aston Villa",
+        }
+        brighton_fixture = {
+            **fpl_fixture(),
+            "fixture_id": "101",
+            "home_team": "Brighton",
+            "away_team": "Aston Villa",
+        }
+        self.assertEqual(
+            match_events([brighton_event], [brighton_fixture]),
+            {"market-101": brighton_fixture},
+        )
 
     def test_creates_auditable_team_signals(self) -> None:
         signals = signals_from_event(provider_event(), fpl_fixture(), self.now)
@@ -173,6 +189,24 @@ class OddsSyncTests(unittest.TestCase):
             status = sync(root, FailIfCalled(), self.now)
             self.assertEqual(status["status"], "waiting_for_fpl_fixtures")
             self.assertEqual(status["request_cost"], 0)
+
+    def test_no_request_check_preserves_last_known_quota(self) -> None:
+        class FailIfCalled:
+            def odds(self):
+                raise AssertionError("Provider should not be called")
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self._write_data(root, self.now - timedelta(days=1))
+            (root / "context/odds_api_status.json").write_text(json.dumps({
+                "generated_at": "2026-08-13T12:00:00+00:00",
+                "request_count": 1,
+                "requests_used": 4,
+                "requests_remaining": 496,
+            }), encoding="utf-8")
+            status = sync(root, FailIfCalled(), self.now)
+            self.assertEqual(status["requests_remaining"], 496)
+            self.assertEqual(status["last_provider_check_at"], "2026-08-13T12:00:00+00:00")
 
     def test_scores_team_markets_only_when_observed_pre_kickoff(self) -> None:
         before = signals_from_event(provider_event(), fpl_fixture(), self.now)[0]
