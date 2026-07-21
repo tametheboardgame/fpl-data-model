@@ -6,12 +6,13 @@ from pathlib import Path
 from typing import Any
 
 from src.external_context import number, resolved_context
+from src.fpl_chip_optimizer import optimise_chip_plan
 from src.fpl_chips import derive_chip_state
 from src.fpl_multiweek import optimise_multi_gameweek_route
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-1.3"
+DECISION_VERSION = "fpl-decisions-1.4"
 
 
 def integer(value: Any) -> int:
@@ -343,6 +344,15 @@ def build_decision_support(
             "horizon_gameweeks": [],
             "routes": [],
         }
+    chip_optimisation = optimise_chip_plan(
+        fixture_projections or [],
+        players,
+        squad or [],
+        bank,
+        chip_state,
+        multi_gameweek_plan,
+        target_gameweek,
+    )
     return {
         "generated_at": generated_at,
         "decision_version": DECISION_VERSION,
@@ -366,6 +376,7 @@ def build_decision_support(
         },
         "transfer_shortlist": transfer_candidates[:20],
         "multi_gameweek_plan": multi_gameweek_plan,
+        "chip_optimisation": chip_optimisation,
         "differentials": differentials,
         "chip_indicators": {
             "chip_state": chip_state,
@@ -377,11 +388,12 @@ def build_decision_support(
                 number(row.get("net_three_gameweek_gain")) >= 1.5
                 for row in transfer_candidates[:20]
             ),
-            "advisory_only": True,
+            "advisory_only": False,
+            "optimisation_status": chip_optimisation.get("status"),
+            "current_gameweek_recommendation": chip_optimisation.get("recommendation"),
             "reason": (
-                "Chip availability is tracked by half-season. Transfer gains are net of "
-                "any immediate four-point hit; chip recommendations still require confirmed "
-                "blank/double gameweeks and a sufficiently strong forecast edge."
+                "Phase 18 compares each available chip with the no-chip transfer routes, "
+                "accounts for half-season expiry and enforces one chip per Gameweek."
             ),
         },
         "audit": {
