@@ -1,7 +1,7 @@
 # FPL Gameweek - Deadline Report
 
 Status: waiting_for_recommendations
-Generated: 2026-07-21T11:54:44+00:00
+Generated: 2026-07-21T11:58:28+00:00
 UK deadline: Not available
 Hours remaining: Not available
 
@@ -11,7 +11,7 @@ No squad action is recommended because future fixtures and projections are not y
 
 ## Changes since previous report
 
-- Initial operational report created.
+- No material changes
 
 ## Warnings
 
