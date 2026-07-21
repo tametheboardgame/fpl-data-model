@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-21T09:31:14+00:00",
-  "decision_version": "fpl-decisions-1.4",
+  "generated_at": "2026-07-21T10:06:45+00:00",
+  "decision_version": "fpl-decisions-1.5",
   "model_version": "player-ensemble-1.0",
   "status": "waiting_for_future_fixtures",
   "target_gameweek": null,
@@ -452,5 +452,11 @@
     "players_evaluated": 841,
     "context_adjusted_players": 0,
     "unmodified_model_forecast_retained": true
+  },
+  "prospective_evaluation": {
+    "status": "waiting_for_finalised_gameweeks",
+    "evaluated_gameweeks": 0,
+    "snapshot_created_this_run": null,
+    "minimum_gameweeks_for_evidence": 10
   }
 }
