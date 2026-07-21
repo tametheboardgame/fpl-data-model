@@ -100,6 +100,10 @@ Phase 14 adds a provider-independent external-context journal, explicit source r
 
 Phase 15 adds an API-Football adapter for injuries and confirmed line-ups, a quota-bounded two-hourly sync, newest-snapshot resolution, leakage-safe prospective scoring and explicit season-aware chip state. See [`docs/phase15_automation.md`](docs/phase15_automation.md).
 
+Phase 16 makes scoring, Bonus Points System transition assumptions, half-season chips, free-transfer balances, transfer hits and score finality season-aware. See [`docs/2026_27_rules_compatibility.md`](docs/2026_27_rules_compatibility.md).
+
+Phase 17 adds a six-Gameweek beam-search optimiser for legal squad and transfer routes. It carries bank, selling prices, free transfers, hits, club limits, formations and captaincy between Gameweeks, and compares each route with holding the current squad. See [`docs/multi_gameweek_optimisation.md`](docs/multi_gameweek_optimisation.md).
+
 `.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Expected-points and probability calibration are fitted on 2022/23–2023/24 and assessed once on the held-out 2024/25 season.
 
 ## Local use
@@ -135,5 +139,5 @@ python -m src.backtest_fpl_model --data-dir data
 - Parquet historical archive and DuckDB analytical views
 - Bookmaker-market normalisation and a second independent team-news source
 - Prospective promotion gates for external-context features after sufficient samples exist
-- Blank/double-gameweek chip optimisation
+- Blank/double-gameweek chip optimisation across Phase 17 transfer routes
 - Mini-league and rival analysis
