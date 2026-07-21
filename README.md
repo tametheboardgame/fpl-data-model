@@ -52,7 +52,7 @@ The files under `data/chatgpt/` are the conversational interface to the model:
 - `external_context_summary.json`: freshness, reliability and active-signal summary
 - `external_context_accuracy.csv`: leakage-safe Brier scores and minutes errors for pre-kickoff context signals
 - `external_context_evaluation.json`: compact prospective context-evaluation summary by source and signal type
-- `fpl_decisions.json`: recommended line-up, captaincy, transfers, differentials and chip indicators
+- `fpl_decisions.json`: recommended line-up, captaincy, multi-Gameweek transfer routes, differentials and opportunity-costed chip schedule
 
 Historical files under `data/history/` include one compact player market snapshot per day, a separate snapshot within eight hours of each deadline, prior-season records for players in the current FPL database, a normalised multi-season player-gameweek archive and historical position priors.
 
@@ -104,6 +104,8 @@ Phase 16 makes scoring, Bonus Points System transition assumptions, half-season 
 
 Phase 17 adds a six-Gameweek beam-search optimiser for legal squad and transfer routes. It carries bank, selling prices, free transfers, hits, club limits, formations and captaincy between Gameweeks, and compares each route with holding the current squad. See [`docs/multi_gameweek_optimisation.md`](docs/multi_gameweek_optimisation.md).
 
+Phase 18 adds budget-legal Blank and Double Gameweek optimisation for Wildcard, Free Hit, Bench Boost and Triple Captain. It compares every use with no-chip transfer routes, accounts for half-season expiry and saving opportunity cost, and enforces one chip per Gameweek. See [`docs/phase18_chip_optimisation.md`](docs/phase18_chip_optimisation.md).
+
 `.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Expected-points and probability calibration are fitted on 2022/23–2023/24 and assessed once on the held-out 2024/25 season.
 
 ## Local use
@@ -139,5 +141,4 @@ python -m src.backtest_fpl_model --data-dir data
 - Parquet historical archive and DuckDB analytical views
 - Bookmaker-market normalisation and a second independent team-news source
 - Prospective promotion gates for external-context features after sufficient samples exist
-- Blank/double-gameweek chip optimisation across Phase 17 transfer routes
 - Mini-league and rival analysis
