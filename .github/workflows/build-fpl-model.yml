@@ -2,28 +2,17 @@ name: Build FPL prediction model
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - "Update FPL data"
+    types:
+      - completed
   schedule:
     - cron: "50 */6 * * *"
   push:
     branches:
       - main
     paths:
-      - "src/build_fpl_model.py"
-      - "src/player_return_simulator.py"
-      - "src/component_player_simulator.py"
-      - "src/scouting_observations.py"
-      - "src/external_context.py"
-      - "src/fpl_decisions.py"
-      - "src/fpl_initial_squad.py"
-      - "src/fpl_multiweek.py"
-      - "src/fpl_chip_optimizer.py"
-      - "src/fpl_chips.py"
-      - "src/fpl_rules.py"
-      - "src/fpl_transfers.py"
-      - "src/fpl_prospective.py"
-      - "src/evaluate_external_context.py"
-      - "src/finalise_external_context.py"
-      - ".github/workflows/build-fpl-model.yml"
       - "data/scouting/**"
       - "data/context/**"
       - "data/chatgpt/players.csv"
@@ -79,6 +68,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'pull_request')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
