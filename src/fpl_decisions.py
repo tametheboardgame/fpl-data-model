@@ -7,9 +7,10 @@ from typing import Any
 
 from src.external_context import number, resolved_context
 from src.fpl_chips import derive_chip_state
+from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-1.1"
+DECISION_VERSION = "fpl-decisions-1.2"
 
 
 def integer(value: Any) -> int:
@@ -149,8 +150,14 @@ def build_decision_support(
 ) -> dict[str, Any]:
     generated_at = generated_at or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     next_event = current_gameweek.get("next") or {}
-    chip_state = derive_chip_state(manager_history, season, chip_rules)
     target_gameweek = integer(next_event.get("id")) or None
+    season_rules = (chip_rules or {}).get("seasons", {}).get(str(season), {})
+    chip_state = derive_chip_state(
+        manager_history, season, chip_rules, target_gameweek=target_gameweek
+    )
+    transfer_state = derive_free_transfer_state(
+        manager_history, target_gameweek, season_rules
+    )
     by_player = {integer(row.get("player_id")): row for row in players}
     by_horizon = {integer(row.get("player_id")): row for row in horizons}
     fixture = {"gameweek": target_gameweek or 0}
@@ -241,6 +248,14 @@ def build_decision_support(
             )
             if gain <= 0:
                 continue
+            hit_cost = transfer_hit_cost(
+                1,
+                transfer_state.get("available"),
+                integer(transfer_state.get("hit_cost")) or 4,
+            )
+            net_gain = gain - hit_cost if hit_cost is not None else gain
+            if net_gain <= 0:
+                continue
             transfer_candidates.append(
                 {
                     "sell": {
@@ -257,12 +272,15 @@ def build_decision_support(
                         "expected_points_next_3": incoming.get("expected_points_next_3"),
                     },
                     "three_gameweek_gain": round(gain, 3),
+                    "transfer_hit_cost": hit_cost,
+                    "net_three_gameweek_gain": round(net_gain, 3),
+                    "free_transfers_before": transfer_state.get("available"),
                     "money_remaining": round(budget - number(incoming.get("price")), 1),
                     "context_signal_ids": incoming.get("context_signal_ids", []),
                 }
             )
     transfer_candidates.sort(
-        key=lambda row: number(row.get("three_gameweek_gain")), reverse=True
+        key=lambda row: number(row.get("net_three_gameweek_gain")), reverse=True
     )
 
     differentials = sorted(
@@ -303,6 +321,7 @@ def build_decision_support(
         "team_id": my_team.get("team_id"),
         "squad_available": bool(squad),
         "bank": round(bank, 1),
+        "free_transfer_state": transfer_state,
         "recommended_lineup": starters,
         "bench_order": bench,
         "captaincy": {
@@ -323,13 +342,14 @@ def build_decision_support(
                 number(captain.get("decision_expected_points")) if captain else 0, 3
             ),
             "wildcard_candidate_transfer_count": sum(
-                number(row.get("three_gameweek_gain")) >= 1.5
+                number(row.get("net_three_gameweek_gain")) >= 1.5
                 for row in transfer_candidates[:20]
             ),
             "advisory_only": True,
             "reason": (
-                "Chip availability is tracked explicitly; recommendations still require "
-                "confirmed blank/double gameweeks and a sufficiently strong forecast edge."
+                "Chip availability is tracked by half-season. Transfer gains are net of "
+                "any immediate four-point hit; chip recommendations still require confirmed "
+                "blank/double gameweeks and a sufficiently strong forecast edge."
             ),
         },
         "audit": {

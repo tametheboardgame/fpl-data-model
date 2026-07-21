@@ -1,0 +1,49 @@
+{
+  "schema_version": "fpl-scoring-rules-1.0",
+  "seasons": {
+    "2022/23": {
+      "version": "fpl-2022-23",
+      "defensive_contributions": {"enabled": false},
+      "bonus_transition": {"enabled": false}
+    },
+    "2023/24": {
+      "version": "fpl-2023-24",
+      "defensive_contributions": {"enabled": false},
+      "bonus_transition": {"enabled": false}
+    },
+    "2024/25": {
+      "version": "fpl-2024-25",
+      "defensive_contributions": {"enabled": false},
+      "bonus_transition": {"enabled": false}
+    },
+    "2025/26": {
+      "version": "fpl-2025-26",
+      "defensive_contributions": {
+        "enabled": true,
+        "thresholds": {"GK": 0, "DEF": 10, "MID": 12, "FWD": 12},
+        "points": 2
+      },
+      "bonus_transition": {"enabled": false}
+    },
+    "2026/27": {
+      "version": "fpl-2026-27",
+      "defensive_contributions": {
+        "enabled": true,
+        "thresholds": {"GK": 0, "DEF": 10, "MID": 12, "FWD": 12},
+        "points": 2
+      },
+      "bonus_transition": {
+        "enabled": true,
+        "fade_after_player_fixtures": 8,
+        "position_multipliers": {"GK": 1.08, "DEF": 1.0, "MID": 1.05, "FWD": 1.04},
+        "basis": [
+          "No BPS penalty for being tackled",
+          "One BPS per three clearances, blocks and interceptions instead of per two",
+          "Two BPS for any goalkeeper save, one extra for an inside-box save and one extra for a big-chance save",
+          "Seven BPS for a penalty save before the separate big-chance-save point"
+        ],
+        "principle": "A bounded position-level prior is used only while 2026/27 observations are sparse; it fades to the player's observed bonus rate."
+      }
+    }
+  }
+}

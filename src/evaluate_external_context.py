@@ -61,6 +61,7 @@ def evaluate_external_signals(
     signals: list[dict[str, Any]],
     player_fixtures: list[dict[str, Any]],
     fixtures: list[dict[str, Any]],
+    gameweeks: list[dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     actual = {
         (integer(row.get("player_id")), integer(row.get("fixture"))): row
@@ -77,12 +78,30 @@ def evaluate_external_signals(
         for row in fixtures
         if integer(row.get("fixture_id"))
     }
+    gameweek_by_fixture = {
+        integer(row.get("fixture_id")): integer(row.get("gameweek"))
+        for row in fixtures
+        if integer(row.get("fixture_id"))
+    }
+    finality = {
+        integer(row.get("id")): (
+            str(row.get("finished")).strip().lower() in {"true", "1", "yes"}
+            and str(row.get("data_checked")).strip().lower() in {"true", "1", "yes"}
+        )
+        for row in (gameweeks or [])
+        if integer(row.get("id"))
+    }
     evaluated: list[dict[str, Any]] = []
     skipped_after_kickoff = 0
+    skipped_unfinalised = 0
     for signal in signals:
         player_id = integer(signal.get("player_id"))
         team_id = integer(signal.get("team_id"))
         fixture_id = integer(signal.get("fixture_id"))
+        gameweek = gameweek_by_fixture.get(fixture_id)
+        if gameweeks is not None and not finality.get(gameweek, False):
+            skipped_unfinalised += 1
+            continue
         row = actual.get((player_id, fixture_id))
         observed = parse_time(signal.get("observed_at"))
         kickoff = kickoff_by_fixture.get(fixture_id)
@@ -137,8 +156,12 @@ def evaluate_external_signals(
         "evaluation_version": EVALUATION_VERSION,
         "evaluated_signals": len(evaluated),
         "skipped_at_or_after_kickoff": skipped_after_kickoff,
+        "skipped_unfinalised": skipped_unfinalised,
         "by_source_and_type": by_source_and_type,
-        "principle": "Only signals timestamped before the fixture kickoff are scored.",
+        "principle": (
+            "Only signals timestamped before kickoff are scored, and production "
+            "evaluation waits for finished=true and data_checked=true."
+        ),
     }
     return evaluated, summary
 

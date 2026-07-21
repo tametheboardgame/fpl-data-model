@@ -50,8 +50,10 @@ def simulate_player_fixture(
     *,
     simulations: int = DEFAULT_SIMULATIONS,
     seed_parts: tuple[Any, ...] = (),
+    scoring_rules_version: str | None = None,
 ) -> dict[str, Any]:
-    rng = random.Random(stable_seed(SCORING_RULES_VERSION, *seed_parts))
+    rules_version = scoring_rules_version or SCORING_RULES_VERSION
+    rng = random.Random(stable_seed(rules_version, *seed_parts))
     position = str(inputs.get("position") or "MID")
     appearance_probability = clamp(float(inputs.get("appearance_probability") or 0), 0, 1)
     start_probability = clamp(
@@ -139,7 +141,7 @@ def simulate_player_fixture(
 
     count = len(points_samples)
     return {
-        "scoring_rules_version": SCORING_RULES_VERSION,
+        "scoring_rules_version": rules_version,
         "simulation_count": count,
         "expected_points": sum(points_samples) / count,
         "points_p10": percentile(points_samples, 0.10),

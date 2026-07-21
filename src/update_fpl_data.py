@@ -515,10 +515,12 @@ def build_datasets(
     }
 
     write_json(chatgpt_dir / "current_gameweek.json", current_gameweek)
+    write_json(chatgpt_dir / "gameweeks.json", events)
     write_json(chatgpt_dir / "my_team.json", my_team)
     write_json(
         chatgpt_dir / "manager_history.json",
         {
+            "current": (history or {}).get("current", []),
             "past_seasons": (history or {}).get("past", []),
             "chips": (history or {}).get("chips", []),
         },
@@ -537,6 +539,7 @@ def build_datasets(
 
     files = [
         "current_gameweek.json",
+        "gameweeks.json",
         "fixtures.csv",
         "fpl_summary.json",
         "manager_history.json",

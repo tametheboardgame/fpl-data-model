@@ -1,11 +1,51 @@
 {
+  "schema_version": "fpl-chip-rules-2.0",
   "seasons": {
     "2025/26": {
-      "allowances": {
-        "wildcard": 2,
-        "freehit": 2,
-        "bboost": 2,
-        "3xc": 2
+      "allowances": {"wildcard": 2, "freehit": 2, "bboost": 2, "3xc": 2},
+      "periods": [
+        {
+          "id": "first_half",
+          "start_gameweek": 1,
+          "end_gameweek": 19,
+          "allowances": {"wildcard": 1, "freehit": 1, "bboost": 1, "3xc": 1}
+        },
+        {
+          "id": "second_half",
+          "start_gameweek": 20,
+          "end_gameweek": 38,
+          "allowances": {"wildcard": 1, "freehit": 1, "bboost": 1, "3xc": 1}
+        }
+      ],
+      "transfer_rules": {
+        "maximum_free_transfers": 5,
+        "hit_cost": 4,
+        "free_transfer_top_ups": {"16": 5},
+        "transfer_chips_preserve_bank": true
+      }
+    },
+    "2026/27": {
+      "allowances": {"wildcard": 2, "freehit": 2, "bboost": 2, "3xc": 2},
+      "periods": [
+        {
+          "id": "first_half",
+          "start_gameweek": 1,
+          "end_gameweek": 19,
+          "expires_at_deadline": "2027-01-02T13:30:00Z",
+          "allowances": {"wildcard": 1, "freehit": 1, "bboost": 1, "3xc": 1}
+        },
+        {
+          "id": "second_half",
+          "start_gameweek": 20,
+          "end_gameweek": 38,
+          "allowances": {"wildcard": 1, "freehit": 1, "bboost": 1, "3xc": 1}
+        }
+      ],
+      "transfer_rules": {
+        "maximum_free_transfers": 5,
+        "hit_cost": 4,
+        "free_transfer_top_ups": {},
+        "transfer_chips_preserve_bank": true
       }
     }
   }
