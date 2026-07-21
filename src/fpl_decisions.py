@@ -8,11 +8,12 @@ from typing import Any
 from src.external_context import number, resolved_context
 from src.fpl_chip_optimizer import optimise_chip_plan
 from src.fpl_chips import derive_chip_state
+from src.fpl_initial_squad import build_initial_squad_plan
 from src.fpl_multiweek import optimise_multi_gameweek_route
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-1.5"
+DECISION_VERSION = "fpl-decisions-1.6"
 
 
 def integer(value: Any) -> int:
@@ -150,6 +151,7 @@ def build_decision_support(
     season: str | None = None,
     chip_rules: dict[str, Any] | None = None,
     fixture_projections: list[dict[str, Any]] | None = None,
+    scoring_rules_version: str | None = None,
 ) -> dict[str, Any]:
     generated_at = generated_at or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     next_event = current_gameweek.get("next") or {}
@@ -353,6 +355,19 @@ def build_decision_support(
         multi_gameweek_plan,
         target_gameweek,
     )
+    first_gameweek_multiplier = {
+        integer(row.get("player_id")): number(row.get("context_multiplier")) or 1.0
+        for row in evaluated
+    }
+    initial_squad_plan = build_initial_squad_plan(
+        players,
+        horizons,
+        fixture_projections or [],
+        current_gameweek,
+        season,
+        scoring_rules_version,
+        first_gameweek_multiplier=first_gameweek_multiplier,
+    )
     return {
         "generated_at": generated_at,
         "decision_version": DECISION_VERSION,
@@ -377,6 +392,7 @@ def build_decision_support(
         "transfer_shortlist": transfer_candidates[:20],
         "multi_gameweek_plan": multi_gameweek_plan,
         "chip_optimisation": chip_optimisation,
+        "initial_squad_plan": initial_squad_plan,
         "differentials": differentials,
         "chip_indicators": {
             "chip_state": chip_state,
