@@ -1,7 +1,7 @@
 # FPL Gameweek - Deadline Report
 
 Status: waiting_for_recommendations
-Generated: 2026-07-21T14:50:22+00:00
+Generated: 2026-07-21T19:53:18+00:00
 UK deadline: Not available
 Hours remaining: Not available
 
