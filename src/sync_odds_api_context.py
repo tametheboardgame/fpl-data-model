@@ -19,6 +19,11 @@ BASE_URL = "https://api.the-odds-api.com/v4"
 SPORT_KEY = "soccer_epl"
 DEFAULT_TOTAL_GOALS = 2.85
 TEAM_ALIASES = {
+    "brighton and hove albion": "brighton",
+    "coventry city": "coventry",
+    "hull city": "hull",
+    "ipswich town": "ipswich",
+    "leeds united": "leeds",
     "manchester city": "man city",
     "manchester united": "man utd",
     "newcastle united": "newcastle",
@@ -372,12 +377,26 @@ def sync(
     ]
     status_path = data_dir / "context" / "odds_api_status.json"
     if not future_fixtures and not force_provider_check:
+        previous = {}
+        if status_path.is_file():
+            try:
+                previous = json.loads(status_path.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                previous = {}
         status = {
             "provider": "The Odds API",
             "status": "waiting_for_fpl_fixtures",
             "generated_at": now.replace(microsecond=0).isoformat(),
             "request_count": 0,
             "request_cost": 0,
+            "requests_used": previous.get("requests_used"),
+            "requests_remaining": previous.get("requests_remaining"),
+            "last_provider_check_at": previous.get("last_provider_check_at")
+            or (
+                previous.get("generated_at")
+                if previous.get("request_count")
+                else None
+            ),
             "signals_appended": 0,
             "reason": "No future FPL fixtures are available, so quota was not used.",
         }
@@ -408,6 +427,7 @@ def sync(
         "provider": "The Odds API",
         "status": status_name,
         "generated_at": now.replace(microsecond=0).isoformat(),
+        "last_provider_check_at": now.replace(microsecond=0).isoformat(),
         "sport_key": SPORT_KEY,
         "regions": ["uk"],
         "markets": ["h2h", "totals"],
