@@ -63,6 +63,14 @@ jobs:
       - name: Validate external context
         if: always()
         run: python -m src.external_context validate --signals data/context/signals.jsonl --sources data/context/sources.json
+      - name: Rebuild decisions when new signals arrive
+        run: |
+          if git diff --quiet -- data/context/signals.jsonl; then
+            echo "No new context signals; model rebuild not required"
+          else
+            python -m src.build_fpl_model --data-dir data
+            python -m src.finalise_external_context --data-dir data
+          fi
       - name: Commit new context observations
         if: always()
         run: |
@@ -74,6 +82,12 @@ jobs:
           fi
           if [ -d data/raw/external/odds-api/latest ]; then
             git add data/raw/external/odds-api/latest
+          fi
+          if ! git diff --cached --quiet -- data/context/signals.jsonl; then
+            git add data/chatgpt
+            if [ -d data/predictions ]; then
+              git add data/predictions
+            fi
           fi
           if git diff --cached --quiet; then
             echo "No external-context changes to commit"
