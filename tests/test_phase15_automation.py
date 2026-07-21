@@ -164,7 +164,7 @@ class ChipStateTests(unittest.TestCase):
             result = finalise(data)
             decision = json.loads((data / "chatgpt/fpl_decisions.json").read_text())
             self.assertEqual(result["chip_state"]["chips"]["3xc"]["remaining"], 1)
-            self.assertEqual(decision["decision_version"], "fpl-decisions-1.1")
+            self.assertEqual(decision["decision_version"], "fpl-decisions-1.2")
             self.assertTrue((data / "chatgpt/external_context_evaluation.json").is_file())
 
 
