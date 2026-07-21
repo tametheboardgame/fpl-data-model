@@ -9,6 +9,7 @@ from pathlib import Path
 
 from src.evaluate_external_context import evaluate_external_signals
 from src.fpl_chips import derive_chip_state
+from src.fpl_decisions import DECISION_VERSION
 from src.finalise_external_context import finalise
 from src.sync_api_football_context import (
     injury_availability,
@@ -164,7 +165,7 @@ class ChipStateTests(unittest.TestCase):
             result = finalise(data)
             decision = json.loads((data / "chatgpt/fpl_decisions.json").read_text())
             self.assertEqual(result["chip_state"]["chips"]["3xc"]["remaining"], 1)
-            self.assertEqual(decision["decision_version"], "fpl-decisions-1.2")
+            self.assertEqual(decision["decision_version"], DECISION_VERSION)
             self.assertTrue((data / "chatgpt/external_context_evaluation.json").is_file())
 
 

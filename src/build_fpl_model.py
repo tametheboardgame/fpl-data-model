@@ -1361,6 +1361,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         manager_history=manager_history,
         season=season,
         chip_rules=chip_rules,
+        fixture_projections=projections,
     )
     write_decision_support(chatgpt_dir / "fpl_decisions.json", decision_support)
     prediction_index = write_prediction_snapshot(data_dir, current_gameweek, horizons, generated_at)

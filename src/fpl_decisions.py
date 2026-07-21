@@ -7,10 +7,11 @@ from typing import Any
 
 from src.external_context import number, resolved_context
 from src.fpl_chips import derive_chip_state
+from src.fpl_multiweek import optimise_multi_gameweek_route
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-1.2"
+DECISION_VERSION = "fpl-decisions-1.3"
 
 
 def integer(value: Any) -> int:
@@ -147,6 +148,7 @@ def build_decision_support(
     manager_history: dict[str, Any] | None = None,
     season: str | None = None,
     chip_rules: dict[str, Any] | None = None,
+    fixture_projections: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     generated_at = generated_at or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     next_event = current_gameweek.get("next") or {}
@@ -301,6 +303,30 @@ def build_decision_support(
 
     bench_points = sum(number(row.get("decision_expected_points")) for row in bench)
     captain = captain_pool[0] if captain_pool else None
+    multi_gameweek_plan = optimise_multi_gameweek_route(
+        fixture_projections or [],
+        [
+            {
+                **player,
+                **{
+                    key: value
+                    for key, value in (by_horizon.get(integer(player.get("player_id"))) or {}).items()
+                    if key in {"web_name", "team_id", "team_name", "position", "price"}
+                },
+            }
+            for player in players
+        ],
+        squad or [],
+        bank,
+        transfer_state.get("available"),
+        integer(transfer_state.get("maximum")) or 5,
+        integer(transfer_state.get("hit_cost")) or 4,
+        target_gameweek,
+        first_gameweek_multiplier={
+            integer(row.get("player_id")): number(row.get("context_multiplier")) or 1.0
+            for row in evaluated
+        },
+    )
     status = "ready" if target_gameweek and any(
         number(row.get("decision_expected_points")) > 0 for row in evaluated
     ) else "waiting_for_future_fixtures"
@@ -312,6 +338,11 @@ def build_decision_support(
         transfer_candidates = []
         differentials = []
         bench_points = 0
+        multi_gameweek_plan = {
+            "status": "waiting_for_projections",
+            "horizon_gameweeks": [],
+            "routes": [],
+        }
     return {
         "generated_at": generated_at,
         "decision_version": DECISION_VERSION,
@@ -334,6 +365,7 @@ def build_decision_support(
             ),
         },
         "transfer_shortlist": transfer_candidates[:20],
+        "multi_gameweek_plan": multi_gameweek_plan,
         "differentials": differentials,
         "chip_indicators": {
             "chip_state": chip_state,
