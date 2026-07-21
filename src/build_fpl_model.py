@@ -29,6 +29,7 @@ from src.external_context import (
     write_signal_csv,
 )
 from src.fpl_decisions import build_decision_support, write_decision_support
+from src.fpl_prospective import update_prospective_evaluation
 from src.fpl_rules import apply_bonus_transition, load_scoring_rules
 from src.update_fpl_data import utc_now, write_csv, write_json
 
@@ -57,6 +58,9 @@ MODEL_DATASETS = [
     "external_context_signals.csv",
     "external_context_summary.json",
     "fpl_decisions.json",
+    "prospective_index.json",
+    "prospective_evaluation.csv",
+    "prospective_evaluation.json",
 ]
 PROJECTION_FIELDS = [
     "model_version",
@@ -1366,6 +1370,26 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     write_decision_support(chatgpt_dir / "fpl_decisions.json", decision_support)
     prediction_index = write_prediction_snapshot(data_dir, current_gameweek, horizons, generated_at)
     evaluation = evaluate_predictions(data_dir)
+    prospective = update_prospective_evaluation(
+        data_dir,
+        decision_support,
+        horizons,
+        players,
+        my_team,
+        current_gameweek,
+        context_signals,
+        source_registry,
+        generated_at,
+    )
+    decision_support["prospective_evaluation"] = {
+        "status": prospective["evaluation"].get("status"),
+        "evaluated_gameweeks": prospective["evaluation"].get("evaluated_gameweeks"),
+        "snapshot_created_this_run": prospective["index"].get("snapshot_created_this_run"),
+        "minimum_gameweeks_for_evidence": prospective["evaluation"].get(
+            "minimum_gameweeks_for_evidence"
+        ),
+    }
+    write_decision_support(chatgpt_dir / "fpl_decisions.json", decision_support)
     qualitative_projection_rows = sum(
         integer(row.get("qualitative_observation_count")) > 0 for row in projections
     )
@@ -1424,6 +1448,12 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         ),
         "prediction_snapshot_created": prediction_index.get("snapshot_created_this_run"),
         "evaluated_gameweeks": evaluation.get("evaluated_gameweeks"),
+        "prospective_evaluated_gameweeks": prospective["evaluation"].get(
+            "evaluated_gameweeks"
+        ),
+        "prospective_snapshot_created": prospective["index"].get(
+            "snapshot_created_this_run"
+        ),
         "limitations": [
             "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
             "The control and component models remain available beside every ensemble recommendation for audit.",
