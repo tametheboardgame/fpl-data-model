@@ -29,6 +29,7 @@ from src.external_context import (
     write_signal_csv,
 )
 from src.fpl_decisions import build_decision_support, write_decision_support
+from src.fpl_gameweek_operations import update_gameweek_operations
 from src.fpl_prospective import update_prospective_evaluation
 from src.fpl_rules import apply_bonus_transition, load_scoring_rules
 from src.update_fpl_data import utc_now, write_csv, write_json
@@ -62,6 +63,7 @@ MODEL_DATASETS = [
     "prospective_index.json",
     "prospective_evaluation.csv",
     "prospective_evaluation.json",
+    "gameweek_report.json",
 ]
 PROJECTION_FIELDS = [
     "model_version",
@@ -1395,6 +1397,30 @@ def build_model(data_dir: Path) -> dict[str, Any]:
             "minimum_gameweeks_for_evidence"
         ),
     }
+    operations = update_gameweek_operations(
+        data_dir,
+        decision_support,
+        horizons,
+        players,
+        my_team,
+        current_gameweek,
+        projections,
+        external_summary,
+        prospective,
+        generated_at,
+    )
+    decision_support["gameweek_operations"] = {
+        "version": operations.get("operations_version"),
+        "status": operations.get("status"),
+        "target_gameweek": operations.get("target_gameweek"),
+        "material_change": operations.get("material_change"),
+        "change_summary": operations.get("change_summary"),
+        "deadline_freeze": operations.get("deadline_freeze"),
+        "warning_count": len(operations.get("warnings", [])),
+        "report_json": "data/chatgpt/gameweek_report.json",
+        "report_markdown": "data/chatgpt/gameweek_report.md",
+        "advisory_only": True,
+    }
     write_decision_support(chatgpt_dir / "fpl_decisions.json", decision_support)
     qualitative_projection_rows = sum(
         integer(row.get("qualitative_observation_count")) > 0 for row in projections
@@ -1461,6 +1487,9 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "prospective_snapshot_created": prospective["index"].get(
             "snapshot_created_this_run"
         ),
+        "gameweek_operations_status": operations.get("status"),
+        "gameweek_report_material_change": operations.get("material_change"),
+        "gameweek_report_warning_count": len(operations.get("warnings", [])),
         "limitations": [
             "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
             "The control and component models remain available beside every ensemble recommendation for audit.",
