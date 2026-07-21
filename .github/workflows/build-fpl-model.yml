@@ -10,10 +10,13 @@ on:
     paths:
       - "src/build_fpl_model.py"
       - "src/player_return_simulator.py"
+      - "src/component_player_simulator.py"
       - "src/scouting_observations.py"
       - "src/external_context.py"
       - "src/fpl_decisions.py"
       - "src/fpl_chips.py"
+      - "src/fpl_rules.py"
+      - "src/fpl_transfers.py"
       - "src/evaluate_external_context.py"
       - "src/finalise_external_context.py"
       - ".github/workflows/build-fpl-model.yml"
@@ -22,11 +25,39 @@ on:
       - "data/chatgpt/players.csv"
       - "data/chatgpt/fixtures.csv"
       - "data/chatgpt/player_fixtures.csv"
+      - "data/chatgpt/gameweeks.json"
+      - "data/chatgpt/manager_history.json"
       - "data/history/current_player_past_seasons.csv"
       - "data/history/position_priors.csv"
       - "data/model/ensemble_model_candidate.json"
       - "data/model/component_model_candidate.json"
-
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/build_fpl_model.py"
+      - "src/player_return_simulator.py"
+      - "src/component_player_simulator.py"
+      - "src/scouting_observations.py"
+      - "src/external_context.py"
+      - "src/fpl_decisions.py"
+      - "src/fpl_chips.py"
+      - "src/fpl_rules.py"
+      - "src/fpl_transfers.py"
+      - "src/evaluate_external_context.py"
+      - "src/finalise_external_context.py"
+      - ".github/workflows/build-fpl-model.yml"
+      - "data/scouting/**"
+      - "data/context/**"
+      - "data/chatgpt/players.csv"
+      - "data/chatgpt/fixtures.csv"
+      - "data/chatgpt/player_fixtures.csv"
+      - "data/chatgpt/gameweeks.json"
+      - "data/chatgpt/manager_history.json"
+      - "data/history/current_player_past_seasons.csv"
+      - "data/history/position_priors.csv"
+      - "data/model/ensemble_model_candidate.json"
+      - "data/model/component_model_candidate.json"
 permissions:
   contents: write
 
@@ -59,6 +90,7 @@ jobs:
       - name: Score context and attach chip state
         run: python -m src.finalise_external_context --data-dir data
       - name: Commit model outputs
+        if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
