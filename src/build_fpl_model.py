@@ -29,6 +29,7 @@ from src.external_context import (
     write_signal_csv,
 )
 from src.fpl_decisions import build_decision_support, write_decision_support
+from src.fpl_rules import apply_bonus_transition, load_scoring_rules
 from src.update_fpl_data import utc_now, write_csv, write_json
 
 
@@ -67,6 +68,7 @@ PROJECTION_FIELDS = [
     "ensemble_probability_10_plus_weight",
     "ensemble_probability_15_plus_weight",
     "scoring_rules_version",
+    "bonus_transition_multiplier",
     "simulation_count",
     "gameweek",
     "fixture_id",
@@ -508,7 +510,10 @@ def build_projections(
     observations: list[dict[str, Any]] | None = None,
     simulations: int = DEFAULT_SIMULATIONS,
     ensemble_config: dict[str, Any] | None = None,
+    scoring_rules: dict[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    scoring_rules = scoring_rules or {"version": SCORING_RULES_VERSION}
+    scoring_rules_version = str(scoring_rules.get("version") or SCORING_RULES_VERSION)
     feature_by_player = {integer(row.get("player_id")): row for row in player_features}
     feature_by_team = {integer(row.get("team_id")): row for row in team_features}
     past_by_code = latest_past_seasons(past_seasons)
@@ -559,6 +564,13 @@ def build_projections(
             prior,
             past_by_code.get(integer(player.get("player_code"))),
         )
+        inputs["bonus_per_90"], bonus_transition_multiplier = apply_bonus_transition(
+            number(inputs.get("bonus_per_90")),
+            position,
+            integer(player_feature.get("fixtures_6")),
+            scoring_rules,
+        )
+        inputs["bonus_transition_multiplier"] = bonus_transition_multiplier
         for fixture in future:
             home_team = integer(fixture.get("home_team_id"))
             away_team = integer(fixture.get("away_team_id"))
@@ -632,21 +644,25 @@ def build_projections(
                 base_simulation_inputs,
                 simulations=simulations,
                 seed_parts=(*seed, "shared"),
+                scoring_rules_version=scoring_rules_version,
             )
             adjusted = simulate_player_fixture(
                 adjusted_simulation_inputs,
                 simulations=simulations,
                 seed_parts=(*seed, "shared"),
+                scoring_rules_version=scoring_rules_version,
             )
             component_quantitative = simulate_component_player_fixture(
                 component_base_inputs,
                 simulations=simulations,
                 seed_parts=(*seed, "component-shared"),
+                scoring_rules_version=scoring_rules_version,
             )
             component_adjusted = simulate_component_player_fixture(
                 component_adjusted_inputs,
                 simulations=simulations,
                 seed_parts=(*seed, "component-shared"),
+                scoring_rules_version=scoring_rules_version,
             )
             ensemble_quantitative_samples = [
                 (1 - ensemble_point_weight) * control
@@ -706,7 +722,8 @@ def build_projections(
                 "ensemble_probability_6_plus_weight": ensemble_probability_weights["6"],
                 "ensemble_probability_10_plus_weight": ensemble_probability_weights["10"],
                 "ensemble_probability_15_plus_weight": ensemble_probability_weights["15"],
-                "scoring_rules_version": SCORING_RULES_VERSION,
+                "scoring_rules_version": scoring_rules_version,
+                "bonus_transition_multiplier": round(bonus_transition_multiplier, 4),
                 "simulation_count": simulations,
                 "gameweek": integer(fixture.get("gameweek")),
                 "fixture_id": integer(fixture.get("fixture_id")),
@@ -868,6 +885,10 @@ def build_projections(
             "ensemble_probability_6_plus_weight": ensemble_probability_weights["6"],
             "ensemble_probability_10_plus_weight": ensemble_probability_weights["10"],
             "ensemble_probability_15_plus_weight": ensemble_probability_weights["15"],
+            "scoring_rules_version": scoring_rules_version,
+            "bonus_transition_multiplier": (
+                rows[0].get("bonus_transition_multiplier") if rows else 1.0
+            ),
             "player_id": player_id,
             "player_code": player.get("player_code"),
             "web_name": player.get("web_name"),
@@ -1025,6 +1046,8 @@ def write_prediction_snapshot(
                     "ensemble_probability_6_plus_weight",
                     "ensemble_probability_10_plus_weight",
                     "ensemble_probability_15_plus_weight",
+                    "scoring_rules_version",
+                    "bonus_transition_multiplier",
                     "player_id",
                     "player_code",
                     "web_name",
@@ -1070,6 +1093,35 @@ def write_prediction_snapshot(
     return index
 
 
+def gameweek_finality(data_dir: Path) -> dict[int, bool]:
+    events: list[dict[str, Any]] = []
+    gameweeks_path = data_dir / "chatgpt" / "gameweeks.json"
+    if gameweeks_path.is_file():
+        events = json.loads(gameweeks_path.read_text(encoding="utf-8"))
+    else:
+        bootstrap_path = data_dir / "raw" / "latest" / "bootstrap-static.json"
+        if bootstrap_path.is_file():
+            events = json.loads(bootstrap_path.read_text(encoding="utf-8")).get(
+                "events", []
+            )
+        else:
+            current_path = data_dir / "chatgpt" / "current_gameweek.json"
+            if current_path.is_file():
+                current = json.loads(current_path.read_text(encoding="utf-8"))
+                events = [
+                    event
+                    for event in (current.get("current"), current.get("next"))
+                    if event
+                ]
+    return {
+        integer(event.get("id")): bool(
+            truthy(event.get("finished")) and truthy(event.get("data_checked"))
+        )
+        for event in events
+        if integer(event.get("id"))
+    }
+
+
 def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
     actual_rows = read_csv(data_dir / "chatgpt" / "player_gameweeks.csv")
     actual: dict[tuple[int, int], float] = {}
@@ -1077,6 +1129,8 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
         actual[(integer(row.get("gameweek")), integer(row.get("player_id")))] = number(row.get("total_points"))
 
     results: list[dict[str, Any]] = []
+    finality = gameweek_finality(data_dir)
+    skipped_unfinalised = 0
     prediction_root = data_dir / "predictions"
     for gameweek_dir in sorted(prediction_root.glob("gw*")):
         snapshots = sorted(gameweek_dir.glob("*.csv"))
@@ -1084,6 +1138,9 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
             continue
         rows = read_csv(snapshots[-1])
         gameweek = integer(rows[0].get("target_gameweek")) if rows else 0
+        if not finality.get(gameweek, False):
+            skipped_unfinalised += 1
+            continue
         errors = []
         quantitative_errors = []
         predictions = []
@@ -1142,6 +1199,8 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
     summary = {
         "generated_at": utc_now(),
         "evaluated_gameweeks": len(results),
+        "skipped_unfinalised_gameweeks": skipped_unfinalised,
+        "finality_requirement": "finished=true and data_checked=true",
         "latest": results[-1] if results else None,
         "history": results,
     }
@@ -1166,6 +1225,16 @@ def update_dataset_manifest(chatgpt_dir: Path) -> None:
 
 def build_model(data_dir: Path) -> dict[str, Any]:
     chatgpt_dir = data_dir / "chatgpt"
+    manifest_path = chatgpt_dir / "manifest.json"
+    manifest = (
+        json.loads(manifest_path.read_text(encoding="utf-8"))
+        if manifest_path.is_file()
+        else {}
+    )
+    season = manifest.get("season")
+    scoring_rules = load_scoring_rules(
+        data_dir / "context" / "scoring_rules.json", season
+    )
     players = read_csv(chatgpt_dir / "players.csv")
     teams = read_csv(chatgpt_dir / "teams.csv")
     fixtures = read_csv(chatgpt_dir / "fixtures.csv")
@@ -1207,6 +1276,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         past_seasons,
         observations,
         ensemble_config=ensemble_config,
+        scoring_rules=scoring_rules,
     )
 
     write_csv(
@@ -1263,6 +1333,18 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         if my_team_path.is_file()
         else {"available": False, "squad": []}
     )
+    manager_history_path = chatgpt_dir / "manager_history.json"
+    manager_history = (
+        json.loads(manager_history_path.read_text(encoding="utf-8"))
+        if manager_history_path.is_file()
+        else {}
+    )
+    chip_rules_path = data_dir / "context" / "chip_rules.json"
+    chip_rules = (
+        json.loads(chip_rules_path.read_text(encoding="utf-8"))
+        if chip_rules_path.is_file()
+        else {}
+    )
     write_signal_csv(chatgpt_dir / "external_context_signals.csv", context_signals)
     external_summary = context_summary(
         context_signals, source_registry, generated_at
@@ -1276,6 +1358,9 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         context_signals,
         source_registry,
         generated_at,
+        manager_history=manager_history,
+        season=season,
+        chip_rules=chip_rules,
     )
     write_decision_support(chatgpt_dir / "fpl_decisions.json", decision_support)
     prediction_index = write_prediction_snapshot(data_dir, current_gameweek, horizons, generated_at)
@@ -1313,7 +1398,10 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "ensemble_point_weight": ensemble_config["point_weight"],
         "ensemble_probability_weights": ensemble_config["probability_weights"],
         "challenger_status": component_candidate_status,
-        "scoring_rules_version": SCORING_RULES_VERSION,
+        "season": season,
+        "scoring_rules_status": scoring_rules.get("status"),
+        "scoring_rules_version": scoring_rules.get("version"),
+        "bonus_transition": scoring_rules.get("bonus_transition"),
         "simulations_per_player_fixture": DEFAULT_SIMULATIONS,
         "method": "Development-selected ensemble with separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
         "player_feature_rows": len(player_features),
