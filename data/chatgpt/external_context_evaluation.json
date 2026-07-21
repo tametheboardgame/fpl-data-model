@@ -1,8 +1,9 @@
 {
-  "generated_at": "2026-07-21T07:58:15+00:00",
+  "generated_at": "2026-07-21T08:55:54+00:00",
   "evaluation_version": "external-context-evaluation-1.0",
   "evaluated_signals": 0,
   "skipped_at_or_after_kickoff": 0,
+  "skipped_unfinalised": 0,
   "by_source_and_type": [],
-  "principle": "Only signals timestamped before the fixture kickoff are scored."
+  "principle": "Only signals timestamped before kickoff are scored, and production evaluation waits for finished=true and data_checked=true."
 }

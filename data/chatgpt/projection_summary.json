@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-21T07:58:14+00:00",
+  "generated_at": "2026-07-21T08:55:53+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -11,7 +11,12 @@
     "15": 1.0
   },
   "challenger_status": "candidate_not_applied_to_live_model",
+  "season": "2025/26",
+  "scoring_rules_status": "ready",
   "scoring_rules_version": "fpl-2025-26",
+  "bonus_transition": {
+    "enabled": false
+  },
   "simulations_per_player_fixture": 600,
   "method": "Development-selected ensemble with separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
   "player_feature_rows": 841,
@@ -38,5 +43,6 @@
     "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly."
   ],
   "evaluated_external_context_signals": 0,
-  "chip_state_status": "ready"
+  "chip_state_status": "ready",
+  "free_transfer_state_status": "ready"
 }
