@@ -58,6 +58,7 @@ MODEL_DATASETS = [
     "external_context_signals.csv",
     "external_context_summary.json",
     "fpl_decisions.json",
+    "initial_squad_plan.json",
     "prospective_index.json",
     "prospective_evaluation.csv",
     "prospective_evaluation.json",
@@ -1366,8 +1367,13 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         season=season,
         chip_rules=chip_rules,
         fixture_projections=projections,
+        scoring_rules_version=scoring_rules.get("version"),
     )
     write_decision_support(chatgpt_dir / "fpl_decisions.json", decision_support)
+    write_json(
+        chatgpt_dir / "initial_squad_plan.json",
+        decision_support["initial_squad_plan"],
+    )
     prediction_index = write_prediction_snapshot(data_dir, current_gameweek, horizons, generated_at)
     evaluation = evaluate_predictions(data_dir)
     prospective = update_prospective_evaluation(
@@ -1437,6 +1443,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "external_context_signal_rows": len(context_signals),
         "active_external_context_signal_rows": external_summary["active_signal_rows"],
         "decision_support_status": decision_support["status"],
+        "initial_squad_status": decision_support["initial_squad_plan"]["status"],
         "qualitatively_adjusted_fixture_rows": qualitative_projection_rows,
         "top_next_gameweek": top_projection_rows(horizons, "expected_points_next_1"),
         "top_next_three_gameweeks": top_projection_rows(horizons, "expected_points_next_3"),
