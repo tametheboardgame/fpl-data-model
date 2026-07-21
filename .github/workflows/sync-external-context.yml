@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "20 */6 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "src/sync_odds_api_context.py"
+      - ".github/workflows/sync-external-context.yml"
 
 permissions:
   contents: write
@@ -49,7 +55,7 @@ jobs:
             echo "ODDS_API_KEY is not configured; leaving The Odds API dormant"
             exit 0
           fi
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" != "schedule" ]; then
             python -m src.sync_odds_api_context --data-dir data --force-provider-check
           else
             python -m src.sync_odds_api_context --data-dir data
