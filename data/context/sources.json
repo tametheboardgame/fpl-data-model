@@ -48,6 +48,12 @@
       "name": "API-Football confirmed line-up",
       "reliability": 0.98,
       "freshness_half_life_hours": 8
+    },
+    {
+      "source_id": "odds_api_market",
+      "name": "The Odds API aggregated bookmaker market",
+      "reliability": 0.9,
+      "freshness_half_life_hours": 18
     }
   ]
 }

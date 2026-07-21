@@ -7,6 +7,7 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from src.fpl_decisions import DECISION_VERSION
 from src.build_fpl_model import (
     ENSEMBLE_MODEL_VERSION,
     PROJECTION_FIELDS,
@@ -300,7 +301,7 @@ class ModelTests(unittest.TestCase):
                     encoding="utf-8"
                 )
             )
-            self.assertEqual(decisions["decision_version"], "fpl-decisions-1.0")
+            self.assertEqual(decisions["decision_version"], DECISION_VERSION)
             with (data_dir / "chatgpt" / "player_projections.csv").open(
                 encoding="utf-8", newline=""
             ) as handle:

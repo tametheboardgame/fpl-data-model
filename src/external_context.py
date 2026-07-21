@@ -20,6 +20,9 @@ SIGNAL_TYPES = {
     "attack_multiplier",
     "penalty_taker_probability",
     "set_piece_share",
+    "match_win_probability",
+    "team_score_probability",
+    "team_expected_goals",
 }
 PROBABILITY_SIGNALS = {
     "availability_probability",
@@ -28,6 +31,8 @@ PROBABILITY_SIGNALS = {
     "clean_sheet_probability",
     "penalty_taker_probability",
     "set_piece_share",
+    "match_win_probability",
+    "team_score_probability",
 }
 DEFAULT_SOURCE_REGISTRY = {
     "schema_version": SCHEMA_VERSION,
@@ -49,6 +54,12 @@ DEFAULT_SOURCE_REGISTRY = {
             "name": "Aggregated bookmaker market",
             "reliability": 0.85,
             "freshness_half_life_hours": 24,
+        },
+        {
+            "source_id": "odds_api_market",
+            "name": "The Odds API aggregated bookmaker market",
+            "reliability": 0.9,
+            "freshness_half_life_hours": 18,
         },
         {
             "source_id": "predicted_lineup",
@@ -183,6 +194,10 @@ def validate_signal(signal: dict[str, Any], sources: dict[str, dict[str, Any]]) 
     if signal_type == "attack_multiplier" and not 0.5 <= value <= 1.5:
         raise ContextValidationError(
             f"Signal {signal_id} attack multiplier must be between 0.5 and 1.5"
+        )
+    if signal_type == "team_expected_goals" and not 0 <= value <= 10:
+        raise ContextValidationError(
+            f"Signal {signal_id} team expected goals must be between 0 and 10"
         )
     valid_from = parse_time(signal.get("valid_from"))
     expires_at = parse_time(signal.get("expires_at"))
