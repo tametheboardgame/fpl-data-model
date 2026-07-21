@@ -64,6 +64,7 @@ MODEL_DATASETS = [
     "prospective_evaluation.csv",
     "prospective_evaluation.json",
     "gameweek_report.json",
+    "gameweek_report.md",
 ]
 PROJECTION_FIELDS = [
     "model_version",
