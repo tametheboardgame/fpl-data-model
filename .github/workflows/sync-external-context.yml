@@ -3,7 +3,7 @@ name: Sync external FPL context
 on:
   workflow_dispatch:
   schedule:
-    - cron: "20 */2 * * *"
+    - cron: "20 */6 * * *"
 
 permissions:
   contents: write
@@ -41,6 +41,19 @@ jobs:
             exit 0
           fi
           python -m src.sync_api_football_context --data-dir data --max-requests 8
+      - name: Sync bookmaker market probabilities
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: |
+          if [ -z "$ODDS_API_KEY" ]; then
+            echo "ODDS_API_KEY is not configured; leaving The Odds API dormant"
+            exit 0
+          fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python -m src.sync_odds_api_context --data-dir data --force-provider-check
+          else
+            python -m src.sync_odds_api_context --data-dir data
+          fi
       - name: Validate external context
         if: always()
         run: python -m src.external_context validate --signals data/context/signals.jsonl --sources data/context/sources.json
@@ -52,6 +65,9 @@ jobs:
           git add data/context
           if [ -d data/raw/external/api-football/latest ]; then
             git add data/raw/external/api-football/latest
+          fi
+          if [ -d data/raw/external/odds-api/latest ]; then
+            git add data/raw/external/odds-api/latest
           fi
           if git diff --cached --quiet; then
             echo "No external-context changes to commit"
