@@ -1,15 +1,15 @@
 {
   "schema_version": "external-context-1.0",
-  "generated_at": "2026-07-23T19:48:39+00:00",
+  "generated_at": "2026-07-23T19:50:49+00:00",
   "registered_sources": 9,
-  "signal_rows": 80,
-  "active_signal_rows": 80,
+  "signal_rows": 160,
+  "active_signal_rows": 160,
   "expired_signal_rows": 0,
   "signal_types": {
-    "clean_sheet_probability": 20,
-    "match_win_probability": 20,
-    "team_expected_goals": 20,
-    "team_score_probability": 20
+    "clean_sheet_probability": 40,
+    "match_win_probability": 40,
+    "team_expected_goals": 40,
+    "team_score_probability": 40
   },
   "sources_used": [
     "odds_api_market"
