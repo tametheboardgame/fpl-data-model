@@ -1,11 +1,18 @@
 {
   "schema_version": "external-context-1.0",
-  "generated_at": "2026-07-23T14:35:10+00:00",
+  "generated_at": "2026-07-23T14:37:49+00:00",
   "registered_sources": 9,
-  "signal_rows": 0,
-  "active_signal_rows": 0,
+  "signal_rows": 80,
+  "active_signal_rows": 80,
   "expired_signal_rows": 0,
-  "signal_types": {},
-  "sources_used": [],
+  "signal_types": {
+    "clean_sheet_probability": 20,
+    "match_win_probability": 20,
+    "team_expected_goals": 20,
+    "team_score_probability": 20
+  },
+  "sources_used": [
+    "odds_api_market"
+  ],
   "principle": "External signals are timestamped, source-weighted and kept separate from the validated ensemble forecast."
 }
