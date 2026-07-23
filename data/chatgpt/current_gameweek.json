@@ -1,60 +1,40 @@
 {
-  "generated_at": "2026-07-23T03:46:39+00:00",
-  "current": {
-    "id": 38,
-    "name": "Gameweek 38",
-    "deadline_time": "2026-05-24T13:30:00Z",
+  "generated_at": "2026-07-23T14:34:08+00:00",
+  "current": null,
+  "next": {
+    "id": 1,
+    "name": "Gameweek 1",
+    "deadline_time": "2026-08-21T17:30:00Z",
     "release_time": null,
-    "average_entry_score": 41,
-    "finished": true,
-    "data_checked": true,
-    "highest_scoring_entry": 1457502,
-    "deadline_time_epoch": 1779629400,
+    "average_entry_score": 0,
+    "finished": false,
+    "data_checked": false,
+    "highest_scoring_entry": null,
+    "deadline_time_epoch": 1787333400,
     "deadline_time_game_offset": 0,
-    "highest_score": 117,
+    "highest_score": null,
     "is_previous": false,
-    "is_current": true,
-    "is_next": false,
-    "cup_leagues_created": true,
-    "h2h_ko_matches_created": true,
-    "can_enter": false,
-    "can_manage": false,
+    "is_current": false,
+    "is_next": true,
+    "cup_leagues_created": false,
+    "h2h_ko_matches_created": false,
+    "can_enter": true,
+    "can_manage": true,
     "released": true,
-    "ranked_count": 12991567,
+    "ranked_count": 0,
     "overrides": {
       "rules": {},
       "scoring": {},
       "element_types": [],
       "pick_multiplier": null
     },
-    "chip_plays": [
-      {
-        "chip_name": "bboost",
-        "num_played": 745070
-      },
-      {
-        "chip_name": "freehit",
-        "num_played": 120948
-      },
-      {
-        "chip_name": "wildcard",
-        "num_played": 204166
-      },
-      {
-        "chip_name": "3xc",
-        "num_played": 330298
-      }
-    ],
-    "most_selected": 430,
-    "most_transferred_in": 624,
-    "top_element": 441,
-    "top_element_info": {
-      "id": 441,
-      "points": 18
-    },
-    "transfers_made": 8603009,
-    "most_captained": 430,
-    "most_vice_captained": 449
-  },
-  "next": null
+    "chip_plays": [],
+    "most_selected": null,
+    "most_transferred_in": null,
+    "top_element": null,
+    "top_element_info": null,
+    "transfers_made": 0,
+    "most_captained": null,
+    "most_vice_captained": null
+  }
 }
