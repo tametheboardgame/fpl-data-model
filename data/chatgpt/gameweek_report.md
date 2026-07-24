@@ -1,9 +1,9 @@
 # FPL Gameweek 1 Deadline Report
 
 Status: review_required
-Generated: 2026-07-24T03:49:54+00:00
+Generated: 2026-07-24T03:59:26+00:00
 UK deadline: 2026-08-21T18:30:00+01:00
-Hours remaining: 685.668
+Hours remaining: 685.509
 
 ## Recommended action
 
