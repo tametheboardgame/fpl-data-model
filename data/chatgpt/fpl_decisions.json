@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T09:13:04+00:00",
+  "generated_at": "2026-07-24T14:15:54+00:00",
   "decision_version": "fpl-decisions-1.7",
   "model_version": "player-ensemble-1.0",
   "status": "ready",
@@ -85,19 +85,19 @@
         },
         "complete_player_pool": {
           "passed": true,
-          "observed": 555,
+          "observed": 558,
           "minimum": 300
         },
         "unique_player_ids": {
           "passed": true,
-          "observed": 555
+          "observed": 558
         },
         "position_coverage": {
           "passed": true,
           "observed": {
             "Goalkeeper": 60,
-            "Defender": 183,
-            "Midfielder": 244,
+            "Defender": 184,
+            "Midfielder": 246,
             "Forward": 68
           }
         },
@@ -131,7 +131,7 @@
         "price": 7.5,
         "gameweek_1_expected_points": 2.539,
         "discounted_horizon_points": 14.397,
-        "ownership_percent": 37.2
+        "ownership_percent": 36.3
       },
       {
         "player_id": 79,
@@ -153,7 +153,7 @@
         "price": 8.0,
         "gameweek_1_expected_points": 3.013,
         "discounted_horizon_points": 15.692,
-        "ownership_percent": 20.0
+        "ownership_percent": 19.1
       },
       {
         "player_id": 109,
@@ -164,7 +164,7 @@
         "price": 4.5,
         "gameweek_1_expected_points": 3.303,
         "discounted_horizon_points": 17.797,
-        "ownership_percent": 16.1
+        "ownership_percent": 16.0
       },
       {
         "player_id": 204,
@@ -186,7 +186,7 @@
         "price": 5.5,
         "gameweek_1_expected_points": 3.315,
         "discounted_horizon_points": 18.118,
-        "ownership_percent": 10.0
+        "ownership_percent": 9.7
       },
       {
         "player_id": 229,
@@ -197,7 +197,7 @@
         "price": 6.0,
         "gameweek_1_expected_points": 3.408,
         "discounted_horizon_points": 18.101,
-        "ownership_percent": 12.7
+        "ownership_percent": 11.9
       },
       {
         "player_id": 239,
@@ -241,7 +241,7 @@
         "price": 7.0,
         "gameweek_1_expected_points": 2.665,
         "discounted_horizon_points": 14.567,
-        "ownership_percent": 36.8
+        "ownership_percent": 38.0
       },
       {
         "player_id": 411,
@@ -252,7 +252,7 @@
         "price": 15.5,
         "gameweek_1_expected_points": 2.727,
         "discounted_horizon_points": 15.083,
-        "ownership_percent": 70.6
+        "ownership_percent": 71.9
       },
       {
         "player_id": 423,
@@ -263,7 +263,7 @@
         "price": 4.5,
         "gameweek_1_expected_points": 3.504,
         "discounted_horizon_points": 18.249,
-        "ownership_percent": 14.8
+        "ownership_percent": 15.5
       },
       {
         "player_id": 471,
@@ -274,7 +274,7 @@
         "price": 5.5,
         "gameweek_1_expected_points": 3.728,
         "discounted_horizon_points": 17.682,
-        "ownership_percent": 2.7
+        "ownership_percent": 2.6
       },
       {
         "player_id": 481,
@@ -285,7 +285,7 @@
         "price": 6.5,
         "gameweek_1_expected_points": 2.727,
         "discounted_horizon_points": 14.638,
-        "ownership_percent": 12.6
+        "ownership_percent": 12.5
       }
     ],
     "recommended_starting_xi": [
@@ -298,7 +298,7 @@
         "price": 5.5,
         "gameweek_1_expected_points": 3.728,
         "discounted_horizon_points": 17.682,
-        "ownership_percent": 2.7
+        "ownership_percent": 2.6
       },
       {
         "player_id": 423,
@@ -309,7 +309,7 @@
         "price": 4.5,
         "gameweek_1_expected_points": 3.504,
         "discounted_horizon_points": 18.249,
-        "ownership_percent": 14.8
+        "ownership_percent": 15.5
       },
       {
         "player_id": 229,
@@ -320,7 +320,7 @@
         "price": 6.0,
         "gameweek_1_expected_points": 3.408,
         "discounted_horizon_points": 18.101,
-        "ownership_percent": 12.7
+        "ownership_percent": 11.9
       },
       {
         "player_id": 226,
@@ -331,7 +331,7 @@
         "price": 5.5,
         "gameweek_1_expected_points": 3.315,
         "discounted_horizon_points": 18.118,
-        "ownership_percent": 10.0
+        "ownership_percent": 9.7
       },
       {
         "player_id": 204,
@@ -364,7 +364,7 @@
         "price": 8.0,
         "gameweek_1_expected_points": 3.013,
         "discounted_horizon_points": 15.692,
-        "ownership_percent": 20.0
+        "ownership_percent": 19.1
       },
       {
         "player_id": 239,
@@ -386,7 +386,7 @@
         "price": 6.5,
         "gameweek_1_expected_points": 2.727,
         "discounted_horizon_points": 14.638,
-        "ownership_percent": 12.6
+        "ownership_percent": 12.5
       },
       {
         "player_id": 411,
@@ -397,7 +397,7 @@
         "price": 15.5,
         "gameweek_1_expected_points": 2.727,
         "discounted_horizon_points": 15.083,
-        "ownership_percent": 70.6
+        "ownership_percent": 71.9
       },
       {
         "player_id": 368,
@@ -408,7 +408,7 @@
         "price": 7.0,
         "gameweek_1_expected_points": 2.665,
         "discounted_horizon_points": 14.567,
-        "ownership_percent": 36.8
+        "ownership_percent": 38.0
       }
     ],
     "recommended_bench_order": [
@@ -432,7 +432,7 @@
         "price": 7.5,
         "gameweek_1_expected_points": 2.539,
         "discounted_horizon_points": 14.397,
-        "ownership_percent": 37.2
+        "ownership_percent": 36.3
       },
       {
         "player_id": 79,
@@ -454,7 +454,7 @@
         "price": 4.5,
         "gameweek_1_expected_points": 3.303,
         "discounted_horizon_points": 17.797,
-        "ownership_percent": 16.1
+        "ownership_percent": 16.0
       }
     ],
     "captain": {
@@ -466,7 +466,7 @@
       "price": 5.5,
       "gameweek_1_expected_points": 3.728,
       "discounted_horizon_points": 17.682,
-      "ownership_percent": 2.7
+      "ownership_percent": 2.6
     },
     "vice_captain": {
       "player_id": 423,
@@ -477,7 +477,7 @@
       "price": 4.5,
       "gameweek_1_expected_points": 3.504,
       "discounted_horizon_points": 18.249,
-      "ownership_percent": 14.8
+      "ownership_percent": 15.5
     },
     "strategy_comparison": [
       {
@@ -498,7 +498,7 @@
             "price": 7.5,
             "gameweek_1_expected_points": 2.539,
             "discounted_horizon_points": 14.397,
-            "ownership_percent": 37.2
+            "ownership_percent": 36.3
           },
           {
             "player_id": 79,
@@ -520,7 +520,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 3.013,
             "discounted_horizon_points": 15.692,
-            "ownership_percent": 20.0
+            "ownership_percent": 19.1
           },
           {
             "player_id": 109,
@@ -531,7 +531,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.303,
             "discounted_horizon_points": 17.797,
-            "ownership_percent": 16.1
+            "ownership_percent": 16.0
           },
           {
             "player_id": 204,
@@ -553,7 +553,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.315,
             "discounted_horizon_points": 18.118,
-            "ownership_percent": 10.0
+            "ownership_percent": 9.7
           },
           {
             "player_id": 229,
@@ -564,7 +564,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 3.408,
             "discounted_horizon_points": 18.101,
-            "ownership_percent": 12.7
+            "ownership_percent": 11.9
           },
           {
             "player_id": 239,
@@ -608,7 +608,7 @@
             "price": 7.0,
             "gameweek_1_expected_points": 2.665,
             "discounted_horizon_points": 14.567,
-            "ownership_percent": 36.8
+            "ownership_percent": 38.0
           },
           {
             "player_id": 411,
@@ -619,7 +619,7 @@
             "price": 15.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 15.083,
-            "ownership_percent": 70.6
+            "ownership_percent": 71.9
           },
           {
             "player_id": 423,
@@ -630,7 +630,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.504,
             "discounted_horizon_points": 18.249,
-            "ownership_percent": 14.8
+            "ownership_percent": 15.5
           },
           {
             "player_id": 471,
@@ -641,7 +641,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.728,
             "discounted_horizon_points": 17.682,
-            "ownership_percent": 2.7
+            "ownership_percent": 2.6
           },
           {
             "player_id": 481,
@@ -652,7 +652,7 @@
             "price": 6.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 14.638,
-            "ownership_percent": 12.6
+            "ownership_percent": 12.5
           }
         ],
         "starting_xi": [
@@ -665,7 +665,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.728,
             "discounted_horizon_points": 17.682,
-            "ownership_percent": 2.7
+            "ownership_percent": 2.6
           },
           {
             "player_id": 423,
@@ -676,7 +676,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.504,
             "discounted_horizon_points": 18.249,
-            "ownership_percent": 14.8
+            "ownership_percent": 15.5
           },
           {
             "player_id": 229,
@@ -687,7 +687,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 3.408,
             "discounted_horizon_points": 18.101,
-            "ownership_percent": 12.7
+            "ownership_percent": 11.9
           },
           {
             "player_id": 226,
@@ -698,7 +698,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.315,
             "discounted_horizon_points": 18.118,
-            "ownership_percent": 10.0
+            "ownership_percent": 9.7
           },
           {
             "player_id": 204,
@@ -731,7 +731,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 3.013,
             "discounted_horizon_points": 15.692,
-            "ownership_percent": 20.0
+            "ownership_percent": 19.1
           },
           {
             "player_id": 239,
@@ -753,7 +753,7 @@
             "price": 6.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 14.638,
-            "ownership_percent": 12.6
+            "ownership_percent": 12.5
           },
           {
             "player_id": 411,
@@ -764,7 +764,7 @@
             "price": 15.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 15.083,
-            "ownership_percent": 70.6
+            "ownership_percent": 71.9
           },
           {
             "player_id": 368,
@@ -775,7 +775,7 @@
             "price": 7.0,
             "gameweek_1_expected_points": 2.665,
             "discounted_horizon_points": 14.567,
-            "ownership_percent": 36.8
+            "ownership_percent": 38.0
           }
         ],
         "bench_order": [
@@ -799,7 +799,7 @@
             "price": 7.5,
             "gameweek_1_expected_points": 2.539,
             "discounted_horizon_points": 14.397,
-            "ownership_percent": 37.2
+            "ownership_percent": 36.3
           },
           {
             "player_id": 79,
@@ -821,7 +821,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.303,
             "discounted_horizon_points": 17.797,
-            "ownership_percent": 16.1
+            "ownership_percent": 16.0
           }
         ],
         "captain": {
@@ -833,7 +833,7 @@
           "price": 5.5,
           "gameweek_1_expected_points": 3.728,
           "discounted_horizon_points": 17.682,
-          "ownership_percent": 2.7
+          "ownership_percent": 2.6
         },
         "vice_captain": {
           "player_id": 423,
@@ -844,7 +844,7 @@
           "price": 4.5,
           "gameweek_1_expected_points": 3.504,
           "discounted_horizon_points": 18.249,
-          "ownership_percent": 14.8
+          "ownership_percent": 15.5
         },
         "validation": {
           "legal_squad": true,
@@ -864,7 +864,7 @@
         "description": "Give extra weight to upside and lower ownership.",
         "total_cost": 100.0,
         "bank": 0.0,
-        "objective_score": 219.757,
+        "objective_score": 219.759,
         "gameweek_1_expected_points_including_captain": 37.789,
         "squad": [
           {
@@ -876,7 +876,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 2.704,
             "discounted_horizon_points": 14.43,
-            "ownership_percent": 15.1
+            "ownership_percent": 14.3
           },
           {
             "player_id": 106,
@@ -887,7 +887,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 3.013,
             "discounted_horizon_points": 15.692,
-            "ownership_percent": 20.0
+            "ownership_percent": 19.1
           },
           {
             "player_id": 109,
@@ -898,7 +898,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.303,
             "discounted_horizon_points": 17.797,
-            "ownership_percent": 16.1
+            "ownership_percent": 16.0
           },
           {
             "player_id": 112,
@@ -920,7 +920,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.315,
             "discounted_horizon_points": 18.118,
-            "ownership_percent": 10.0
+            "ownership_percent": 9.7
           },
           {
             "player_id": 229,
@@ -931,7 +931,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 3.408,
             "discounted_horizon_points": 18.101,
-            "ownership_percent": 12.7
+            "ownership_percent": 11.9
           },
           {
             "player_id": 239,
@@ -975,7 +975,7 @@
             "price": 7.0,
             "gameweek_1_expected_points": 2.665,
             "discounted_horizon_points": 14.567,
-            "ownership_percent": 36.8
+            "ownership_percent": 38.0
           },
           {
             "player_id": 411,
@@ -986,7 +986,7 @@
             "price": 15.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 15.083,
-            "ownership_percent": 70.6
+            "ownership_percent": 71.9
           },
           {
             "player_id": 423,
@@ -997,7 +997,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.504,
             "discounted_horizon_points": 18.249,
-            "ownership_percent": 14.8
+            "ownership_percent": 15.5
           },
           {
             "player_id": 471,
@@ -1008,7 +1008,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.728,
             "discounted_horizon_points": 17.682,
-            "ownership_percent": 2.7
+            "ownership_percent": 2.6
           },
           {
             "player_id": 481,
@@ -1019,7 +1019,7 @@
             "price": 6.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 14.638,
-            "ownership_percent": 12.6
+            "ownership_percent": 12.5
           },
           {
             "player_id": 542,
@@ -1030,7 +1030,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 2.589,
             "discounted_horizon_points": 13.612,
-            "ownership_percent": 3.4
+            "ownership_percent": 3.5
           }
         ],
         "starting_xi": [
@@ -1043,7 +1043,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.728,
             "discounted_horizon_points": 17.682,
-            "ownership_percent": 2.7
+            "ownership_percent": 2.6
           },
           {
             "player_id": 423,
@@ -1054,7 +1054,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.504,
             "discounted_horizon_points": 18.249,
-            "ownership_percent": 14.8
+            "ownership_percent": 15.5
           },
           {
             "player_id": 229,
@@ -1065,7 +1065,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 3.408,
             "discounted_horizon_points": 18.101,
-            "ownership_percent": 12.7
+            "ownership_percent": 11.9
           },
           {
             "player_id": 226,
@@ -1076,7 +1076,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.315,
             "discounted_horizon_points": 18.118,
-            "ownership_percent": 10.0
+            "ownership_percent": 9.7
           },
           {
             "player_id": 356,
@@ -1109,7 +1109,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 3.013,
             "discounted_horizon_points": 15.692,
-            "ownership_percent": 20.0
+            "ownership_percent": 19.1
           },
           {
             "player_id": 239,
@@ -1131,7 +1131,7 @@
             "price": 6.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 14.638,
-            "ownership_percent": 12.6
+            "ownership_percent": 12.5
           },
           {
             "player_id": 411,
@@ -1142,7 +1142,7 @@
             "price": 15.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 15.083,
-            "ownership_percent": 70.6
+            "ownership_percent": 71.9
           },
           {
             "player_id": 55,
@@ -1153,7 +1153,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 2.704,
             "discounted_horizon_points": 14.43,
-            "ownership_percent": 15.1
+            "ownership_percent": 14.3
           }
         ],
         "bench_order": [
@@ -1166,7 +1166,7 @@
             "price": 7.0,
             "gameweek_1_expected_points": 2.665,
             "discounted_horizon_points": 14.567,
-            "ownership_percent": 36.8
+            "ownership_percent": 38.0
           },
           {
             "player_id": 542,
@@ -1177,7 +1177,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 2.589,
             "discounted_horizon_points": 13.612,
-            "ownership_percent": 3.4
+            "ownership_percent": 3.5
           },
           {
             "player_id": 338,
@@ -1199,7 +1199,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.303,
             "discounted_horizon_points": 17.797,
-            "ownership_percent": 16.1
+            "ownership_percent": 16.0
           }
         ],
         "captain": {
@@ -1211,7 +1211,7 @@
           "price": 5.5,
           "gameweek_1_expected_points": 3.728,
           "discounted_horizon_points": 17.682,
-          "ownership_percent": 2.7
+          "ownership_percent": 2.6
         },
         "vice_captain": {
           "player_id": 423,
@@ -1222,7 +1222,7 @@
           "price": 4.5,
           "gameweek_1_expected_points": 3.504,
           "discounted_horizon_points": 18.249,
-          "ownership_percent": 14.8
+          "ownership_percent": 15.5
         },
         "validation": {
           "legal_squad": true,
@@ -1242,7 +1242,7 @@
         "description": "Give extra weight to highly owned players to limit early rank volatility.",
         "total_cost": 97.5,
         "bank": 2.5,
-        "objective_score": 214.627,
+        "objective_score": 214.593,
         "gameweek_1_expected_points_including_captain": 37.931,
         "squad": [
           {
@@ -1254,7 +1254,7 @@
             "price": 7.5,
             "gameweek_1_expected_points": 2.539,
             "discounted_horizon_points": 14.397,
-            "ownership_percent": 37.2
+            "ownership_percent": 36.3
           },
           {
             "player_id": 55,
@@ -1265,7 +1265,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 2.704,
             "discounted_horizon_points": 14.43,
-            "ownership_percent": 15.1
+            "ownership_percent": 14.3
           },
           {
             "player_id": 106,
@@ -1276,7 +1276,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 3.013,
             "discounted_horizon_points": 15.692,
-            "ownership_percent": 20.0
+            "ownership_percent": 19.1
           },
           {
             "player_id": 109,
@@ -1287,7 +1287,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.303,
             "discounted_horizon_points": 17.797,
-            "ownership_percent": 16.1
+            "ownership_percent": 16.0
           },
           {
             "player_id": 165,
@@ -1298,7 +1298,7 @@
             "price": 7.5,
             "gameweek_1_expected_points": 2.693,
             "discounted_horizon_points": 14.138,
-            "ownership_percent": 46.0
+            "ownership_percent": 45.9
           },
           {
             "player_id": 226,
@@ -1309,7 +1309,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.315,
             "discounted_horizon_points": 18.118,
-            "ownership_percent": 10.0
+            "ownership_percent": 9.7
           },
           {
             "player_id": 229,
@@ -1320,7 +1320,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 3.408,
             "discounted_horizon_points": 18.101,
-            "ownership_percent": 12.7
+            "ownership_percent": 11.9
           },
           {
             "player_id": 239,
@@ -1353,7 +1353,7 @@
             "price": 7.0,
             "gameweek_1_expected_points": 2.665,
             "discounted_horizon_points": 14.567,
-            "ownership_percent": 36.8
+            "ownership_percent": 38.0
           },
           {
             "player_id": 397,
@@ -1375,7 +1375,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.504,
             "discounted_horizon_points": 18.249,
-            "ownership_percent": 14.8
+            "ownership_percent": 15.5
           },
           {
             "player_id": 471,
@@ -1386,7 +1386,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.728,
             "discounted_horizon_points": 17.682,
-            "ownership_percent": 2.7
+            "ownership_percent": 2.6
           },
           {
             "player_id": 481,
@@ -1397,7 +1397,7 @@
             "price": 6.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 14.638,
-            "ownership_percent": 12.6
+            "ownership_percent": 12.5
           },
           {
             "player_id": 498,
@@ -1408,7 +1408,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 3.215,
             "discounted_horizon_points": 17.384,
-            "ownership_percent": 15.4
+            "ownership_percent": 14.3
           }
         ],
         "starting_xi": [
@@ -1421,7 +1421,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.728,
             "discounted_horizon_points": 17.682,
-            "ownership_percent": 2.7
+            "ownership_percent": 2.6
           },
           {
             "player_id": 423,
@@ -1432,7 +1432,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.504,
             "discounted_horizon_points": 18.249,
-            "ownership_percent": 14.8
+            "ownership_percent": 15.5
           },
           {
             "player_id": 229,
@@ -1443,7 +1443,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 3.408,
             "discounted_horizon_points": 18.101,
-            "ownership_percent": 12.7
+            "ownership_percent": 11.9
           },
           {
             "player_id": 226,
@@ -1454,7 +1454,7 @@
             "price": 5.5,
             "gameweek_1_expected_points": 3.315,
             "discounted_horizon_points": 18.118,
-            "ownership_percent": 10.0
+            "ownership_percent": 9.7
           },
           {
             "player_id": 498,
@@ -1465,7 +1465,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 3.215,
             "discounted_horizon_points": 17.384,
-            "ownership_percent": 15.4
+            "ownership_percent": 14.3
           },
           {
             "player_id": 356,
@@ -1487,7 +1487,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 3.013,
             "discounted_horizon_points": 15.692,
-            "ownership_percent": 20.0
+            "ownership_percent": 19.1
           },
           {
             "player_id": 239,
@@ -1509,7 +1509,7 @@
             "price": 6.5,
             "gameweek_1_expected_points": 2.727,
             "discounted_horizon_points": 14.638,
-            "ownership_percent": 12.6
+            "ownership_percent": 12.5
           },
           {
             "player_id": 55,
@@ -1520,7 +1520,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 2.704,
             "discounted_horizon_points": 14.43,
-            "ownership_percent": 15.1
+            "ownership_percent": 14.3
           },
           {
             "player_id": 165,
@@ -1531,7 +1531,7 @@
             "price": 7.5,
             "gameweek_1_expected_points": 2.693,
             "discounted_horizon_points": 14.138,
-            "ownership_percent": 46.0
+            "ownership_percent": 45.9
           }
         ],
         "bench_order": [
@@ -1555,7 +1555,7 @@
             "price": 7.0,
             "gameweek_1_expected_points": 2.665,
             "discounted_horizon_points": 14.567,
-            "ownership_percent": 36.8
+            "ownership_percent": 38.0
           },
           {
             "player_id": 40,
@@ -1566,7 +1566,7 @@
             "price": 7.5,
             "gameweek_1_expected_points": 2.539,
             "discounted_horizon_points": 14.397,
-            "ownership_percent": 37.2
+            "ownership_percent": 36.3
           },
           {
             "player_id": 109,
@@ -1577,7 +1577,7 @@
             "price": 4.5,
             "gameweek_1_expected_points": 3.303,
             "discounted_horizon_points": 17.797,
-            "ownership_percent": 16.1
+            "ownership_percent": 16.0
           }
         ],
         "captain": {
@@ -1589,7 +1589,7 @@
           "price": 5.5,
           "gameweek_1_expected_points": 3.728,
           "discounted_horizon_points": 17.682,
-          "ownership_percent": 2.7
+          "ownership_percent": 2.6
         },
         "vice_captain": {
           "player_id": 423,
@@ -1600,7 +1600,7 @@
           "price": 4.5,
           "gameweek_1_expected_points": 3.504,
           "discounted_horizon_points": 18.249,
-          "ownership_percent": 14.8
+          "ownership_percent": 15.5
         },
         "validation": {
           "legal_squad": true,
@@ -3895,46 +3895,13 @@
   },
   "differentials": [
     {
-      "player_id": 469,
-      "web_name": "N.Williams",
-      "team_id": 18,
-      "team_name": "Nott'm Forest",
-      "position": "Defender",
-      "price": 5.0,
-      "ownership_percent": 9.7,
-      "expected_points_next_3": 9.614,
-      "points_p90_next_1": 6.4,
-      "probability_10_plus_next_1": 0.01,
-      "probability_15_plus_next_1": 0.0,
-      "model_expected_points": 3.787,
-      "context_multiplier": 1.0,
-      "decision_expected_points": 3.787,
-      "external_upside_score": 0.2896,
-      "context_signal_count": 4,
-      "context_signal_ids": [
-        "odds-api-match_win_probability-ee99154f8db029efcf567c5f7f7a0c0b-18-20260724T084631Z",
-        "odds-api-team_score_probability-ee99154f8db029efcf567c5f7f7a0c0b-18-20260724T084631Z",
-        "odds-api-clean_sheet_probability-ee99154f8db029efcf567c5f7f7a0c0b-18-20260724T084631Z",
-        "odds-api-team_expected_goals-ee99154f8db029efcf567c5f7f7a0c0b-18-20260724T084631Z"
-      ],
-      "context_source_ids": [
-        "odds_api_market"
-      ],
-      "context_reasons": [
-        "team score probability 77%",
-        "clean sheet probability 30%",
-        "match win probability 42%",
-        "bookmaker-derived team expected goals 1.46"
-      ]
-    },
-    {
       "player_id": 471,
       "web_name": "Milenkovi\u0107",
       "team_id": 18,
       "team_name": "Nott'm Forest",
       "position": "Defender",
       "price": 5.5,
-      "ownership_percent": 2.7,
+      "ownership_percent": 2.6,
       "expected_points_next_3": 9.741,
       "points_p90_next_1": 6.4,
       "probability_10_plus_next_1": 0.0117,
@@ -3942,7 +3909,7 @@
       "model_expected_points": 3.728,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.728,
-      "external_upside_score": 0.2896,
+      "external_upside_score": 0.2384,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-ee99154f8db029efcf567c5f7f7a0c0b-18-20260724T084631Z",
@@ -3975,7 +3942,7 @@
       "model_expected_points": 3.728,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.728,
-      "external_upside_score": 0.2671,
+      "external_upside_score": 0.2199,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-01615d9573ef1e5aa8c09eb32a4a983b-12-20260724T084631Z",
@@ -4000,7 +3967,7 @@
       "team_name": "Sunderland",
       "position": "Goalkeeper",
       "price": 5.0,
-      "ownership_percent": 6.6,
+      "ownership_percent": 6.4,
       "expected_points_next_3": 10.171,
       "points_p90_next_1": 6.4,
       "probability_10_plus_next_1": 0.0,
@@ -4008,7 +3975,7 @@
       "model_expected_points": 3.458,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.458,
-      "external_upside_score": 0.2734,
+      "external_upside_score": 0.2251,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-01615d9573ef1e5aa8c09eb32a4a983b-20-20260724T084631Z",
@@ -4041,7 +4008,7 @@
       "model_expected_points": 3.361,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.361,
-      "external_upside_score": 0.2734,
+      "external_upside_score": 0.2251,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-01615d9573ef1e5aa8c09eb32a4a983b-20-20260724T084631Z",
@@ -4066,7 +4033,7 @@
       "team_name": "Brentford",
       "position": "Defender",
       "price": 4.5,
-      "ownership_percent": 5.7,
+      "ownership_percent": 5.6,
       "expected_points_next_3": 10.219,
       "points_p90_next_1": 6.4,
       "probability_10_plus_next_1": 0.0067,
@@ -4074,7 +4041,7 @@
       "model_expected_points": 3.357,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.357,
-      "external_upside_score": 0.283,
+      "external_upside_score": 0.233,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8b4b033209bb204516cbd1f523614f25-4-20260724T084631Z",
@@ -4107,7 +4074,7 @@
       "model_expected_points": 3.341,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.341,
-      "external_upside_score": 0.2671,
+      "external_upside_score": 0.2199,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-01615d9573ef1e5aa8c09eb32a4a983b-12-20260724T084631Z",
@@ -4132,7 +4099,7 @@
       "team_name": "Everton",
       "position": "Goalkeeper",
       "price": 5.5,
-      "ownership_percent": 10.0,
+      "ownership_percent": 9.7,
       "expected_points_next_3": 9.512,
       "points_p90_next_1": 6.000000000000001,
       "probability_10_plus_next_1": 0.0,
@@ -4140,7 +4107,7 @@
       "model_expected_points": 3.315,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.315,
-      "external_upside_score": 0.295,
+      "external_upside_score": 0.2429,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-cd1f0173ec061d9b8a8b22ab8f2f8393-9-20260724T084631Z",
@@ -4173,7 +4140,7 @@
       "model_expected_points": 3.285,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.285,
-      "external_upside_score": 0.283,
+      "external_upside_score": 0.233,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8b4b033209bb204516cbd1f523614f25-4-20260724T084631Z",
@@ -4198,7 +4165,7 @@
       "team_name": "Nott'm Forest",
       "position": "Goalkeeper",
       "price": 5.0,
-      "ownership_percent": 1.6,
+      "ownership_percent": 1.5,
       "expected_points_next_3": 8.452,
       "points_p90_next_1": 6.4,
       "probability_10_plus_next_1": 0.0,
@@ -4206,7 +4173,7 @@
       "model_expected_points": 3.226,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.226,
-      "external_upside_score": 0.2896,
+      "external_upside_score": 0.2384,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-ee99154f8db029efcf567c5f7f7a0c0b-18-20260724T084631Z",
@@ -4239,7 +4206,7 @@
       "model_expected_points": 3.218,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.218,
-      "external_upside_score": 0.2854,
+      "external_upside_score": 0.235,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-f5086c74d4a767e3ad7ea69bd4a66b76-5-20260724T084631Z",
@@ -4272,7 +4239,7 @@
       "model_expected_points": 3.213,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.213,
-      "external_upside_score": 0.2734,
+      "external_upside_score": 0.2251,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-01615d9573ef1e5aa8c09eb32a4a983b-20-20260724T084631Z",
@@ -4297,7 +4264,7 @@
       "team_name": "Sunderland",
       "position": "Defender",
       "price": 5.5,
-      "ownership_percent": 9.4,
+      "ownership_percent": 9.1,
       "expected_points_next_3": 9.281,
       "points_p90_next_1": 6.4,
       "probability_10_plus_next_1": 0.0117,
@@ -4305,7 +4272,7 @@
       "model_expected_points": 3.198,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.198,
-      "external_upside_score": 0.2734,
+      "external_upside_score": 0.2251,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-01615d9573ef1e5aa8c09eb32a4a983b-20-20260724T084631Z",
@@ -4338,7 +4305,7 @@
       "model_expected_points": 3.173,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.173,
-      "external_upside_score": 0.246,
+      "external_upside_score": 0.2026,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-cd1f0173ec061d9b8a8b22ab8f2f8393-8-20260724T084631Z",
@@ -4371,7 +4338,7 @@
       "model_expected_points": 3.162,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.162,
-      "external_upside_score": 0.246,
+      "external_upside_score": 0.2026,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-cd1f0173ec061d9b8a8b22ab8f2f8393-8-20260724T084631Z",
@@ -4387,6 +4354,39 @@
         "clean sheet probability 21%",
         "match win probability 28%",
         "bookmaker-derived team expected goals 1.23"
+      ]
+    },
+    {
+      "player_id": 233,
+      "web_name": "Mykolenko",
+      "team_id": 9,
+      "team_name": "Everton",
+      "position": "Defender",
+      "price": 4.5,
+      "ownership_percent": 1.9,
+      "expected_points_next_3": 8.764,
+      "points_p90_next_1": 6.4,
+      "probability_10_plus_next_1": 0.0083,
+      "probability_15_plus_next_1": 0.0,
+      "model_expected_points": 3.127,
+      "context_multiplier": 1.0,
+      "decision_expected_points": 3.127,
+      "external_upside_score": 0.2429,
+      "context_signal_count": 4,
+      "context_signal_ids": [
+        "odds-api-match_win_probability-cd1f0173ec061d9b8a8b22ab8f2f8393-9-20260724T084631Z",
+        "odds-api-team_score_probability-cd1f0173ec061d9b8a8b22ab8f2f8393-9-20260724T084631Z",
+        "odds-api-clean_sheet_probability-cd1f0173ec061d9b8a8b22ab8f2f8393-9-20260724T084631Z",
+        "odds-api-team_expected_goals-cd1f0173ec061d9b8a8b22ab8f2f8393-9-20260724T084631Z"
+      ],
+      "context_source_ids": [
+        "odds_api_market"
+      ],
+      "context_reasons": [
+        "team score probability 79%",
+        "clean sheet probability 29%",
+        "match win probability 45%",
+        "bookmaker-derived team expected goals 1.58"
       ]
     }
   ],
@@ -4496,8 +4496,8 @@
     "reason": "Phase 18 compares each available chip with the no-chip transfer routes, accounts for half-season expiry and enforces one chip per Gameweek."
   },
   "audit": {
-    "players_evaluated": 555,
-    "context_adjusted_players": 555,
+    "players_evaluated": 558,
+    "context_adjusted_players": 558,
     "unmodified_model_forecast_retained": true
   },
   "prospective_evaluation": {
