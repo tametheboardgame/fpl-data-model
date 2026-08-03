@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.1",
-  "generated_at": "2026-08-03T07:46:41+00:00",
+  "generated_at": "2026-08-03T08:47:02+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-1.8",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-21T17:30:00+00:00",
     "deadline_time_uk": "2026-08-21T18:30:00+01:00",
-    "hours_remaining": 441.722
+    "hours_remaining": 440.716
   },
   "recommendation": {
     "selection_source": "initial_squad_plan",
@@ -506,8 +506,8 @@
     }
   ],
   "source_freshness": {
-    "official_fpl_generated_at": "2026-08-03T07:44:45+00:00",
-    "external_context_generated_at": "2026-08-03T07:46:41+00:00",
+    "official_fpl_generated_at": "2026-08-03T08:43:49+00:00",
+    "external_context_generated_at": "2026-08-03T08:47:02+00:00",
     "active_external_signals": 2960,
     "expired_external_signals": 0
   },
@@ -1360,78 +1360,10 @@
   },
   "advisory_only": true,
   "automatic_fpl_actions": false,
-  "material_changes": [
-    {
-      "type": "status",
-      "summary": "Operational readiness changed",
-      "before": "review_required",
-      "after": "ready"
-    },
-    {
-      "type": "starting_xi",
-      "summary": "Starting XI changed",
-      "before": [],
-      "after": [
-        426,
-        498,
-        229,
-        106,
-        13,
-        356,
-        481,
-        200,
-        155,
-        529,
-        165
-      ]
-    },
-    {
-      "type": "bench",
-      "summary": "Bench order changed",
-      "before": [],
-      "after": [
-        542,
-        445,
-        346,
-        82
-      ]
-    },
-    {
-      "type": "captain",
-      "summary": "Captain changed",
-      "before": null,
-      "after": 426
-    },
-    {
-      "type": "vice_captain",
-      "summary": "Vice-captain changed",
-      "before": null,
-      "after": 498
-    },
-    {
-      "type": "warning_codes",
-      "summary": "Data-quality warning state changed",
-      "before": [
-        [
-          "invalid_starting_xi",
-          "high"
-        ],
-        [
-          "provider_plan_blocked",
-          "low"
-        ]
-      ],
-      "after": [
-        [
-          "provider_plan_blocked",
-          "low"
-        ]
-      ]
-    }
-  ],
-  "material_change": true,
-  "change_summary": "Operational readiness changed Starting XI changed Bench order changed Captain changed Vice-captain changed Data-quality warning state changed",
+  "material_changes": [],
+  "material_change": false,
+  "change_summary": "No material change since the previous report.",
   "decision_fingerprint": "e78f2b0e3ca9efa7f69246f287f1419784c76a4ca87d9fca827c833970611d4e",
-  "archive_created_this_run": "operations/gw01/20260803T074641Z.json",
-  "archive_markdown_created_this_run": "operations/gw01/20260803T074641Z.md"
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
 }
