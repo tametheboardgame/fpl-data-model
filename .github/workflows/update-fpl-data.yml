@@ -42,7 +42,7 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: Collect live FPL data
-        run: python -m src.update_fpl_data --team-id 6435140 --output-dir data
+        run: python -m src.update_fpl_data --team-id 39395 --output-dir data
 
       - name: Validate generated datasets
         run: python -m src.validate_fpl_data --data-dir data
