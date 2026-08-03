@@ -11,10 +11,13 @@ from zoneinfo import ZoneInfo
 from src.external_context import number
 
 
-OPERATIONS_VERSION = "fpl-gameweek-operations-1.1"
+OPERATIONS_VERSION = "fpl-gameweek-operations-1.2"
 FREEZE_WINDOW_HOURS = 8
 NORMAL_DATA_MAX_AGE_HOURS = 8
 DEADLINE_DATA_MAX_AGE_HOURS = 3
+FINAL_DATA_MAX_AGE_HOURS = 2
+FIRM_ADVICE_WINDOW_HOURS = 24
+FINAL_ADVICE_WINDOW_HOURS = 4
 
 
 def integer(value: Any) -> int:
@@ -333,7 +336,12 @@ def _warnings(
 ) -> list[dict[str, Any]]:
     warnings: list[dict[str, Any]] = []
     source_time = parse_time(current_gameweek.get("generated_at"))
-    max_age = DEADLINE_DATA_MAX_AGE_HOURS if hours_to_deadline is not None and hours_to_deadline <= FREEZE_WINDOW_HOURS else NORMAL_DATA_MAX_AGE_HOURS
+    if hours_to_deadline is not None and 0 <= hours_to_deadline <= FINAL_ADVICE_WINDOW_HOURS:
+        max_age = FINAL_DATA_MAX_AGE_HOURS
+    elif hours_to_deadline is not None and 0 <= hours_to_deadline <= FREEZE_WINDOW_HOURS:
+        max_age = DEADLINE_DATA_MAX_AGE_HOURS
+    else:
+        max_age = NORMAL_DATA_MAX_AGE_HOURS
     if not source_time:
         warnings.append({"code": "missing_source_timestamp", "severity": "high", "message": "The official FPL data timestamp is missing."})
     else:
@@ -395,6 +403,67 @@ def _warnings(
     return warnings
 
 
+def _operational_readiness(
+    decision: dict[str, Any],
+    warnings: list[dict[str, Any]],
+    freeze: dict[str, Any],
+    hours_to_deadline: float | None,
+    providers: list[dict[str, Any]],
+) -> dict[str, Any]:
+    blocking = [
+        str(row.get("code"))
+        for row in warnings
+        if row.get("severity") == "high"
+    ]
+    launch_validation = (
+        (decision.get("initial_squad_plan") or {}).get("launch_validation") or {}
+    )
+    validation_passed = (
+        decision.get("status") == "ready"
+        and launch_validation.get("status") == "passed"
+    )
+    if not validation_passed:
+        blocking.append("validation_not_passed")
+    inside_freeze = (
+        hours_to_deadline is not None
+        and 0 <= hours_to_deadline <= FREEZE_WINDOW_HOURS
+    )
+    if inside_freeze and freeze.get("status") != "frozen":
+        blocking.append("deadline_snapshot_not_frozen")
+    blocking = list(dict.fromkeys(blocking))
+
+    plan_blocked_team_news = any(
+        row.get("status") == "plan_blocked" for row in providers
+    )
+    late_news_due = (
+        hours_to_deadline is not None
+        and 0 <= hours_to_deadline <= FIRM_ADVICE_WINDOW_HOURS
+    )
+    if blocking:
+        advice_level = "blocked"
+    elif hours_to_deadline is not None and 0 <= hours_to_deadline <= FINAL_ADVICE_WINDOW_HOURS:
+        advice_level = "final"
+    elif hours_to_deadline is not None and 0 <= hours_to_deadline <= FIRM_ADVICE_WINDOW_HOURS:
+        advice_level = "firm"
+    else:
+        advice_level = "provisional"
+    return {
+        "advice_level": advice_level,
+        "firm_advice_allowed": advice_level in {"firm", "final"},
+        "validation_passed": validation_passed,
+        "blocking_reasons": blocking,
+        "late_team_news_review": {
+            "status": "required_before_action" if late_news_due else "not_due",
+            "required": late_news_due,
+            "reason": (
+                "API-Football is plan-blocked, so check official club news and trusted predicted line-ups before applying the recommendation."
+                if plan_blocked_team_news
+                else "Check late official team news before applying the recommendation."
+            ),
+        },
+    }
+
+
 def _material_state(report: dict[str, Any]) -> dict[str, Any]:
     selection = report.get("recommendation", {})
     return {
@@ -410,6 +479,8 @@ def _material_state(report: dict[str, Any]) -> dict[str, Any]:
         "risks": report.get("availability_risks", []),
         "fixture_signature": report.get("fixture_signature", []),
         "warning_codes": sorted((row.get("code"), row.get("severity")) for row in report.get("warnings", [])),
+        "advice_level": (report.get("operational_readiness") or {}).get("advice_level"),
+        "firm_advice_allowed": (report.get("operational_readiness") or {}).get("firm_advice_allowed"),
     }
 
 
@@ -432,6 +503,8 @@ def _changes(previous: dict[str, Any] | None, current: dict[str, Any]) -> list[d
         "risks": "Availability information changed",
         "fixture_signature": "Fixture information changed",
         "warning_codes": "Data-quality warning state changed",
+        "advice_level": "Deadline advice stage changed",
+        "firm_advice_allowed": "Firm-advice safety gate changed",
     }
     for key, summary in labels.items():
         if before.get(key) != after.get(key):
@@ -497,10 +570,20 @@ def build_gameweek_report(
         "horizon_gameweeks", []
     )
     fixture_signature = _fixture_signature(fixture_projections, horizon_gameweeks)
+    freeze = _freeze_status(gameweek, hours_to_deadline, prospective)
     warnings = _warnings(decision, selection, current_gameweek, generated, hours_to_deadline, providers, external_summary)
+    if freeze.get("status") == "snapshot_missing":
+        warnings.append({
+            "code": "deadline_snapshot_missing",
+            "severity": "high",
+            "message": "The final pre-deadline recommendation snapshot is missing; firm advice is blocked.",
+        })
     status = "ready" if decision.get("status") == "ready" else "waiting_for_recommendations"
     if status == "ready" and any(row.get("severity") == "high" for row in warnings):
         status = "review_required"
+    readiness = _operational_readiness(
+        decision, warnings, freeze, hours_to_deadline, providers
+    )
     report = {
         "operations_version": OPERATIONS_VERSION,
         "generated_at": generated.replace(microsecond=0).isoformat(),
@@ -531,7 +614,8 @@ def build_gameweek_report(
             "expired_external_signals": external_summary.get("expired_signal_rows", 0),
         },
         "fixture_signature": fixture_signature,
-        "deadline_freeze": _freeze_status(gameweek, hours_to_deadline, prospective),
+        "deadline_freeze": freeze,
+        "operational_readiness": readiness,
         "advisory_only": True,
         "automatic_fpl_actions": False,
     }
@@ -554,6 +638,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"Generated: {report.get('generated_at')}",
         f"UK deadline: {deadline.get('deadline_time_uk') or 'Not available'}",
         f"Hours remaining: {deadline.get('hours_remaining') if deadline.get('hours_remaining') is not None else 'Not available'}",
+        f"Advice level: {(report.get('operational_readiness') or {}).get('advice_level') or 'unavailable'}",
+        f"Firm advice allowed: {(report.get('operational_readiness') or {}).get('firm_advice_allowed', False)}",
         "",
         "## Recommended action",
         "",
@@ -586,6 +672,14 @@ def render_markdown(report: dict[str, Any]) -> str:
     lines.extend(f"- [{str(row.get('severity')).upper()}] {row.get('message')}" for row in report.get("warnings", []))
     if not report.get("warnings"):
         lines.append("- No warnings")
+    late_news = (report.get("operational_readiness") or {}).get("late_team_news_review") or {}
+    lines.extend([
+        "",
+        "## Manual late-news check",
+        "",
+        f"Status: {late_news.get('status') or 'not_due'}",
+        late_news.get("reason") or "Check official team news before applying changes.",
+    ])
     lines.extend(["", "## Deadline snapshot", "", f"Freeze status: {(report.get('deadline_freeze') or {}).get('status')}", f"Immutable snapshot: {(report.get('deadline_freeze') or {}).get('immutable_snapshot') or 'Not yet available'}", "", "This report is advisory only. No transfers, chips or team changes are made automatically.", ""])
     return "\n".join(lines)
 

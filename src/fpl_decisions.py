@@ -13,7 +13,7 @@ from src.fpl_multiweek import optimise_multi_gameweek_route
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-1.8"
+DECISION_VERSION = "fpl-decisions-1.9"
 
 
 def integer(value: Any) -> int:

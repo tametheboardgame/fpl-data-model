@@ -22,6 +22,9 @@ MAXIMUM_STARTERS = {
     "Midfielder": 5,
     "Forward": 3,
 }
+TRANSFER_FRICTION_POINTS = 0.75
+ROUND_TRIP_PENALTY_POINTS = 1.5
+MINIMUM_ROUTE_EDGE_POINTS = 1.0
 
 
 def number(value: Any) -> float:
@@ -117,10 +120,40 @@ class RouteState:
     free_transfers: int
     score: float
     undiscounted_points: float
+    decision_cost: float
+    round_trip_reversals: int
     moves: tuple[dict[str, Any], ...]
 
     def price_map(self) -> dict[int, float]:
         return dict(self.sale_prices)
+
+
+def transfer_decision_cost(
+    previous_moves: tuple[dict[str, Any], ...],
+    transfers: list[dict[str, Any]],
+    transfer_friction: float = TRANSFER_FRICTION_POINTS,
+    round_trip_penalty: float = ROUND_TRIP_PENALTY_POINTS,
+) -> tuple[float, int]:
+    """Return an uncertainty cost for transfers and short-horizon reversals."""
+    sold_before: set[int] = set()
+    bought_before: set[int] = set()
+    for gameweek_move in previous_moves:
+        for move in gameweek_move.get("transfers", []):
+            sold_before.add(integer(move.get("sell_player_id")))
+            bought_before.add(integer(move.get("buy_player_id")))
+
+    reversals = 0
+    for move in transfers:
+        outgoing = integer(move.get("sell_player_id"))
+        incoming = integer(move.get("buy_player_id"))
+        if incoming in sold_before or outgoing in bought_before:
+            reversals += 1
+        sold_before.add(outgoing)
+        bought_before.add(incoming)
+    return (
+        len(transfers) * transfer_friction + reversals * round_trip_penalty,
+        reversals,
+    )
 
 
 def transfer_options(
@@ -251,6 +284,8 @@ def optimise_multi_gameweek_route(
         free_transfers=max(0, free_transfers),
         score=0,
         undiscounted_points=0,
+        decision_cost=0,
+        round_trip_reversals=0,
         moves=(),
     )
 
@@ -275,6 +310,9 @@ def optimise_multi_gameweek_route(
                     new_squad, player_by_id, matrix.get(gameweek, {})
                 )
                 net_points = points - paid_transfers * hit_cost
+                decision_cost, reversals = transfer_decision_cost(
+                    state.moves, transfers
+                )
                 next_free_transfers = min(
                     maximum_free_transfers,
                     max(0, state.free_transfers - transfers_used) + 1,
@@ -304,8 +342,13 @@ def optimise_multi_gameweek_route(
                         sale_prices=tuple(sorted(new_prices.items())),
                         bank=round(new_bank, 1),
                         free_transfers=next_free_transfers,
-                        score=state.score + (discount ** offset) * net_points,
+                        score=state.score
+                        + (discount ** offset) * (net_points - decision_cost),
                         undiscounted_points=state.undiscounted_points + net_points,
+                        decision_cost=state.decision_cost + decision_cost,
+                        round_trip_reversals=(
+                            state.round_trip_reversals + reversals
+                        ),
                         moves=state.moves + (move_record,),
                     )
                 )
@@ -316,13 +359,40 @@ def optimise_multi_gameweek_route(
                 deduplicated[key] = state
         states = sorted(deduplicated.values(), key=lambda state: state.score, reverse=True)[:beam_width]
 
-    best = states[0]
+    best_state = states[0]
+    best_has_transfers = any(
+        move.get("transfers") for move in best_state.moves
+    )
+    best_adjusted_gain = (
+        best_state.undiscounted_points - hold_points - best_state.decision_cost
+    )
+    recommendation_reason = "Highest decision-adjusted expected return."
+    if best_has_transfers and best_adjusted_gain < MINIMUM_ROUTE_EDGE_POINTS:
+        hold_state = next(
+            (
+                state
+                for state in states
+                if not any(move.get("transfers") for move in state.moves)
+            ),
+            None,
+        )
+        if hold_state is not None:
+            states = [hold_state] + [state for state in states if state is not hold_state]
+            recommendation_reason = (
+                "Hold: no transfer route clears the minimum decision-adjusted edge."
+            )
+
     routes = []
     for state in states[:5]:
         routes.append({
             "projected_net_points": round(state.undiscounted_points, 3),
             "discounted_objective": round(state.score, 3),
             "net_gain_vs_hold": round(state.undiscounted_points - hold_points, 3),
+            "decision_adjusted_gain_vs_hold": round(
+                state.undiscounted_points - hold_points - state.decision_cost, 3
+            ),
+            "transfer_decision_cost": round(state.decision_cost, 3),
+            "round_trip_reversals": state.round_trip_reversals,
             "total_hit_cost": sum(integer(move.get("hit_cost")) for move in state.moves),
             "final_bank": round(state.bank, 1),
             "free_transfers_after_horizon": state.free_transfers,
@@ -331,9 +401,10 @@ def optimise_multi_gameweek_route(
         })
     return {
         "status": "ready",
-        "objective": "Maximise discounted expected starting-XI and captain points, net of transfer hits.",
+        "objective": "Maximise discounted expected starting-XI and captain points, net of transfer hits and short-horizon transfer uncertainty.",
         "horizon_gameweeks": future_gameweeks,
         "discount_per_gameweek": discount,
+        "recommendation_reason": recommendation_reason,
         "hold_current_squad_expected_points": round(hold_points, 3),
         "recommended_route": routes[0],
         "alternative_routes": routes[1:],
@@ -343,11 +414,15 @@ def optimise_multi_gameweek_route(
             "candidate_players_per_position": 10,
             "maximum_transfers_per_gameweek": 2,
             "states_retained": len(states),
+            "transfer_friction_points": TRANSFER_FRICTION_POINTS,
+            "round_trip_penalty_points": ROUND_TRIP_PENALTY_POINTS,
+            "minimum_route_edge_points": MINIMUM_ROUTE_EDGE_POINTS,
         },
         "assumptions": [
             "Player prices are held constant across the planning horizon.",
             "Only same-position transfers are considered, preserving squad structure.",
             "No chip is assumed within the route.",
             "Later Gameweeks are discounted because forecasts become less certain.",
+            "Every planned transfer carries a small uncertainty cost, with an additional penalty for selling and quickly rebuying the same player.",
         ],
     }

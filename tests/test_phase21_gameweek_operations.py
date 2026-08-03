@@ -99,6 +99,9 @@ class Phase21OperationsTests(unittest.TestCase):
                     "reason": "No chip has sufficient edge.",
                 }
             },
+            "initial_squad_plan": {
+                "launch_validation": {"status": "passed", "issues": []},
+            },
         }
         self.prospective = {
             "index": {
@@ -130,6 +133,11 @@ class Phase21OperationsTests(unittest.TestCase):
         self.assertEqual(report["recommendation"]["captain"]["player_id"], 1)
         self.assertEqual(report["recommendation"]["transfer_action"], "roll_or_hold")
         self.assertEqual(report["deadline_freeze"]["status"], "frozen")
+        self.assertTrue(report["operational_readiness"]["firm_advice_allowed"])
+        self.assertEqual(
+            report["operational_readiness"]["late_team_news_review"]["status"],
+            "required_before_action",
+        )
         self.assertTrue(report["advisory_only"])
         self.assertFalse(report["automatic_fpl_actions"])
         markdown = render_markdown(report)
@@ -167,6 +175,18 @@ class Phase21OperationsTests(unittest.TestCase):
         self.assertIn("stale_fpl_data", codes)
         self.assertIn("invalid_starting_xi", codes)
         self.assertEqual(report["status"], "review_required")
+        self.assertFalse(report["operational_readiness"]["firm_advice_allowed"])
+
+    def test_missing_final_snapshot_blocks_firm_advice(self) -> None:
+        self.prospective = {"index": {"snapshots": []}}
+        report = self.build()
+        self.assertEqual(report["deadline_freeze"]["status"], "snapshot_missing")
+        self.assertIn(
+            "deadline_snapshot_missing",
+            {row["code"] for row in report["warnings"]},
+        )
+        self.assertEqual(report["status"], "review_required")
+        self.assertFalse(report["operational_readiness"]["firm_advice_allowed"])
 
     def test_gameweek_one_uses_initial_squad_when_registered_team_is_empty(self) -> None:
         self.my_team = {"available": True, "squad": []}
