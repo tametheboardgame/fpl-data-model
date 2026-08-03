@@ -1,5 +1,5 @@
 {
-  "initial_squad_version": "fpl-initial-squad-1.0",
+  "initial_squad_version": "fpl-initial-squad-1.1",
   "status": "ready",
   "target_season": "2026/27",
   "budget": 100.0,
@@ -13,6 +13,7 @@
   ],
   "readiness": {
     "ready": true,
+    "launch_data_ready": true,
     "checks": {
       "official_season": {
         "passed": true,
@@ -67,29 +68,135 @@
     },
     "missing": []
   },
+  "launch_validation": {
+    "launch_validation_version": "fpl-launch-validation-1.0",
+    "status": "passed",
+    "usable_for_selection": true,
+    "checks": {
+      "canonical_player_mapping": {
+        "passed": true,
+        "observed": 0,
+        "expected": 0
+      },
+      "expected_points_scale": {
+        "passed": true,
+        "observed": {
+          "top_overall": 5.547,
+          "top_attacker": 5.547,
+          "top_defender": 4.684
+        },
+        "expected": {
+          "top_overall_minimum": 4,
+          "top_attacker_minimum": 4
+        }
+      },
+      "premium_attacker_scale": {
+        "passed": true,
+        "observed": {
+          "top_premium_attacker": 5.547,
+          "top_defender": 4.684,
+          "ratio": 1.184
+        },
+        "expected": {
+          "minimum_points": 3.5,
+          "minimum_defender_ratio": 0.85
+        }
+      },
+      "previous_season_evidence": {
+        "passed": true,
+        "observed": {
+          "players": 436,
+          "coverage": 0.773
+        },
+        "expected": {
+          "minimum_players": 100,
+          "minimum_coverage": 0.25
+        }
+      },
+      "historical_baseline_ordering": {
+        "passed": true,
+        "observed": {
+          "established_players": 284,
+          "low_quartile_projection": 2.307,
+          "high_quartile_projection": 2.647
+        },
+        "expected": {
+          "minimum_quartile_gap": 0.25
+        }
+      },
+      "strategy_contracts": {
+        "passed": true,
+        "observed": {
+          "strategies": 3,
+          "failed": []
+        },
+        "expected": {
+          "strategies": 3,
+          "failed": []
+        }
+      },
+      "captaincy_sanity": {
+        "passed": true,
+        "observed": {
+          "captain": "B.Fernandes",
+          "captain_expected_points": 5.422,
+          "starting_xi_maximum": 5.422
+        },
+        "expected": {
+          "captain_is_xi_maximum": true,
+          "minimum_expected_points": 4
+        }
+      },
+      "six_gameweek_route": {
+        "passed": true,
+        "observed": {
+          "status": "ready",
+          "horizon_gameweeks": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "recommended_route": true
+        },
+        "expected": {
+          "status": "ready",
+          "minimum_gameweeks": 3,
+          "recommended_route": true
+        }
+      }
+    },
+    "issues": [],
+    "high_severity_issue_count": 0,
+    "principle": "A launch squad cannot be marked ready while any high-severity mapping, projection, squad, route or captaincy check is unresolved."
+  },
   "recommended_strategy": "balanced",
+  "total_cost": 100.0,
+  "bank": 0.0,
   "recommended_squad": [
     {
-      "player_id": 40,
-      "web_name": "Rogers",
-      "team_id": 6,
-      "team_name": "Chelsea",
+      "player_id": 13,
+      "web_name": "Rice",
+      "team_id": 1,
+      "team_name": "Arsenal",
       "position": "Midfielder",
       "price": 7.5,
-      "gameweek_1_expected_points": 2.539,
-      "discounted_horizon_points": 14.397,
-      "ownership_percent": 31.1
+      "gameweek_1_expected_points": 4.438,
+      "discounted_horizon_points": 22.041,
+      "ownership_percent": 22.3
     },
     {
-      "player_id": 55,
-      "web_name": "Watkins",
-      "team_id": 2,
-      "team_name": "Aston Villa",
-      "position": "Forward",
-      "price": 8.0,
-      "gameweek_1_expected_points": 2.704,
-      "discounted_horizon_points": 14.43,
-      "ownership_percent": 12.3
+      "player_id": 82,
+      "web_name": "Kelleher",
+      "team_id": 4,
+      "team_name": "Brentford",
+      "position": "Goalkeeper",
+      "price": 5.0,
+      "gameweek_1_expected_points": 4.008,
+      "discounted_horizon_points": 21.847,
+      "ownership_percent": 5.6
     },
     {
       "player_id": 106,
@@ -98,42 +205,42 @@
       "team_name": "Brentford",
       "position": "Forward",
       "price": 8.0,
-      "gameweek_1_expected_points": 3.013,
-      "discounted_horizon_points": 15.692,
+      "gameweek_1_expected_points": 4.513,
+      "discounted_horizon_points": 24.101,
       "ownership_percent": 15.8
     },
     {
-      "player_id": 109,
-      "web_name": "Verbruggen",
-      "team_id": 5,
-      "team_name": "Brighton",
-      "position": "Goalkeeper",
-      "price": 4.5,
-      "gameweek_1_expected_points": 3.303,
-      "discounted_horizon_points": 17.797,
-      "ownership_percent": 16.7
+      "player_id": 155,
+      "web_name": "Enzo",
+      "team_id": 6,
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 7.0,
+      "gameweek_1_expected_points": 4.19,
+      "discounted_horizon_points": 23.116,
+      "ownership_percent": 5.4
     },
     {
-      "player_id": 204,
-      "web_name": "Mitchell",
-      "team_id": 8,
-      "team_name": "Crystal Palace",
+      "player_id": 165,
+      "web_name": "João Pedro",
+      "team_id": 6,
+      "team_name": "Chelsea",
+      "position": "Forward",
+      "price": 7.5,
+      "gameweek_1_expected_points": 4.101,
+      "discounted_horizon_points": 21.684,
+      "ownership_percent": 54.7
+    },
+    {
+      "player_id": 200,
+      "web_name": "Lacroix",
+      "team_id": 6,
+      "team_name": "Chelsea",
       "position": "Defender",
-      "price": 4.5,
-      "gameweek_1_expected_points": 3.173,
-      "discounted_horizon_points": 17.446,
-      "ownership_percent": 7.1
-    },
-    {
-      "player_id": 226,
-      "web_name": "Pickford",
-      "team_id": 9,
-      "team_name": "Everton",
-      "position": "Goalkeeper",
-      "price": 5.5,
-      "gameweek_1_expected_points": 3.315,
-      "discounted_horizon_points": 18.118,
-      "ownership_percent": 9.0
+      "price": 6.0,
+      "gameweek_1_expected_points": 4.28,
+      "discounted_horizon_points": 23.171,
+      "ownership_percent": 12.0
     },
     {
       "player_id": 229,
@@ -142,20 +249,20 @@
       "team_name": "Everton",
       "position": "Defender",
       "price": 6.0,
-      "gameweek_1_expected_points": 3.408,
-      "discounted_horizon_points": 18.101,
+      "gameweek_1_expected_points": 4.642,
+      "discounted_horizon_points": 24.726,
       "ownership_percent": 9.8
     },
     {
-      "player_id": 338,
-      "web_name": "Ampadu",
+      "player_id": 346,
+      "web_name": "Calvert-Lewin",
       "team_id": 13,
       "team_name": "Leeds",
-      "position": "Midfielder",
-      "price": 5.5,
-      "gameweek_1_expected_points": 2.579,
-      "discounted_horizon_points": 14.068,
-      "ownership_percent": 1.4
+      "position": "Forward",
+      "price": 6.0,
+      "gameweek_1_expected_points": 3.743,
+      "discounted_horizon_points": 19.929,
+      "ownership_percent": 19.5
     },
     {
       "player_id": 356,
@@ -164,52 +271,30 @@
       "team_name": "Liverpool",
       "position": "Defender",
       "price": 6.5,
-      "gameweek_1_expected_points": 3.151,
-      "discounted_horizon_points": 18.284,
+      "gameweek_1_expected_points": 4.424,
+      "discounted_horizon_points": 24.959,
       "ownership_percent": 16.3
     },
     {
-      "player_id": 368,
-      "web_name": "Szoboszlai",
-      "team_id": 14,
-      "team_name": "Liverpool",
-      "position": "Midfielder",
-      "price": 7.0,
-      "gameweek_1_expected_points": 2.665,
-      "discounted_horizon_points": 14.567,
-      "ownership_percent": 48.1
-    },
-    {
-      "player_id": 411,
-      "web_name": "Haaland",
-      "team_id": 15,
-      "team_name": "Man City",
-      "position": "Forward",
-      "price": 15.5,
-      "gameweek_1_expected_points": 2.727,
-      "discounted_horizon_points": 15.083,
-      "ownership_percent": 75.1
-    },
-    {
-      "player_id": 423,
-      "web_name": "Shaw",
+      "player_id": 426,
+      "web_name": "B.Fernandes",
       "team_id": 16,
       "team_name": "Man Utd",
-      "position": "Defender",
-      "price": 4.5,
-      "gameweek_1_expected_points": 3.504,
-      "discounted_horizon_points": 18.249,
-      "ownership_percent": 24.4
+      "position": "Midfielder",
+      "price": 12.0,
+      "gameweek_1_expected_points": 5.422,
+      "discounted_horizon_points": 28.343,
+      "ownership_percent": 48.6
     },
     {
-      "player_id": 471,
-      "web_name": "Milenković",
-      "team_id": 18,
-      "team_name": "Nott'm Forest",
+      "player_id": 445,
+      "web_name": "Thiaw",
+      "team_id": 17,
+      "team_name": "Newcastle",
       "position": "Defender",
-      "price": 5.5,
-      "gameweek_1_expected_points": 3.728,
-      "discounted_horizon_points": 17.682,
+      "price": 5.0,
+      "gameweek_1_expected_points": 3.812,
+      "discounted_horizon_points": 23.102,
       "ownership_percent": 2.2
     },
     {
@@ -219,44 +304,66 @@
       "team_name": "Man City",
       "position": "Midfielder",
       "price": 6.5,
-      "gameweek_1_expected_points": 2.727,
-      "discounted_horizon_points": 14.638,
+      "gameweek_1_expected_points": 4.37,
+      "discounted_horizon_points": 23.396,
       "ownership_percent": 12.0
     },
     {
-      "player_id": 545,
-      "web_name": "Sadiki",
+      "player_id": 498,
+      "web_name": "Senesi",
+      "team_id": 19,
+      "team_name": "Spurs",
+      "position": "Defender",
+      "price": 6.0,
+      "gameweek_1_expected_points": 4.684,
+      "discounted_horizon_points": 25.759,
+      "ownership_percent": 10.9
+    },
+    {
+      "player_id": 529,
+      "web_name": "Roefs",
+      "team_id": 20,
+      "team_name": "Sunderland",
+      "position": "Goalkeeper",
+      "price": 5.0,
+      "gameweek_1_expected_points": 4.124,
+      "discounted_horizon_points": 20.741,
+      "ownership_percent": 5.3
+    },
+    {
+      "player_id": 542,
+      "web_name": "E.Le Fée",
       "team_id": 20,
       "team_name": "Sunderland",
       "position": "Midfielder",
-      "price": 5.0,
-      "gameweek_1_expected_points": 2.648,
-      "discounted_horizon_points": 13.636,
-      "ownership_percent": 0.4
+      "price": 6.0,
+      "gameweek_1_expected_points": 3.869,
+      "discounted_horizon_points": 20.117,
+      "ownership_percent": 12.1
     }
   ],
   "recommended_starting_xi": [
     {
-      "player_id": 471,
-      "web_name": "Milenković",
-      "team_id": 18,
-      "team_name": "Nott'm Forest",
-      "position": "Defender",
-      "price": 5.5,
-      "gameweek_1_expected_points": 3.728,
-      "discounted_horizon_points": 17.682,
-      "ownership_percent": 2.2
-    },
-    {
-      "player_id": 423,
-      "web_name": "Shaw",
+      "player_id": 426,
+      "web_name": "B.Fernandes",
       "team_id": 16,
       "team_name": "Man Utd",
+      "position": "Midfielder",
+      "price": 12.0,
+      "gameweek_1_expected_points": 5.422,
+      "discounted_horizon_points": 28.343,
+      "ownership_percent": 48.6
+    },
+    {
+      "player_id": 498,
+      "web_name": "Senesi",
+      "team_id": 19,
+      "team_name": "Spurs",
       "position": "Defender",
-      "price": 4.5,
-      "gameweek_1_expected_points": 3.504,
-      "discounted_horizon_points": 18.249,
-      "ownership_percent": 24.4
+      "price": 6.0,
+      "gameweek_1_expected_points": 4.684,
+      "discounted_horizon_points": 25.759,
+      "ownership_percent": 10.9
     },
     {
       "player_id": 229,
@@ -265,42 +372,9 @@
       "team_name": "Everton",
       "position": "Defender",
       "price": 6.0,
-      "gameweek_1_expected_points": 3.408,
-      "discounted_horizon_points": 18.101,
+      "gameweek_1_expected_points": 4.642,
+      "discounted_horizon_points": 24.726,
       "ownership_percent": 9.8
-    },
-    {
-      "player_id": 226,
-      "web_name": "Pickford",
-      "team_id": 9,
-      "team_name": "Everton",
-      "position": "Goalkeeper",
-      "price": 5.5,
-      "gameweek_1_expected_points": 3.315,
-      "discounted_horizon_points": 18.118,
-      "ownership_percent": 9.0
-    },
-    {
-      "player_id": 204,
-      "web_name": "Mitchell",
-      "team_id": 8,
-      "team_name": "Crystal Palace",
-      "position": "Defender",
-      "price": 4.5,
-      "gameweek_1_expected_points": 3.173,
-      "discounted_horizon_points": 17.446,
-      "ownership_percent": 7.1
-    },
-    {
-      "player_id": 356,
-      "web_name": "Virgil",
-      "team_id": 14,
-      "team_name": "Liverpool",
-      "position": "Defender",
-      "price": 6.5,
-      "gameweek_1_expected_points": 3.151,
-      "discounted_horizon_points": 18.284,
-      "ownership_percent": 16.3
     },
     {
       "player_id": 106,
@@ -309,9 +383,31 @@
       "team_name": "Brentford",
       "position": "Forward",
       "price": 8.0,
-      "gameweek_1_expected_points": 3.013,
-      "discounted_horizon_points": 15.692,
+      "gameweek_1_expected_points": 4.513,
+      "discounted_horizon_points": 24.101,
       "ownership_percent": 15.8
+    },
+    {
+      "player_id": 13,
+      "web_name": "Rice",
+      "team_id": 1,
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 7.5,
+      "gameweek_1_expected_points": 4.438,
+      "discounted_horizon_points": 22.041,
+      "ownership_percent": 22.3
+    },
+    {
+      "player_id": 356,
+      "web_name": "Virgil",
+      "team_id": 14,
+      "team_name": "Liverpool",
+      "position": "Defender",
+      "price": 6.5,
+      "gameweek_1_expected_points": 4.424,
+      "discounted_horizon_points": 24.959,
+      "ownership_percent": 16.3
     },
     {
       "player_id": 481,
@@ -320,111 +416,122 @@
       "team_name": "Man City",
       "position": "Midfielder",
       "price": 6.5,
-      "gameweek_1_expected_points": 2.727,
-      "discounted_horizon_points": 14.638,
+      "gameweek_1_expected_points": 4.37,
+      "discounted_horizon_points": 23.396,
       "ownership_percent": 12.0
     },
     {
-      "player_id": 411,
-      "web_name": "Haaland",
-      "team_id": 15,
-      "team_name": "Man City",
-      "position": "Forward",
-      "price": 15.5,
-      "gameweek_1_expected_points": 2.727,
-      "discounted_horizon_points": 15.083,
-      "ownership_percent": 75.1
+      "player_id": 200,
+      "web_name": "Lacroix",
+      "team_id": 6,
+      "team_name": "Chelsea",
+      "position": "Defender",
+      "price": 6.0,
+      "gameweek_1_expected_points": 4.28,
+      "discounted_horizon_points": 23.171,
+      "ownership_percent": 12.0
     },
     {
-      "player_id": 55,
-      "web_name": "Watkins",
-      "team_id": 2,
-      "team_name": "Aston Villa",
-      "position": "Forward",
-      "price": 8.0,
-      "gameweek_1_expected_points": 2.704,
-      "discounted_horizon_points": 14.43,
-      "ownership_percent": 12.3
-    },
-    {
-      "player_id": 368,
-      "web_name": "Szoboszlai",
-      "team_id": 14,
-      "team_name": "Liverpool",
+      "player_id": 155,
+      "web_name": "Enzo",
+      "team_id": 6,
+      "team_name": "Chelsea",
       "position": "Midfielder",
       "price": 7.0,
-      "gameweek_1_expected_points": 2.665,
-      "discounted_horizon_points": 14.567,
-      "ownership_percent": 48.1
+      "gameweek_1_expected_points": 4.19,
+      "discounted_horizon_points": 23.116,
+      "ownership_percent": 5.4
+    },
+    {
+      "player_id": 529,
+      "web_name": "Roefs",
+      "team_id": 20,
+      "team_name": "Sunderland",
+      "position": "Goalkeeper",
+      "price": 5.0,
+      "gameweek_1_expected_points": 4.124,
+      "discounted_horizon_points": 20.741,
+      "ownership_percent": 5.3
+    },
+    {
+      "player_id": 165,
+      "web_name": "João Pedro",
+      "team_id": 6,
+      "team_name": "Chelsea",
+      "position": "Forward",
+      "price": 7.5,
+      "gameweek_1_expected_points": 4.101,
+      "discounted_horizon_points": 21.684,
+      "ownership_percent": 54.7
     }
   ],
   "recommended_bench_order": [
     {
-      "player_id": 545,
-      "web_name": "Sadiki",
+      "player_id": 542,
+      "web_name": "E.Le Fée",
       "team_id": 20,
       "team_name": "Sunderland",
       "position": "Midfielder",
-      "price": 5.0,
-      "gameweek_1_expected_points": 2.648,
-      "discounted_horizon_points": 13.636,
-      "ownership_percent": 0.4
+      "price": 6.0,
+      "gameweek_1_expected_points": 3.869,
+      "discounted_horizon_points": 20.117,
+      "ownership_percent": 12.1
     },
     {
-      "player_id": 338,
-      "web_name": "Ampadu",
+      "player_id": 445,
+      "web_name": "Thiaw",
+      "team_id": 17,
+      "team_name": "Newcastle",
+      "position": "Defender",
+      "price": 5.0,
+      "gameweek_1_expected_points": 3.812,
+      "discounted_horizon_points": 23.102,
+      "ownership_percent": 2.2
+    },
+    {
+      "player_id": 346,
+      "web_name": "Calvert-Lewin",
       "team_id": 13,
       "team_name": "Leeds",
-      "position": "Midfielder",
-      "price": 5.5,
-      "gameweek_1_expected_points": 2.579,
-      "discounted_horizon_points": 14.068,
-      "ownership_percent": 1.4
+      "position": "Forward",
+      "price": 6.0,
+      "gameweek_1_expected_points": 3.743,
+      "discounted_horizon_points": 19.929,
+      "ownership_percent": 19.5
     },
     {
-      "player_id": 40,
-      "web_name": "Rogers",
-      "team_id": 6,
-      "team_name": "Chelsea",
-      "position": "Midfielder",
-      "price": 7.5,
-      "gameweek_1_expected_points": 2.539,
-      "discounted_horizon_points": 14.397,
-      "ownership_percent": 31.1
-    },
-    {
-      "player_id": 109,
-      "web_name": "Verbruggen",
-      "team_id": 5,
-      "team_name": "Brighton",
+      "player_id": 82,
+      "web_name": "Kelleher",
+      "team_id": 4,
+      "team_name": "Brentford",
       "position": "Goalkeeper",
-      "price": 4.5,
-      "gameweek_1_expected_points": 3.303,
-      "discounted_horizon_points": 17.797,
-      "ownership_percent": 16.7
+      "price": 5.0,
+      "gameweek_1_expected_points": 4.008,
+      "discounted_horizon_points": 21.847,
+      "ownership_percent": 5.6
     }
   ],
   "captain": {
-    "player_id": 471,
-    "web_name": "Milenković",
-    "team_id": 18,
-    "team_name": "Nott'm Forest",
-    "position": "Defender",
-    "price": 5.5,
-    "gameweek_1_expected_points": 3.728,
-    "discounted_horizon_points": 17.682,
-    "ownership_percent": 2.2
-  },
-  "vice_captain": {
-    "player_id": 423,
-    "web_name": "Shaw",
+    "player_id": 426,
+    "web_name": "B.Fernandes",
     "team_id": 16,
     "team_name": "Man Utd",
+    "position": "Midfielder",
+    "price": 12.0,
+    "gameweek_1_expected_points": 5.422,
+    "discounted_horizon_points": 28.343,
+    "ownership_percent": 48.6
+  },
+  "vice_captain": {
+    "player_id": 498,
+    "web_name": "Senesi",
+    "team_id": 19,
+    "team_name": "Spurs",
     "position": "Defender",
-    "price": 4.5,
-    "gameweek_1_expected_points": 3.504,
-    "discounted_horizon_points": 18.249,
-    "ownership_percent": 24.4
+    "price": 6.0,
+    "gameweek_1_expected_points": 4.684,
+    "discounted_horizon_points": 25.759,
+    "ownership_percent": 10.9
   },
   "strategy_comparison": [
     {
@@ -433,30 +540,30 @@
       "description": "Maximise expected points while retaining useful bench depth.",
       "total_cost": 100.0,
       "bank": 0.0,
-      "objective_score": 212.163,
-      "gameweek_1_expected_points_including_captain": 37.842,
+      "objective_score": 305.683,
+      "gameweek_1_expected_points_including_captain": 54.61,
       "squad": [
         {
-          "player_id": 40,
-          "web_name": "Rogers",
-          "team_id": 6,
-          "team_name": "Chelsea",
+          "player_id": 13,
+          "web_name": "Rice",
+          "team_id": 1,
+          "team_name": "Arsenal",
           "position": "Midfielder",
           "price": 7.5,
-          "gameweek_1_expected_points": 2.539,
-          "discounted_horizon_points": 14.397,
-          "ownership_percent": 31.1
+          "gameweek_1_expected_points": 4.438,
+          "discounted_horizon_points": 22.041,
+          "ownership_percent": 22.3
         },
         {
-          "player_id": 55,
-          "web_name": "Watkins",
-          "team_id": 2,
-          "team_name": "Aston Villa",
-          "position": "Forward",
-          "price": 8.0,
-          "gameweek_1_expected_points": 2.704,
-          "discounted_horizon_points": 14.43,
-          "ownership_percent": 12.3
+          "player_id": 82,
+          "web_name": "Kelleher",
+          "team_id": 4,
+          "team_name": "Brentford",
+          "position": "Goalkeeper",
+          "price": 5.0,
+          "gameweek_1_expected_points": 4.008,
+          "discounted_horizon_points": 21.847,
+          "ownership_percent": 5.6
         },
         {
           "player_id": 106,
@@ -465,42 +572,42 @@
           "team_name": "Brentford",
           "position": "Forward",
           "price": 8.0,
-          "gameweek_1_expected_points": 3.013,
-          "discounted_horizon_points": 15.692,
+          "gameweek_1_expected_points": 4.513,
+          "discounted_horizon_points": 24.101,
           "ownership_percent": 15.8
         },
         {
-          "player_id": 109,
-          "web_name": "Verbruggen",
-          "team_id": 5,
-          "team_name": "Brighton",
-          "position": "Goalkeeper",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.303,
-          "discounted_horizon_points": 17.797,
-          "ownership_percent": 16.7
+          "player_id": 155,
+          "web_name": "Enzo",
+          "team_id": 6,
+          "team_name": "Chelsea",
+          "position": "Midfielder",
+          "price": 7.0,
+          "gameweek_1_expected_points": 4.19,
+          "discounted_horizon_points": 23.116,
+          "ownership_percent": 5.4
         },
         {
-          "player_id": 204,
-          "web_name": "Mitchell",
-          "team_id": 8,
-          "team_name": "Crystal Palace",
+          "player_id": 165,
+          "web_name": "João Pedro",
+          "team_id": 6,
+          "team_name": "Chelsea",
+          "position": "Forward",
+          "price": 7.5,
+          "gameweek_1_expected_points": 4.101,
+          "discounted_horizon_points": 21.684,
+          "ownership_percent": 54.7
+        },
+        {
+          "player_id": 200,
+          "web_name": "Lacroix",
+          "team_id": 6,
+          "team_name": "Chelsea",
           "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.173,
-          "discounted_horizon_points": 17.446,
-          "ownership_percent": 7.1
-        },
-        {
-          "player_id": 226,
-          "web_name": "Pickford",
-          "team_id": 9,
-          "team_name": "Everton",
-          "position": "Goalkeeper",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.315,
-          "discounted_horizon_points": 18.118,
-          "ownership_percent": 9.0
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.28,
+          "discounted_horizon_points": 23.171,
+          "ownership_percent": 12.0
         },
         {
           "player_id": 229,
@@ -509,20 +616,20 @@
           "team_name": "Everton",
           "position": "Defender",
           "price": 6.0,
-          "gameweek_1_expected_points": 3.408,
-          "discounted_horizon_points": 18.101,
+          "gameweek_1_expected_points": 4.642,
+          "discounted_horizon_points": 24.726,
           "ownership_percent": 9.8
         },
         {
-          "player_id": 338,
-          "web_name": "Ampadu",
+          "player_id": 346,
+          "web_name": "Calvert-Lewin",
           "team_id": 13,
           "team_name": "Leeds",
-          "position": "Midfielder",
-          "price": 5.5,
-          "gameweek_1_expected_points": 2.579,
-          "discounted_horizon_points": 14.068,
-          "ownership_percent": 1.4
+          "position": "Forward",
+          "price": 6.0,
+          "gameweek_1_expected_points": 3.743,
+          "discounted_horizon_points": 19.929,
+          "ownership_percent": 19.5
         },
         {
           "player_id": 356,
@@ -531,52 +638,30 @@
           "team_name": "Liverpool",
           "position": "Defender",
           "price": 6.5,
-          "gameweek_1_expected_points": 3.151,
-          "discounted_horizon_points": 18.284,
+          "gameweek_1_expected_points": 4.424,
+          "discounted_horizon_points": 24.959,
           "ownership_percent": 16.3
         },
         {
-          "player_id": 368,
-          "web_name": "Szoboszlai",
-          "team_id": 14,
-          "team_name": "Liverpool",
-          "position": "Midfielder",
-          "price": 7.0,
-          "gameweek_1_expected_points": 2.665,
-          "discounted_horizon_points": 14.567,
-          "ownership_percent": 48.1
-        },
-        {
-          "player_id": 411,
-          "web_name": "Haaland",
-          "team_id": 15,
-          "team_name": "Man City",
-          "position": "Forward",
-          "price": 15.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 15.083,
-          "ownership_percent": 75.1
-        },
-        {
-          "player_id": 423,
-          "web_name": "Shaw",
+          "player_id": 426,
+          "web_name": "B.Fernandes",
           "team_id": 16,
           "team_name": "Man Utd",
-          "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.504,
-          "discounted_horizon_points": 18.249,
-          "ownership_percent": 24.4
+          "position": "Midfielder",
+          "price": 12.0,
+          "gameweek_1_expected_points": 5.422,
+          "discounted_horizon_points": 28.343,
+          "ownership_percent": 48.6
         },
         {
-          "player_id": 471,
-          "web_name": "Milenković",
-          "team_id": 18,
-          "team_name": "Nott'm Forest",
+          "player_id": 445,
+          "web_name": "Thiaw",
+          "team_id": 17,
+          "team_name": "Newcastle",
           "position": "Defender",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.728,
-          "discounted_horizon_points": 17.682,
+          "price": 5.0,
+          "gameweek_1_expected_points": 3.812,
+          "discounted_horizon_points": 23.102,
           "ownership_percent": 2.2
         },
         {
@@ -586,44 +671,66 @@
           "team_name": "Man City",
           "position": "Midfielder",
           "price": 6.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 14.638,
+          "gameweek_1_expected_points": 4.37,
+          "discounted_horizon_points": 23.396,
           "ownership_percent": 12.0
         },
         {
-          "player_id": 545,
-          "web_name": "Sadiki",
+          "player_id": 498,
+          "web_name": "Senesi",
+          "team_id": 19,
+          "team_name": "Spurs",
+          "position": "Defender",
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.684,
+          "discounted_horizon_points": 25.759,
+          "ownership_percent": 10.9
+        },
+        {
+          "player_id": 529,
+          "web_name": "Roefs",
+          "team_id": 20,
+          "team_name": "Sunderland",
+          "position": "Goalkeeper",
+          "price": 5.0,
+          "gameweek_1_expected_points": 4.124,
+          "discounted_horizon_points": 20.741,
+          "ownership_percent": 5.3
+        },
+        {
+          "player_id": 542,
+          "web_name": "E.Le Fée",
           "team_id": 20,
           "team_name": "Sunderland",
           "position": "Midfielder",
-          "price": 5.0,
-          "gameweek_1_expected_points": 2.648,
-          "discounted_horizon_points": 13.636,
-          "ownership_percent": 0.4
+          "price": 6.0,
+          "gameweek_1_expected_points": 3.869,
+          "discounted_horizon_points": 20.117,
+          "ownership_percent": 12.1
         }
       ],
       "starting_xi": [
         {
-          "player_id": 471,
-          "web_name": "Milenković",
-          "team_id": 18,
-          "team_name": "Nott'm Forest",
-          "position": "Defender",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.728,
-          "discounted_horizon_points": 17.682,
-          "ownership_percent": 2.2
-        },
-        {
-          "player_id": 423,
-          "web_name": "Shaw",
+          "player_id": 426,
+          "web_name": "B.Fernandes",
           "team_id": 16,
           "team_name": "Man Utd",
+          "position": "Midfielder",
+          "price": 12.0,
+          "gameweek_1_expected_points": 5.422,
+          "discounted_horizon_points": 28.343,
+          "ownership_percent": 48.6
+        },
+        {
+          "player_id": 498,
+          "web_name": "Senesi",
+          "team_id": 19,
+          "team_name": "Spurs",
           "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.504,
-          "discounted_horizon_points": 18.249,
-          "ownership_percent": 24.4
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.684,
+          "discounted_horizon_points": 25.759,
+          "ownership_percent": 10.9
         },
         {
           "player_id": 229,
@@ -632,42 +739,9 @@
           "team_name": "Everton",
           "position": "Defender",
           "price": 6.0,
-          "gameweek_1_expected_points": 3.408,
-          "discounted_horizon_points": 18.101,
+          "gameweek_1_expected_points": 4.642,
+          "discounted_horizon_points": 24.726,
           "ownership_percent": 9.8
-        },
-        {
-          "player_id": 226,
-          "web_name": "Pickford",
-          "team_id": 9,
-          "team_name": "Everton",
-          "position": "Goalkeeper",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.315,
-          "discounted_horizon_points": 18.118,
-          "ownership_percent": 9.0
-        },
-        {
-          "player_id": 204,
-          "web_name": "Mitchell",
-          "team_id": 8,
-          "team_name": "Crystal Palace",
-          "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.173,
-          "discounted_horizon_points": 17.446,
-          "ownership_percent": 7.1
-        },
-        {
-          "player_id": 356,
-          "web_name": "Virgil",
-          "team_id": 14,
-          "team_name": "Liverpool",
-          "position": "Defender",
-          "price": 6.5,
-          "gameweek_1_expected_points": 3.151,
-          "discounted_horizon_points": 18.284,
-          "ownership_percent": 16.3
         },
         {
           "player_id": 106,
@@ -676,9 +750,31 @@
           "team_name": "Brentford",
           "position": "Forward",
           "price": 8.0,
-          "gameweek_1_expected_points": 3.013,
-          "discounted_horizon_points": 15.692,
+          "gameweek_1_expected_points": 4.513,
+          "discounted_horizon_points": 24.101,
           "ownership_percent": 15.8
+        },
+        {
+          "player_id": 13,
+          "web_name": "Rice",
+          "team_id": 1,
+          "team_name": "Arsenal",
+          "position": "Midfielder",
+          "price": 7.5,
+          "gameweek_1_expected_points": 4.438,
+          "discounted_horizon_points": 22.041,
+          "ownership_percent": 22.3
+        },
+        {
+          "player_id": 356,
+          "web_name": "Virgil",
+          "team_id": 14,
+          "team_name": "Liverpool",
+          "position": "Defender",
+          "price": 6.5,
+          "gameweek_1_expected_points": 4.424,
+          "discounted_horizon_points": 24.959,
+          "ownership_percent": 16.3
         },
         {
           "player_id": 481,
@@ -687,121 +783,132 @@
           "team_name": "Man City",
           "position": "Midfielder",
           "price": 6.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 14.638,
+          "gameweek_1_expected_points": 4.37,
+          "discounted_horizon_points": 23.396,
           "ownership_percent": 12.0
         },
         {
-          "player_id": 411,
-          "web_name": "Haaland",
-          "team_id": 15,
-          "team_name": "Man City",
-          "position": "Forward",
-          "price": 15.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 15.083,
-          "ownership_percent": 75.1
+          "player_id": 200,
+          "web_name": "Lacroix",
+          "team_id": 6,
+          "team_name": "Chelsea",
+          "position": "Defender",
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.28,
+          "discounted_horizon_points": 23.171,
+          "ownership_percent": 12.0
         },
         {
-          "player_id": 55,
-          "web_name": "Watkins",
-          "team_id": 2,
-          "team_name": "Aston Villa",
-          "position": "Forward",
-          "price": 8.0,
-          "gameweek_1_expected_points": 2.704,
-          "discounted_horizon_points": 14.43,
-          "ownership_percent": 12.3
-        },
-        {
-          "player_id": 368,
-          "web_name": "Szoboszlai",
-          "team_id": 14,
-          "team_name": "Liverpool",
+          "player_id": 155,
+          "web_name": "Enzo",
+          "team_id": 6,
+          "team_name": "Chelsea",
           "position": "Midfielder",
           "price": 7.0,
-          "gameweek_1_expected_points": 2.665,
-          "discounted_horizon_points": 14.567,
-          "ownership_percent": 48.1
+          "gameweek_1_expected_points": 4.19,
+          "discounted_horizon_points": 23.116,
+          "ownership_percent": 5.4
+        },
+        {
+          "player_id": 529,
+          "web_name": "Roefs",
+          "team_id": 20,
+          "team_name": "Sunderland",
+          "position": "Goalkeeper",
+          "price": 5.0,
+          "gameweek_1_expected_points": 4.124,
+          "discounted_horizon_points": 20.741,
+          "ownership_percent": 5.3
+        },
+        {
+          "player_id": 165,
+          "web_name": "João Pedro",
+          "team_id": 6,
+          "team_name": "Chelsea",
+          "position": "Forward",
+          "price": 7.5,
+          "gameweek_1_expected_points": 4.101,
+          "discounted_horizon_points": 21.684,
+          "ownership_percent": 54.7
         }
       ],
       "bench_order": [
         {
-          "player_id": 545,
-          "web_name": "Sadiki",
+          "player_id": 542,
+          "web_name": "E.Le Fée",
           "team_id": 20,
           "team_name": "Sunderland",
           "position": "Midfielder",
-          "price": 5.0,
-          "gameweek_1_expected_points": 2.648,
-          "discounted_horizon_points": 13.636,
-          "ownership_percent": 0.4
+          "price": 6.0,
+          "gameweek_1_expected_points": 3.869,
+          "discounted_horizon_points": 20.117,
+          "ownership_percent": 12.1
         },
         {
-          "player_id": 338,
-          "web_name": "Ampadu",
+          "player_id": 445,
+          "web_name": "Thiaw",
+          "team_id": 17,
+          "team_name": "Newcastle",
+          "position": "Defender",
+          "price": 5.0,
+          "gameweek_1_expected_points": 3.812,
+          "discounted_horizon_points": 23.102,
+          "ownership_percent": 2.2
+        },
+        {
+          "player_id": 346,
+          "web_name": "Calvert-Lewin",
           "team_id": 13,
           "team_name": "Leeds",
-          "position": "Midfielder",
-          "price": 5.5,
-          "gameweek_1_expected_points": 2.579,
-          "discounted_horizon_points": 14.068,
-          "ownership_percent": 1.4
+          "position": "Forward",
+          "price": 6.0,
+          "gameweek_1_expected_points": 3.743,
+          "discounted_horizon_points": 19.929,
+          "ownership_percent": 19.5
         },
         {
-          "player_id": 40,
-          "web_name": "Rogers",
-          "team_id": 6,
-          "team_name": "Chelsea",
-          "position": "Midfielder",
-          "price": 7.5,
-          "gameweek_1_expected_points": 2.539,
-          "discounted_horizon_points": 14.397,
-          "ownership_percent": 31.1
-        },
-        {
-          "player_id": 109,
-          "web_name": "Verbruggen",
-          "team_id": 5,
-          "team_name": "Brighton",
+          "player_id": 82,
+          "web_name": "Kelleher",
+          "team_id": 4,
+          "team_name": "Brentford",
           "position": "Goalkeeper",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.303,
-          "discounted_horizon_points": 17.797,
-          "ownership_percent": 16.7
+          "price": 5.0,
+          "gameweek_1_expected_points": 4.008,
+          "discounted_horizon_points": 21.847,
+          "ownership_percent": 5.6
         }
       ],
       "captain": {
-        "player_id": 471,
-        "web_name": "Milenković",
-        "team_id": 18,
-        "team_name": "Nott'm Forest",
-        "position": "Defender",
-        "price": 5.5,
-        "gameweek_1_expected_points": 3.728,
-        "discounted_horizon_points": 17.682,
-        "ownership_percent": 2.2
-      },
-      "vice_captain": {
-        "player_id": 423,
-        "web_name": "Shaw",
+        "player_id": 426,
+        "web_name": "B.Fernandes",
         "team_id": 16,
         "team_name": "Man Utd",
+        "position": "Midfielder",
+        "price": 12.0,
+        "gameweek_1_expected_points": 5.422,
+        "discounted_horizon_points": 28.343,
+        "ownership_percent": 48.6
+      },
+      "vice_captain": {
+        "player_id": 498,
+        "web_name": "Senesi",
+        "team_id": 19,
+        "team_name": "Spurs",
         "position": "Defender",
-        "price": 4.5,
-        "gameweek_1_expected_points": 3.504,
-        "discounted_horizon_points": 18.249,
-        "ownership_percent": 24.4
+        "price": 6.0,
+        "gameweek_1_expected_points": 4.684,
+        "discounted_horizon_points": 25.759,
+        "ownership_percent": 10.9
       },
       "validation": {
         "legal_squad": true,
         "position_counts": {
           "Midfielder": 5,
-          "Forward": 3,
           "Goalkeeper": 2,
+          "Forward": 3,
           "Defender": 5
         },
-        "maximum_from_one_club": 2,
+        "maximum_from_one_club": 3,
         "within_budget": true
       }
     },
@@ -811,41 +918,30 @@
       "description": "Give extra weight to upside and lower ownership.",
       "total_cost": 100.0,
       "bank": 0.0,
-      "objective_score": 218.984,
-      "gameweek_1_expected_points_including_captain": 38.027,
+      "objective_score": 335.489,
+      "gameweek_1_expected_points_including_captain": 54.895,
       "squad": [
         {
-          "player_id": 40,
-          "web_name": "Rogers",
-          "team_id": 6,
-          "team_name": "Chelsea",
+          "player_id": 13,
+          "web_name": "Rice",
+          "team_id": 1,
+          "team_name": "Arsenal",
           "position": "Midfielder",
           "price": 7.5,
-          "gameweek_1_expected_points": 2.539,
-          "discounted_horizon_points": 14.397,
-          "ownership_percent": 31.1
+          "gameweek_1_expected_points": 4.438,
+          "discounted_horizon_points": 22.041,
+          "ownership_percent": 22.3
         },
         {
-          "player_id": 55,
-          "web_name": "Watkins",
-          "team_id": 2,
-          "team_name": "Aston Villa",
-          "position": "Forward",
-          "price": 8.0,
-          "gameweek_1_expected_points": 2.704,
-          "discounted_horizon_points": 14.43,
-          "ownership_percent": 12.3
-        },
-        {
-          "player_id": 88,
-          "web_name": "Kayode",
+          "player_id": 82,
+          "web_name": "Kelleher",
           "team_id": 4,
           "team_name": "Brentford",
-          "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.357,
-          "discounted_horizon_points": 17.15,
-          "ownership_percent": 4.2
+          "position": "Goalkeeper",
+          "price": 5.0,
+          "gameweek_1_expected_points": 4.008,
+          "discounted_horizon_points": 21.847,
+          "ownership_percent": 5.6
         },
         {
           "player_id": 106,
@@ -854,31 +950,20 @@
           "team_name": "Brentford",
           "position": "Forward",
           "price": 8.0,
-          "gameweek_1_expected_points": 3.013,
-          "discounted_horizon_points": 15.692,
+          "gameweek_1_expected_points": 4.513,
+          "discounted_horizon_points": 24.101,
           "ownership_percent": 15.8
         },
         {
-          "player_id": 109,
-          "web_name": "Verbruggen",
-          "team_id": 5,
-          "team_name": "Brighton",
-          "position": "Goalkeeper",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.303,
-          "discounted_horizon_points": 17.797,
-          "ownership_percent": 16.7
-        },
-        {
-          "player_id": 226,
-          "web_name": "Pickford",
-          "team_id": 9,
-          "team_name": "Everton",
-          "position": "Goalkeeper",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.315,
-          "discounted_horizon_points": 18.118,
-          "ownership_percent": 9.0
+          "player_id": 155,
+          "web_name": "Enzo",
+          "team_id": 6,
+          "team_name": "Chelsea",
+          "position": "Midfielder",
+          "price": 7.0,
+          "gameweek_1_expected_points": 4.19,
+          "discounted_horizon_points": 23.116,
+          "ownership_percent": 5.4
         },
         {
           "player_id": 229,
@@ -887,20 +972,31 @@
           "team_name": "Everton",
           "position": "Defender",
           "price": 6.0,
-          "gameweek_1_expected_points": 3.408,
-          "discounted_horizon_points": 18.101,
+          "gameweek_1_expected_points": 4.642,
+          "discounted_horizon_points": 24.726,
           "ownership_percent": 9.8
         },
         {
-          "player_id": 338,
-          "web_name": "Ampadu",
+          "player_id": 249,
+          "web_name": "Barry",
+          "team_id": 9,
+          "team_name": "Everton",
+          "position": "Forward",
+          "price": 5.5,
+          "gameweek_1_expected_points": 2.338,
+          "discounted_horizon_points": 12.863,
+          "ownership_percent": 0.9
+        },
+        {
+          "player_id": 346,
+          "web_name": "Calvert-Lewin",
           "team_id": 13,
           "team_name": "Leeds",
-          "position": "Midfielder",
-          "price": 5.5,
-          "gameweek_1_expected_points": 2.579,
-          "discounted_horizon_points": 14.068,
-          "ownership_percent": 1.4
+          "position": "Forward",
+          "price": 6.0,
+          "gameweek_1_expected_points": 3.743,
+          "discounted_horizon_points": 19.929,
+          "ownership_percent": 19.5
         },
         {
           "player_id": 356,
@@ -909,52 +1005,52 @@
           "team_name": "Liverpool",
           "position": "Defender",
           "price": 6.5,
-          "gameweek_1_expected_points": 3.151,
-          "discounted_horizon_points": 18.284,
+          "gameweek_1_expected_points": 4.424,
+          "discounted_horizon_points": 24.959,
           "ownership_percent": 16.3
         },
         {
-          "player_id": 368,
-          "web_name": "Szoboszlai",
-          "team_id": 14,
-          "team_name": "Liverpool",
-          "position": "Midfielder",
-          "price": 7.0,
-          "gameweek_1_expected_points": 2.665,
-          "discounted_horizon_points": 14.567,
-          "ownership_percent": 48.1
-        },
-        {
-          "player_id": 411,
-          "web_name": "Haaland",
+          "player_id": 388,
+          "web_name": "Guéhi",
           "team_id": 15,
           "team_name": "Man City",
-          "position": "Forward",
-          "price": 15.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 15.083,
-          "ownership_percent": 75.1
+          "position": "Defender",
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.269,
+          "discounted_horizon_points": 22.55,
+          "ownership_percent": 24.1
         },
         {
-          "player_id": 423,
-          "web_name": "Shaw",
+          "player_id": 426,
+          "web_name": "B.Fernandes",
           "team_id": 16,
           "team_name": "Man Utd",
-          "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.504,
-          "discounted_horizon_points": 18.249,
-          "ownership_percent": 24.4
+          "position": "Midfielder",
+          "price": 12.0,
+          "gameweek_1_expected_points": 5.422,
+          "discounted_horizon_points": 28.343,
+          "ownership_percent": 48.6
         },
         {
-          "player_id": 471,
-          "web_name": "Milenković",
-          "team_id": 18,
-          "team_name": "Nott'm Forest",
+          "player_id": 427,
+          "web_name": "Mbeumo",
+          "team_id": 16,
+          "team_name": "Man Utd",
+          "position": "Midfielder",
+          "price": 8.0,
+          "gameweek_1_expected_points": 4.398,
+          "discounted_horizon_points": 22.192,
+          "ownership_percent": 16.0
+        },
+        {
+          "player_id": 445,
+          "web_name": "Thiaw",
+          "team_id": 17,
+          "team_name": "Newcastle",
           "position": "Defender",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.728,
-          "discounted_horizon_points": 17.682,
+          "price": 5.0,
+          "gameweek_1_expected_points": 3.812,
+          "discounted_horizon_points": 23.102,
           "ownership_percent": 2.2
         },
         {
@@ -964,44 +1060,55 @@
           "team_name": "Man City",
           "position": "Midfielder",
           "price": 6.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 14.638,
+          "gameweek_1_expected_points": 4.37,
+          "discounted_horizon_points": 23.396,
           "ownership_percent": 12.0
         },
         {
-          "player_id": 545,
-          "web_name": "Sadiki",
+          "player_id": 498,
+          "web_name": "Senesi",
+          "team_id": 19,
+          "team_name": "Spurs",
+          "position": "Defender",
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.684,
+          "discounted_horizon_points": 25.759,
+          "ownership_percent": 10.9
+        },
+        {
+          "player_id": 529,
+          "web_name": "Roefs",
           "team_id": 20,
           "team_name": "Sunderland",
-          "position": "Midfielder",
+          "position": "Goalkeeper",
           "price": 5.0,
-          "gameweek_1_expected_points": 2.648,
-          "discounted_horizon_points": 13.636,
-          "ownership_percent": 0.4
+          "gameweek_1_expected_points": 4.124,
+          "discounted_horizon_points": 20.741,
+          "ownership_percent": 5.3
         }
       ],
       "starting_xi": [
         {
-          "player_id": 471,
-          "web_name": "Milenković",
-          "team_id": 18,
-          "team_name": "Nott'm Forest",
-          "position": "Defender",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.728,
-          "discounted_horizon_points": 17.682,
-          "ownership_percent": 2.2
-        },
-        {
-          "player_id": 423,
-          "web_name": "Shaw",
+          "player_id": 426,
+          "web_name": "B.Fernandes",
           "team_id": 16,
           "team_name": "Man Utd",
+          "position": "Midfielder",
+          "price": 12.0,
+          "gameweek_1_expected_points": 5.422,
+          "discounted_horizon_points": 28.343,
+          "ownership_percent": 48.6
+        },
+        {
+          "player_id": 498,
+          "web_name": "Senesi",
+          "team_id": 19,
+          "team_name": "Spurs",
           "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.504,
-          "discounted_horizon_points": 18.249,
-          "ownership_percent": 24.4
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.684,
+          "discounted_horizon_points": 25.759,
+          "ownership_percent": 10.9
         },
         {
           "player_id": 229,
@@ -1010,42 +1117,9 @@
           "team_name": "Everton",
           "position": "Defender",
           "price": 6.0,
-          "gameweek_1_expected_points": 3.408,
-          "discounted_horizon_points": 18.101,
+          "gameweek_1_expected_points": 4.642,
+          "discounted_horizon_points": 24.726,
           "ownership_percent": 9.8
-        },
-        {
-          "player_id": 88,
-          "web_name": "Kayode",
-          "team_id": 4,
-          "team_name": "Brentford",
-          "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.357,
-          "discounted_horizon_points": 17.15,
-          "ownership_percent": 4.2
-        },
-        {
-          "player_id": 226,
-          "web_name": "Pickford",
-          "team_id": 9,
-          "team_name": "Everton",
-          "position": "Goalkeeper",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.315,
-          "discounted_horizon_points": 18.118,
-          "ownership_percent": 9.0
-        },
-        {
-          "player_id": 356,
-          "web_name": "Virgil",
-          "team_id": 14,
-          "team_name": "Liverpool",
-          "position": "Defender",
-          "price": 6.5,
-          "gameweek_1_expected_points": 3.151,
-          "discounted_horizon_points": 18.284,
-          "ownership_percent": 16.3
         },
         {
           "player_id": 106,
@@ -1054,9 +1128,42 @@
           "team_name": "Brentford",
           "position": "Forward",
           "price": 8.0,
-          "gameweek_1_expected_points": 3.013,
-          "discounted_horizon_points": 15.692,
+          "gameweek_1_expected_points": 4.513,
+          "discounted_horizon_points": 24.101,
           "ownership_percent": 15.8
+        },
+        {
+          "player_id": 13,
+          "web_name": "Rice",
+          "team_id": 1,
+          "team_name": "Arsenal",
+          "position": "Midfielder",
+          "price": 7.5,
+          "gameweek_1_expected_points": 4.438,
+          "discounted_horizon_points": 22.041,
+          "ownership_percent": 22.3
+        },
+        {
+          "player_id": 356,
+          "web_name": "Virgil",
+          "team_id": 14,
+          "team_name": "Liverpool",
+          "position": "Defender",
+          "price": 6.5,
+          "gameweek_1_expected_points": 4.424,
+          "discounted_horizon_points": 24.959,
+          "ownership_percent": 16.3
+        },
+        {
+          "player_id": 427,
+          "web_name": "Mbeumo",
+          "team_id": 16,
+          "team_name": "Man Utd",
+          "position": "Midfielder",
+          "price": 8.0,
+          "gameweek_1_expected_points": 4.398,
+          "discounted_horizon_points": 22.192,
+          "ownership_percent": 16.0
         },
         {
           "player_id": 481,
@@ -1065,119 +1172,119 @@
           "team_name": "Man City",
           "position": "Midfielder",
           "price": 6.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 14.638,
+          "gameweek_1_expected_points": 4.37,
+          "discounted_horizon_points": 23.396,
           "ownership_percent": 12.0
         },
         {
-          "player_id": 411,
-          "web_name": "Haaland",
+          "player_id": 388,
+          "web_name": "Guéhi",
           "team_id": 15,
           "team_name": "Man City",
-          "position": "Forward",
-          "price": 15.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 15.083,
-          "ownership_percent": 75.1
+          "position": "Defender",
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.269,
+          "discounted_horizon_points": 22.55,
+          "ownership_percent": 24.1
         },
         {
-          "player_id": 55,
-          "web_name": "Watkins",
-          "team_id": 2,
-          "team_name": "Aston Villa",
-          "position": "Forward",
-          "price": 8.0,
-          "gameweek_1_expected_points": 2.704,
-          "discounted_horizon_points": 14.43,
-          "ownership_percent": 12.3
-        },
-        {
-          "player_id": 368,
-          "web_name": "Szoboszlai",
-          "team_id": 14,
-          "team_name": "Liverpool",
+          "player_id": 155,
+          "web_name": "Enzo",
+          "team_id": 6,
+          "team_name": "Chelsea",
           "position": "Midfielder",
           "price": 7.0,
-          "gameweek_1_expected_points": 2.665,
-          "discounted_horizon_points": 14.567,
-          "ownership_percent": 48.1
+          "gameweek_1_expected_points": 4.19,
+          "discounted_horizon_points": 23.116,
+          "ownership_percent": 5.4
+        },
+        {
+          "player_id": 529,
+          "web_name": "Roefs",
+          "team_id": 20,
+          "team_name": "Sunderland",
+          "position": "Goalkeeper",
+          "price": 5.0,
+          "gameweek_1_expected_points": 4.124,
+          "discounted_horizon_points": 20.741,
+          "ownership_percent": 5.3
         }
       ],
       "bench_order": [
         {
-          "player_id": 545,
-          "web_name": "Sadiki",
-          "team_id": 20,
-          "team_name": "Sunderland",
-          "position": "Midfielder",
+          "player_id": 445,
+          "web_name": "Thiaw",
+          "team_id": 17,
+          "team_name": "Newcastle",
+          "position": "Defender",
           "price": 5.0,
-          "gameweek_1_expected_points": 2.648,
-          "discounted_horizon_points": 13.636,
-          "ownership_percent": 0.4
+          "gameweek_1_expected_points": 3.812,
+          "discounted_horizon_points": 23.102,
+          "ownership_percent": 2.2
         },
         {
-          "player_id": 338,
-          "web_name": "Ampadu",
+          "player_id": 346,
+          "web_name": "Calvert-Lewin",
           "team_id": 13,
           "team_name": "Leeds",
-          "position": "Midfielder",
+          "position": "Forward",
+          "price": 6.0,
+          "gameweek_1_expected_points": 3.743,
+          "discounted_horizon_points": 19.929,
+          "ownership_percent": 19.5
+        },
+        {
+          "player_id": 249,
+          "web_name": "Barry",
+          "team_id": 9,
+          "team_name": "Everton",
+          "position": "Forward",
           "price": 5.5,
-          "gameweek_1_expected_points": 2.579,
-          "discounted_horizon_points": 14.068,
-          "ownership_percent": 1.4
+          "gameweek_1_expected_points": 2.338,
+          "discounted_horizon_points": 12.863,
+          "ownership_percent": 0.9
         },
         {
-          "player_id": 40,
-          "web_name": "Rogers",
-          "team_id": 6,
-          "team_name": "Chelsea",
-          "position": "Midfielder",
-          "price": 7.5,
-          "gameweek_1_expected_points": 2.539,
-          "discounted_horizon_points": 14.397,
-          "ownership_percent": 31.1
-        },
-        {
-          "player_id": 109,
-          "web_name": "Verbruggen",
-          "team_id": 5,
-          "team_name": "Brighton",
+          "player_id": 82,
+          "web_name": "Kelleher",
+          "team_id": 4,
+          "team_name": "Brentford",
           "position": "Goalkeeper",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.303,
-          "discounted_horizon_points": 17.797,
-          "ownership_percent": 16.7
+          "price": 5.0,
+          "gameweek_1_expected_points": 4.008,
+          "discounted_horizon_points": 21.847,
+          "ownership_percent": 5.6
         }
       ],
       "captain": {
-        "player_id": 471,
-        "web_name": "Milenković",
-        "team_id": 18,
-        "team_name": "Nott'm Forest",
-        "position": "Defender",
-        "price": 5.5,
-        "gameweek_1_expected_points": 3.728,
-        "discounted_horizon_points": 17.682,
-        "ownership_percent": 2.2
-      },
-      "vice_captain": {
-        "player_id": 423,
-        "web_name": "Shaw",
+        "player_id": 426,
+        "web_name": "B.Fernandes",
         "team_id": 16,
         "team_name": "Man Utd",
+        "position": "Midfielder",
+        "price": 12.0,
+        "gameweek_1_expected_points": 5.422,
+        "discounted_horizon_points": 28.343,
+        "ownership_percent": 48.6
+      },
+      "vice_captain": {
+        "player_id": 498,
+        "web_name": "Senesi",
+        "team_id": 19,
+        "team_name": "Spurs",
         "position": "Defender",
-        "price": 4.5,
-        "gameweek_1_expected_points": 3.504,
-        "discounted_horizon_points": 18.249,
-        "ownership_percent": 24.4
+        "price": 6.0,
+        "gameweek_1_expected_points": 4.684,
+        "discounted_horizon_points": 25.759,
+        "ownership_percent": 10.9
       },
       "validation": {
         "legal_squad": true,
         "position_counts": {
           "Midfielder": 5,
+          "Goalkeeper": 2,
           "Forward": 3,
-          "Defender": 5,
-          "Goalkeeper": 2
+          "Defender": 5
         },
         "maximum_from_one_club": 2,
         "within_budget": true
@@ -1187,10 +1294,10 @@
       "strategy": "ownership_protected",
       "label": "Ownership-protected",
       "description": "Give extra weight to highly owned players to limit early rank volatility.",
-      "total_cost": 99.0,
-      "bank": 1.0,
-      "objective_score": 214.224,
-      "gameweek_1_expected_points_including_captain": 38.009,
+      "total_cost": 100.0,
+      "bank": 0.0,
+      "objective_score": 309.289,
+      "gameweek_1_expected_points_including_captain": 54.494,
       "squad": [
         {
           "player_id": 13,
@@ -1199,31 +1306,20 @@
           "team_name": "Arsenal",
           "position": "Midfielder",
           "price": 7.5,
-          "gameweek_1_expected_points": 2.84,
-          "discounted_horizon_points": 14.094,
+          "gameweek_1_expected_points": 4.438,
+          "discounted_horizon_points": 22.041,
           "ownership_percent": 22.3
         },
         {
-          "player_id": 40,
-          "web_name": "Rogers",
-          "team_id": 6,
-          "team_name": "Chelsea",
-          "position": "Midfielder",
-          "price": 7.5,
-          "gameweek_1_expected_points": 2.539,
-          "discounted_horizon_points": 14.397,
-          "ownership_percent": 31.1
-        },
-        {
-          "player_id": 55,
-          "web_name": "Watkins",
-          "team_id": 2,
-          "team_name": "Aston Villa",
-          "position": "Forward",
-          "price": 8.0,
-          "gameweek_1_expected_points": 2.704,
-          "discounted_horizon_points": 14.43,
-          "ownership_percent": 12.3
+          "player_id": 82,
+          "web_name": "Kelleher",
+          "team_id": 4,
+          "team_name": "Brentford",
+          "position": "Goalkeeper",
+          "price": 5.0,
+          "gameweek_1_expected_points": 4.008,
+          "discounted_horizon_points": 21.847,
+          "ownership_percent": 5.6
         },
         {
           "player_id": 106,
@@ -1232,20 +1328,20 @@
           "team_name": "Brentford",
           "position": "Forward",
           "price": 8.0,
-          "gameweek_1_expected_points": 3.013,
-          "discounted_horizon_points": 15.692,
+          "gameweek_1_expected_points": 4.513,
+          "discounted_horizon_points": 24.101,
           "ownership_percent": 15.8
         },
         {
-          "player_id": 109,
-          "web_name": "Verbruggen",
-          "team_id": 5,
-          "team_name": "Brighton",
-          "position": "Goalkeeper",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.303,
-          "discounted_horizon_points": 17.797,
-          "ownership_percent": 16.7
+          "player_id": 155,
+          "web_name": "Enzo",
+          "team_id": 6,
+          "team_name": "Chelsea",
+          "position": "Midfielder",
+          "price": 7.0,
+          "gameweek_1_expected_points": 4.19,
+          "discounted_horizon_points": 23.116,
+          "ownership_percent": 5.4
         },
         {
           "player_id": 165,
@@ -1254,8 +1350,8 @@
           "team_name": "Chelsea",
           "position": "Forward",
           "price": 7.5,
-          "gameweek_1_expected_points": 2.693,
-          "discounted_horizon_points": 14.138,
+          "gameweek_1_expected_points": 4.101,
+          "discounted_horizon_points": 21.684,
           "ownership_percent": 54.7
         },
         {
@@ -1265,20 +1361,9 @@
           "team_name": "Chelsea",
           "position": "Defender",
           "price": 6.0,
-          "gameweek_1_expected_points": 3.199,
-          "discounted_horizon_points": 17.136,
+          "gameweek_1_expected_points": 4.28,
+          "discounted_horizon_points": 23.171,
           "ownership_percent": 12.0
-        },
-        {
-          "player_id": 226,
-          "web_name": "Pickford",
-          "team_id": 9,
-          "team_name": "Everton",
-          "position": "Goalkeeper",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.315,
-          "discounted_horizon_points": 18.118,
-          "ownership_percent": 9.0
         },
         {
           "player_id": 229,
@@ -1287,9 +1372,20 @@
           "team_name": "Everton",
           "position": "Defender",
           "price": 6.0,
-          "gameweek_1_expected_points": 3.408,
-          "discounted_horizon_points": 18.101,
+          "gameweek_1_expected_points": 4.642,
+          "discounted_horizon_points": 24.726,
           "ownership_percent": 9.8
+        },
+        {
+          "player_id": 346,
+          "web_name": "Calvert-Lewin",
+          "team_id": 13,
+          "team_name": "Leeds",
+          "position": "Forward",
+          "price": 6.0,
+          "gameweek_1_expected_points": 3.743,
+          "discounted_horizon_points": 19.929,
+          "ownership_percent": 19.5
         },
         {
           "player_id": 356,
@@ -1298,8 +1394,8 @@
           "team_name": "Liverpool",
           "position": "Defender",
           "price": 6.5,
-          "gameweek_1_expected_points": 3.151,
-          "discounted_horizon_points": 18.284,
+          "gameweek_1_expected_points": 4.424,
+          "discounted_horizon_points": 24.959,
           "ownership_percent": 16.3
         },
         {
@@ -1309,41 +1405,30 @@
           "team_name": "Liverpool",
           "position": "Midfielder",
           "price": 7.0,
-          "gameweek_1_expected_points": 2.665,
-          "discounted_horizon_points": 14.567,
-          "ownership_percent": 48.1
+          "gameweek_1_expected_points": 3.665,
+          "discounted_horizon_points": 20.945,
+          "ownership_percent": 48.0
         },
         {
-          "player_id": 397,
-          "web_name": "Semenyo",
-          "team_id": 15,
-          "team_name": "Man City",
-          "position": "Midfielder",
-          "price": 8.5,
-          "gameweek_1_expected_points": 2.688,
-          "discounted_horizon_points": 14.469,
-          "ownership_percent": 21.7
-        },
-        {
-          "player_id": 423,
-          "web_name": "Shaw",
+          "player_id": 426,
+          "web_name": "B.Fernandes",
           "team_id": 16,
           "team_name": "Man Utd",
-          "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.504,
-          "discounted_horizon_points": 18.249,
-          "ownership_percent": 24.4
+          "position": "Midfielder",
+          "price": 12.0,
+          "gameweek_1_expected_points": 5.422,
+          "discounted_horizon_points": 28.343,
+          "ownership_percent": 48.6
         },
         {
-          "player_id": 471,
-          "web_name": "Milenković",
-          "team_id": 18,
-          "team_name": "Nott'm Forest",
+          "player_id": 445,
+          "web_name": "Thiaw",
+          "team_id": 17,
+          "team_name": "Newcastle",
           "position": "Defender",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.728,
-          "discounted_horizon_points": 17.682,
+          "price": 5.0,
+          "gameweek_1_expected_points": 3.812,
+          "discounted_horizon_points": 23.102,
           "ownership_percent": 2.2
         },
         {
@@ -1353,33 +1438,55 @@
           "team_name": "Man City",
           "position": "Midfielder",
           "price": 6.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 14.638,
+          "gameweek_1_expected_points": 4.37,
+          "discounted_horizon_points": 23.396,
           "ownership_percent": 12.0
+        },
+        {
+          "player_id": 497,
+          "web_name": "Dubravka",
+          "team_id": 19,
+          "team_name": "Spurs",
+          "position": "Goalkeeper",
+          "price": 4.0,
+          "gameweek_1_expected_points": 3.537,
+          "discounted_horizon_points": 20.369,
+          "ownership_percent": 24.7
+        },
+        {
+          "player_id": 498,
+          "web_name": "Senesi",
+          "team_id": 19,
+          "team_name": "Spurs",
+          "position": "Defender",
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.684,
+          "discounted_horizon_points": 25.759,
+          "ownership_percent": 10.9
         }
       ],
       "starting_xi": [
         {
-          "player_id": 471,
-          "web_name": "Milenković",
-          "team_id": 18,
-          "team_name": "Nott'm Forest",
-          "position": "Defender",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.728,
-          "discounted_horizon_points": 17.682,
-          "ownership_percent": 2.2
-        },
-        {
-          "player_id": 423,
-          "web_name": "Shaw",
+          "player_id": 426,
+          "web_name": "B.Fernandes",
           "team_id": 16,
           "team_name": "Man Utd",
+          "position": "Midfielder",
+          "price": 12.0,
+          "gameweek_1_expected_points": 5.422,
+          "discounted_horizon_points": 28.343,
+          "ownership_percent": 48.6
+        },
+        {
+          "player_id": 498,
+          "web_name": "Senesi",
+          "team_id": 19,
+          "team_name": "Spurs",
           "position": "Defender",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.504,
-          "discounted_horizon_points": 18.249,
-          "ownership_percent": 24.4
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.684,
+          "discounted_horizon_points": 25.759,
+          "ownership_percent": 10.9
         },
         {
           "player_id": 229,
@@ -1388,42 +1495,9 @@
           "team_name": "Everton",
           "position": "Defender",
           "price": 6.0,
-          "gameweek_1_expected_points": 3.408,
-          "discounted_horizon_points": 18.101,
+          "gameweek_1_expected_points": 4.642,
+          "discounted_horizon_points": 24.726,
           "ownership_percent": 9.8
-        },
-        {
-          "player_id": 226,
-          "web_name": "Pickford",
-          "team_id": 9,
-          "team_name": "Everton",
-          "position": "Goalkeeper",
-          "price": 5.5,
-          "gameweek_1_expected_points": 3.315,
-          "discounted_horizon_points": 18.118,
-          "ownership_percent": 9.0
-        },
-        {
-          "player_id": 200,
-          "web_name": "Lacroix",
-          "team_id": 6,
-          "team_name": "Chelsea",
-          "position": "Defender",
-          "price": 6.0,
-          "gameweek_1_expected_points": 3.199,
-          "discounted_horizon_points": 17.136,
-          "ownership_percent": 12.0
-        },
-        {
-          "player_id": 356,
-          "web_name": "Virgil",
-          "team_id": 14,
-          "team_name": "Liverpool",
-          "position": "Defender",
-          "price": 6.5,
-          "gameweek_1_expected_points": 3.151,
-          "discounted_horizon_points": 18.284,
-          "ownership_percent": 16.3
         },
         {
           "player_id": 106,
@@ -1432,8 +1506,8 @@
           "team_name": "Brentford",
           "position": "Forward",
           "price": 8.0,
-          "gameweek_1_expected_points": 3.013,
-          "discounted_horizon_points": 15.692,
+          "gameweek_1_expected_points": 4.513,
+          "discounted_horizon_points": 24.101,
           "ownership_percent": 15.8
         },
         {
@@ -1443,9 +1517,20 @@
           "team_name": "Arsenal",
           "position": "Midfielder",
           "price": 7.5,
-          "gameweek_1_expected_points": 2.84,
-          "discounted_horizon_points": 14.094,
+          "gameweek_1_expected_points": 4.438,
+          "discounted_horizon_points": 22.041,
           "ownership_percent": 22.3
+        },
+        {
+          "player_id": 356,
+          "web_name": "Virgil",
+          "team_id": 14,
+          "team_name": "Liverpool",
+          "position": "Defender",
+          "price": 6.5,
+          "gameweek_1_expected_points": 4.424,
+          "discounted_horizon_points": 24.959,
+          "ownership_percent": 16.3
         },
         {
           "player_id": 481,
@@ -1454,20 +1539,31 @@
           "team_name": "Man City",
           "position": "Midfielder",
           "price": 6.5,
-          "gameweek_1_expected_points": 2.727,
-          "discounted_horizon_points": 14.638,
+          "gameweek_1_expected_points": 4.37,
+          "discounted_horizon_points": 23.396,
           "ownership_percent": 12.0
         },
         {
-          "player_id": 55,
-          "web_name": "Watkins",
-          "team_id": 2,
-          "team_name": "Aston Villa",
-          "position": "Forward",
-          "price": 8.0,
-          "gameweek_1_expected_points": 2.704,
-          "discounted_horizon_points": 14.43,
-          "ownership_percent": 12.3
+          "player_id": 200,
+          "web_name": "Lacroix",
+          "team_id": 6,
+          "team_name": "Chelsea",
+          "position": "Defender",
+          "price": 6.0,
+          "gameweek_1_expected_points": 4.28,
+          "discounted_horizon_points": 23.171,
+          "ownership_percent": 12.0
+        },
+        {
+          "player_id": 155,
+          "web_name": "Enzo",
+          "team_id": 6,
+          "team_name": "Chelsea",
+          "position": "Midfielder",
+          "price": 7.0,
+          "gameweek_1_expected_points": 4.19,
+          "discounted_horizon_points": 23.116,
+          "ownership_percent": 5.4
         },
         {
           "player_id": 165,
@@ -1476,22 +1572,44 @@
           "team_name": "Chelsea",
           "position": "Forward",
           "price": 7.5,
-          "gameweek_1_expected_points": 2.693,
-          "discounted_horizon_points": 14.138,
+          "gameweek_1_expected_points": 4.101,
+          "discounted_horizon_points": 21.684,
           "ownership_percent": 54.7
+        },
+        {
+          "player_id": 82,
+          "web_name": "Kelleher",
+          "team_id": 4,
+          "team_name": "Brentford",
+          "position": "Goalkeeper",
+          "price": 5.0,
+          "gameweek_1_expected_points": 4.008,
+          "discounted_horizon_points": 21.847,
+          "ownership_percent": 5.6
         }
       ],
       "bench_order": [
         {
-          "player_id": 397,
-          "web_name": "Semenyo",
-          "team_id": 15,
-          "team_name": "Man City",
-          "position": "Midfielder",
-          "price": 8.5,
-          "gameweek_1_expected_points": 2.688,
-          "discounted_horizon_points": 14.469,
-          "ownership_percent": 21.7
+          "player_id": 445,
+          "web_name": "Thiaw",
+          "team_id": 17,
+          "team_name": "Newcastle",
+          "position": "Defender",
+          "price": 5.0,
+          "gameweek_1_expected_points": 3.812,
+          "discounted_horizon_points": 23.102,
+          "ownership_percent": 2.2
+        },
+        {
+          "player_id": 346,
+          "web_name": "Calvert-Lewin",
+          "team_id": 13,
+          "team_name": "Leeds",
+          "position": "Forward",
+          "price": 6.0,
+          "gameweek_1_expected_points": 3.743,
+          "discounted_horizon_points": 19.929,
+          "ownership_percent": 19.5
         },
         {
           "player_id": 368,
@@ -1500,61 +1618,50 @@
           "team_name": "Liverpool",
           "position": "Midfielder",
           "price": 7.0,
-          "gameweek_1_expected_points": 2.665,
-          "discounted_horizon_points": 14.567,
-          "ownership_percent": 48.1
+          "gameweek_1_expected_points": 3.665,
+          "discounted_horizon_points": 20.945,
+          "ownership_percent": 48.0
         },
         {
-          "player_id": 40,
-          "web_name": "Rogers",
-          "team_id": 6,
-          "team_name": "Chelsea",
-          "position": "Midfielder",
-          "price": 7.5,
-          "gameweek_1_expected_points": 2.539,
-          "discounted_horizon_points": 14.397,
-          "ownership_percent": 31.1
-        },
-        {
-          "player_id": 109,
-          "web_name": "Verbruggen",
-          "team_id": 5,
-          "team_name": "Brighton",
+          "player_id": 497,
+          "web_name": "Dubravka",
+          "team_id": 19,
+          "team_name": "Spurs",
           "position": "Goalkeeper",
-          "price": 4.5,
-          "gameweek_1_expected_points": 3.303,
-          "discounted_horizon_points": 17.797,
-          "ownership_percent": 16.7
+          "price": 4.0,
+          "gameweek_1_expected_points": 3.537,
+          "discounted_horizon_points": 20.369,
+          "ownership_percent": 24.7
         }
       ],
       "captain": {
-        "player_id": 471,
-        "web_name": "Milenković",
-        "team_id": 18,
-        "team_name": "Nott'm Forest",
-        "position": "Defender",
-        "price": 5.5,
-        "gameweek_1_expected_points": 3.728,
-        "discounted_horizon_points": 17.682,
-        "ownership_percent": 2.2
-      },
-      "vice_captain": {
-        "player_id": 423,
-        "web_name": "Shaw",
+        "player_id": 426,
+        "web_name": "B.Fernandes",
         "team_id": 16,
         "team_name": "Man Utd",
+        "position": "Midfielder",
+        "price": 12.0,
+        "gameweek_1_expected_points": 5.422,
+        "discounted_horizon_points": 28.343,
+        "ownership_percent": 48.6
+      },
+      "vice_captain": {
+        "player_id": 498,
+        "web_name": "Senesi",
+        "team_id": 19,
+        "team_name": "Spurs",
         "position": "Defender",
-        "price": 4.5,
-        "gameweek_1_expected_points": 3.504,
-        "discounted_horizon_points": 18.249,
-        "ownership_percent": 24.4
+        "price": 6.0,
+        "gameweek_1_expected_points": 4.684,
+        "discounted_horizon_points": 25.759,
+        "ownership_percent": 10.9
       },
       "validation": {
         "legal_squad": true,
         "position_counts": {
           "Midfielder": 5,
-          "Forward": 3,
           "Goalkeeper": 2,
+          "Forward": 3,
           "Defender": 5
         },
         "maximum_from_one_club": 3,
@@ -1574,11 +1681,11 @@
       6
     ],
     "discount_per_gameweek": 0.96,
-    "hold_current_squad_expected_points": 226.868,
+    "hold_current_squad_expected_points": 326.865,
     "recommended_route": {
-      "projected_net_points": 230.394,
-      "discounted_objective": 208.511,
-      "net_gain_vs_hold": 3.526,
+      "projected_net_points": 329.85,
+      "discounted_objective": 298.799,
+      "net_gain_vs_hold": 2.985,
       "total_hit_cost": 0,
       "final_bank": 0.5,
       "free_transfers_after_horizon": 1,
@@ -1589,223 +1696,222 @@
           "free_transfers_before": 1,
           "hit_cost": 0,
           "bank_after": 0.0,
-          "lineup_expected_points": 37.842,
-          "net_expected_points": 37.842,
-          "captain_player_id": 471,
-          "captain": "Milenković",
+          "lineup_expected_points": 54.61,
+          "net_expected_points": 54.61,
+          "captain_player_id": 426,
+          "captain": "B.Fernandes",
           "starter_player_ids": [
-            226,
-            471,
-            423,
+            529,
+            498,
             229,
-            481,
-            368,
-            106,
-            204,
             356,
-            411,
-            55
+            426,
+            13,
+            106,
+            481,
+            200,
+            155,
+            165
           ]
         },
         {
           "gameweek": 2,
           "transfers": [
             {
-              "sell_player_id": 471,
+              "sell_player_id": 445,
               "buy_player_id": 112,
-              "sell_price": 5.5,
+              "sell_price": 5.0,
               "buy_price": 5.0,
-              "sell": "Milenković",
+              "sell": "Thiaw",
               "buy": "Van Hecke"
-            },
-            {
-              "sell_player_id": 229,
-              "buy_player_id": 498,
-              "sell_price": 6.0,
-              "buy_price": 6.0,
-              "sell": "Tarkowski",
-              "buy": "Senesi"
             }
           ],
           "free_transfers_before": 2,
           "hit_cost": 0,
-          "bank_after": 0.5,
-          "lineup_expected_points": 38.276,
-          "net_expected_points": 38.276,
-          "captain_player_id": 498,
-          "captain": "Senesi",
+          "bank_after": 0.0,
+          "lineup_expected_points": 57.283,
+          "net_expected_points": 57.283,
+          "captain_player_id": 426,
+          "captain": "B.Fernandes",
           "starter_player_ids": [
-            226,
+            529,
             498,
-            423,
+            200,
             112,
-            40,
-            481,
+            426,
+            155,
             106,
             356,
-            204,
-            411,
-            368
+            229,
+            481,
+            165
           ]
         },
         {
           "gameweek": 3,
           "transfers": [
             {
-              "sell_player_id": 498,
-              "buy_player_id": 88,
+              "sell_player_id": 112,
+              "buy_player_id": 445,
+              "sell_price": 5.0,
+              "buy_price": 5.0,
+              "sell": "Van Hecke",
+              "buy": "Thiaw"
+            },
+            {
+              "sell_player_id": 200,
+              "buy_player_id": 388,
               "sell_price": 6.0,
-              "buy_price": 4.5,
-              "sell": "Senesi",
-              "buy": "Kayode"
+              "buy_price": 6.0,
+              "sell": "Lacroix",
+              "buy": "Guéhi"
             }
           ],
-          "free_transfers_before": 1,
+          "free_transfers_before": 2,
           "hit_cost": 0,
-          "bank_after": 2.0,
-          "lineup_expected_points": 38.579,
-          "net_expected_points": 38.579,
-          "captain_player_id": 88,
-          "captain": "Kayode",
+          "bank_after": 0.0,
+          "lineup_expected_points": 55.062,
+          "net_expected_points": 55.062,
+          "captain_player_id": 426,
+          "captain": "B.Fernandes",
           "starter_player_ids": [
-            109,
-            88,
+            82,
+            388,
             356,
-            423,
-            368,
+            498,
+            426,
             481,
-            411,
-            204,
-            112,
             106,
-            55
+            445,
+            229,
+            13,
+            542
           ]
         },
         {
           "gameweek": 4,
           "transfers": [
             {
-              "sell_player_id": 88,
-              "buy_player_id": 229,
-              "sell_price": 4.5,
+              "sell_player_id": 388,
+              "buy_player_id": 200,
+              "sell_price": 6.0,
               "buy_price": 6.0,
-              "sell": "Kayode",
-              "buy": "Tarkowski"
+              "sell": "Guéhi",
+              "buy": "Lacroix"
             }
           ],
           "free_transfers_before": 1,
           "hit_cost": 0,
-          "bank_after": 0.5,
-          "lineup_expected_points": 38.789,
-          "net_expected_points": 38.789,
+          "bank_after": 0.0,
+          "lineup_expected_points": 54.777,
+          "net_expected_points": 54.777,
           "captain_player_id": 356,
           "captain": "Virgil",
           "starter_player_ids": [
-            109,
+            82,
             356,
-            204,
-            112,
-            40,
-            368,
+            200,
+            498,
+            426,
+            155,
             106,
             229,
-            338,
-            423,
-            55
+            481,
+            165,
+            13
           ]
         },
         {
           "gameweek": 5,
-          "transfers": [
-            {
-              "sell_player_id": 356,
-              "buy_player_id": 471,
-              "sell_price": 6.5,
-              "buy_price": 5.5,
-              "sell": "Virgil",
-              "buy": "Milenković"
-            }
-          ],
+          "transfers": [],
           "free_transfers_before": 1,
           "hit_cost": 0,
-          "bank_after": 1.5,
-          "lineup_expected_points": 39.519,
-          "net_expected_points": 39.519,
+          "bank_after": 0.0,
+          "lineup_expected_points": 53.936,
+          "net_expected_points": 53.936,
           "captain_player_id": 229,
           "captain": "Tarkowski",
           "starter_player_ids": [
-            226,
+            82,
             229,
-            471,
-            112,
+            445,
+            498,
+            426,
             481,
-            368,
-            411,
-            204,
-            423,
             106,
-            338
+            356,
+            155,
+            13,
+            200
           ]
         },
         {
           "gameweek": 6,
           "transfers": [
             {
-              "sell_player_id": 112,
-              "buy_player_id": 200,
-              "sell_price": 5.0,
-              "buy_price": 6.0,
-              "sell": "Van Hecke",
-              "buy": "Lacroix"
+              "sell_player_id": 356,
+              "buy_player_id": 304,
+              "sell_price": 6.5,
+              "buy_price": 4.0,
+              "sell": "Virgil",
+              "buy": "O'Shea"
+            },
+            {
+              "sell_player_id": 498,
+              "buy_player_id": 4,
+              "sell_price": 6.0,
+              "buy_price": 8.0,
+              "sell": "Senesi",
+              "buy": "Gabriel"
             }
           ],
-          "free_transfers_before": 1,
+          "free_transfers_before": 2,
           "hit_cost": 0,
           "bank_after": 0.5,
-          "lineup_expected_points": 37.389,
-          "net_expected_points": 37.389,
-          "captain_player_id": 229,
-          "captain": "Tarkowski",
+          "lineup_expected_points": 54.181,
+          "net_expected_points": 54.181,
+          "captain_player_id": 426,
+          "captain": "B.Fernandes",
           "starter_player_ids": [
-            226,
+            529,
             229,
-            423,
-            200,
-            545,
-            40,
+            445,
+            4,
+            426,
+            155,
             106,
-            471,
-            204,
-            55,
-            411
+            304,
+            200,
+            481,
+            13
           ]
         }
       ],
       "final_squad_player_ids": [
-        40,
-        55,
+        4,
+        13,
+        82,
         106,
-        109,
+        155,
+        165,
         200,
-        204,
-        226,
         229,
-        338,
-        368,
-        411,
-        423,
-        471,
+        304,
+        346,
+        426,
+        445,
         481,
-        545
+        529,
+        542
       ]
     },
     "alternative_routes": [
       {
-        "projected_net_points": 230.105,
-        "discounted_objective": 208.275,
-        "net_gain_vs_hold": 3.237,
+        "projected_net_points": 329.688,
+        "discounted_objective": 298.689,
+        "net_gain_vs_hold": 2.823,
         "total_hit_cost": 0,
-        "final_bank": 1.5,
+        "final_bank": 2.0,
         "free_transfers_after_horizon": 1,
         "gameweek_plan": [
           {
@@ -1814,1120 +1920,222 @@
             "free_transfers_before": 1,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 37.842,
-            "net_expected_points": 37.842,
-            "captain_player_id": 471,
-            "captain": "Milenković",
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
-              471,
-              423,
+              529,
+              498,
               229,
-              481,
-              368,
-              106,
-              204,
               356,
-              411,
-              55
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
             ]
           },
           {
             "gameweek": 2,
             "transfers": [
               {
-                "sell_player_id": 471,
+                "sell_player_id": 445,
                 "buy_player_id": 112,
-                "sell_price": 5.5,
+                "sell_price": 5.0,
                 "buy_price": 5.0,
-                "sell": "Milenković",
+                "sell": "Thiaw",
                 "buy": "Van Hecke"
-              },
-              {
-                "sell_player_id": 229,
-                "buy_player_id": 498,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Tarkowski",
-                "buy": "Senesi"
               }
             ],
             "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.276,
-            "net_expected_points": 38.276,
-            "captain_player_id": 498,
-            "captain": "Senesi",
+            "bank_after": 0.0,
+            "lineup_expected_points": 57.283,
+            "net_expected_points": 57.283,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
+              529,
               498,
-              423,
+              200,
               112,
-              40,
-              481,
+              426,
+              155,
               106,
               356,
-              204,
-              411,
-              368
+              229,
+              481,
+              165
             ]
           },
           {
             "gameweek": 3,
             "transfers": [
               {
-                "sell_player_id": 498,
-                "buy_player_id": 88,
-                "sell_price": 6.0,
-                "buy_price": 4.5,
-                "sell": "Senesi",
-                "buy": "Kayode"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 38.579,
-            "net_expected_points": 38.579,
-            "captain_player_id": 88,
-            "captain": "Kayode",
-            "starter_player_ids": [
-              109,
-              88,
-              356,
-              423,
-              368,
-              481,
-              411,
-              204,
-              112,
-              106,
-              55
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 88,
-                "buy_player_id": 229,
-                "sell_price": 4.5,
-                "buy_price": 6.0,
-                "sell": "Kayode",
-                "buy": "Tarkowski"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.789,
-            "net_expected_points": 38.789,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              109,
-              356,
-              204,
-              112,
-              40,
-              368,
-              106,
-              229,
-              338,
-              423,
-              55
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 356,
-                "buy_player_id": 471,
-                "sell_price": 6.5,
-                "buy_price": 5.5,
-                "sell": "Virgil",
-                "buy": "Milenković"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 1.5,
-            "lineup_expected_points": 39.519,
-            "net_expected_points": 39.519,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              226,
-              229,
-              471,
-              112,
-              481,
-              368,
-              411,
-              204,
-              423,
-              106,
-              338
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [
-              {
                 "sell_player_id": 112,
-                "buy_player_id": 469,
+                "buy_player_id": 445,
                 "sell_price": 5.0,
                 "buy_price": 5.0,
                 "sell": "Van Hecke",
-                "buy": "N.Williams"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 1.5,
-            "lineup_expected_points": 37.099,
-            "net_expected_points": 37.099,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              226,
-              229,
-              423,
-              471,
-              545,
-              40,
-              106,
-              204,
-              469,
-              55,
-              411
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          40,
-          55,
-          106,
-          109,
-          204,
-          226,
-          229,
-          338,
-          368,
-          411,
-          423,
-          469,
-          471,
-          481,
-          545
-        ]
-      },
-      {
-        "projected_net_points": 230.033,
-        "discounted_objective": 208.235,
-        "net_gain_vs_hold": 3.165,
-        "total_hit_cost": 0,
-        "final_bank": 0.5,
-        "free_transfers_after_horizon": 1,
-        "gameweek_plan": [
-          {
-            "gameweek": 1,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 37.842,
-            "net_expected_points": 37.842,
-            "captain_player_id": 471,
-            "captain": "Milenković",
-            "starter_player_ids": [
-              226,
-              471,
-              423,
-              229,
-              481,
-              368,
-              106,
-              204,
-              356,
-              411,
-              55
-            ]
-          },
-          {
-            "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 471,
-                "buy_player_id": 112,
-                "sell_price": 5.5,
-                "buy_price": 5.0,
-                "sell": "Milenković",
-                "buy": "Van Hecke"
+                "buy": "Thiaw"
               },
               {
-                "sell_player_id": 229,
-                "buy_player_id": 498,
+                "sell_player_id": 200,
+                "buy_player_id": 388,
                 "sell_price": 6.0,
                 "buy_price": 6.0,
-                "sell": "Tarkowski",
-                "buy": "Senesi"
+                "sell": "Lacroix",
+                "buy": "Guéhi"
               }
             ],
             "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.276,
-            "net_expected_points": 38.276,
-            "captain_player_id": 498,
-            "captain": "Senesi",
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
+              82,
+              388,
+              356,
               498,
-              423,
-              112,
-              40,
+              426,
               481,
               106,
-              356,
-              204,
-              411,
-              368
-            ]
-          },
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 498,
-                "buy_player_id": 88,
-                "sell_price": 6.0,
-                "buy_price": 4.5,
-                "sell": "Senesi",
-                "buy": "Kayode"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 38.579,
-            "net_expected_points": 38.579,
-            "captain_player_id": 88,
-            "captain": "Kayode",
-            "starter_player_ids": [
-              109,
-              88,
-              356,
-              423,
-              368,
-              481,
-              411,
-              204,
-              112,
-              106,
-              55
+              445,
+              229,
+              13,
+              542
             ]
           },
           {
             "gameweek": 4,
             "transfers": [
               {
-                "sell_player_id": 423,
-                "buy_player_id": 229,
-                "sell_price": 4.5,
-                "buy_price": 6.0,
-                "sell": "Shaw",
-                "buy": "Tarkowski"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 39.154,
-            "net_expected_points": 39.154,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              109,
-              356,
-              204,
-              112,
-              40,
-              368,
-              106,
-              229,
-              88,
-              338,
-              55
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 88,
-                "buy_player_id": 469,
-                "sell_price": 4.5,
-                "buy_price": 5.0,
-                "sell": "Kayode",
-                "buy": "N.Williams"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 39.33,
-            "net_expected_points": 39.33,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              226,
-              229,
-              469,
-              112,
-              481,
-              368,
-              411,
-              356,
-              204,
-              106,
-              338
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 423,
-                "sell_price": 5.0,
-                "buy_price": 4.5,
-                "sell": "Van Hecke",
-                "buy": "Shaw"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 36.852,
-            "net_expected_points": 36.852,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              226,
-              229,
-              423,
-              204,
-              545,
-              40,
-              106,
-              469,
-              356,
-              55,
-              411
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          40,
-          55,
-          106,
-          109,
-          204,
-          226,
-          229,
-          338,
-          356,
-          368,
-          411,
-          423,
-          469,
-          481,
-          545
-        ]
-      },
-      {
-        "projected_net_points": 230.058,
-        "discounted_objective": 208.234,
-        "net_gain_vs_hold": 3.19,
-        "total_hit_cost": 0,
-        "final_bank": 0.0,
-        "free_transfers_after_horizon": 1,
-        "gameweek_plan": [
-          {
-            "gameweek": 1,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 37.842,
-            "net_expected_points": 37.842,
-            "captain_player_id": 471,
-            "captain": "Milenković",
-            "starter_player_ids": [
-              226,
-              471,
-              423,
-              229,
-              481,
-              368,
-              106,
-              204,
-              356,
-              411,
-              55
-            ]
-          },
-          {
-            "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 471,
-                "buy_player_id": 112,
-                "sell_price": 5.5,
-                "buy_price": 5.0,
-                "sell": "Milenković",
-                "buy": "Van Hecke"
-              },
-              {
-                "sell_player_id": 229,
-                "buy_player_id": 498,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Tarkowski",
-                "buy": "Senesi"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.276,
-            "net_expected_points": 38.276,
-            "captain_player_id": 498,
-            "captain": "Senesi",
-            "starter_player_ids": [
-              226,
-              498,
-              423,
-              112,
-              40,
-              481,
-              106,
-              356,
-              204,
-              411,
-              368
-            ]
-          },
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 498,
-                "buy_player_id": 88,
-                "sell_price": 6.0,
-                "buy_price": 4.5,
-                "sell": "Senesi",
-                "buy": "Kayode"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 38.579,
-            "net_expected_points": 38.579,
-            "captain_player_id": 88,
-            "captain": "Kayode",
-            "starter_player_ids": [
-              109,
-              88,
-              356,
-              423,
-              368,
-              481,
-              411,
-              204,
-              112,
-              106,
-              55
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 88,
-                "buy_player_id": 229,
-                "sell_price": 4.5,
-                "buy_price": 6.0,
-                "sell": "Kayode",
-                "buy": "Tarkowski"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.789,
-            "net_expected_points": 38.789,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              109,
-              356,
-              204,
-              112,
-              40,
-              368,
-              106,
-              229,
-              338,
-              423,
-              55
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 471,
-                "sell_price": 5.0,
-                "buy_price": 5.5,
-                "sell": "Van Hecke",
-                "buy": "Milenković"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 39.428,
-            "net_expected_points": 39.428,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              226,
-              229,
-              471,
-              356,
-              481,
-              368,
-              411,
-              204,
-              423,
-              106,
-              338
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [
-              {
-                "sell_player_id": 109,
-                "buy_player_id": 250,
-                "sell_price": 4.5,
-                "buy_price": 4.5,
-                "sell": "Verbruggen",
-                "buy": "Leno"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 37.144,
-            "net_expected_points": 37.144,
-            "captain_player_id": 250,
-            "captain": "Leno",
-            "starter_player_ids": [
-              250,
-              229,
-              423,
-              471,
-              545,
-              40,
-              106,
-              204,
-              356,
-              55,
-              411
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          40,
-          55,
-          106,
-          204,
-          226,
-          229,
-          250,
-          338,
-          356,
-          368,
-          411,
-          423,
-          471,
-          481,
-          545
-        ]
-      },
-      {
-        "projected_net_points": 230.058,
-        "discounted_objective": 208.234,
-        "net_gain_vs_hold": 3.19,
-        "total_hit_cost": 0,
-        "final_bank": 1.0,
-        "free_transfers_after_horizon": 1,
-        "gameweek_plan": [
-          {
-            "gameweek": 1,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 37.842,
-            "net_expected_points": 37.842,
-            "captain_player_id": 471,
-            "captain": "Milenković",
-            "starter_player_ids": [
-              226,
-              471,
-              423,
-              229,
-              481,
-              368,
-              106,
-              204,
-              356,
-              411,
-              55
-            ]
-          },
-          {
-            "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 471,
-                "buy_player_id": 112,
-                "sell_price": 5.5,
-                "buy_price": 5.0,
-                "sell": "Milenković",
-                "buy": "Van Hecke"
-              },
-              {
-                "sell_player_id": 229,
-                "buy_player_id": 498,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Tarkowski",
-                "buy": "Senesi"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.276,
-            "net_expected_points": 38.276,
-            "captain_player_id": 498,
-            "captain": "Senesi",
-            "starter_player_ids": [
-              226,
-              498,
-              423,
-              112,
-              40,
-              481,
-              106,
-              356,
-              204,
-              411,
-              368
-            ]
-          },
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 498,
-                "buy_player_id": 88,
-                "sell_price": 6.0,
-                "buy_price": 4.5,
-                "sell": "Senesi",
-                "buy": "Kayode"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 38.579,
-            "net_expected_points": 38.579,
-            "captain_player_id": 88,
-            "captain": "Kayode",
-            "starter_player_ids": [
-              109,
-              88,
-              356,
-              423,
-              368,
-              481,
-              411,
-              204,
-              112,
-              106,
-              55
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 88,
-                "buy_player_id": 229,
-                "sell_price": 4.5,
-                "buy_price": 6.0,
-                "sell": "Kayode",
-                "buy": "Tarkowski"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.789,
-            "net_expected_points": 38.789,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              109,
-              356,
-              204,
-              112,
-              40,
-              368,
-              106,
-              229,
-              338,
-              423,
-              55
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 471,
-                "sell_price": 5.0,
-                "buy_price": 5.5,
-                "sell": "Van Hecke",
-                "buy": "Milenković"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 39.428,
-            "net_expected_points": 39.428,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              226,
-              229,
-              471,
-              356,
-              481,
-              368,
-              411,
-              204,
-              423,
-              106,
-              338
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [
-              {
-                "sell_player_id": 226,
-                "buy_player_id": 250,
-                "sell_price": 5.5,
-                "buy_price": 4.5,
-                "sell": "Pickford",
-                "buy": "Leno"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 1.0,
-            "lineup_expected_points": 37.144,
-            "net_expected_points": 37.144,
-            "captain_player_id": 250,
-            "captain": "Leno",
-            "starter_player_ids": [
-              250,
-              229,
-              423,
-              471,
-              545,
-              40,
-              106,
-              204,
-              356,
-              55,
-              411
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          40,
-          55,
-          106,
-          109,
-          204,
-          229,
-          250,
-          338,
-          356,
-          368,
-          411,
-          423,
-          471,
-          481,
-          545
-        ]
-      }
-    ],
-    "routes": [
-      {
-        "projected_net_points": 230.394,
-        "discounted_objective": 208.511,
-        "net_gain_vs_hold": 3.526,
-        "total_hit_cost": 0,
-        "final_bank": 0.5,
-        "free_transfers_after_horizon": 1,
-        "gameweek_plan": [
-          {
-            "gameweek": 1,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 37.842,
-            "net_expected_points": 37.842,
-            "captain_player_id": 471,
-            "captain": "Milenković",
-            "starter_player_ids": [
-              226,
-              471,
-              423,
-              229,
-              481,
-              368,
-              106,
-              204,
-              356,
-              411,
-              55
-            ]
-          },
-          {
-            "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 471,
-                "buy_player_id": 112,
-                "sell_price": 5.5,
-                "buy_price": 5.0,
-                "sell": "Milenković",
-                "buy": "Van Hecke"
-              },
-              {
-                "sell_player_id": 229,
-                "buy_player_id": 498,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Tarkowski",
-                "buy": "Senesi"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.276,
-            "net_expected_points": 38.276,
-            "captain_player_id": 498,
-            "captain": "Senesi",
-            "starter_player_ids": [
-              226,
-              498,
-              423,
-              112,
-              40,
-              481,
-              106,
-              356,
-              204,
-              411,
-              368
-            ]
-          },
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 498,
-                "buy_player_id": 88,
-                "sell_price": 6.0,
-                "buy_price": 4.5,
-                "sell": "Senesi",
-                "buy": "Kayode"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 38.579,
-            "net_expected_points": 38.579,
-            "captain_player_id": 88,
-            "captain": "Kayode",
-            "starter_player_ids": [
-              109,
-              88,
-              356,
-              423,
-              368,
-              481,
-              411,
-              204,
-              112,
-              106,
-              55
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 88,
-                "buy_player_id": 229,
-                "sell_price": 4.5,
-                "buy_price": 6.0,
-                "sell": "Kayode",
-                "buy": "Tarkowski"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.789,
-            "net_expected_points": 38.789,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              109,
-              356,
-              204,
-              112,
-              40,
-              368,
-              106,
-              229,
-              338,
-              423,
-              55
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 356,
-                "buy_player_id": 471,
-                "sell_price": 6.5,
-                "buy_price": 5.5,
-                "sell": "Virgil",
-                "buy": "Milenković"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 1.5,
-            "lineup_expected_points": 39.519,
-            "net_expected_points": 39.519,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              226,
-              229,
-              471,
-              112,
-              481,
-              368,
-              411,
-              204,
-              423,
-              106,
-              338
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [
-              {
-                "sell_player_id": 112,
+                "sell_player_id": 388,
                 "buy_player_id": 200,
-                "sell_price": 5.0,
+                "sell_price": 6.0,
                 "buy_price": 6.0,
-                "sell": "Van Hecke",
+                "sell": "Guéhi",
                 "buy": "Lacroix"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 37.389,
-            "net_expected_points": 37.389,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              200,
+              498,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              13
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.592,
+            "net_expected_points": 54.592,
             "captain_player_id": 229,
             "captain": "Tarkowski",
             "starter_player_ids": [
-              226,
+              82,
               229,
-              423,
-              200,
-              545,
-              40,
+              445,
+              388,
+              426,
+              481,
               106,
-              471,
-              204,
-              55,
-              411
+              498,
+              356,
+              155,
+              13
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [
+              {
+                "sell_player_id": 388,
+                "buy_player_id": 304,
+                "sell_price": 6.0,
+                "buy_price": 4.0,
+                "sell": "Guéhi",
+                "buy": "O'Shea"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 2.0,
+            "lineup_expected_points": 53.364,
+            "net_expected_points": 53.364,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              229,
+              445,
+              304,
+              426,
+              155,
+              106,
+              481,
+              13,
+              498,
+              165
             ]
           }
         ],
         "final_squad_player_ids": [
-          40,
-          55,
+          13,
+          82,
           106,
-          109,
-          200,
-          204,
-          226,
+          155,
+          165,
           229,
-          338,
-          368,
-          411,
-          423,
-          471,
+          304,
+          346,
+          356,
+          426,
+          445,
           481,
-          545
+          498,
+          529,
+          542
         ]
       },
       {
-        "projected_net_points": 230.105,
-        "discounted_objective": 208.275,
-        "net_gain_vs_hold": 3.237,
+        "projected_net_points": 329.688,
+        "discounted_objective": 298.689,
+        "net_gain_vs_hold": 2.823,
         "total_hit_cost": 0,
-        "final_bank": 1.5,
+        "final_bank": 2.5,
         "free_transfers_after_horizon": 1,
         "gameweek_plan": [
           {
@@ -2936,129 +2144,353 @@
             "free_transfers_before": 1,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 37.842,
-            "net_expected_points": 37.842,
-            "captain_player_id": 471,
-            "captain": "Milenković",
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
-              471,
-              423,
+              529,
+              498,
               229,
-              481,
-              368,
-              106,
-              204,
               356,
-              411,
-              55
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
             ]
           },
           {
             "gameweek": 2,
             "transfers": [
               {
-                "sell_player_id": 471,
+                "sell_player_id": 445,
                 "buy_player_id": 112,
-                "sell_price": 5.5,
+                "sell_price": 5.0,
                 "buy_price": 5.0,
-                "sell": "Milenković",
+                "sell": "Thiaw",
                 "buy": "Van Hecke"
-              },
-              {
-                "sell_player_id": 229,
-                "buy_player_id": 498,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Tarkowski",
-                "buy": "Senesi"
               }
             ],
             "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.276,
-            "net_expected_points": 38.276,
-            "captain_player_id": 498,
-            "captain": "Senesi",
+            "bank_after": 0.0,
+            "lineup_expected_points": 57.283,
+            "net_expected_points": 57.283,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
+              529,
               498,
-              423,
+              200,
               112,
-              40,
-              481,
+              426,
+              155,
               106,
               356,
-              204,
-              411,
-              368
+              229,
+              481,
+              165
             ]
           },
           {
             "gameweek": 3,
             "transfers": [
               {
-                "sell_player_id": 498,
-                "buy_player_id": 88,
+                "sell_player_id": 112,
+                "buy_player_id": 445,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Van Hecke",
+                "buy": "Thiaw"
+              },
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
                 "sell_price": 6.0,
-                "buy_price": 4.5,
-                "sell": "Senesi",
-                "buy": "Kayode"
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
               }
             ],
-            "free_transfers_before": 1,
+            "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 38.579,
-            "net_expected_points": 38.579,
-            "captain_player_id": 88,
-            "captain": "Kayode",
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              109,
-              88,
+              82,
+              388,
               356,
-              423,
-              368,
+              498,
+              426,
               481,
-              411,
-              204,
-              112,
               106,
-              55
+              445,
+              229,
+              13,
+              542
             ]
           },
           {
             "gameweek": 4,
             "transfers": [
               {
-                "sell_player_id": 88,
-                "buy_player_id": 229,
-                "sell_price": 4.5,
+                "sell_player_id": 388,
+                "buy_player_id": 200,
+                "sell_price": 6.0,
                 "buy_price": 6.0,
-                "sell": "Kayode",
-                "buy": "Tarkowski"
+                "sell": "Guéhi",
+                "buy": "Lacroix"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.789,
-            "net_expected_points": 38.789,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
             "captain_player_id": 356,
             "captain": "Virgil",
             "starter_player_ids": [
-              109,
+              82,
               356,
-              204,
-              112,
-              40,
-              368,
+              200,
+              498,
+              426,
+              155,
               106,
               229,
-              338,
-              423,
-              55
+              481,
+              165,
+              13
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.592,
+            "net_expected_points": 54.592,
+            "captain_player_id": 229,
+            "captain": "Tarkowski",
+            "starter_player_ids": [
+              82,
+              229,
+              445,
+              388,
+              426,
+              481,
+              106,
+              498,
+              356,
+              155,
+              13
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [
+              {
+                "sell_player_id": 356,
+                "buy_player_id": 304,
+                "sell_price": 6.5,
+                "buy_price": 4.0,
+                "sell": "Virgil",
+                "buy": "O'Shea"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 2.5,
+            "lineup_expected_points": 53.364,
+            "net_expected_points": 53.364,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              229,
+              445,
+              304,
+              426,
+              155,
+              106,
+              481,
+              13,
+              498,
+              165
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          13,
+          82,
+          106,
+          155,
+          165,
+          229,
+          304,
+          346,
+          388,
+          426,
+          445,
+          481,
+          498,
+          529,
+          542
+        ]
+      },
+      {
+        "projected_net_points": 329.686,
+        "discounted_objective": 298.676,
+        "net_gain_vs_hold": 2.821,
+        "total_hit_cost": 0,
+        "final_bank": 2.5,
+        "free_transfers_after_horizon": 1,
+        "gameweek_plan": [
+          {
+            "gameweek": 1,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              229,
+              356,
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
+            ]
+          },
+          {
+            "gameweek": 2,
+            "transfers": [
+              {
+                "sell_player_id": 445,
+                "buy_player_id": 112,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Thiaw",
+                "buy": "Van Hecke"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 57.283,
+            "net_expected_points": 57.283,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              200,
+              112,
+              426,
+              155,
+              106,
+              356,
+              229,
+              481,
+              165
+            ]
+          },
+          {
+            "gameweek": 3,
+            "transfers": [
+              {
+                "sell_player_id": 112,
+                "buy_player_id": 445,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Van Hecke",
+                "buy": "Thiaw"
+              },
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              356,
+              498,
+              426,
+              481,
+              106,
+              445,
+              229,
+              13,
+              542
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [
+              {
+                "sell_player_id": 388,
+                "buy_player_id": 200,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Guéhi",
+                "buy": "Lacroix"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              200,
+              498,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              13
             ]
           },
           {
@@ -3066,90 +2498,316 @@
             "transfers": [
               {
                 "sell_player_id": 356,
-                "buy_player_id": 471,
+                "buy_player_id": 388,
                 "sell_price": 6.5,
-                "buy_price": 5.5,
+                "buy_price": 6.0,
                 "sell": "Virgil",
-                "buy": "Milenković"
+                "buy": "Guéhi"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
-            "bank_after": 1.5,
-            "lineup_expected_points": 39.519,
-            "net_expected_points": 39.519,
+            "bank_after": 0.5,
+            "lineup_expected_points": 54.263,
+            "net_expected_points": 54.263,
             "captain_player_id": 229,
             "captain": "Tarkowski",
             "starter_player_ids": [
-              226,
+              82,
               229,
-              471,
-              112,
+              445,
+              388,
+              426,
               481,
-              368,
-              411,
-              204,
-              423,
               106,
-              338
+              498,
+              155,
+              13,
+              200
             ]
           },
           {
             "gameweek": 6,
             "transfers": [
               {
-                "sell_player_id": 112,
-                "buy_player_id": 469,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "N.Williams"
+                "sell_player_id": 388,
+                "buy_player_id": 304,
+                "sell_price": 6.0,
+                "buy_price": 4.0,
+                "sell": "Guéhi",
+                "buy": "O'Shea"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
-            "bank_after": 1.5,
-            "lineup_expected_points": 37.099,
-            "net_expected_points": 37.099,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
+            "bank_after": 2.5,
+            "lineup_expected_points": 53.691,
+            "net_expected_points": 53.691,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
+              529,
               229,
-              423,
-              471,
-              545,
-              40,
+              445,
+              304,
+              426,
+              155,
               106,
-              204,
-              469,
-              55,
-              411
+              200,
+              481,
+              13,
+              498
             ]
           }
         ],
         "final_squad_player_ids": [
-          40,
-          55,
+          13,
+          82,
           106,
-          109,
-          204,
-          226,
+          155,
+          165,
+          200,
           229,
-          338,
-          368,
-          411,
-          423,
-          469,
-          471,
+          304,
+          346,
+          426,
+          445,
           481,
-          545
+          498,
+          529,
+          542
         ]
       },
       {
-        "projected_net_points": 230.033,
-        "discounted_objective": 208.235,
-        "net_gain_vs_hold": 3.165,
+        "projected_net_points": 329.673,
+        "discounted_objective": 298.666,
+        "net_gain_vs_hold": 2.808,
+        "total_hit_cost": 0,
+        "final_bank": 2.5,
+        "free_transfers_after_horizon": 1,
+        "gameweek_plan": [
+          {
+            "gameweek": 1,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              229,
+              356,
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
+            ]
+          },
+          {
+            "gameweek": 2,
+            "transfers": [
+              {
+                "sell_player_id": 445,
+                "buy_player_id": 112,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Thiaw",
+                "buy": "Van Hecke"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 57.283,
+            "net_expected_points": 57.283,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              200,
+              112,
+              426,
+              155,
+              106,
+              356,
+              229,
+              481,
+              165
+            ]
+          },
+          {
+            "gameweek": 3,
+            "transfers": [
+              {
+                "sell_player_id": 112,
+                "buy_player_id": 445,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Van Hecke",
+                "buy": "Thiaw"
+              },
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              356,
+              498,
+              426,
+              481,
+              106,
+              445,
+              229,
+              13,
+              542
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [
+              {
+                "sell_player_id": 388,
+                "buy_player_id": 200,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Guéhi",
+                "buy": "Lacroix"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              200,
+              498,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              13
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [
+              {
+                "sell_player_id": 356,
+                "buy_player_id": 388,
+                "sell_price": 6.5,
+                "buy_price": 6.0,
+                "sell": "Virgil",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.5,
+            "lineup_expected_points": 54.263,
+            "net_expected_points": 54.263,
+            "captain_player_id": 229,
+            "captain": "Tarkowski",
+            "starter_player_ids": [
+              82,
+              229,
+              445,
+              388,
+              426,
+              481,
+              106,
+              498,
+              155,
+              13,
+              200
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [
+              {
+                "sell_player_id": 498,
+                "buy_player_id": 304,
+                "sell_price": 6.0,
+                "buy_price": 4.0,
+                "sell": "Senesi",
+                "buy": "O'Shea"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 2.5,
+            "lineup_expected_points": 53.678,
+            "net_expected_points": 53.678,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              229,
+              445,
+              304,
+              426,
+              155,
+              106,
+              200,
+              481,
+              13,
+              165
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          13,
+          82,
+          106,
+          155,
+          165,
+          200,
+          229,
+          304,
+          346,
+          388,
+          426,
+          445,
+          481,
+          529,
+          542
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "projected_net_points": 329.85,
+        "discounted_objective": 298.799,
+        "net_gain_vs_hold": 2.985,
         "total_hit_cost": 0,
         "final_bank": 0.5,
         "free_transfers_after_horizon": 1,
@@ -3160,222 +2818,221 @@
             "free_transfers_before": 1,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 37.842,
-            "net_expected_points": 37.842,
-            "captain_player_id": 471,
-            "captain": "Milenković",
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
-              471,
-              423,
+              529,
+              498,
               229,
-              481,
-              368,
-              106,
-              204,
               356,
-              411,
-              55
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
             ]
           },
           {
             "gameweek": 2,
             "transfers": [
               {
-                "sell_player_id": 471,
+                "sell_player_id": 445,
                 "buy_player_id": 112,
-                "sell_price": 5.5,
+                "sell_price": 5.0,
                 "buy_price": 5.0,
-                "sell": "Milenković",
+                "sell": "Thiaw",
                 "buy": "Van Hecke"
-              },
-              {
-                "sell_player_id": 229,
-                "buy_player_id": 498,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Tarkowski",
-                "buy": "Senesi"
               }
             ],
             "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.276,
-            "net_expected_points": 38.276,
-            "captain_player_id": 498,
-            "captain": "Senesi",
+            "bank_after": 0.0,
+            "lineup_expected_points": 57.283,
+            "net_expected_points": 57.283,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
+              529,
               498,
-              423,
+              200,
               112,
-              40,
-              481,
+              426,
+              155,
               106,
               356,
-              204,
-              411,
-              368
+              229,
+              481,
+              165
             ]
           },
           {
             "gameweek": 3,
             "transfers": [
               {
-                "sell_player_id": 498,
-                "buy_player_id": 88,
+                "sell_player_id": 112,
+                "buy_player_id": 445,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Van Hecke",
+                "buy": "Thiaw"
+              },
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
                 "sell_price": 6.0,
-                "buy_price": 4.5,
-                "sell": "Senesi",
-                "buy": "Kayode"
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
               }
             ],
-            "free_transfers_before": 1,
+            "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 38.579,
-            "net_expected_points": 38.579,
-            "captain_player_id": 88,
-            "captain": "Kayode",
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              109,
-              88,
+              82,
+              388,
               356,
-              423,
-              368,
+              498,
+              426,
               481,
-              411,
-              204,
-              112,
               106,
-              55
+              445,
+              229,
+              13,
+              542
             ]
           },
           {
             "gameweek": 4,
             "transfers": [
               {
-                "sell_player_id": 423,
-                "buy_player_id": 229,
-                "sell_price": 4.5,
+                "sell_player_id": 388,
+                "buy_player_id": 200,
+                "sell_price": 6.0,
                 "buy_price": 6.0,
-                "sell": "Shaw",
-                "buy": "Tarkowski"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 39.154,
-            "net_expected_points": 39.154,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              109,
-              356,
-              204,
-              112,
-              40,
-              368,
-              106,
-              229,
-              88,
-              338,
-              55
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 88,
-                "buy_player_id": 469,
-                "sell_price": 4.5,
-                "buy_price": 5.0,
-                "sell": "Kayode",
-                "buy": "N.Williams"
+                "sell": "Guéhi",
+                "buy": "Lacroix"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 39.33,
-            "net_expected_points": 39.33,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              200,
+              498,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              13
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 53.936,
+            "net_expected_points": 53.936,
             "captain_player_id": 229,
             "captain": "Tarkowski",
             "starter_player_ids": [
-              226,
+              82,
               229,
-              469,
-              112,
+              445,
+              498,
+              426,
               481,
-              368,
-              411,
-              356,
-              204,
               106,
-              338
+              356,
+              155,
+              13,
+              200
             ]
           },
           {
             "gameweek": 6,
             "transfers": [
               {
-                "sell_player_id": 112,
-                "buy_player_id": 423,
-                "sell_price": 5.0,
-                "buy_price": 4.5,
-                "sell": "Van Hecke",
-                "buy": "Shaw"
+                "sell_player_id": 356,
+                "buy_player_id": 304,
+                "sell_price": 6.5,
+                "buy_price": 4.0,
+                "sell": "Virgil",
+                "buy": "O'Shea"
+              },
+              {
+                "sell_player_id": 498,
+                "buy_player_id": 4,
+                "sell_price": 6.0,
+                "buy_price": 8.0,
+                "sell": "Senesi",
+                "buy": "Gabriel"
               }
             ],
-            "free_transfers_before": 1,
+            "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.5,
-            "lineup_expected_points": 36.852,
-            "net_expected_points": 36.852,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
+            "lineup_expected_points": 54.181,
+            "net_expected_points": 54.181,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
+              529,
               229,
-              423,
-              204,
-              545,
-              40,
+              445,
+              4,
+              426,
+              155,
               106,
-              469,
-              356,
-              55,
-              411
+              304,
+              200,
+              481,
+              13
             ]
           }
         ],
         "final_squad_player_ids": [
-          40,
-          55,
+          4,
+          13,
+          82,
           106,
-          109,
-          204,
-          226,
+          155,
+          165,
+          200,
           229,
-          338,
-          356,
-          368,
-          411,
-          423,
-          469,
+          304,
+          346,
+          426,
+          445,
           481,
-          545
+          529,
+          542
         ]
       },
       {
-        "projected_net_points": 230.058,
-        "discounted_objective": 208.234,
-        "net_gain_vs_hold": 3.19,
+        "projected_net_points": 329.688,
+        "discounted_objective": 298.689,
+        "net_gain_vs_hold": 2.823,
         "total_hit_cost": 0,
-        "final_bank": 0.0,
+        "final_bank": 2.0,
         "free_transfers_after_horizon": 1,
         "gameweek_plan": [
           {
@@ -3384,222 +3041,222 @@
             "free_transfers_before": 1,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 37.842,
-            "net_expected_points": 37.842,
-            "captain_player_id": 471,
-            "captain": "Milenković",
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
-              471,
-              423,
+              529,
+              498,
               229,
-              481,
-              368,
-              106,
-              204,
               356,
-              411,
-              55
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
             ]
           },
           {
             "gameweek": 2,
             "transfers": [
               {
-                "sell_player_id": 471,
+                "sell_player_id": 445,
                 "buy_player_id": 112,
-                "sell_price": 5.5,
+                "sell_price": 5.0,
                 "buy_price": 5.0,
-                "sell": "Milenković",
+                "sell": "Thiaw",
                 "buy": "Van Hecke"
-              },
-              {
-                "sell_player_id": 229,
-                "buy_player_id": 498,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Tarkowski",
-                "buy": "Senesi"
               }
             ],
             "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.276,
-            "net_expected_points": 38.276,
-            "captain_player_id": 498,
-            "captain": "Senesi",
+            "bank_after": 0.0,
+            "lineup_expected_points": 57.283,
+            "net_expected_points": 57.283,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
+              529,
               498,
-              423,
+              200,
               112,
-              40,
-              481,
+              426,
+              155,
               106,
               356,
-              204,
-              411,
-              368
+              229,
+              481,
+              165
             ]
           },
           {
             "gameweek": 3,
             "transfers": [
               {
-                "sell_player_id": 498,
-                "buy_player_id": 88,
+                "sell_player_id": 112,
+                "buy_player_id": 445,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Van Hecke",
+                "buy": "Thiaw"
+              },
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
                 "sell_price": 6.0,
-                "buy_price": 4.5,
-                "sell": "Senesi",
-                "buy": "Kayode"
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
               }
             ],
-            "free_transfers_before": 1,
+            "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 38.579,
-            "net_expected_points": 38.579,
-            "captain_player_id": 88,
-            "captain": "Kayode",
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              109,
-              88,
+              82,
+              388,
               356,
-              423,
-              368,
+              498,
+              426,
               481,
-              411,
-              204,
-              112,
               106,
-              55
+              445,
+              229,
+              13,
+              542
             ]
           },
           {
             "gameweek": 4,
             "transfers": [
               {
-                "sell_player_id": 88,
-                "buy_player_id": 229,
-                "sell_price": 4.5,
+                "sell_player_id": 388,
+                "buy_player_id": 200,
+                "sell_price": 6.0,
                 "buy_price": 6.0,
-                "sell": "Kayode",
-                "buy": "Tarkowski"
+                "sell": "Guéhi",
+                "buy": "Lacroix"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.789,
-            "net_expected_points": 38.789,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
             "captain_player_id": 356,
             "captain": "Virgil",
             "starter_player_ids": [
-              109,
+              82,
               356,
-              204,
-              112,
-              40,
-              368,
+              200,
+              498,
+              426,
+              155,
               106,
               229,
-              338,
-              423,
-              55
+              481,
+              165,
+              13
             ]
           },
           {
             "gameweek": 5,
             "transfers": [
               {
-                "sell_player_id": 112,
-                "buy_player_id": 471,
-                "sell_price": 5.0,
-                "buy_price": 5.5,
-                "sell": "Van Hecke",
-                "buy": "Milenković"
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 39.428,
-            "net_expected_points": 39.428,
+            "lineup_expected_points": 54.592,
+            "net_expected_points": 54.592,
             "captain_player_id": 229,
             "captain": "Tarkowski",
             "starter_player_ids": [
-              226,
+              82,
               229,
-              471,
-              356,
+              445,
+              388,
+              426,
               481,
-              368,
-              411,
-              204,
-              423,
               106,
-              338
+              498,
+              356,
+              155,
+              13
             ]
           },
           {
             "gameweek": 6,
             "transfers": [
               {
-                "sell_player_id": 109,
-                "buy_player_id": 250,
-                "sell_price": 4.5,
-                "buy_price": 4.5,
-                "sell": "Verbruggen",
-                "buy": "Leno"
+                "sell_player_id": 388,
+                "buy_player_id": 304,
+                "sell_price": 6.0,
+                "buy_price": 4.0,
+                "sell": "Guéhi",
+                "buy": "O'Shea"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 37.144,
-            "net_expected_points": 37.144,
-            "captain_player_id": 250,
-            "captain": "Leno",
+            "bank_after": 2.0,
+            "lineup_expected_points": 53.364,
+            "net_expected_points": 53.364,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              250,
+              529,
               229,
-              423,
-              471,
-              545,
-              40,
+              445,
+              304,
+              426,
+              155,
               106,
-              204,
-              356,
-              55,
-              411
+              481,
+              13,
+              498,
+              165
             ]
           }
         ],
         "final_squad_player_ids": [
-          40,
-          55,
+          13,
+          82,
           106,
-          204,
-          226,
+          155,
+          165,
           229,
-          250,
-          338,
+          304,
+          346,
           356,
-          368,
-          411,
-          423,
-          471,
+          426,
+          445,
           481,
-          545
+          498,
+          529,
+          542
         ]
       },
       {
-        "projected_net_points": 230.058,
-        "discounted_objective": 208.234,
-        "net_gain_vs_hold": 3.19,
+        "projected_net_points": 329.688,
+        "discounted_objective": 298.689,
+        "net_gain_vs_hold": 2.823,
         "total_hit_cost": 0,
-        "final_bank": 1.0,
+        "final_bank": 2.5,
         "free_transfers_after_horizon": 1,
         "gameweek_plan": [
           {
@@ -3608,214 +3265,662 @@
             "free_transfers_before": 1,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 37.842,
-            "net_expected_points": 37.842,
-            "captain_player_id": 471,
-            "captain": "Milenković",
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
-              471,
-              423,
+              529,
+              498,
               229,
-              481,
-              368,
-              106,
-              204,
               356,
-              411,
-              55
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
             ]
           },
           {
             "gameweek": 2,
             "transfers": [
               {
-                "sell_player_id": 471,
+                "sell_player_id": 445,
                 "buy_player_id": 112,
-                "sell_price": 5.5,
+                "sell_price": 5.0,
                 "buy_price": 5.0,
-                "sell": "Milenković",
+                "sell": "Thiaw",
                 "buy": "Van Hecke"
-              },
-              {
-                "sell_player_id": 229,
-                "buy_player_id": 498,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Tarkowski",
-                "buy": "Senesi"
               }
             ],
             "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.276,
-            "net_expected_points": 38.276,
-            "captain_player_id": 498,
-            "captain": "Senesi",
+            "bank_after": 0.0,
+            "lineup_expected_points": 57.283,
+            "net_expected_points": 57.283,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              226,
+              529,
               498,
-              423,
+              200,
               112,
-              40,
-              481,
+              426,
+              155,
               106,
               356,
-              204,
-              411,
-              368
+              229,
+              481,
+              165
             ]
           },
           {
             "gameweek": 3,
             "transfers": [
               {
-                "sell_player_id": 498,
-                "buy_player_id": 88,
+                "sell_player_id": 112,
+                "buy_player_id": 445,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Van Hecke",
+                "buy": "Thiaw"
+              },
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
                 "sell_price": 6.0,
-                "buy_price": 4.5,
-                "sell": "Senesi",
-                "buy": "Kayode"
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
               }
             ],
-            "free_transfers_before": 1,
+            "free_transfers_before": 2,
             "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 38.579,
-            "net_expected_points": 38.579,
-            "captain_player_id": 88,
-            "captain": "Kayode",
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              109,
-              88,
+              82,
+              388,
               356,
-              423,
-              368,
+              498,
+              426,
               481,
-              411,
-              204,
-              112,
               106,
-              55
+              445,
+              229,
+              13,
+              542
             ]
           },
           {
             "gameweek": 4,
             "transfers": [
               {
-                "sell_player_id": 88,
-                "buy_player_id": 229,
-                "sell_price": 4.5,
+                "sell_player_id": 388,
+                "buy_player_id": 200,
+                "sell_price": 6.0,
                 "buy_price": 6.0,
-                "sell": "Kayode",
-                "buy": "Tarkowski"
+                "sell": "Guéhi",
+                "buy": "Lacroix"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 38.789,
-            "net_expected_points": 38.789,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
             "captain_player_id": 356,
             "captain": "Virgil",
             "starter_player_ids": [
-              109,
+              82,
               356,
-              204,
-              112,
-              40,
-              368,
+              200,
+              498,
+              426,
+              155,
               106,
               229,
-              338,
-              423,
-              55
+              481,
+              165,
+              13
             ]
           },
           {
             "gameweek": 5,
             "transfers": [
               {
-                "sell_player_id": 112,
-                "buy_player_id": 471,
-                "sell_price": 5.0,
-                "buy_price": 5.5,
-                "sell": "Van Hecke",
-                "buy": "Milenković"
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 39.428,
-            "net_expected_points": 39.428,
+            "lineup_expected_points": 54.592,
+            "net_expected_points": 54.592,
             "captain_player_id": 229,
             "captain": "Tarkowski",
             "starter_player_ids": [
-              226,
+              82,
               229,
-              471,
-              356,
+              445,
+              388,
+              426,
               481,
-              368,
-              411,
-              204,
-              423,
               106,
-              338
+              498,
+              356,
+              155,
+              13
             ]
           },
           {
             "gameweek": 6,
             "transfers": [
               {
-                "sell_player_id": 226,
-                "buy_player_id": 250,
-                "sell_price": 5.5,
-                "buy_price": 4.5,
-                "sell": "Pickford",
-                "buy": "Leno"
+                "sell_player_id": 356,
+                "buy_player_id": 304,
+                "sell_price": 6.5,
+                "buy_price": 4.0,
+                "sell": "Virgil",
+                "buy": "O'Shea"
               }
             ],
             "free_transfers_before": 1,
             "hit_cost": 0,
-            "bank_after": 1.0,
-            "lineup_expected_points": 37.144,
-            "net_expected_points": 37.144,
-            "captain_player_id": 250,
-            "captain": "Leno",
+            "bank_after": 2.5,
+            "lineup_expected_points": 53.364,
+            "net_expected_points": 53.364,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
-              250,
+              529,
               229,
-              423,
-              471,
-              545,
-              40,
+              445,
+              304,
+              426,
+              155,
               106,
-              204,
-              356,
-              55,
-              411
+              481,
+              13,
+              498,
+              165
             ]
           }
         ],
         "final_squad_player_ids": [
-          40,
-          55,
+          13,
+          82,
           106,
-          109,
-          204,
+          155,
+          165,
           229,
-          250,
-          338,
-          356,
-          368,
-          411,
-          423,
-          471,
+          304,
+          346,
+          388,
+          426,
+          445,
           481,
-          545
+          498,
+          529,
+          542
+        ]
+      },
+      {
+        "projected_net_points": 329.686,
+        "discounted_objective": 298.676,
+        "net_gain_vs_hold": 2.821,
+        "total_hit_cost": 0,
+        "final_bank": 2.5,
+        "free_transfers_after_horizon": 1,
+        "gameweek_plan": [
+          {
+            "gameweek": 1,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              229,
+              356,
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
+            ]
+          },
+          {
+            "gameweek": 2,
+            "transfers": [
+              {
+                "sell_player_id": 445,
+                "buy_player_id": 112,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Thiaw",
+                "buy": "Van Hecke"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 57.283,
+            "net_expected_points": 57.283,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              200,
+              112,
+              426,
+              155,
+              106,
+              356,
+              229,
+              481,
+              165
+            ]
+          },
+          {
+            "gameweek": 3,
+            "transfers": [
+              {
+                "sell_player_id": 112,
+                "buy_player_id": 445,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Van Hecke",
+                "buy": "Thiaw"
+              },
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              356,
+              498,
+              426,
+              481,
+              106,
+              445,
+              229,
+              13,
+              542
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [
+              {
+                "sell_player_id": 388,
+                "buy_player_id": 200,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Guéhi",
+                "buy": "Lacroix"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              200,
+              498,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              13
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [
+              {
+                "sell_player_id": 356,
+                "buy_player_id": 388,
+                "sell_price": 6.5,
+                "buy_price": 6.0,
+                "sell": "Virgil",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.5,
+            "lineup_expected_points": 54.263,
+            "net_expected_points": 54.263,
+            "captain_player_id": 229,
+            "captain": "Tarkowski",
+            "starter_player_ids": [
+              82,
+              229,
+              445,
+              388,
+              426,
+              481,
+              106,
+              498,
+              155,
+              13,
+              200
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [
+              {
+                "sell_player_id": 388,
+                "buy_player_id": 304,
+                "sell_price": 6.0,
+                "buy_price": 4.0,
+                "sell": "Guéhi",
+                "buy": "O'Shea"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 2.5,
+            "lineup_expected_points": 53.691,
+            "net_expected_points": 53.691,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              229,
+              445,
+              304,
+              426,
+              155,
+              106,
+              200,
+              481,
+              13,
+              498
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          13,
+          82,
+          106,
+          155,
+          165,
+          200,
+          229,
+          304,
+          346,
+          426,
+          445,
+          481,
+          498,
+          529,
+          542
+        ]
+      },
+      {
+        "projected_net_points": 329.673,
+        "discounted_objective": 298.666,
+        "net_gain_vs_hold": 2.808,
+        "total_hit_cost": 0,
+        "final_bank": 2.5,
+        "free_transfers_after_horizon": 1,
+        "gameweek_plan": [
+          {
+            "gameweek": 1,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              229,
+              356,
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
+            ]
+          },
+          {
+            "gameweek": 2,
+            "transfers": [
+              {
+                "sell_player_id": 445,
+                "buy_player_id": 112,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Thiaw",
+                "buy": "Van Hecke"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 57.283,
+            "net_expected_points": 57.283,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              200,
+              112,
+              426,
+              155,
+              106,
+              356,
+              229,
+              481,
+              165
+            ]
+          },
+          {
+            "gameweek": 3,
+            "transfers": [
+              {
+                "sell_player_id": 112,
+                "buy_player_id": 445,
+                "sell_price": 5.0,
+                "buy_price": 5.0,
+                "sell": "Van Hecke",
+                "buy": "Thiaw"
+              },
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              356,
+              498,
+              426,
+              481,
+              106,
+              445,
+              229,
+              13,
+              542
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [
+              {
+                "sell_player_id": 388,
+                "buy_player_id": 200,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Guéhi",
+                "buy": "Lacroix"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              200,
+              498,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              13
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [
+              {
+                "sell_player_id": 356,
+                "buy_player_id": 388,
+                "sell_price": 6.5,
+                "buy_price": 6.0,
+                "sell": "Virgil",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.5,
+            "lineup_expected_points": 54.263,
+            "net_expected_points": 54.263,
+            "captain_player_id": 229,
+            "captain": "Tarkowski",
+            "starter_player_ids": [
+              82,
+              229,
+              445,
+              388,
+              426,
+              481,
+              106,
+              498,
+              155,
+              13,
+              200
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [
+              {
+                "sell_player_id": 498,
+                "buy_player_id": 304,
+                "sell_price": 6.0,
+                "buy_price": 4.0,
+                "sell": "Senesi",
+                "buy": "O'Shea"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 2.5,
+            "lineup_expected_points": 53.678,
+            "net_expected_points": 53.678,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              229,
+              445,
+              304,
+              426,
+              155,
+              106,
+              200,
+              481,
+              13,
+              165
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          13,
+          82,
+          106,
+          155,
+          165,
+          200,
+          229,
+          304,
+          346,
+          388,
+          426,
+          445,
+          481,
+          529,
+          542
         ]
       }
     ],
