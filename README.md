@@ -14,8 +14,8 @@ The automated workflows retrieve public FPL data, preserve historical and human 
 
 ## Current personal team
 
-- FPL team ID: `6435140`
-- The ID belongs to the 2025/26 season and will need replacing when the 2026/27 team is created.
+- FPL team ID: `39395`
+- The ID belongs to the 2026/27 season.
 - FPL team IDs are season-specific.
 
 No FPL password or private account credentials are used.
@@ -130,7 +130,7 @@ python -m unittest discover -s tests -v
 Refresh the datasets:
 
 ```bash
-python -m src.update_fpl_data --team-id 6435140 --output-dir data
+python -m src.update_fpl_data --team-id 39395 --output-dir data
 python -m src.validate_fpl_data --data-dir data
 python -m src.sync_detailed_history --output-dir data --max-workers 8
 python -m src.sync_historical_fpl --output-dir data
