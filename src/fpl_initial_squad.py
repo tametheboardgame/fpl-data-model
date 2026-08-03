@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from typing import Any
 
+from src.fpl_launch_validation import validate_launch_plan
 from src.fpl_multiweek import (
     POSITION_LIMITS,
     legal_squad,
@@ -12,7 +13,7 @@ from src.fpl_multiweek import (
 )
 
 
-INITIAL_SQUAD_VERSION = "fpl-initial-squad-1.0"
+INITIAL_SQUAD_VERSION = "fpl-initial-squad-1.1"
 TARGET_SEASON = "2026/27"
 BUDGET = 100.0
 STRATEGIES = {
@@ -321,6 +322,7 @@ def build_initial_squad_plan(
     scoring_rules_version: str | None,
     first_gameweek_multiplier: dict[int, float] | None = None,
     min_player_pool: int = 300,
+    past_seasons: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     checks, missing = launch_readiness(
         players,
@@ -369,14 +371,36 @@ def build_initial_squad_plan(
         horizon=6,
         first_gameweek_multiplier=first_gameweek_multiplier,
     )
+    launch_validation = validate_launch_plan(
+        players,
+        horizons,
+        fixture_projections,
+        comparison,
+        recommended,
+        route,
+        past_seasons,
+    )
+    status = (
+        "ready"
+        if launch_validation["usable_for_selection"]
+        else "review_required"
+    )
     return {
         "initial_squad_version": INITIAL_SQUAD_VERSION,
-        "status": "ready",
+        "status": status,
         "target_season": TARGET_SEASON,
         "budget": BUDGET,
         "horizon_gameweeks": gameweeks,
-        "readiness": {"ready": True, "checks": checks, "missing": []},
+        "readiness": {
+            "ready": status == "ready",
+            "launch_data_ready": True,
+            "checks": checks,
+            "missing": [],
+        },
+        "launch_validation": launch_validation,
         "recommended_strategy": "balanced",
+        "total_cost": recommended["total_cost"],
+        "bank": recommended["bank"],
         "recommended_squad": recommended["squad"],
         "recommended_starting_xi": recommended["starting_xi"],
         "recommended_bench_order": recommended["bench_order"],
