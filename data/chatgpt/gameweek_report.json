@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.2",
-  "generated_at": "2026-08-03T11:12:44+00:00",
+  "generated_at": "2026-08-03T15:19:55+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-1.9",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-21T17:30:00+00:00",
     "deadline_time_uk": "2026-08-21T18:30:00+01:00",
-    "hours_remaining": 438.288
+    "hours_remaining": 434.168
   },
   "recommendation": {
     "selection_source": "initial_squad_plan",
@@ -454,8 +454,8 @@
     }
   ],
   "source_freshness": {
-    "official_fpl_generated_at": "2026-08-03T11:11:42+00:00",
-    "external_context_generated_at": "2026-08-03T11:12:44+00:00",
+    "official_fpl_generated_at": "2026-08-03T15:18:34+00:00",
+    "external_context_generated_at": "2026-08-03T15:19:55+00:00",
     "active_external_signals": 3040,
     "expired_external_signals": 0
   },
@@ -1319,23 +1319,10 @@
   },
   "advisory_only": true,
   "automatic_fpl_actions": false,
-  "material_changes": [
-    {
-      "type": "advice_level",
-      "summary": "Deadline advice stage changed",
-      "before": null,
-      "after": "provisional"
-    },
-    {
-      "type": "firm_advice_allowed",
-      "summary": "Firm-advice safety gate changed",
-      "before": null,
-      "after": false
-    }
-  ],
-  "material_change": true,
-  "change_summary": "Deadline advice stage changed Firm-advice safety gate changed",
+  "material_changes": [],
+  "material_change": false,
+  "change_summary": "No material change since the previous report.",
   "decision_fingerprint": "cd42f439c879f809a6676c66c9fddfb58e397aac96475f08eda533088a335d9d",
-  "archive_created_this_run": "operations/gw01/20260803T111244Z.json",
-  "archive_markdown_created_this_run": "operations/gw01/20260803T111244Z.md"
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
 }
