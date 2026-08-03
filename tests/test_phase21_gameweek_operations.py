@@ -169,7 +169,7 @@ class Phase21OperationsTests(unittest.TestCase):
         self.assertEqual(report["status"], "review_required")
 
     def test_gameweek_one_uses_initial_squad_when_registered_team_is_empty(self) -> None:
-        self.my_team = {"available": False, "squad": []}
+        self.my_team = {"available": True, "squad": []}
         squad = [{"player_id": row["player_id"]} for row in self.players]
         starter_ids = [1, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14]
         bench_ids = [2, 6, 7, 15]

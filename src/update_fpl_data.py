@@ -13,7 +13,7 @@ import requests
 
 
 API_BASE = "https://fantasy.premierleague.com/api"
-DEFAULT_TEAM_ID = 6435140
+DEFAULT_TEAM_ID = 39395
 POSITION_NAMES = {1: "Goalkeeper", 2: "Defender", 3: "Midfielder", 4: "Forward"}
 
 

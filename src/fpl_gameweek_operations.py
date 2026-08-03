@@ -91,7 +91,7 @@ def _selection(
     initial_plan = decision.get("initial_squad_plan") or {}
     if (
         gameweek == 1
-        and not my_team.get("available")
+        and (not my_team.get("available") or not my_team.get("squad"))
         and initial_plan.get("recommended_squad")
     ):
         squad_ids = [
