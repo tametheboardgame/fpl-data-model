@@ -13,7 +13,7 @@ from src.fpl_multiweek import (
 )
 
 
-INITIAL_SQUAD_VERSION = "fpl-initial-squad-1.1"
+INITIAL_SQUAD_VERSION = "fpl-initial-squad-1.2"
 TARGET_SEASON = "2026/27"
 BUDGET = 100.0
 STRATEGIES = {
