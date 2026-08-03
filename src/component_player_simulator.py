@@ -114,18 +114,37 @@ def build_component_inputs(
     start_rate_6 = number(feature.get("start_rate_6"))
     appearance_rate_6 = number(feature.get("appearance_rate_6"))
     if not fixtures_6:
-        start_rate_6 = number(prior.get("start_rate"))
-        appearance_rate_6 = number(prior.get("appearance_rate"))
-    smoothed_start = beta_smoothed_rate(
-        start_rate_6,
-        fixtures_6,
-        number(prior.get("start_rate")),
-    )
-    smoothed_appearance = beta_smoothed_rate(
-        max(start_rate_6, appearance_rate_6),
-        fixtures_6,
-        max(number(prior.get("start_rate")), number(prior.get("appearance_rate"))),
-    )
+        # At season launch the rolling window is empty. The control layer has
+        # already derived player-specific probabilities from the previous
+        # season, so retain those rather than collapsing every player to the
+        # same positional start and appearance priors.
+        start_rate_6 = (
+            number(base_inputs.get("start_probability")) / availability
+            if availability
+            else 0
+        )
+        appearance_rate_6 = (
+            number(base_inputs.get("appearance_probability")) / availability
+            if availability
+            else 0
+        )
+    if fixtures_6:
+        smoothed_start = beta_smoothed_rate(
+            start_rate_6,
+            fixtures_6,
+            number(prior.get("start_rate")),
+        )
+        smoothed_appearance = beta_smoothed_rate(
+            max(start_rate_6, appearance_rate_6),
+            fixtures_6,
+            max(
+                number(prior.get("start_rate")),
+                number(prior.get("appearance_rate")),
+            ),
+        )
+    else:
+        smoothed_start = start_rate_6
+        smoothed_appearance = max(start_rate_6, appearance_rate_6)
     start_probability = availability * smoothed_start
     appearance_probability = availability * max(smoothed_start, smoothed_appearance)
 
@@ -142,6 +161,21 @@ def build_component_inputs(
         substitute_appearances,
         SUBSTITUTE_MINUTES_PRIOR[position],
     )
+    if not fixtures_6 and start_probability:
+        target_minutes = clamp(number(base_inputs.get("expected_minutes")), 0, 90)
+        substitute_probability = max(
+            0.0,
+            appearance_probability - start_probability,
+        )
+        starter_minutes_mean = clamp(
+            (
+                target_minutes
+                - substitute_probability * substitute_minutes_mean
+            )
+            / start_probability,
+            45,
+            90,
+        )
     expected_minutes = (
         start_probability * starter_minutes_mean
         + max(0.0, appearance_probability - start_probability)
