@@ -1,5 +1,5 @@
 {
-  "initial_squad_version": "fpl-initial-squad-1.1",
+  "initial_squad_version": "fpl-initial-squad-1.2",
   "status": "ready",
   "target_season": "2026/27",
   "budget": 100.0,
@@ -262,7 +262,7 @@
       "price": 6.0,
       "gameweek_1_expected_points": 3.743,
       "discounted_horizon_points": 19.929,
-      "ownership_percent": 19.9
+      "ownership_percent": 20.0
     },
     {
       "player_id": 356,
@@ -497,7 +497,7 @@
       "price": 6.0,
       "gameweek_1_expected_points": 3.743,
       "discounted_horizon_points": 19.929,
-      "ownership_percent": 19.9
+      "ownership_percent": 20.0
     },
     {
       "player_id": 82,
@@ -629,7 +629,7 @@
           "price": 6.0,
           "gameweek_1_expected_points": 3.743,
           "discounted_horizon_points": 19.929,
-          "ownership_percent": 19.9
+          "ownership_percent": 20.0
         },
         {
           "player_id": 356,
@@ -864,7 +864,7 @@
           "price": 6.0,
           "gameweek_1_expected_points": 3.743,
           "discounted_horizon_points": 19.929,
-          "ownership_percent": 19.9
+          "ownership_percent": 20.0
         },
         {
           "player_id": 82,
@@ -996,7 +996,7 @@
           "price": 6.0,
           "gameweek_1_expected_points": 3.743,
           "discounted_horizon_points": 19.929,
-          "ownership_percent": 19.9
+          "ownership_percent": 20.0
         },
         {
           "player_id": 356,
@@ -1231,7 +1231,7 @@
           "price": 6.0,
           "gameweek_1_expected_points": 3.743,
           "discounted_horizon_points": 19.929,
-          "ownership_percent": 19.9
+          "ownership_percent": 20.0
         },
         {
           "player_id": 249,
@@ -1296,7 +1296,7 @@
       "description": "Give extra weight to highly owned players to limit early rank volatility.",
       "total_cost": 100.0,
       "bank": 0.0,
-      "objective_score": 309.29,
+      "objective_score": 309.289,
       "gameweek_1_expected_points_including_captain": 54.494,
       "squad": [
         {
@@ -1385,7 +1385,7 @@
           "price": 6.0,
           "gameweek_1_expected_points": 3.743,
           "discounted_horizon_points": 19.929,
-          "ownership_percent": 19.9
+          "ownership_percent": 20.0
         },
         {
           "player_id": 356,
@@ -1407,7 +1407,7 @@
           "price": 7.0,
           "gameweek_1_expected_points": 3.665,
           "discounted_horizon_points": 20.945,
-          "ownership_percent": 48.0
+          "ownership_percent": 47.9
         },
         {
           "player_id": 426,
@@ -1451,7 +1451,7 @@
           "price": 4.0,
           "gameweek_1_expected_points": 3.537,
           "discounted_horizon_points": 20.369,
-          "ownership_percent": 24.7
+          "ownership_percent": 24.6
         },
         {
           "player_id": 498,
@@ -1609,7 +1609,7 @@
           "price": 6.0,
           "gameweek_1_expected_points": 3.743,
           "discounted_horizon_points": 19.929,
-          "ownership_percent": 19.9
+          "ownership_percent": 20.0
         },
         {
           "player_id": 368,
@@ -1620,7 +1620,7 @@
           "price": 7.0,
           "gameweek_1_expected_points": 3.665,
           "discounted_horizon_points": 20.945,
-          "ownership_percent": 48.0
+          "ownership_percent": 47.9
         },
         {
           "player_id": 497,
@@ -1631,7 +1631,7 @@
           "price": 4.0,
           "gameweek_1_expected_points": 3.537,
           "discounted_horizon_points": 20.369,
-          "ownership_percent": 24.7
+          "ownership_percent": 24.6
         }
       ],
       "captain": {
@@ -1671,7 +1671,7 @@
   ],
   "planned_transfer_route": {
     "status": "ready",
-    "objective": "Maximise discounted expected starting-XI and captain points, net of transfer hits.",
+    "objective": "Maximise discounted expected starting-XI and captain points, net of transfer hits and short-horizon transfer uncertainty.",
     "horizon_gameweeks": [
       1,
       2,
@@ -1681,14 +1681,18 @@
       6
     ],
     "discount_per_gameweek": 0.96,
+    "recommendation_reason": "Hold: no transfer route clears the minimum decision-adjusted edge.",
     "hold_current_squad_expected_points": 326.865,
     "recommended_route": {
-      "projected_net_points": 329.85,
-      "discounted_objective": 298.799,
-      "net_gain_vs_hold": 2.985,
+      "projected_net_points": 326.865,
+      "discounted_objective": 296.116,
+      "net_gain_vs_hold": 0.0,
+      "decision_adjusted_gain_vs_hold": 0.0,
+      "transfer_decision_cost": 0.0,
+      "round_trip_reversals": 0,
       "total_hit_cost": 0,
-      "final_bank": 0.5,
-      "free_transfers_after_horizon": 1,
+      "final_bank": 0.0,
+      "free_transfers_after_horizon": 5,
       "gameweek_plan": [
         {
           "gameweek": 1,
@@ -1716,91 +1720,56 @@
         },
         {
           "gameweek": 2,
-          "transfers": [
-            {
-              "sell_player_id": 445,
-              "buy_player_id": 112,
-              "sell_price": 5.0,
-              "buy_price": 5.0,
-              "sell": "Thiaw",
-              "buy": "Van Hecke"
-            }
-          ],
+          "transfers": [],
           "free_transfers_before": 2,
           "hit_cost": 0,
           "bank_after": 0.0,
-          "lineup_expected_points": 57.283,
-          "net_expected_points": 57.283,
+          "lineup_expected_points": 56.587,
+          "net_expected_points": 56.587,
           "captain_player_id": 426,
           "captain": "B.Fernandes",
           "starter_player_ids": [
             529,
             498,
             200,
-            112,
+            356,
             426,
             155,
             106,
-            356,
             229,
             481,
-            165
+            165,
+            445
           ]
         },
         {
           "gameweek": 3,
-          "transfers": [
-            {
-              "sell_player_id": 112,
-              "buy_player_id": 445,
-              "sell_price": 5.0,
-              "buy_price": 5.0,
-              "sell": "Van Hecke",
-              "buy": "Thiaw"
-            },
-            {
-              "sell_player_id": 200,
-              "buy_player_id": 388,
-              "sell_price": 6.0,
-              "buy_price": 6.0,
-              "sell": "Lacroix",
-              "buy": "Guéhi"
-            }
-          ],
-          "free_transfers_before": 2,
+          "transfers": [],
+          "free_transfers_before": 3,
           "hit_cost": 0,
           "bank_after": 0.0,
-          "lineup_expected_points": 55.062,
-          "net_expected_points": 55.062,
+          "lineup_expected_points": 53.669,
+          "net_expected_points": 53.669,
           "captain_player_id": 426,
           "captain": "B.Fernandes",
           "starter_player_ids": [
             82,
-            388,
             356,
             498,
+            445,
             426,
             481,
             106,
-            445,
             229,
             13,
-            542
+            542,
+            346
           ]
         },
         {
           "gameweek": 4,
-          "transfers": [
-            {
-              "sell_player_id": 388,
-              "buy_player_id": 200,
-              "sell_price": 6.0,
-              "buy_price": 6.0,
-              "sell": "Guéhi",
-              "buy": "Lacroix"
-            }
-          ],
-          "free_transfers_before": 1,
+          "transfers": [],
+          "free_transfers_before": 4,
           "hit_cost": 0,
           "bank_after": 0.0,
           "lineup_expected_points": 54.777,
@@ -1824,7 +1793,7 @@
         {
           "gameweek": 5,
           "transfers": [],
-          "free_transfers_before": 1,
+          "free_transfers_before": 5,
           "hit_cost": 0,
           "bank_after": 0.0,
           "lineup_expected_points": 53.936,
@@ -1847,48 +1816,30 @@
         },
         {
           "gameweek": 6,
-          "transfers": [
-            {
-              "sell_player_id": 356,
-              "buy_player_id": 304,
-              "sell_price": 6.5,
-              "buy_price": 4.0,
-              "sell": "Virgil",
-              "buy": "O'Shea"
-            },
-            {
-              "sell_player_id": 498,
-              "buy_player_id": 4,
-              "sell_price": 6.0,
-              "buy_price": 8.0,
-              "sell": "Senesi",
-              "buy": "Gabriel"
-            }
-          ],
-          "free_transfers_before": 2,
+          "transfers": [],
+          "free_transfers_before": 5,
           "hit_cost": 0,
-          "bank_after": 0.5,
-          "lineup_expected_points": 54.181,
-          "net_expected_points": 54.181,
+          "bank_after": 0.0,
+          "lineup_expected_points": 53.285,
+          "net_expected_points": 53.285,
           "captain_player_id": 426,
           "captain": "B.Fernandes",
           "starter_player_ids": [
             529,
             229,
             445,
-            4,
+            200,
             426,
             155,
             106,
-            304,
-            200,
             481,
-            13
+            13,
+            498,
+            165
           ]
         }
       ],
       "final_squad_player_ids": [
-        4,
         13,
         82,
         106,
@@ -1896,23 +1847,27 @@
         165,
         200,
         229,
-        304,
         346,
+        356,
         426,
         445,
         481,
+        498,
         529,
         542
       ]
     },
     "alternative_routes": [
       {
-        "projected_net_points": 329.688,
-        "discounted_objective": 298.689,
-        "net_gain_vs_hold": 2.823,
+        "projected_net_points": 327.689,
+        "discounted_objective": 296.206,
+        "net_gain_vs_hold": 0.824,
+        "decision_adjusted_gain_vs_hold": 0.074,
+        "transfer_decision_cost": 0.75,
+        "round_trip_reversals": 0,
         "total_hit_cost": 0,
-        "final_bank": 2.0,
-        "free_transfers_after_horizon": 1,
+        "final_bank": 0.0,
+        "free_transfers_after_horizon": 5,
         "gameweek_plan": [
           {
             "gameweek": 1,
@@ -1940,48 +1895,31 @@
           },
           {
             "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 445,
-                "buy_player_id": 112,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Thiaw",
-                "buy": "Van Hecke"
-              }
-            ],
+            "transfers": [],
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 57.283,
-            "net_expected_points": 57.283,
+            "lineup_expected_points": 56.587,
+            "net_expected_points": 56.587,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
               529,
               498,
               200,
-              112,
+              356,
               426,
               155,
               106,
-              356,
               229,
               481,
-              165
+              165,
+              445
             ]
           },
           {
             "gameweek": 3,
             "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 445,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "Thiaw"
-              },
               {
                 "sell_player_id": 200,
                 "buy_player_id": 388,
@@ -1991,7 +1929,7 @@
                 "buy": "Guéhi"
               }
             ],
-            "free_transfers_before": 2,
+            "free_transfers_before": 3,
             "hit_cost": 0,
             "bank_after": 0.0,
             "lineup_expected_points": 55.062,
@@ -2014,50 +1952,32 @@
           },
           {
             "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 200,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Guéhi",
-                "buy": "Lacroix"
-              }
-            ],
-            "free_transfers_before": 1,
+            "transfers": [],
+            "free_transfers_before": 3,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 54.777,
-            "net_expected_points": 54.777,
+            "lineup_expected_points": 53.896,
+            "net_expected_points": 53.896,
             "captain_player_id": 356,
             "captain": "Virgil",
             "starter_player_ids": [
               82,
               356,
-              200,
               498,
+              229,
               426,
               155,
               106,
-              229,
               481,
               165,
-              13
+              13,
+              346
             ]
           },
           {
             "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 1,
+            "transfers": [],
+            "free_transfers_before": 4,
             "hit_cost": 0,
             "bank_after": 0.0,
             "lineup_expected_points": 54.592,
@@ -2080,35 +2000,26 @@
           },
           {
             "gameweek": 6,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 304,
-                "sell_price": 6.0,
-                "buy_price": 4.0,
-                "sell": "Guéhi",
-                "buy": "O'Shea"
-              }
-            ],
-            "free_transfers_before": 1,
+            "transfers": [],
+            "free_transfers_before": 5,
             "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 53.364,
-            "net_expected_points": 53.364,
+            "bank_after": 0.0,
+            "lineup_expected_points": 52.942,
+            "net_expected_points": 52.942,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
               529,
               229,
               445,
-              304,
+              498,
               426,
               155,
               106,
               481,
               13,
-              498,
-              165
+              165,
+              356
             ]
           }
         ],
@@ -2119,9 +2030,9 @@
           155,
           165,
           229,
-          304,
           346,
           356,
+          388,
           426,
           445,
           481,
@@ -2131,12 +2042,15 @@
         ]
       },
       {
-        "projected_net_points": 329.688,
-        "discounted_objective": 298.689,
-        "net_gain_vs_hold": 2.823,
+        "projected_net_points": 328.111,
+        "discounted_objective": 295.938,
+        "net_gain_vs_hold": 1.246,
+        "decision_adjusted_gain_vs_hold": -0.254,
+        "transfer_decision_cost": 1.5,
+        "round_trip_reversals": 0,
         "total_hit_cost": 0,
         "final_bank": 2.5,
-        "free_transfers_after_horizon": 1,
+        "free_transfers_after_horizon": 5,
         "gameweek_plan": [
           {
             "gameweek": 1,
@@ -2164,48 +2078,31 @@
           },
           {
             "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 445,
-                "buy_player_id": 112,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Thiaw",
-                "buy": "Van Hecke"
-              }
-            ],
+            "transfers": [],
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 57.283,
-            "net_expected_points": 57.283,
+            "lineup_expected_points": 56.587,
+            "net_expected_points": 56.587,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
               529,
               498,
               200,
-              112,
+              356,
               426,
               155,
               106,
-              356,
               229,
               481,
-              165
+              165,
+              445
             ]
           },
           {
             "gameweek": 3,
             "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 445,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "Thiaw"
-              },
               {
                 "sell_player_id": 200,
                 "buy_player_id": 388,
@@ -2215,7 +2112,7 @@
                 "buy": "Guéhi"
               }
             ],
-            "free_transfers_before": 2,
+            "free_transfers_before": 3,
             "hit_cost": 0,
             "bank_after": 0.0,
             "lineup_expected_points": 55.062,
@@ -2238,50 +2135,32 @@
           },
           {
             "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 200,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Guéhi",
-                "buy": "Lacroix"
-              }
-            ],
-            "free_transfers_before": 1,
+            "transfers": [],
+            "free_transfers_before": 3,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 54.777,
-            "net_expected_points": 54.777,
+            "lineup_expected_points": 53.896,
+            "net_expected_points": 53.896,
             "captain_player_id": 356,
             "captain": "Virgil",
             "starter_player_ids": [
               82,
               356,
-              200,
               498,
+              229,
               426,
               155,
               106,
-              229,
               481,
               165,
-              13
+              13,
+              346
             ]
           },
           {
             "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 1,
+            "transfers": [],
+            "free_transfers_before": 4,
             "hit_cost": 0,
             "bank_after": 0.0,
             "lineup_expected_points": 54.592,
@@ -2314,7 +2193,7 @@
                 "buy": "O'Shea"
               }
             ],
-            "free_transfers_before": 1,
+            "free_transfers_before": 5,
             "hit_cost": 0,
             "bank_after": 2.5,
             "lineup_expected_points": 53.364,
@@ -2355,12 +2234,15 @@
         ]
       },
       {
-        "projected_net_points": 329.686,
-        "discounted_objective": 298.676,
-        "net_gain_vs_hold": 2.821,
+        "projected_net_points": 328.081,
+        "discounted_objective": 295.914,
+        "net_gain_vs_hold": 1.216,
+        "decision_adjusted_gain_vs_hold": -0.284,
+        "transfer_decision_cost": 1.5,
+        "round_trip_reversals": 0,
         "total_hit_cost": 0,
-        "final_bank": 2.5,
-        "free_transfers_after_horizon": 1,
+        "final_bank": 2.0,
+        "free_transfers_after_horizon": 5,
         "gameweek_plan": [
           {
             "gameweek": 1,
@@ -2388,272 +2270,31 @@
           },
           {
             "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 445,
-                "buy_player_id": 112,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Thiaw",
-                "buy": "Van Hecke"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 57.283,
-            "net_expected_points": 57.283,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              498,
-              200,
-              112,
-              426,
-              155,
-              106,
-              356,
-              229,
-              481,
-              165
-            ]
-          },
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 445,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "Thiaw"
-              },
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 55.062,
-            "net_expected_points": 55.062,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              356,
-              498,
-              426,
-              481,
-              106,
-              445,
-              229,
-              13,
-              542
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 200,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Guéhi",
-                "buy": "Lacroix"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.777,
-            "net_expected_points": 54.777,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              82,
-              356,
-              200,
-              498,
-              426,
-              155,
-              106,
-              229,
-              481,
-              165,
-              13
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 356,
-                "buy_player_id": 388,
-                "sell_price": 6.5,
-                "buy_price": 6.0,
-                "sell": "Virgil",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 54.263,
-            "net_expected_points": 54.263,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              82,
-              229,
-              445,
-              388,
-              426,
-              481,
-              106,
-              498,
-              155,
-              13,
-              200
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 304,
-                "sell_price": 6.0,
-                "buy_price": 4.0,
-                "sell": "Guéhi",
-                "buy": "O'Shea"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 2.5,
-            "lineup_expected_points": 53.691,
-            "net_expected_points": 53.691,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              229,
-              445,
-              304,
-              426,
-              155,
-              106,
-              200,
-              481,
-              13,
-              498
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          13,
-          82,
-          106,
-          155,
-          165,
-          200,
-          229,
-          304,
-          346,
-          426,
-          445,
-          481,
-          498,
-          529,
-          542
-        ]
-      },
-      {
-        "projected_net_points": 329.673,
-        "discounted_objective": 298.666,
-        "net_gain_vs_hold": 2.808,
-        "total_hit_cost": 0,
-        "final_bank": 2.5,
-        "free_transfers_after_horizon": 1,
-        "gameweek_plan": [
-          {
-            "gameweek": 1,
             "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.61,
-            "net_expected_points": 54.61,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              498,
-              229,
-              356,
-              426,
-              13,
-              106,
-              481,
-              200,
-              155,
-              165
-            ]
-          },
-          {
-            "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 445,
-                "buy_player_id": 112,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Thiaw",
-                "buy": "Van Hecke"
-              }
-            ],
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 57.283,
-            "net_expected_points": 57.283,
+            "lineup_expected_points": 56.587,
+            "net_expected_points": 56.587,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
               529,
               498,
               200,
-              112,
+              356,
               426,
               155,
               106,
-              356,
               229,
               481,
-              165
+              165,
+              445
             ]
           },
           {
             "gameweek": 3,
             "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 445,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "Thiaw"
-              },
               {
                 "sell_player_id": 200,
                 "buy_player_id": 388,
@@ -2663,7 +2304,7 @@
                 "buy": "Guéhi"
               }
             ],
-            "free_transfers_before": 2,
+            "free_transfers_before": 3,
             "hit_cost": 0,
             "bank_after": 0.0,
             "lineup_expected_points": 55.062,
@@ -2686,54 +2327,36 @@
           },
           {
             "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 200,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Guéhi",
-                "buy": "Lacroix"
-              }
-            ],
-            "free_transfers_before": 1,
+            "transfers": [],
+            "free_transfers_before": 3,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 54.777,
-            "net_expected_points": 54.777,
+            "lineup_expected_points": 53.896,
+            "net_expected_points": 53.896,
             "captain_player_id": 356,
             "captain": "Virgil",
             "starter_player_ids": [
               82,
               356,
-              200,
               498,
+              229,
               426,
               155,
               106,
-              229,
               481,
               165,
-              13
+              13,
+              346
             ]
           },
           {
             "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 356,
-                "buy_player_id": 388,
-                "sell_price": 6.5,
-                "buy_price": 6.0,
-                "sell": "Virgil",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 1,
+            "transfers": [],
+            "free_transfers_before": 4,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 54.263,
-            "net_expected_points": 54.263,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.592,
+            "net_expected_points": 54.592,
             "captain_player_id": 229,
             "captain": "Tarkowski",
             "starter_player_ids": [
@@ -2745,9 +2368,9 @@
               481,
               106,
               498,
+              356,
               155,
-              13,
-              200
+              13
             ]
           },
           {
@@ -2762,11 +2385,11 @@
                 "buy": "O'Shea"
               }
             ],
-            "free_transfers_before": 1,
+            "free_transfers_before": 5,
             "hit_cost": 0,
-            "bank_after": 2.5,
-            "lineup_expected_points": 53.678,
-            "net_expected_points": 53.678,
+            "bank_after": 2.0,
+            "lineup_expected_points": 53.335,
+            "net_expected_points": 53.335,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
@@ -2777,10 +2400,10 @@
               426,
               155,
               106,
-              200,
               481,
               13,
-              165
+              165,
+              356
             ]
           }
         ],
@@ -2790,10 +2413,10 @@
           106,
           155,
           165,
-          200,
           229,
           304,
           346,
+          356,
           388,
           426,
           445,
@@ -2801,16 +2424,17 @@
           529,
           542
         ]
-      }
-    ],
-    "routes": [
+      },
       {
-        "projected_net_points": 329.85,
-        "discounted_objective": 298.799,
-        "net_gain_vs_hold": 2.985,
+        "projected_net_points": 327.27,
+        "discounted_objective": 295.835,
+        "net_gain_vs_hold": 0.405,
+        "decision_adjusted_gain_vs_hold": -0.345,
+        "transfer_decision_cost": 0.75,
+        "round_trip_reversals": 0,
         "total_hit_cost": 0,
-        "final_bank": 0.5,
-        "free_transfers_after_horizon": 1,
+        "final_bank": 2.5,
+        "free_transfers_after_horizon": 5,
         "gameweek_plan": [
           {
             "gameweek": 1,
@@ -2838,91 +2462,56 @@
           },
           {
             "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 445,
-                "buy_player_id": 112,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Thiaw",
-                "buy": "Van Hecke"
-              }
-            ],
+            "transfers": [],
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 57.283,
-            "net_expected_points": 57.283,
+            "lineup_expected_points": 56.587,
+            "net_expected_points": 56.587,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
               529,
               498,
               200,
-              112,
+              356,
               426,
               155,
               106,
-              356,
               229,
               481,
-              165
+              165,
+              445
             ]
           },
           {
             "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 445,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "Thiaw"
-              },
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 2,
+            "transfers": [],
+            "free_transfers_before": 3,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 55.062,
-            "net_expected_points": 55.062,
+            "lineup_expected_points": 53.669,
+            "net_expected_points": 53.669,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
               82,
-              388,
               356,
               498,
+              445,
               426,
               481,
               106,
-              445,
               229,
               13,
-              542
+              542,
+              346
             ]
           },
           {
             "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 200,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Guéhi",
-                "buy": "Lacroix"
-              }
-            ],
-            "free_transfers_before": 1,
+            "transfers": [],
+            "free_transfers_before": 4,
             "hit_cost": 0,
             "bank_after": 0.0,
             "lineup_expected_points": 54.777,
@@ -2946,7 +2535,7 @@
           {
             "gameweek": 5,
             "transfers": [],
-            "free_transfers_before": 1,
+            "free_transfers_before": 5,
             "hit_cost": 0,
             "bank_after": 0.0,
             "lineup_expected_points": 53.936,
@@ -2977,689 +2566,9 @@
                 "buy_price": 4.0,
                 "sell": "Virgil",
                 "buy": "O'Shea"
-              },
-              {
-                "sell_player_id": 498,
-                "buy_player_id": 4,
-                "sell_price": 6.0,
-                "buy_price": 8.0,
-                "sell": "Senesi",
-                "buy": "Gabriel"
               }
             ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 54.181,
-            "net_expected_points": 54.181,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              229,
-              445,
-              4,
-              426,
-              155,
-              106,
-              304,
-              200,
-              481,
-              13
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          4,
-          13,
-          82,
-          106,
-          155,
-          165,
-          200,
-          229,
-          304,
-          346,
-          426,
-          445,
-          481,
-          529,
-          542
-        ]
-      },
-      {
-        "projected_net_points": 329.688,
-        "discounted_objective": 298.689,
-        "net_gain_vs_hold": 2.823,
-        "total_hit_cost": 0,
-        "final_bank": 2.0,
-        "free_transfers_after_horizon": 1,
-        "gameweek_plan": [
-          {
-            "gameweek": 1,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.61,
-            "net_expected_points": 54.61,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              498,
-              229,
-              356,
-              426,
-              13,
-              106,
-              481,
-              200,
-              155,
-              165
-            ]
-          },
-          {
-            "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 445,
-                "buy_player_id": 112,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Thiaw",
-                "buy": "Van Hecke"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 57.283,
-            "net_expected_points": 57.283,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              498,
-              200,
-              112,
-              426,
-              155,
-              106,
-              356,
-              229,
-              481,
-              165
-            ]
-          },
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 445,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "Thiaw"
-              },
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 55.062,
-            "net_expected_points": 55.062,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              356,
-              498,
-              426,
-              481,
-              106,
-              445,
-              229,
-              13,
-              542
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 200,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Guéhi",
-                "buy": "Lacroix"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.777,
-            "net_expected_points": 54.777,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              82,
-              356,
-              200,
-              498,
-              426,
-              155,
-              106,
-              229,
-              481,
-              165,
-              13
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.592,
-            "net_expected_points": 54.592,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              82,
-              229,
-              445,
-              388,
-              426,
-              481,
-              106,
-              498,
-              356,
-              155,
-              13
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 304,
-                "sell_price": 6.0,
-                "buy_price": 4.0,
-                "sell": "Guéhi",
-                "buy": "O'Shea"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 2.0,
-            "lineup_expected_points": 53.364,
-            "net_expected_points": 53.364,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              229,
-              445,
-              304,
-              426,
-              155,
-              106,
-              481,
-              13,
-              498,
-              165
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          13,
-          82,
-          106,
-          155,
-          165,
-          229,
-          304,
-          346,
-          356,
-          426,
-          445,
-          481,
-          498,
-          529,
-          542
-        ]
-      },
-      {
-        "projected_net_points": 329.688,
-        "discounted_objective": 298.689,
-        "net_gain_vs_hold": 2.823,
-        "total_hit_cost": 0,
-        "final_bank": 2.5,
-        "free_transfers_after_horizon": 1,
-        "gameweek_plan": [
-          {
-            "gameweek": 1,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.61,
-            "net_expected_points": 54.61,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              498,
-              229,
-              356,
-              426,
-              13,
-              106,
-              481,
-              200,
-              155,
-              165
-            ]
-          },
-          {
-            "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 445,
-                "buy_player_id": 112,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Thiaw",
-                "buy": "Van Hecke"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 57.283,
-            "net_expected_points": 57.283,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              498,
-              200,
-              112,
-              426,
-              155,
-              106,
-              356,
-              229,
-              481,
-              165
-            ]
-          },
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 445,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "Thiaw"
-              },
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 55.062,
-            "net_expected_points": 55.062,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              356,
-              498,
-              426,
-              481,
-              106,
-              445,
-              229,
-              13,
-              542
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 200,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Guéhi",
-                "buy": "Lacroix"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.777,
-            "net_expected_points": 54.777,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              82,
-              356,
-              200,
-              498,
-              426,
-              155,
-              106,
-              229,
-              481,
-              165,
-              13
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.592,
-            "net_expected_points": 54.592,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              82,
-              229,
-              445,
-              388,
-              426,
-              481,
-              106,
-              498,
-              356,
-              155,
-              13
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [
-              {
-                "sell_player_id": 356,
-                "buy_player_id": 304,
-                "sell_price": 6.5,
-                "buy_price": 4.0,
-                "sell": "Virgil",
-                "buy": "O'Shea"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 2.5,
-            "lineup_expected_points": 53.364,
-            "net_expected_points": 53.364,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              229,
-              445,
-              304,
-              426,
-              155,
-              106,
-              481,
-              13,
-              498,
-              165
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          13,
-          82,
-          106,
-          155,
-          165,
-          229,
-          304,
-          346,
-          388,
-          426,
-          445,
-          481,
-          498,
-          529,
-          542
-        ]
-      },
-      {
-        "projected_net_points": 329.686,
-        "discounted_objective": 298.676,
-        "net_gain_vs_hold": 2.821,
-        "total_hit_cost": 0,
-        "final_bank": 2.5,
-        "free_transfers_after_horizon": 1,
-        "gameweek_plan": [
-          {
-            "gameweek": 1,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.61,
-            "net_expected_points": 54.61,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              498,
-              229,
-              356,
-              426,
-              13,
-              106,
-              481,
-              200,
-              155,
-              165
-            ]
-          },
-          {
-            "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 445,
-                "buy_player_id": 112,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Thiaw",
-                "buy": "Van Hecke"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 57.283,
-            "net_expected_points": 57.283,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              529,
-              498,
-              200,
-              112,
-              426,
-              155,
-              106,
-              356,
-              229,
-              481,
-              165
-            ]
-          },
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 445,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "Thiaw"
-              },
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 55.062,
-            "net_expected_points": 55.062,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              356,
-              498,
-              426,
-              481,
-              106,
-              445,
-              229,
-              13,
-              542
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 200,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Guéhi",
-                "buy": "Lacroix"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.0,
-            "lineup_expected_points": 54.777,
-            "net_expected_points": 54.777,
-            "captain_player_id": 356,
-            "captain": "Virgil",
-            "starter_player_ids": [
-              82,
-              356,
-              200,
-              498,
-              426,
-              155,
-              106,
-              229,
-              481,
-              165,
-              13
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 356,
-                "buy_player_id": 388,
-                "sell_price": 6.5,
-                "buy_price": 6.0,
-                "sell": "Virgil",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 54.263,
-            "net_expected_points": 54.263,
-            "captain_player_id": 229,
-            "captain": "Tarkowski",
-            "starter_player_ids": [
-              82,
-              229,
-              445,
-              388,
-              426,
-              481,
-              106,
-              498,
-              155,
-              13,
-              200
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 304,
-                "sell_price": 6.0,
-                "buy_price": 4.0,
-                "sell": "Guéhi",
-                "buy": "O'Shea"
-              }
-            ],
-            "free_transfers_before": 1,
+            "free_transfers_before": 5,
             "hit_cost": 0,
             "bank_after": 2.5,
             "lineup_expected_points": 53.691,
@@ -3698,14 +2607,19 @@
           529,
           542
         ]
-      },
+      }
+    ],
+    "routes": [
       {
-        "projected_net_points": 329.673,
-        "discounted_objective": 298.666,
-        "net_gain_vs_hold": 2.808,
+        "projected_net_points": 326.865,
+        "discounted_objective": 296.116,
+        "net_gain_vs_hold": 0.0,
+        "decision_adjusted_gain_vs_hold": 0.0,
+        "transfer_decision_cost": 0.0,
+        "round_trip_reversals": 0,
         "total_hit_cost": 0,
-        "final_bank": 2.5,
-        "free_transfers_after_horizon": 1,
+        "final_bank": 0.0,
+        "free_transfers_after_horizon": 5,
         "gameweek_plan": [
           {
             "gameweek": 1,
@@ -3733,91 +2647,56 @@
           },
           {
             "gameweek": 2,
-            "transfers": [
-              {
-                "sell_player_id": 445,
-                "buy_player_id": 112,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Thiaw",
-                "buy": "Van Hecke"
-              }
-            ],
+            "transfers": [],
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 57.283,
-            "net_expected_points": 57.283,
+            "lineup_expected_points": 56.587,
+            "net_expected_points": 56.587,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
               529,
               498,
               200,
-              112,
+              356,
               426,
               155,
               106,
-              356,
               229,
               481,
-              165
+              165,
+              445
             ]
           },
           {
             "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 112,
-                "buy_player_id": 445,
-                "sell_price": 5.0,
-                "buy_price": 5.0,
-                "sell": "Van Hecke",
-                "buy": "Thiaw"
-              },
-              {
-                "sell_player_id": 200,
-                "buy_player_id": 388,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Lacroix",
-                "buy": "Guéhi"
-              }
-            ],
-            "free_transfers_before": 2,
+            "transfers": [],
+            "free_transfers_before": 3,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 55.062,
-            "net_expected_points": 55.062,
+            "lineup_expected_points": 53.669,
+            "net_expected_points": 53.669,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
               82,
-              388,
               356,
               498,
+              445,
               426,
               481,
               106,
-              445,
               229,
               13,
-              542
+              542,
+              346
             ]
           },
           {
             "gameweek": 4,
-            "transfers": [
-              {
-                "sell_player_id": 388,
-                "buy_player_id": 200,
-                "sell_price": 6.0,
-                "buy_price": 6.0,
-                "sell": "Guéhi",
-                "buy": "Lacroix"
-              }
-            ],
-            "free_transfers_before": 1,
+            "transfers": [],
+            "free_transfers_before": 4,
             "hit_cost": 0,
             "bank_after": 0.0,
             "lineup_expected_points": 54.777,
@@ -3840,21 +2719,195 @@
           },
           {
             "gameweek": 5,
+            "transfers": [],
+            "free_transfers_before": 5,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 53.936,
+            "net_expected_points": 53.936,
+            "captain_player_id": 229,
+            "captain": "Tarkowski",
+            "starter_player_ids": [
+              82,
+              229,
+              445,
+              498,
+              426,
+              481,
+              106,
+              356,
+              155,
+              13,
+              200
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [],
+            "free_transfers_before": 5,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 53.285,
+            "net_expected_points": 53.285,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              229,
+              445,
+              200,
+              426,
+              155,
+              106,
+              481,
+              13,
+              498,
+              165
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          13,
+          82,
+          106,
+          155,
+          165,
+          200,
+          229,
+          346,
+          356,
+          426,
+          445,
+          481,
+          498,
+          529,
+          542
+        ]
+      },
+      {
+        "projected_net_points": 327.689,
+        "discounted_objective": 296.206,
+        "net_gain_vs_hold": 0.824,
+        "decision_adjusted_gain_vs_hold": 0.074,
+        "transfer_decision_cost": 0.75,
+        "round_trip_reversals": 0,
+        "total_hit_cost": 0,
+        "final_bank": 0.0,
+        "free_transfers_after_horizon": 5,
+        "gameweek_plan": [
+          {
+            "gameweek": 1,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              229,
+              356,
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
+            ]
+          },
+          {
+            "gameweek": 2,
+            "transfers": [],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 56.587,
+            "net_expected_points": 56.587,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              200,
+              356,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              445
+            ]
+          },
+          {
+            "gameweek": 3,
             "transfers": [
               {
-                "sell_player_id": 356,
+                "sell_player_id": 200,
                 "buy_player_id": 388,
-                "sell_price": 6.5,
+                "sell_price": 6.0,
                 "buy_price": 6.0,
-                "sell": "Virgil",
+                "sell": "Lacroix",
                 "buy": "Guéhi"
               }
             ],
-            "free_transfers_before": 1,
+            "free_transfers_before": 3,
             "hit_cost": 0,
-            "bank_after": 0.5,
-            "lineup_expected_points": 54.263,
-            "net_expected_points": 54.263,
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              356,
+              498,
+              426,
+              481,
+              106,
+              445,
+              229,
+              13,
+              542
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [],
+            "free_transfers_before": 3,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 53.896,
+            "net_expected_points": 53.896,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              498,
+              229,
+              426,
+              155,
+              106,
+              481,
+              165,
+              13,
+              346
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [],
+            "free_transfers_before": 4,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.592,
+            "net_expected_points": 54.592,
             "captain_player_id": 229,
             "captain": "Tarkowski",
             "starter_player_ids": [
@@ -3866,9 +2919,384 @@
               481,
               106,
               498,
+              356,
               155,
+              13
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [],
+            "free_transfers_before": 5,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 52.942,
+            "net_expected_points": 52.942,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              229,
+              445,
+              498,
+              426,
+              155,
+              106,
+              481,
               13,
-              200
+              165,
+              356
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          13,
+          82,
+          106,
+          155,
+          165,
+          229,
+          346,
+          356,
+          388,
+          426,
+          445,
+          481,
+          498,
+          529,
+          542
+        ]
+      },
+      {
+        "projected_net_points": 328.111,
+        "discounted_objective": 295.938,
+        "net_gain_vs_hold": 1.246,
+        "decision_adjusted_gain_vs_hold": -0.254,
+        "transfer_decision_cost": 1.5,
+        "round_trip_reversals": 0,
+        "total_hit_cost": 0,
+        "final_bank": 2.5,
+        "free_transfers_after_horizon": 5,
+        "gameweek_plan": [
+          {
+            "gameweek": 1,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              229,
+              356,
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
+            ]
+          },
+          {
+            "gameweek": 2,
+            "transfers": [],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 56.587,
+            "net_expected_points": 56.587,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              200,
+              356,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              445
+            ]
+          },
+          {
+            "gameweek": 3,
+            "transfers": [
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 3,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              356,
+              498,
+              426,
+              481,
+              106,
+              445,
+              229,
+              13,
+              542
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [],
+            "free_transfers_before": 3,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 53.896,
+            "net_expected_points": 53.896,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              498,
+              229,
+              426,
+              155,
+              106,
+              481,
+              165,
+              13,
+              346
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [],
+            "free_transfers_before": 4,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.592,
+            "net_expected_points": 54.592,
+            "captain_player_id": 229,
+            "captain": "Tarkowski",
+            "starter_player_ids": [
+              82,
+              229,
+              445,
+              388,
+              426,
+              481,
+              106,
+              498,
+              356,
+              155,
+              13
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [
+              {
+                "sell_player_id": 356,
+                "buy_player_id": 304,
+                "sell_price": 6.5,
+                "buy_price": 4.0,
+                "sell": "Virgil",
+                "buy": "O'Shea"
+              }
+            ],
+            "free_transfers_before": 5,
+            "hit_cost": 0,
+            "bank_after": 2.5,
+            "lineup_expected_points": 53.364,
+            "net_expected_points": 53.364,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              229,
+              445,
+              304,
+              426,
+              155,
+              106,
+              481,
+              13,
+              498,
+              165
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          13,
+          82,
+          106,
+          155,
+          165,
+          229,
+          304,
+          346,
+          388,
+          426,
+          445,
+          481,
+          498,
+          529,
+          542
+        ]
+      },
+      {
+        "projected_net_points": 328.081,
+        "discounted_objective": 295.914,
+        "net_gain_vs_hold": 1.216,
+        "decision_adjusted_gain_vs_hold": -0.284,
+        "transfer_decision_cost": 1.5,
+        "round_trip_reversals": 0,
+        "total_hit_cost": 0,
+        "final_bank": 2.0,
+        "free_transfers_after_horizon": 5,
+        "gameweek_plan": [
+          {
+            "gameweek": 1,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              229,
+              356,
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
+            ]
+          },
+          {
+            "gameweek": 2,
+            "transfers": [],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 56.587,
+            "net_expected_points": 56.587,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              200,
+              356,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              445
+            ]
+          },
+          {
+            "gameweek": 3,
+            "transfers": [
+              {
+                "sell_player_id": 200,
+                "buy_player_id": 388,
+                "sell_price": 6.0,
+                "buy_price": 6.0,
+                "sell": "Lacroix",
+                "buy": "Guéhi"
+              }
+            ],
+            "free_transfers_before": 3,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 55.062,
+            "net_expected_points": 55.062,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              356,
+              498,
+              426,
+              481,
+              106,
+              445,
+              229,
+              13,
+              542
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [],
+            "free_transfers_before": 3,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 53.896,
+            "net_expected_points": 53.896,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              498,
+              229,
+              426,
+              155,
+              106,
+              481,
+              165,
+              13,
+              346
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [],
+            "free_transfers_before": 4,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.592,
+            "net_expected_points": 54.592,
+            "captain_player_id": 229,
+            "captain": "Tarkowski",
+            "starter_player_ids": [
+              82,
+              229,
+              445,
+              388,
+              426,
+              481,
+              106,
+              498,
+              356,
+              155,
+              13
             ]
           },
           {
@@ -3883,11 +3311,194 @@
                 "buy": "O'Shea"
               }
             ],
+            "free_transfers_before": 5,
+            "hit_cost": 0,
+            "bank_after": 2.0,
+            "lineup_expected_points": 53.335,
+            "net_expected_points": 53.335,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              229,
+              445,
+              304,
+              426,
+              155,
+              106,
+              481,
+              13,
+              165,
+              356
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          13,
+          82,
+          106,
+          155,
+          165,
+          229,
+          304,
+          346,
+          356,
+          388,
+          426,
+          445,
+          481,
+          529,
+          542
+        ]
+      },
+      {
+        "projected_net_points": 327.27,
+        "discounted_objective": 295.835,
+        "net_gain_vs_hold": 0.405,
+        "decision_adjusted_gain_vs_hold": -0.345,
+        "transfer_decision_cost": 0.75,
+        "round_trip_reversals": 0,
+        "total_hit_cost": 0,
+        "final_bank": 2.5,
+        "free_transfers_after_horizon": 5,
+        "gameweek_plan": [
+          {
+            "gameweek": 1,
+            "transfers": [],
             "free_transfers_before": 1,
             "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.61,
+            "net_expected_points": 54.61,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              229,
+              356,
+              426,
+              13,
+              106,
+              481,
+              200,
+              155,
+              165
+            ]
+          },
+          {
+            "gameweek": 2,
+            "transfers": [],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 56.587,
+            "net_expected_points": 56.587,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              529,
+              498,
+              200,
+              356,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              445
+            ]
+          },
+          {
+            "gameweek": 3,
+            "transfers": [],
+            "free_transfers_before": 3,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 53.669,
+            "net_expected_points": 53.669,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              356,
+              498,
+              445,
+              426,
+              481,
+              106,
+              229,
+              13,
+              542,
+              346
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [],
+            "free_transfers_before": 4,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 54.777,
+            "net_expected_points": 54.777,
+            "captain_player_id": 356,
+            "captain": "Virgil",
+            "starter_player_ids": [
+              82,
+              356,
+              200,
+              498,
+              426,
+              155,
+              106,
+              229,
+              481,
+              165,
+              13
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [],
+            "free_transfers_before": 5,
+            "hit_cost": 0,
+            "bank_after": 0.0,
+            "lineup_expected_points": 53.936,
+            "net_expected_points": 53.936,
+            "captain_player_id": 229,
+            "captain": "Tarkowski",
+            "starter_player_ids": [
+              82,
+              229,
+              445,
+              498,
+              426,
+              481,
+              106,
+              356,
+              155,
+              13,
+              200
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [
+              {
+                "sell_player_id": 356,
+                "buy_player_id": 304,
+                "sell_price": 6.5,
+                "buy_price": 4.0,
+                "sell": "Virgil",
+                "buy": "O'Shea"
+              }
+            ],
+            "free_transfers_before": 5,
+            "hit_cost": 0,
             "bank_after": 2.5,
-            "lineup_expected_points": 53.678,
-            "net_expected_points": 53.678,
+            "lineup_expected_points": 53.691,
+            "net_expected_points": 53.691,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
@@ -3901,7 +3512,7 @@
               200,
               481,
               13,
-              165
+              498
             ]
           }
         ],
@@ -3915,10 +3526,10 @@
           229,
           304,
           346,
-          388,
           426,
           445,
           481,
+          498,
           529,
           542
         ]
@@ -3928,13 +3539,17 @@
       "beam_width": 60,
       "candidate_players_per_position": 10,
       "maximum_transfers_per_gameweek": 2,
-      "states_retained": 60
+      "states_retained": 60,
+      "transfer_friction_points": 0.75,
+      "round_trip_penalty_points": 1.5,
+      "minimum_route_edge_points": 1.0
     },
     "assumptions": [
       "Player prices are held constant across the planning horizon.",
       "Only same-position transfers are considered, preserving squad structure.",
       "No chip is assumed within the route.",
-      "Later Gameweeks are discounted because forecasts become less certain."
+      "Later Gameweeks are discounted because forecasts become less certain.",
+      "Every planned transfer carries a small uncertainty cost, with an additional penalty for selling and quickly rebuying the same player."
     ]
   },
   "selection_policy": "Balanced is the default recommendation; aggressive and ownership-protected structures are retained as explicit alternatives.",
