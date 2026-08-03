@@ -1,0 +1,49 @@
+name: Schedule deadline FPL refresh
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: Run the authoritative data refresh immediately
+        required: false
+        default: true
+        type: boolean
+  schedule:
+    - cron: "7 * * * *"
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: fpl-deadline-scheduler
+  cancel-in-progress: true
+
+jobs:
+  assess-and-dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+      - name: Assess deadline refresh window
+        id: deadline
+        env:
+          FORCE_REFRESH: ${{ inputs.force_refresh || false }}
+        run: |
+          FORCE_ARGUMENT=""
+          if [ "$FORCE_REFRESH" = "true" ]; then
+            FORCE_ARGUMENT="--force"
+          fi
+          python -m src.fpl_deadline_scheduler \
+            --current-gameweek data/chatgpt/current_gameweek.json \
+            --github-output "$GITHUB_OUTPUT" \
+            $FORCE_ARGUMENT
+      - name: Dispatch authoritative refresh
+        if: steps.deadline.outputs.should_refresh == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run update-fpl-data.yml --ref main
+      - name: Record idle assessment
+        if: steps.deadline.outputs.should_refresh != 'true'
+        run: echo "No deadline refresh is due on this hourly assessment"
