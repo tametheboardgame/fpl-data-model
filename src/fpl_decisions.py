@@ -13,7 +13,7 @@ from src.fpl_multiweek import optimise_multi_gameweek_route
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-1.7"
+DECISION_VERSION = "fpl-decisions-1.8"
 
 
 def integer(value: Any) -> int:
@@ -152,6 +152,7 @@ def build_decision_support(
     chip_rules: dict[str, Any] | None = None,
     fixture_projections: list[dict[str, Any]] | None = None,
     scoring_rules_version: str | None = None,
+    past_seasons: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     generated_at = generated_at or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     next_event = current_gameweek.get("next") or {}
@@ -367,6 +368,7 @@ def build_decision_support(
         season,
         scoring_rules_version,
         first_gameweek_multiplier=first_gameweek_multiplier,
+        past_seasons=past_seasons,
     )
     return {
         "generated_at": generated_at,

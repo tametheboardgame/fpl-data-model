@@ -5,6 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from src.fpl_decisions import DECISION_VERSION
 from src.fpl_gameweek_operations import (
     OPERATIONS_VERSION,
     build_gameweek_report,
@@ -62,7 +63,7 @@ class Phase21OperationsTests(unittest.TestCase):
         starters = list(range(1, 12))
         self.decision = {
             "status": "ready",
-            "decision_version": "fpl-decisions-1.7",
+            "decision_version": DECISION_VERSION,
             "target_gameweek": 1,
             "bank": 0.5,
             "free_transfer_state": {"available": 1},
@@ -166,6 +167,52 @@ class Phase21OperationsTests(unittest.TestCase):
         self.assertIn("stale_fpl_data", codes)
         self.assertIn("invalid_starting_xi", codes)
         self.assertEqual(report["status"], "review_required")
+
+    def test_gameweek_one_uses_initial_squad_when_registered_team_is_empty(self) -> None:
+        self.my_team = {"available": False, "squad": []}
+        squad = [{"player_id": row["player_id"]} for row in self.players]
+        starter_ids = [1, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14]
+        bench_ids = [2, 6, 7, 15]
+        starters = [{"player_id": value} for value in starter_ids]
+        bench = [{"player_id": value} for value in bench_ids]
+        self.decision["initial_squad_plan"] = {
+            "status": "ready",
+            "recommended_strategy": "balanced",
+            "recommended_squad": squad,
+            "recommended_starting_xi": starters,
+            "recommended_bench_order": bench,
+            "captain": {"player_id": 8},
+            "vice_captain": {"player_id": 9},
+            "bank": 0.5,
+            "horizon_gameweeks": [1, 2, 3],
+            "strategy_comparison": [
+                {
+                    "strategy": "balanced",
+                    "gameweek_1_expected_points_including_captain": 72,
+                }
+            ],
+            "planned_transfer_route": self.decision["multi_gameweek_plan"],
+            "launch_validation": {
+                "status": "passed",
+                "issues": [],
+            },
+        }
+        report = self.build()
+        self.assertEqual(report["status"], "ready")
+        self.assertEqual(
+            report["recommendation"]["selection_source"],
+            "initial_squad_plan",
+        )
+        self.assertEqual(
+            report["recommendation"]["transfer_action"],
+            "select_initial_squad",
+        )
+        self.assertEqual(len(report["recommendation"]["starting_xi"]), 11)
+        self.assertEqual(len(report["recommendation"]["bench_order"]), 4)
+        self.assertNotIn(
+            "invalid_starting_xi",
+            {row["code"] for row in report["warnings"]},
+        )
 
     def test_archives_only_materially_changed_reports(self) -> None:
         with tempfile.TemporaryDirectory() as folder:
