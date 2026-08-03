@@ -37,7 +37,7 @@ The decision fingerprint excludes generation timestamps and other refresh noise.
 
 ## Freshness and safety
 
-Official FPL data may be no more than eight hours old during normal operation and no more than three hours old inside the eight-hour deadline freeze window. Missing, stale or internally contradictory data raises a warning. A high-severity warning changes the report status to `review_required` rather than silently presenting the recommendation as ready.
+Official FPL data may be no more than eight hours old during normal operation, three hours old inside the eight-hour deadline freeze window, and two hours old inside the final four hours. Missing, stale or internally contradictory data raises a warning. A high-severity warning changes the report status to `review_required` rather than silently presenting the recommendation as ready.
 
 The API-Football plan restriction is reported transparently as a low-severity limitation. It does not block the report while official FPL data, bookmaker data and other configured sources remain usable.
 
@@ -54,6 +54,6 @@ This preserves the exact pre-deadline recommendation for later evaluation. The l
 
 ## Automation
 
-The existing six-hour official-data refresh starts the production model build after validation. Material external-context changes also rebuild decisions in their existing workflow. Phase 21 therefore refreshes alongside every operationally meaningful model run without consuming additional Odds API credits.
+The existing six-hour official-data refresh starts the production model build after validation. Phase 21.2 adds deadline-specific refreshes around 24 hours, four hours and one hour before the official deadline. Material external-context changes also rebuild decisions in their existing workflow.
 
 No transfer, chip, line-up or captain action is performed automatically. The manager must review and confirm all changes in FPL.
