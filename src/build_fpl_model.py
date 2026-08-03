@@ -60,6 +60,7 @@ MODEL_DATASETS = [
     "external_context_summary.json",
     "fpl_decisions.json",
     "initial_squad_plan.json",
+    "launch_validation.json",
     "prospective_index.json",
     "prospective_evaluation.csv",
     "prospective_evaluation.json",
@@ -76,6 +77,9 @@ PROJECTION_FIELDS = [
     "ensemble_probability_10_plus_weight",
     "ensemble_probability_15_plus_weight",
     "scoring_rules_version",
+    "projection_evidence_source",
+    "previous_season",
+    "previous_season_minutes",
     "bonus_transition_multiplier",
     "simulation_count",
     "gameweek",
@@ -448,45 +452,134 @@ def latest_past_seasons(rows: list[dict[str, Any]]) -> dict[int, dict[str, Any]]
     return latest
 
 
+def _past_rate(past: dict[str, Any] | None, field: str) -> float:
+    if not past:
+        return 0.0
+    minutes = number(past.get("minutes"))
+    if minutes <= 0:
+        return 0.0
+    return number(past.get(field)) * 90 / minutes
+
+
+def _player_prior_rate(
+    past: dict[str, Any] | None,
+    field: str,
+    positional_prior: float,
+    prior_minutes: float = 720,
+) -> float:
+    if not past or number(past.get("minutes")) <= 0:
+        return positional_prior
+    return blended_rate(
+        _past_rate(past, field),
+        number(past.get("minutes")),
+        positional_prior,
+        prior_minutes,
+    )
+
+
 def projection_inputs(
     player: dict[str, Any],
     feature: dict[str, Any],
     prior: dict[str, Any],
     past: dict[str, Any] | None,
-) -> dict[str, float]:
+) -> dict[str, Any]:
     availability = availability_probability(player)
     fixtures_6 = integer(feature.get("fixtures_6"))
-    if fixtures_6:
-        average_minutes = 0.7 * number(feature.get("average_minutes_6")) + 0.3 * number(feature.get("average_minutes_3"))
-        start_rate = 0.7 * number(feature.get("start_rate_6")) + 0.3 * number(feature.get("start_rate_3"))
-        appearance_rate = 0.7 * number(feature.get("appearance_rate_6")) + 0.3 * number(feature.get("appearance_rate_3"))
-    elif past:
-        average_minutes = min(90, number(past.get("minutes")) / 38)
-        start_rate = min(1, number(past.get("starts")) / 38)
-        appearance_rate = min(1, max(start_rate, number(past.get("minutes")) / (38 * 60)))
+    past_minutes = number((past or {}).get("minutes"))
+    if past_minutes:
+        past_average_minutes = min(90, past_minutes / 38)
+        past_start_rate = min(1, number(past.get("starts")) / 38)
+        past_appearance_rate = min(
+            1,
+            max(past_start_rate, past_minutes / (38 * 60)),
+        )
     else:
-        average_minutes = number(prior.get("average_minutes_per_fixture"))
-        start_rate = number(prior.get("start_rate"))
-        appearance_rate = number(prior.get("appearance_rate"))
+        past_average_minutes = number(prior.get("average_minutes_per_fixture"))
+        past_start_rate = number(prior.get("start_rate"))
+        past_appearance_rate = number(prior.get("appearance_rate"))
+
+    if fixtures_6:
+        current_average_minutes = (
+            0.7 * number(feature.get("average_minutes_6"))
+            + 0.3 * number(feature.get("average_minutes_3"))
+        )
+        current_start_rate = (
+            0.7 * number(feature.get("start_rate_6"))
+            + 0.3 * number(feature.get("start_rate_3"))
+        )
+        current_appearance_rate = (
+            0.7 * number(feature.get("appearance_rate_6"))
+            + 0.3 * number(feature.get("appearance_rate_3"))
+        )
+        current_weight = min(1.0, fixtures_6 / 6)
+        average_minutes = (
+            current_weight * current_average_minutes
+            + (1 - current_weight) * past_average_minutes
+        )
+        start_rate = (
+            current_weight * current_start_rate
+            + (1 - current_weight) * past_start_rate
+        )
+        appearance_rate = (
+            current_weight * current_appearance_rate
+            + (1 - current_weight) * past_appearance_rate
+        )
+        evidence_source = (
+            "current_and_previous_season"
+            if current_weight < 1 and past_minutes
+            else "current_season"
+        )
+    else:
+        average_minutes = past_average_minutes
+        start_rate = past_start_rate
+        appearance_rate = past_appearance_rate
+        evidence_source = "previous_season" if past_minutes else "position_prior"
 
     minutes_10 = number(feature.get("minutes_10"))
+    rate_specs = {
+        "points_per_90": "total_points",
+        "xg_per_90": "expected_goals",
+        "xa_per_90": "expected_assists",
+        "saves_per_90": "saves",
+        "bonus_per_90": "bonus",
+        "defensive_contribution_per_90": "defensive_contribution",
+        "yellow_cards_per_90": "yellow_cards",
+        "red_cards_per_90": "red_cards",
+        "own_goals_per_90": "own_goals",
+        "penalties_missed_per_90": "penalties_missed",
+        "penalties_saved_per_90": "penalties_saved",
+    }
+    player_priors = {
+        output_field: _player_prior_rate(
+            past,
+            past_field,
+            number(prior.get(output_field)),
+        )
+        for output_field, past_field in rate_specs.items()
+    }
     return {
+        "projection_evidence_source": evidence_source,
+        "previous_season": (past or {}).get("season_name"),
+        "previous_season_minutes": past_minutes,
         "availability_probability": availability,
         "start_probability": max(0, min(1, availability * start_rate)),
-        "appearance_probability": max(0, min(1, availability * max(start_rate, appearance_rate))),
+        "appearance_probability": max(
+            0,
+            min(1, availability * max(start_rate, appearance_rate)),
+        ),
         "expected_minutes": max(0, min(90, availability * average_minutes)),
-        "minutes_deviation": max(6, number(feature.get("minutes_standard_deviation_6"))),
-        "points_per_90": blended_rate(number(feature.get("points_per_90_10")), minutes_10, number(prior.get("points_per_90"))),
-        "xg_per_90": blended_rate(number(feature.get("xg_per_90_10")), minutes_10, number(prior.get("xg_per_90"))),
-        "xa_per_90": blended_rate(number(feature.get("xa_per_90_10")), minutes_10, number(prior.get("xa_per_90"))),
-        "saves_per_90": blended_rate(number(feature.get("saves_per_90_10")), minutes_10, number(prior.get("saves_per_90"))),
-        "bonus_per_90": blended_rate(number(feature.get("bonus_per_90_10")), minutes_10, number(prior.get("bonus_per_90"))),
-        "defensive_contribution_per_90": blended_rate(number(feature.get("defensive_contribution_per_90_10")), minutes_10, number(prior.get("defensive_contribution_per_90"))),
-        "yellow_cards_per_90": blended_rate(number(feature.get("yellow_cards_per_90_10")), minutes_10, number(prior.get("yellow_cards_per_90"))),
-        "red_cards_per_90": blended_rate(number(feature.get("red_cards_per_90_10")), minutes_10, number(prior.get("red_cards_per_90"))),
-        "own_goals_per_90": blended_rate(number(feature.get("own_goals_per_90_10")), minutes_10, number(prior.get("own_goals_per_90"))),
-        "penalties_missed_per_90": blended_rate(number(feature.get("penalties_missed_per_90_10")), minutes_10, number(prior.get("penalties_missed_per_90"))),
-        "penalties_saved_per_90": blended_rate(number(feature.get("penalties_saved_per_90_10")), minutes_10, number(prior.get("penalties_saved_per_90"))),
+        "minutes_deviation": max(
+            6,
+            number(feature.get("minutes_standard_deviation_6")),
+        ),
+        **{
+            field: blended_rate(
+                number(feature.get(f"{field}_10")),
+                minutes_10,
+                player_prior,
+            )
+            for field, player_prior in player_priors.items()
+        },
     }
 
 
@@ -619,8 +712,27 @@ def build_projections(
                 "xa_per_90": base_simulation_inputs["xa_per_90"]
                 * qualitative["attack_multiplier"],
             }
+            component_prior = {
+                **prior,
+                **{
+                    field: inputs[field]
+                    for field in (
+                        "points_per_90",
+                        "xg_per_90",
+                        "xa_per_90",
+                        "saves_per_90",
+                        "bonus_per_90",
+                        "defensive_contribution_per_90",
+                        "yellow_cards_per_90",
+                        "red_cards_per_90",
+                        "own_goals_per_90",
+                        "penalties_missed_per_90",
+                        "penalties_saved_per_90",
+                    )
+                },
+            }
             component_base_inputs = build_component_inputs(
-                base_simulation_inputs, player_feature, prior
+                base_simulation_inputs, player_feature, component_prior
             )
             component_base_inputs["xg_per_90"] *= attack_factor
             component_base_inputs["xa_per_90"] *= attack_factor
@@ -731,6 +843,11 @@ def build_projections(
                 "ensemble_probability_10_plus_weight": ensemble_probability_weights["10"],
                 "ensemble_probability_15_plus_weight": ensemble_probability_weights["15"],
                 "scoring_rules_version": scoring_rules_version,
+                "projection_evidence_source": inputs["projection_evidence_source"],
+                "previous_season": inputs["previous_season"],
+                "previous_season_minutes": round(
+                    number(inputs["previous_season_minutes"]), 0
+                ),
                 "bonus_transition_multiplier": round(bonus_transition_multiplier, 4),
                 "simulation_count": simulations,
                 "gameweek": integer(fixture.get("gameweek")),
@@ -894,6 +1011,13 @@ def build_projections(
             "ensemble_probability_10_plus_weight": ensemble_probability_weights["10"],
             "ensemble_probability_15_plus_weight": ensemble_probability_weights["15"],
             "scoring_rules_version": scoring_rules_version,
+            "projection_evidence_source": (
+                rows[0].get("projection_evidence_source") if rows else None
+            ),
+            "previous_season": rows[0].get("previous_season") if rows else None,
+            "previous_season_minutes": number(
+                rows[0].get("previous_season_minutes") if rows else 0
+            ),
             "bonus_transition_multiplier": (
                 rows[0].get("bonus_transition_multiplier") if rows else 1.0
             ),
@@ -1371,11 +1495,16 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         chip_rules=chip_rules,
         fixture_projections=projections,
         scoring_rules_version=scoring_rules.get("version"),
+        past_seasons=past_seasons,
     )
     write_decision_support(chatgpt_dir / "fpl_decisions.json", decision_support)
     write_json(
         chatgpt_dir / "initial_squad_plan.json",
         decision_support["initial_squad_plan"],
+    )
+    write_json(
+        chatgpt_dir / "launch_validation.json",
+        decision_support["initial_squad_plan"].get("launch_validation", {}),
     )
     prediction_index = write_prediction_snapshot(data_dir, current_gameweek, horizons, generated_at)
     evaluation = evaluate_predictions(data_dir)
@@ -1461,7 +1590,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "scoring_rules_version": scoring_rules.get("version"),
         "bonus_transition": scoring_rules.get("bonus_transition"),
         "simulations_per_player_fixture": DEFAULT_SIMULATIONS,
-        "method": "Development-selected ensemble with separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
+        "method": "Development-selected ensemble with player-specific early-season priors, separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
         "player_feature_rows": len(player_features),
         "team_feature_rows": len(team_features),
         "fixture_projection_rows": len(projections),
@@ -1471,6 +1600,16 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "active_external_context_signal_rows": external_summary["active_signal_rows"],
         "decision_support_status": decision_support["status"],
         "initial_squad_status": decision_support["initial_squad_plan"]["status"],
+        "launch_validation_status": (
+            decision_support["initial_squad_plan"]
+            .get("launch_validation", {})
+            .get("status")
+        ),
+        "launch_validation_high_severity_issues": (
+            decision_support["initial_squad_plan"]
+            .get("launch_validation", {})
+            .get("high_severity_issue_count", 0)
+        ),
         "qualitatively_adjusted_fixture_rows": qualitative_projection_rows,
         "top_next_gameweek": top_projection_rows(horizons, "expected_points_next_1"),
         "top_next_three_gameweeks": top_projection_rows(horizons, "expected_points_next_3"),
@@ -1496,6 +1635,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
             "The control and component models remain available beside every ensemble recommendation for audit.",
             "External context is source-weighted and applied only to decision support until prospective evidence justifies changing the validated ensemble.",
             "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage unless a timestamped decision-layer signal is present.",
+            "Previous-season player evidence is shrunk towards positional priors and fades over the first six current-season fixtures.",
             "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
             "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly.",
         ],
