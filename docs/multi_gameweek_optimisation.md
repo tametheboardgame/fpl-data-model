@@ -4,7 +4,7 @@ Phase 17 turns fixture-level player forecasts into legal, cost-aware transfer ro
 
 ## Objective
 
-Each route maximises the discounted expected points of the best legal starting XI plus captain points in every Gameweek, after deducting transfer hits. Later Gameweeks are discounted by 4% per step because their minutes, availability and fixture forecasts are less certain.
+Each route maximises the discounted expected points of the best legal starting XI plus captain points in every Gameweek, after deducting transfer hits and a small decision-friction cost for speculative transfers. Later Gameweeks are discounted by 4% per step because their minutes, availability and fixture forecasts are less certain.
 
 The output compares every route with holding the current squad. It reports projected net points, uplift against hold, transfer hits, bank, free-transfer balance, captain and starting XI for each Gameweek.
 
@@ -37,6 +37,8 @@ Candidate and state pruning use only information available in the current foreca
 - Transfers preserve player position.
 - No chip is assumed inside a Phase 17 route.
 - First-Gameweek external context multipliers are included; later Gameweeks use the underlying fixture projections until newer context arrives.
+- Every planned transfer carries 0.75 points of decision friction, and a short-horizon reversal carries a further 1.5-point penalty.
+- A transfer route must retain at least a one-point decision-adjusted edge over holding before it is promoted as the recommendation.
 
 Blank and Double Gameweeks already flow through the fixture-level projection matrix. Explicit chip optimisation across those schedules remains Phase 18.
 
