@@ -1,9 +1,9 @@
 # FPL Gameweek 1 Deadline Report
 
 Status: ready
-Generated: 2026-08-04T09:32:08+00:00
+Generated: 2026-08-04T14:42:02+00:00
 UK deadline: 2026-08-21T18:30:00+01:00
-Hours remaining: 415.964
+Hours remaining: 410.799
 Advice level: provisional
 Firm advice allowed: False
 
