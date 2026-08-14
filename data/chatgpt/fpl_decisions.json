@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T03:16:05+00:00",
+  "generated_at": "2026-08-14T07:54:04+00:00",
   "decision_version": "fpl-decisions-1.9",
   "model_version": "player-ensemble-1.0",
   "status": "ready",
@@ -158,8 +158,8 @@
         "previous_season_evidence": {
           "passed": true,
           "observed": {
-            "players": 438,
-            "coverage": 0.75
+            "players": 439,
+            "coverage": 0.752
           },
           "expected": {
             "minimum_players": 100,
@@ -169,8 +169,8 @@
         "historical_baseline_ordering": {
           "passed": true,
           "observed": {
-            "established_players": 285,
-            "low_quartile_projection": 2.257,
+            "established_players": 286,
+            "low_quartile_projection": 2.248,
             "high_quartile_projection": 2.639
           },
           "expected": {
@@ -370,7 +370,7 @@
         "price": 6.0,
         "gameweek_1_expected_points": 4.684,
         "discounted_horizon_points": 25.759,
-        "ownership_percent": 10.3
+        "ownership_percent": 10.2
       },
       {
         "player_id": 529,
@@ -416,7 +416,7 @@
         "price": 6.0,
         "gameweek_1_expected_points": 4.684,
         "discounted_horizon_points": 25.759,
-        "ownership_percent": 10.3
+        "ownership_percent": 10.2
       },
       {
         "player_id": 229,
@@ -584,7 +584,7 @@
       "price": 6.0,
       "gameweek_1_expected_points": 4.684,
       "discounted_horizon_points": 25.759,
-      "ownership_percent": 10.3
+      "ownership_percent": 10.2
     },
     "strategy_comparison": [
       {
@@ -737,7 +737,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 4.684,
             "discounted_horizon_points": 25.759,
-            "ownership_percent": 10.3
+            "ownership_percent": 10.2
           },
           {
             "player_id": 529,
@@ -783,7 +783,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 4.684,
             "discounted_horizon_points": 25.759,
-            "ownership_percent": 10.3
+            "ownership_percent": 10.2
           },
           {
             "player_id": 229,
@@ -951,7 +951,7 @@
           "price": 6.0,
           "gameweek_1_expected_points": 4.684,
           "discounted_horizon_points": 25.759,
-          "ownership_percent": 10.3
+          "ownership_percent": 10.2
         },
         "validation": {
           "legal_squad": true,
@@ -1071,7 +1071,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 4.269,
             "discounted_horizon_points": 22.55,
-            "ownership_percent": 22.8
+            "ownership_percent": 22.7
           },
           {
             "player_id": 426,
@@ -1093,7 +1093,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 4.398,
             "discounted_horizon_points": 22.192,
-            "ownership_percent": 25.8
+            "ownership_percent": 26.0
           },
           {
             "player_id": 445,
@@ -1126,7 +1126,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 4.684,
             "discounted_horizon_points": 25.759,
-            "ownership_percent": 10.3
+            "ownership_percent": 10.2
           },
           {
             "player_id": 529,
@@ -1161,7 +1161,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 4.684,
             "discounted_horizon_points": 25.759,
-            "ownership_percent": 10.3
+            "ownership_percent": 10.2
           },
           {
             "player_id": 229,
@@ -1216,7 +1216,7 @@
             "price": 8.0,
             "gameweek_1_expected_points": 4.398,
             "discounted_horizon_points": 22.192,
-            "ownership_percent": 25.8
+            "ownership_percent": 26.0
           },
           {
             "player_id": 481,
@@ -1238,7 +1238,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 4.269,
             "discounted_horizon_points": 22.55,
-            "ownership_percent": 22.8
+            "ownership_percent": 22.7
           },
           {
             "player_id": 155,
@@ -1329,7 +1329,7 @@
           "price": 6.0,
           "gameweek_1_expected_points": 4.684,
           "discounted_horizon_points": 25.759,
-          "ownership_percent": 10.3
+          "ownership_percent": 10.2
         },
         "validation": {
           "legal_squad": true,
@@ -1349,7 +1349,7 @@
         "description": "Give extra weight to highly owned players to limit early rank volatility.",
         "total_cost": 100.0,
         "bank": 0.0,
-        "objective_score": 309.233,
+        "objective_score": 309.231,
         "gameweek_1_expected_points_including_captain": 54.494,
         "squad": [
           {
@@ -1460,7 +1460,7 @@
             "price": 7.0,
             "gameweek_1_expected_points": 3.665,
             "discounted_horizon_points": 20.945,
-            "ownership_percent": 43.2
+            "ownership_percent": 43.1
           },
           {
             "player_id": 426,
@@ -1515,7 +1515,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 4.684,
             "discounted_horizon_points": 25.759,
-            "ownership_percent": 10.3
+            "ownership_percent": 10.2
           }
         ],
         "starting_xi": [
@@ -1539,7 +1539,7 @@
             "price": 6.0,
             "gameweek_1_expected_points": 4.684,
             "discounted_horizon_points": 25.759,
-            "ownership_percent": 10.3
+            "ownership_percent": 10.2
           },
           {
             "player_id": 229,
@@ -1673,7 +1673,7 @@
             "price": 7.0,
             "gameweek_1_expected_points": 3.665,
             "discounted_horizon_points": 20.945,
-            "ownership_percent": 43.2
+            "ownership_percent": 43.1
           },
           {
             "player_id": 497,
@@ -1707,7 +1707,7 @@
           "price": 6.0,
           "gameweek_1_expected_points": 4.684,
           "discounted_horizon_points": 25.759,
-          "ownership_percent": 10.3
+          "ownership_percent": 10.2
         },
         "validation": {
           "legal_squad": true,
@@ -3629,7 +3629,7 @@
       "model_expected_points": 4.642,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.642,
-      "external_upside_score": 0.2977,
+      "external_upside_score": 0.249,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-cd1f0173ec061d9b8a8b22ab8f2f8393-9-20260814T030228Z",
@@ -3662,7 +3662,7 @@
       "model_expected_points": 4.563,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.563,
-      "external_upside_score": 0.2683,
+      "external_upside_score": 0.2244,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-01615d9573ef1e5aa8c09eb32a4a983b-12-20260814T030228Z",
@@ -3695,7 +3695,7 @@
       "model_expected_points": 4.19,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.19,
-      "external_upside_score": 0.2969,
+      "external_upside_score": 0.2484,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-4e4a813bf4218cc527e6f8ef2351170d-6-20260814T030228Z",
@@ -3728,7 +3728,7 @@
       "model_expected_points": 4.161,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.161,
-      "external_upside_score": 0.2928,
+      "external_upside_score": 0.245,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-ee99154f8db029efcf567c5f7f7a0c0b-18-20260814T030228Z",
@@ -3761,7 +3761,7 @@
       "model_expected_points": 4.124,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.124,
-      "external_upside_score": 0.2747,
+      "external_upside_score": 0.2298,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-01615d9573ef1e5aa8c09eb32a4a983b-20-20260814T030228Z",
@@ -3786,7 +3786,7 @@
       "team_name": "Brighton",
       "position": "Defender",
       "price": 5.0,
-      "ownership_percent": 0.4,
+      "ownership_percent": 0.5,
       "expected_points_next_3": 11.51,
       "points_p90_next_1": 7.4,
       "probability_10_plus_next_1": 0.0267,
@@ -3794,7 +3794,7 @@
       "model_expected_points": 4.03,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.03,
-      "external_upside_score": 0.2883,
+      "external_upside_score": 0.2412,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-f5086c74d4a767e3ad7ea69bd4a66b76-5-20260814T030228Z",
@@ -3827,7 +3827,7 @@
       "model_expected_points": 4.008,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.008,
-      "external_upside_score": 0.2795,
+      "external_upside_score": 0.2339,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8b4b033209bb204516cbd1f523614f25-4-20260814T030228Z",
@@ -3860,7 +3860,7 @@
       "model_expected_points": 3.933,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.933,
-      "external_upside_score": 0.2685,
+      "external_upside_score": 0.2247,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8b4b033209bb204516cbd1f523614f25-19-20260814T030228Z",
@@ -3893,7 +3893,7 @@
       "model_expected_points": 3.866,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.866,
-      "external_upside_score": 0.2977,
+      "external_upside_score": 0.249,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-cd1f0173ec061d9b8a8b22ab8f2f8393-9-20260814T030228Z",
@@ -3926,7 +3926,7 @@
       "model_expected_points": 3.84,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.84,
-      "external_upside_score": 0.2795,
+      "external_upside_score": 0.2339,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8b4b033209bb204516cbd1f523614f25-4-20260814T030228Z",
@@ -3959,7 +3959,7 @@
       "model_expected_points": 3.812,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.812,
-      "external_upside_score": 0.2463,
+      "external_upside_score": 0.2061,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-ea0bacc4c23f813c6af97ec9b306a850-17-20260814T030228Z",
@@ -3992,7 +3992,7 @@
       "model_expected_points": 3.792,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.792,
-      "external_upside_score": 0.2747,
+      "external_upside_score": 0.2298,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-01615d9573ef1e5aa8c09eb32a4a983b-20-20260814T030228Z",
@@ -4025,7 +4025,7 @@
       "model_expected_points": 3.751,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.751,
-      "external_upside_score": 0.2795,
+      "external_upside_score": 0.2339,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8b4b033209bb204516cbd1f523614f25-4-20260814T030228Z",
@@ -4058,7 +4058,7 @@
       "model_expected_points": 3.745,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.745,
-      "external_upside_score": 0.2795,
+      "external_upside_score": 0.2339,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8b4b033209bb204516cbd1f523614f25-4-20260814T030228Z",
@@ -4091,7 +4091,7 @@
       "model_expected_points": 3.667,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.667,
-      "external_upside_score": 0.2977,
+      "external_upside_score": 0.249,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-cd1f0173ec061d9b8a8b22ab8f2f8393-9-20260814T030228Z",
