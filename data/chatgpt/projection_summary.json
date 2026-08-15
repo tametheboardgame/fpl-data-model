@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-15T13:20:04+00:00",
+  "generated_at": "2026-08-15T18:50:30+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -39,7 +39,7 @@
   "player_horizon_rows": 587,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 6400,
-  "active_external_context_signal_rows": 4320,
+  "active_external_context_signal_rows": 4240,
   "decision_support_status": "ready",
   "initial_squad_status": "ready",
   "launch_validation_status": "passed",
@@ -685,12 +685,12 @@
       "component_expected_points_next_3": 11.685
     },
     {
-      "player_id": 85,
-      "web_name": "Van den Berg",
-      "team_name": "Brentford",
+      "player_id": 387,
+      "web_name": "O'Reilly",
+      "team_name": "Man City",
       "position": "Defender",
-      "price": 5.0,
-      "component_expected_points_next_3": 11.683
+      "price": 6.5,
+      "component_expected_points_next_3": 11.655
     }
   ],
   "prediction_snapshot_created": null,
