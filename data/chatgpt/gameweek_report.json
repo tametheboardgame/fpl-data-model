@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.2",
-  "generated_at": "2026-08-20T19:02:28+00:00",
+  "generated_at": "2026-08-20T19:05:15+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-1.9",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-21T17:30:00+00:00",
     "deadline_time_uk": "2026-08-21T18:30:00+01:00",
-    "hours_remaining": 22.459
+    "hours_remaining": 22.413
   },
   "recommendation": {
     "selection_source": "initial_squad_plan",
@@ -440,7 +440,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-08-20T13:15:51+00:00",
+      "generated_at": "2026-08-20T19:04:47+00:00",
       "required_action": null,
       "error": null
     },
@@ -455,8 +455,8 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-08-20T19:01:14+00:00",
-    "external_context_generated_at": "2026-08-20T19:02:28+00:00",
-    "active_external_signals": 3360,
+    "external_context_generated_at": "2026-08-20T19:05:15+00:00",
+    "active_external_signals": 3440,
     "expired_external_signals": 0
   },
   "fixture_signature": [
@@ -1319,23 +1319,10 @@
   },
   "advisory_only": true,
   "automatic_fpl_actions": false,
-  "material_changes": [
-    {
-      "type": "advice_level",
-      "summary": "Deadline advice stage changed",
-      "before": "provisional",
-      "after": "firm"
-    },
-    {
-      "type": "firm_advice_allowed",
-      "summary": "Firm-advice safety gate changed",
-      "before": false,
-      "after": true
-    }
-  ],
-  "material_change": true,
-  "change_summary": "Deadline advice stage changed Firm-advice safety gate changed",
+  "material_changes": [],
+  "material_change": false,
+  "change_summary": "No material change since the previous report.",
   "decision_fingerprint": "daeb3eeeb84b223342c7d7bbdae3a0f4a46a254819b827f9ec9c6cc3e43e8131",
-  "archive_created_this_run": "operations/gw01/20260820T190228Z.json",
-  "archive_markdown_created_this_run": "operations/gw01/20260820T190228Z.md"
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
 }
