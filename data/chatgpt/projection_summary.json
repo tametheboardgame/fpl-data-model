@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T13:35:59+00:00",
+  "generated_at": "2026-08-20T19:02:28+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -33,13 +33,13 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Development-selected ensemble with player-specific early-season priors, separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
-  "player_feature_rows": 595,
+  "player_feature_rows": 599,
   "team_feature_rows": 20,
-  "fixture_projection_rows": 3570,
-  "player_horizon_rows": 595,
+  "fixture_projection_rows": 3594,
+  "player_horizon_rows": 599,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 6960,
-  "active_external_context_signal_rows": 3440,
+  "active_external_context_signal_rows": 3360,
   "decision_support_status": "ready",
   "initial_squad_status": "ready",
   "launch_validation_status": "passed",
@@ -199,12 +199,12 @@
       "expected_points_next_1": 4.101
     },
     {
-      "player_id": 397,
-      "web_name": "Semenyo",
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 8.5,
-      "expected_points_next_1": 4.033
+      "player_id": 535,
+      "web_name": "Alderete",
+      "team_name": "Sunderland",
+      "position": "Defender",
+      "price": 5.0,
+      "expected_points_next_1": 4.044
     }
   ],
   "top_next_three_gameweeks": [
@@ -345,6 +345,14 @@
       "expected_points_next_3": 12.232
     },
     {
+      "player_id": 533,
+      "web_name": "Mukiele",
+      "team_name": "Sunderland",
+      "position": "Defender",
+      "price": 5.5,
+      "expected_points_next_3": 12.11
+    },
+    {
       "player_id": 13,
       "web_name": "Rice",
       "team_name": "Arsenal",
@@ -359,14 +367,6 @@
       "position": "Defender",
       "price": 8.0,
       "expected_points_next_3": 11.898
-    },
-    {
-      "player_id": 55,
-      "web_name": "Watkins",
-      "team_name": "Aston Villa",
-      "position": "Forward",
-      "price": 8.0,
-      "expected_points_next_3": 11.861
     }
   ],
   "component_top_next_gameweek": [
@@ -499,6 +499,14 @@
       "component_expected_points_next_1": 4.172
     },
     {
+      "player_id": 533,
+      "web_name": "Mukiele",
+      "team_name": "Sunderland",
+      "position": "Defender",
+      "price": 5.5,
+      "component_expected_points_next_1": 4.14
+    },
+    {
       "player_id": 82,
       "web_name": "Kelleher",
       "team_name": "Brentford",
@@ -515,20 +523,12 @@
       "component_expected_points_next_1": 4.078
     },
     {
-      "player_id": 165,
-      "web_name": "Jo\u00e3o Pedro",
-      "team_name": "Chelsea",
-      "position": "Forward",
-      "price": 7.5,
-      "component_expected_points_next_1": 4.045
-    },
-    {
-      "player_id": 200,
-      "web_name": "Lacroix",
-      "team_name": "Chelsea",
+      "player_id": 535,
+      "web_name": "Alderete",
+      "team_name": "Sunderland",
       "position": "Defender",
-      "price": 6.0,
-      "component_expected_points_next_1": 4.04
+      "price": 5.0,
+      "component_expected_points_next_1": 4.053
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -677,20 +677,20 @@
       "component_expected_points_next_3": 11.783
     },
     {
+      "player_id": 535,
+      "web_name": "Alderete",
+      "team_name": "Sunderland",
+      "position": "Defender",
+      "price": 5.0,
+      "component_expected_points_next_3": 11.705
+    },
+    {
       "player_id": 4,
       "web_name": "Gabriel",
       "team_name": "Arsenal",
       "position": "Defender",
       "price": 8.0,
       "component_expected_points_next_3": 11.685
-    },
-    {
-      "player_id": 387,
-      "web_name": "O'Reilly",
-      "team_name": "Man City",
-      "position": "Defender",
-      "price": 6.5,
-      "component_expected_points_next_3": 11.655
     }
   ],
   "prediction_snapshot_created": null,
@@ -698,7 +698,7 @@
   "prospective_evaluated_gameweeks": 0,
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
-  "gameweek_report_material_change": false,
+  "gameweek_report_material_change": true,
   "gameweek_report_warning_count": 1,
   "limitations": [
     "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
