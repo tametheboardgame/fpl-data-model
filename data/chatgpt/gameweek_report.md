@@ -1,9 +1,9 @@
 # FPL Gameweek 1 Deadline Report
 
 Status: review_required
-Generated: 2026-08-21T13:13:16+00:00
+Generated: 2026-08-21T13:15:21+00:00
 UK deadline: 2026-08-21T18:30:00+01:00
-Hours remaining: 4.279
+Hours remaining: 4.244
 Advice level: blocked
 Firm advice allowed: False
 
@@ -40,10 +40,7 @@ Vice-captain: Senesi
 
 ## Changes since previous report
 
-- Operational readiness changed
-- Data-quality warning state changed
-- Deadline advice stage changed
-- Firm-advice safety gate changed
+- No material changes
 
 ## Warnings
 
