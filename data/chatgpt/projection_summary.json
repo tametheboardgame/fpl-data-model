@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T18:59:00+00:00",
+  "generated_at": "2026-08-21T19:01:33+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -38,8 +38,8 @@
   "fixture_projection_rows": 3600,
   "player_horizon_rows": 600,
   "scouting_observation_rows": 0,
-  "external_context_signal_rows": 7312,
-  "active_external_context_signal_rows": 3392,
+  "external_context_signal_rows": 7424,
+  "active_external_context_signal_rows": 3504,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -698,7 +698,7 @@
   "prospective_evaluated_gameweeks": 0,
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
-  "gameweek_report_material_change": true,
+  "gameweek_report_material_change": false,
   "gameweek_report_warning_count": 1,
   "limitations": [
     "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
