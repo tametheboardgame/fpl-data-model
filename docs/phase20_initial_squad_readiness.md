@@ -31,7 +31,7 @@ It creates three explicit structures:
 - **Aggressive:** additional weight for upside and lower ownership.
 - **Ownership-protected:** additional weight for highly owned players to reduce early rank volatility.
 
-Balanced is the default recommendation. Each structure includes an XI, bench order, captain and vice-captain. The balanced structure is then passed to the Phase 17 six-Gameweek route optimiser to identify fixture swings and planned transfers.
+Balanced is the default recommendation. Each structure includes an XI, bench order, captain and vice-captain. Each strategy also publishes `lineup_correlation` and `selection_objective`. Balanced and ownership-protected squads keep mean expected points primary. The aggressive strategy can trade a small amount of mean for reduced opposing attacker-defender exposure. The balanced structure is then passed to the Phase 17 six-Gameweek route optimiser to identify fixture swings and planned transfers.
 
 ## Live behaviour
 

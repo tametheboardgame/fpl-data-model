@@ -36,7 +36,8 @@ Candidate and state pruning use only information available in the current foreca
 - New signings can later be sold for their purchase price because no price changes are forecast.
 - Transfers preserve player position.
 - No chip is assumed inside a Phase 17 route.
-- First-Gameweek external context multipliers are included; later Gameweeks use the underlying fixture projections until newer context arrives.
+- First-Gameweek external context adjustments are included; bookmaker team-goal and clean-sheet markets alter only supported scoring components, while later Gameweeks use the underlying fixture projections until newer context arrives.
+- Opposing attacker-defender exposure is measured for every line-up. It remains informational for balanced expected-points routes and receives a bounded penalty only in the aggressive initial-squad strategy.
 - Every planned transfer carries 0.75 points of decision friction, and a short-horizon reversal carries a further 1.5-point penalty.
 - A transfer route must retain at least a one-point decision-adjusted edge over holding before it is promoted as the recommendation.
 
@@ -44,7 +45,7 @@ Blank and Double Gameweeks already flow through the fixture-level projection mat
 
 ## Output contract
 
-`data/chatgpt/fpl_decisions.json` now uses `fpl-decisions-1.3` and adds `multi_gameweek_plan` containing:
+`data/chatgpt/fpl_decisions.json` now uses `fpl-decisions-2.0` and includes `multi_gameweek_plan` containing:
 
 - Horizon Gameweeks and objective.
 - Hold-squad expected points.

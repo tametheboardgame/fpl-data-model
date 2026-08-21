@@ -102,6 +102,8 @@ class Phase20InitialSquadTests(unittest.TestCase):
             self.assertLessEqual(variant["total_cost"], BUDGET)
             self.assertEqual(variant["validation"]["position_counts"], POSITION_LIMITS)
             self.assertLessEqual(variant["validation"]["maximum_from_one_club"], 3)
+            self.assertIn("lineup_correlation", variant)
+            self.assertIn("selection_objective", variant)
         self.assertEqual(result["planned_transfer_route"]["status"], "ready")
 
     def test_missing_prices_and_fixtures_stays_empty(self) -> None:

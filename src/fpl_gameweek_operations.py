@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 from src.external_context import number
 
 
-OPERATIONS_VERSION = "fpl-gameweek-operations-1.2"
+OPERATIONS_VERSION = "fpl-gameweek-operations-1.3"
 FREEZE_WINDOW_HOURS = 8
 NORMAL_DATA_MAX_AGE_HOURS = 8
 DEADLINE_DATA_MAX_AGE_HOURS = 3
@@ -92,6 +92,27 @@ def _selection(
         for row in horizons
     }
     initial_plan = decision.get("initial_squad_plan") or {}
+    points.update(
+        {
+            integer(row.get("player_id")): number(
+                row.get("gameweek_1_expected_points")
+            )
+            for row in initial_plan.get("recommended_squad", [])
+            if integer(row.get("player_id"))
+            and row.get("gameweek_1_expected_points") not in {None, ""}
+        }
+    )
+    points.update(
+        {
+            integer(row.get("player_id")): number(
+                row.get("decision_expected_points")
+            )
+            for row in (decision.get("recommended_lineup") or [])
+            + (decision.get("bench_order") or [])
+            if integer(row.get("player_id"))
+            and row.get("decision_expected_points") not in {None, ""}
+        }
+    )
     if (
         gameweek == 1
         and (not my_team.get("available") or not my_team.get("squad"))
@@ -112,6 +133,15 @@ def _selection(
         captain_id = integer((initial_plan.get("captain") or {}).get("player_id"))
         vice_id = integer(
             (initial_plan.get("vice_captain") or {}).get("player_id")
+        )
+        selected_variant = next(
+            (
+                row
+                for row in initial_plan.get("strategy_comparison", [])
+                if row.get("strategy")
+                == initial_plan.get("recommended_strategy")
+            ),
+            {},
         )
         return {
             "selection_source": "initial_squad_plan",
@@ -157,6 +187,9 @@ def _selection(
                 .get("total_hit_cost")
             ),
             "squad_player_ids": squad_ids,
+            "lineup_correlation": selected_variant.get(
+                "lineup_correlation", {}
+            ),
         }
     move = _route_move(decision, gameweek)
     transfers = move.get("transfers", []) or []
@@ -232,6 +265,7 @@ def _selection(
         "net_expected_points": move.get("net_expected_points"),
         "six_gameweek_net_gain_vs_hold": route.get("net_gain_vs_hold"),
         "six_gameweek_total_hit_cost": route.get("total_hit_cost"),
+        "lineup_correlation": decision.get("lineup_correlation", {}),
     }
 
 
@@ -393,6 +427,23 @@ def _warnings(
         )
     for risk in _risks(selection):
         warnings.append({"code": "player_availability", "severity": risk["severity"], "message": f"{risk['web_name']} has an availability flag ({risk.get('chance_of_playing')}% chance): {risk.get('news') or risk.get('availability_status')}."})
+    correlation = selection.get("lineup_correlation") or {}
+    if integer(correlation.get("opposing_pair_count")):
+        pair_names = [
+            f"{row.get('defender')} / {row.get('attacker')}"
+            for row in correlation.get("opposing_pairs", [])[:3]
+        ]
+        warnings.append(
+            {
+                "code": "opposing_player_correlation",
+                "severity": "low",
+                "message": (
+                    "The starting XI contains negatively correlated opposing "
+                    f"players: {', '.join(pair_names)}. This affects variance, "
+                    "not mean expected points."
+                ),
+            }
+        )
     for provider in providers:
         if provider.get("status") in {"error", "failed"}:
             warnings.append({"code": "provider_error", "severity": "medium", "message": f"{provider['provider']} is reporting an error."})
@@ -481,6 +532,11 @@ def _material_state(report: dict[str, Any]) -> dict[str, Any]:
         "warning_codes": sorted((row.get("code"), row.get("severity")) for row in report.get("warnings", [])),
         "advice_level": (report.get("operational_readiness") or {}).get("advice_level"),
         "firm_advice_allowed": (report.get("operational_readiness") or {}).get("firm_advice_allowed"),
+        "lineup_correlation": (
+            (selection.get("lineup_correlation") or {}).get(
+                "negative_correlation_exposure"
+            )
+        ),
     }
 
 
@@ -505,6 +561,7 @@ def _changes(previous: dict[str, Any] | None, current: dict[str, Any]) -> list[d
         "warning_codes": "Data-quality warning state changed",
         "advice_level": "Deadline advice stage changed",
         "firm_advice_allowed": "Firm-advice safety gate changed",
+        "lineup_correlation": "Starting XI correlation exposure changed",
     }
     for key, summary in labels.items():
         if before.get(key) != after.get(key):

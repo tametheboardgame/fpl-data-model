@@ -1518,6 +1518,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         context_signals,
         source_registry,
         generated_at,
+        fixture_projections=projections,
     )
     decision_support["prospective_evaluation"] = {
         "status": prospective["evaluation"].get("status"),

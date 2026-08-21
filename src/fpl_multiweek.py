@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 from typing import Any
 
 
@@ -25,6 +26,7 @@ MAXIMUM_STARTERS = {
 TRANSFER_FRICTION_POINTS = 0.75
 ROUND_TRIP_PENALTY_POINTS = 1.5
 MINIMUM_ROUTE_EDGE_POINTS = 1.0
+NEGATIVE_CORRELATION_WEIGHT = 0.35
 
 
 def number(value: Any) -> float:
@@ -38,10 +40,153 @@ def integer(value: Any) -> int:
     return int(number(value))
 
 
+def fixture_rows_by_player(
+    fixture_projections: list[dict[str, Any]], gameweek: int
+) -> dict[int, list[dict[str, Any]]]:
+    rows: dict[int, list[dict[str, Any]]] = {}
+    for row in fixture_projections:
+        if integer(row.get("gameweek")) != gameweek:
+            continue
+        player_id = integer(row.get("player_id"))
+        if player_id:
+            rows.setdefault(player_id, []).append(row)
+    return rows
+
+
+def lineup_correlation_analysis(
+    starter_ids: list[int] | tuple[int, ...] | set[int],
+    player_by_id: dict[int, dict[str, Any]],
+    fixtures_by_player: dict[int, list[dict[str, Any]]] | None = None,
+) -> dict[str, Any]:
+    fixtures_by_player = fixtures_by_player or {}
+    starters = sorted(set(starter_ids))
+    pairs: list[dict[str, Any]] = []
+    defensive_positions = {"Goalkeeper", "Defender"}
+    attacking_positions = {"Midfielder", "Forward"}
+
+    for defender_id in starters:
+        defender = player_by_id.get(defender_id, {})
+        if str(defender.get("position")) not in defensive_positions:
+            continue
+        defender_team = integer(defender.get("team_id"))
+        for attacker_id in starters:
+            attacker = player_by_id.get(attacker_id, {})
+            if str(attacker.get("position")) not in attacking_positions:
+                continue
+            attacker_team = integer(attacker.get("team_id"))
+            if not defender_team or defender_team == attacker_team:
+                continue
+            for defender_fixture in fixtures_by_player.get(defender_id, []):
+                fixture_id = integer(defender_fixture.get("fixture_id"))
+                if (
+                    not fixture_id
+                    or integer(defender_fixture.get("opponent_team_id"))
+                    != attacker_team
+                ):
+                    continue
+                attacker_fixture = next(
+                    (
+                        row
+                        for row in fixtures_by_player.get(attacker_id, [])
+                        if integer(row.get("fixture_id")) == fixture_id
+                        and integer(row.get("opponent_team_id")) == defender_team
+                    ),
+                    None,
+                )
+                if attacker_fixture is None:
+                    continue
+                clean_sheet_probability = number(
+                    defender_fixture.get("decision_clean_sheet_probability")
+                    or defender_fixture.get("clean_sheet_probability")
+                )
+                clean_sheet_value = number(
+                    defender_fixture.get("component_clean_sheet_points")
+                )
+                if clean_sheet_value <= 0 and clean_sheet_probability > 0:
+                    expected_minutes = number(
+                        defender_fixture.get("expected_minutes")
+                    )
+                    clean_sheet_value = (
+                        4
+                        * clean_sheet_probability
+                        * min(1.0, expected_minutes / 60)
+                    )
+                attacking_return_probability = number(
+                    attacker_fixture.get("component_attacking_return_probability")
+                )
+                if attacking_return_probability <= 0:
+                    attacking_return_probability = 1 - math.exp(
+                        -max(
+                            0.0,
+                            number(attacker_fixture.get("expected_goals"))
+                            + number(attacker_fixture.get("expected_assists")),
+                        )
+                    )
+                exposure = clean_sheet_value * attacking_return_probability
+                pairs.append(
+                    {
+                        "fixture_id": fixture_id,
+                        "defender_player_id": defender_id,
+                        "defender": defender.get("web_name"),
+                        "defender_team_id": defender_team,
+                        "attacker_player_id": attacker_id,
+                        "attacker": attacker.get("web_name"),
+                        "attacker_team_id": attacker_team,
+                        "clean_sheet_expected_points": round(
+                            clean_sheet_value, 4
+                        ),
+                        "attacking_return_probability": round(
+                            attacking_return_probability, 4
+                        ),
+                        "negative_correlation_exposure": round(exposure, 4),
+                    }
+                )
+
+    pairs.sort(
+        key=lambda row: number(row.get("negative_correlation_exposure")),
+        reverse=True,
+    )
+    return {
+        "opposing_pairs": pairs,
+        "opposing_pair_count": len(pairs),
+        "negative_correlation_exposure": round(
+            sum(number(row.get("negative_correlation_exposure")) for row in pairs),
+            4,
+        ),
+        "principle": (
+            "Opposing attackers and defenders do not change mean expected points, "
+            "but they reduce line-up variance and ceiling. Balanced selection keeps "
+            "mean points primary; aggressive selection applies a bounded exposure penalty."
+        ),
+    }
+
+
+def _legal_starting_lineup(
+    starter_ids: set[int], player_by_id: dict[int, dict[str, Any]]
+) -> bool:
+    if len(starter_ids) != 11:
+        return False
+    counts = {
+        position: sum(
+            str(player_by_id.get(player_id, {}).get("position")) == position
+            for player_id in starter_ids
+        )
+        for position in POSITION_LIMITS
+    }
+    return all(
+        MINIMUM_STARTERS[position]
+        <= counts[position]
+        <= MAXIMUM_STARTERS[position]
+        for position in POSITION_LIMITS
+    )
+
+
 def optimise_gameweek_lineup(
     squad_ids: tuple[int, ...],
     player_by_id: dict[int, dict[str, Any]],
     points_by_player: dict[int, float],
+    fixtures_by_player: dict[int, list[dict[str, Any]]] | None = None,
+    risk_profile: str = "balanced",
 ) -> tuple[float, list[int], int | None]:
     by_position: dict[str, list[int]] = {position: [] for position in POSITION_LIMITS}
     for player_id in squad_ids:
@@ -67,6 +212,54 @@ def optimise_gameweek_lineup(
         if sum(str(player_by_id[item].get("position")) == position for item in starters) >= MAXIMUM_STARTERS[position]:
             continue
         starters.append(player_id)
+
+    if risk_profile == "aggressive" and fixtures_by_player:
+        current = set(starters)
+        opposing_pairs = lineup_correlation_analysis(
+            set(squad_ids), player_by_id, fixtures_by_player
+        ).get("opposing_pairs", [])
+
+        def objective(candidate: set[int]) -> tuple[float, float]:
+            captain = max(
+                candidate,
+                key=lambda player_id: points_by_player.get(player_id, 0),
+                default=None,
+            )
+            expected_points = sum(
+                points_by_player.get(player_id, 0) for player_id in candidate
+            ) + points_by_player.get(captain, 0)
+            exposure = sum(
+                number(row.get("negative_correlation_exposure"))
+                for row in opposing_pairs
+                if integer(row.get("defender_player_id")) in candidate
+                and integer(row.get("attacker_player_id")) in candidate
+            )
+            return (
+                expected_points - NEGATIVE_CORRELATION_WEIGHT * exposure,
+                expected_points,
+            )
+
+        for _ in range(4):
+            current_score = objective(current)
+            best = current
+            best_score = current_score
+            bench = set(squad_ids).difference(current)
+            for outgoing in current:
+                for incoming in bench:
+                    candidate = set(current)
+                    candidate.remove(outgoing)
+                    candidate.add(incoming)
+                    if not _legal_starting_lineup(candidate, player_by_id):
+                        continue
+                    candidate_score = objective(candidate)
+                    if candidate_score > best_score:
+                        best = candidate
+                        best_score = candidate_score
+            if best == current:
+                break
+            current = best
+        starters = list(current)
+
     captain = max(starters, key=lambda player_id: points_by_player.get(player_id, 0), default=None)
     lineup_points = sum(points_by_player.get(player_id, 0) for player_id in starters)
     captain_points = points_by_player.get(captain, 0) if captain is not None else 0

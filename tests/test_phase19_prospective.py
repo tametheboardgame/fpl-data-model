@@ -146,6 +146,43 @@ class Phase19ProspectiveTests(unittest.TestCase):
             )
         )
 
+    def test_gameweek_one_snapshot_uses_initial_plan_before_picks_exist(self) -> None:
+        initial_squad = [
+            {**row, "gameweek_1_expected_points": 20 - row["player_id"]}
+            for row in self.players
+        ]
+        decision = {
+            **self.decision,
+            "recommended_lineup": [],
+            "bench_order": [],
+            "initial_squad_plan": {
+                "status": "ready",
+                "recommended_squad": initial_squad,
+                "recommended_starting_xi": initial_squad[:11],
+                "recommended_bench_order": initial_squad[11:],
+                "captain": initial_squad[0],
+                "planned_transfer_route": self.decision[
+                    "multi_gameweek_plan"
+                ],
+            },
+        }
+        snapshot = build_snapshot(
+            decision,
+            self.horizons,
+            self.players,
+            {"available": True, "squad": []},
+            self.current,
+            [],
+            self.registry,
+            self.now.isoformat(),
+        )
+        self.assertIsNotNone(snapshot)
+        system = next(
+            arm for arm in snapshot["arms"] if arm["arm_id"] == "system_strategy"
+        )
+        self.assertEqual(len(system["squad_player_ids"]), 15)
+        self.assertEqual(len(system["starter_player_ids"]), 11)
+
     def test_scores_only_finalised_gameweeks_and_uses_latest_snapshot(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             data = Path(temporary)

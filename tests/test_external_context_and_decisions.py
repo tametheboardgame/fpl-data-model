@@ -13,7 +13,10 @@ from src.external_context import (
     read_context_signals,
     resolved_context,
 )
-from src.fpl_decisions import build_decision_support
+from src.fpl_decisions import (
+    build_decision_support,
+    fixture_decision_projection,
+)
 
 
 class ExternalContextTests(unittest.TestCase):
@@ -314,6 +317,60 @@ class DecisionTests(unittest.TestCase):
         self.assertEqual(decision["recommended_lineup"], [])
         self.assertIsNone(decision["captaincy"]["captain"])
         self.assertEqual(decision["transfer_shortlist"], [])
+
+    def test_market_context_adjusts_relevant_expected_point_components(self) -> None:
+        context = {
+            "signal_count": 2,
+            "signal_ids": ["market-xg", "market-cs"],
+            "source_ids": ["market"],
+            "values": {
+                "team_expected_goals": 1.8,
+                "clean_sheet_probability": 0.2,
+            },
+            "strengths": {
+                "team_expected_goals": 1.0,
+                "clean_sheet_probability": 1.0,
+            },
+        }
+        defender = fixture_decision_projection(
+            {
+                "fixture_id": 100,
+                "position": "Defender",
+                "expected_points": 4.0,
+                "expected_minutes": 90,
+                "appearance_probability": 1.0,
+                "expected_goals": 0.1,
+                "expected_assists": 0.1,
+                "clean_sheet_probability": 0.4,
+                "component_clean_sheet_points": 1.6,
+                "model_team_expected_goals": 1.2,
+            },
+            context,
+        )
+        forward = fixture_decision_projection(
+            {
+                "fixture_id": 100,
+                "position": "Forward",
+                "expected_points": 4.0,
+                "expected_minutes": 90,
+                "appearance_probability": 1.0,
+                "expected_goals": 0.5,
+                "expected_assists": 0.1,
+                "clean_sheet_probability": 0.4,
+                "model_team_expected_goals": 1.2,
+            },
+            context,
+        )
+        self.assertLess(defender["decision_expected_points"], 4.0)
+        self.assertGreater(forward["decision_expected_points"], 4.0)
+        self.assertLess(
+            defender["market_adjustment_components"]["clean_sheet_market"],
+            0,
+        )
+        self.assertGreater(
+            forward["market_adjustment_components"]["team_attack_market"],
+            0,
+        )
 
 
 if __name__ == "__main__":

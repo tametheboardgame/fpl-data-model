@@ -3,6 +3,8 @@ from __future__ import annotations
 import unittest
 
 from src.fpl_multiweek import (
+    lineup_correlation_analysis,
+    optimise_gameweek_lineup,
     optimise_multi_gameweek_route,
     transfer_decision_cost,
 )
@@ -148,6 +150,62 @@ class MultiGameweekOptimiserTests(unittest.TestCase):
         )
         self.assertEqual(result["status"], "waiting_for_projections")
         self.assertEqual(result["routes"], [])
+
+    def test_aggressive_lineup_can_avoid_opposing_defender_attacker_pair(self) -> None:
+        players = {
+            row["player_id"]: row for row in self.players
+        }
+        players[3]["team_id"] = 1
+        players[13]["team_id"] = 2
+        players[14]["team_id"] = 3
+        players[15]["team_id"] = 4
+        points = {player_id: 4.0 for player_id in players}
+        points.update(
+            {
+                1: 6.0,
+                2: 0.0,
+                3: 5.0,
+                8: 6.0,
+                9: 6.0,
+                10: 6.0,
+                11: 6.0,
+                12: 6.0,
+                13: 5.0,
+                14: 4.9,
+                15: 4.8,
+            }
+        )
+        fixtures = {
+            3: [
+                {
+                    "fixture_id": 100,
+                    "opponent_team_id": 2,
+                    "clean_sheet_probability": 0.5,
+                    "component_clean_sheet_points": 2.5,
+                }
+            ],
+            13: [
+                {
+                    "fixture_id": 100,
+                    "opponent_team_id": 1,
+                    "component_attacking_return_probability": 0.9,
+                }
+            ],
+        }
+        squad_ids = tuple(players)
+        _, balanced, _ = optimise_gameweek_lineup(
+            squad_ids, players, points, fixtures, risk_profile="balanced"
+        )
+        _, aggressive, _ = optimise_gameweek_lineup(
+            squad_ids, players, points, fixtures, risk_profile="aggressive"
+        )
+        self.assertIn(3, balanced)
+        self.assertIn(13, balanced)
+        self.assertIn(3, aggressive)
+        self.assertNotIn(13, aggressive)
+        analysis = lineup_correlation_analysis(balanced, players, fixtures)
+        self.assertEqual(analysis["opposing_pair_count"], 1)
+        self.assertGreater(analysis["negative_correlation_exposure"], 0)
 
 
 if __name__ == "__main__":

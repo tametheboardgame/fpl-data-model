@@ -8,11 +8,18 @@ from pathlib import Path
 from typing import Any
 
 from src.external_context import number, resolved_context
-from src.fpl_decisions import decision_projection, optimise_lineup
+from src.fpl_decisions import (
+    aggregate_fixture_decisions,
+    decision_projection,
+    fixture_decision_projection,
+    fixture_rows_with_model_team_xg,
+    optimise_lineup,
+)
+from src.fpl_multiweek import fixture_rows_by_player
 from src.update_fpl_data import write_csv, write_json
 
 
-PROSPECTIVE_VERSION = "fpl-prospective-1.0"
+PROSPECTIVE_VERSION = "fpl-prospective-1.1"
 MINIMUM_GAMEWEEKS_FOR_EVIDENCE = 10
 
 
@@ -96,7 +103,13 @@ def _system_strategy_arm(
     player_by_id: dict[int, dict[str, Any]],
 ) -> dict[str, Any]:
     gameweek = integer(decision.get("target_gameweek"))
-    route = (decision.get("multi_gameweek_plan") or {}).get("recommended_route") or {}
+    initial_plan = decision.get("initial_squad_plan") or {}
+    route_plan = decision.get("multi_gameweek_plan") or {}
+    if initial_plan.get("recommended_squad") and not decision.get(
+        "recommended_lineup"
+    ):
+        route_plan = initial_plan.get("planned_transfer_route") or route_plan
+    route = (route_plan.get("recommended_route") or {})
     move = next(
         (
             item
@@ -117,9 +130,18 @@ def _system_strategy_arm(
             integer(row.get("player_id"))
             for row in decision.get("recommended_lineup", [])
         ]
+    if not starters:
+        starters = [
+            integer(row.get("player_id"))
+            for row in initial_plan.get("recommended_starting_xi", [])
+        ]
     if captain is None:
         captain = integer(
             ((decision.get("captaincy") or {}).get("captain") or {}).get("player_id")
+        ) or None
+    if captain is None:
+        captain = integer(
+            (initial_plan.get("captain") or {}).get("player_id")
         ) or None
 
     chip_recommendation = (decision.get("chip_optimisation") or {}).get("recommendation") or {}
@@ -184,6 +206,7 @@ def build_snapshot(
     context_signals: list[dict[str, Any]],
     source_registry: dict[str, Any],
     generated_at: str,
+    fixture_projections: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
     if decision.get("status") != "ready" or not my_team.get("available"):
         return None
@@ -200,7 +223,14 @@ def build_snapshot(
 
     by_horizon = {integer(row.get("player_id")): row for row in horizons}
     by_player = {integer(row.get("player_id")): row for row in players}
+    initial_plan = decision.get("initial_squad_plan") or {}
+    squad_source = my_team.get("squad", [])
     decision_rows = decision.get("recommended_lineup", []) + decision.get("bench_order", [])
+    if len(squad_source) != 15 and initial_plan.get("status") == "ready":
+        squad_source = initial_plan.get("recommended_squad", [])
+        decision_rows = initial_plan.get(
+            "recommended_starting_xi", []
+        ) + initial_plan.get("recommended_bench_order", [])
     by_decision = {integer(row.get("player_id")): row for row in decision_rows}
     squad_rows = [
         {
@@ -211,7 +241,7 @@ def build_snapshot(
             "position": item.get("position")
             or by_player.get(integer(item.get("player_id")), {}).get("position"),
         }
-        for item in my_team.get("squad", [])
+        for item in squad_source
     ]
     if len(squad_rows) != 15:
         return None
@@ -226,7 +256,14 @@ def build_snapshot(
     no_external_points: dict[int, float] = {}
     quantitative_points: dict[int, float] = {}
     ownership_points: dict[int, float] = {}
+    active_context_signal_ids: set[str] = set()
     fixture = {"gameweek": gameweek}
+    target_fixture_rows = fixture_rows_with_model_team_xg(
+        fixture_projections or [], gameweek
+    )
+    target_fixtures_by_player = fixture_rows_by_player(
+        target_fixture_rows, gameweek
+    )
     for player_id, horizon in by_horizon.items():
         player = by_player.get(player_id, horizon)
         full_context = resolved_context(
@@ -235,12 +272,68 @@ def build_snapshot(
         no_odds_context = resolved_context(
             no_odds_signals, source_registry, player, fixture, created_at
         )
-        full_points[player_id] = number(
-            decision_projection(horizon, full_context).get("decision_expected_points")
-        )
-        no_odds_points[player_id] = number(
-            decision_projection(horizon, no_odds_context).get("decision_expected_points")
-        )
+        player_fixtures = target_fixtures_by_player.get(player_id, [])
+        if player_fixtures:
+            full_fixture_decisions = []
+            no_odds_fixture_decisions = []
+            for player_fixture in player_fixtures:
+                exact_fixture = {
+                    "fixture_id": integer(player_fixture.get("fixture_id")),
+                    "gameweek": gameweek,
+                }
+                exact_full_context = resolved_context(
+                    context_signals,
+                    source_registry,
+                    player,
+                    exact_fixture,
+                    created_at,
+                )
+                active_context_signal_ids.update(
+                    str(signal_id)
+                    for signal_id in exact_full_context.get("signal_ids", [])
+                )
+                exact_no_odds_context = resolved_context(
+                    no_odds_signals,
+                    source_registry,
+                    player,
+                    exact_fixture,
+                    created_at,
+                )
+                full_fixture_decisions.append(
+                    fixture_decision_projection(
+                        player_fixture, exact_full_context
+                    )
+                )
+                no_odds_fixture_decisions.append(
+                    fixture_decision_projection(
+                        player_fixture, exact_no_odds_context
+                    )
+                )
+            full_points[player_id] = number(
+                aggregate_fixture_decisions(
+                    horizon, full_fixture_decisions
+                ).get("decision_expected_points")
+            )
+            no_odds_points[player_id] = number(
+                aggregate_fixture_decisions(
+                    horizon, no_odds_fixture_decisions
+                ).get("decision_expected_points")
+            )
+        else:
+            active_context_signal_ids.update(
+                str(signal_id)
+                for signal_id in full_context.get("signal_ids", [])
+            )
+            full_points[player_id] = number(
+                decision_projection(horizon, full_context).get(
+                    "decision_expected_points"
+                )
+            )
+            no_odds_points[player_id] = number(
+                decision_projection(horizon, no_odds_context).get(
+                    "decision_expected_points"
+                )
+            )
         no_external_points[player_id] = number(horizon.get("expected_points_next_1"))
         quantitative_points[player_id] = number(
             horizon.get("quantitative_expected_points_next_1")
@@ -294,13 +387,7 @@ def build_snapshot(
         "decision_version": decision.get("decision_version"),
         "model_version": decision.get("model_version"),
         "team_id": decision.get("team_id"),
-        "active_context_signal_ids": sorted(
-            {
-                str(signal_id)
-                for row in decision_rows
-                for signal_id in row.get("context_signal_ids", [])
-            }
-        ),
+        "active_context_signal_ids": sorted(active_context_signal_ids),
         "arms": arms,
         "principle": "Every arm is frozen before the deadline and scored only after official finality.",
     }
@@ -483,6 +570,7 @@ def update_prospective_evaluation(
     context_signals: list[dict[str, Any]],
     source_registry: dict[str, Any],
     generated_at: str,
+    fixture_projections: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     snapshot = build_snapshot(
         decision,
@@ -493,6 +581,7 @@ def update_prospective_evaluation(
         context_signals,
         source_registry,
         generated_at,
+        fixture_projections,
     )
     created = write_snapshot(data_dir, snapshot)
     snapshot_files = sorted(

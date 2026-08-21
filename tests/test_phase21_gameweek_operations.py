@@ -188,6 +188,25 @@ class Phase21OperationsTests(unittest.TestCase):
         self.assertEqual(report["status"], "review_required")
         self.assertFalse(report["operational_readiness"]["firm_advice_allowed"])
 
+    def test_reports_opposing_player_correlation_without_blocking_advice(self) -> None:
+        self.decision["lineup_correlation"] = {
+            "opposing_pair_count": 1,
+            "negative_correlation_exposure": 0.4,
+            "opposing_pairs": [
+                {"defender": "Player 3", "attacker": "Player 13"}
+            ],
+        }
+        report = self.build()
+        warning = next(
+            row
+            for row in report["warnings"]
+            if row["code"] == "opposing_player_correlation"
+        )
+        self.assertEqual(warning["severity"], "low")
+        self.assertTrue(
+            report["operational_readiness"]["firm_advice_allowed"]
+        )
+
     def test_gameweek_one_uses_initial_squad_when_registered_team_is_empty(self) -> None:
         self.my_team = {"available": True, "squad": []}
         squad = [{"player_id": row["player_id"]} for row in self.players]

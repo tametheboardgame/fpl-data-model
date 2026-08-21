@@ -5,15 +5,18 @@ from typing import Any
 
 from src.fpl_launch_validation import validate_launch_plan
 from src.fpl_multiweek import (
+    NEGATIVE_CORRELATION_WEIGHT,
     POSITION_LIMITS,
+    fixture_rows_by_player,
     legal_squad,
+    lineup_correlation_analysis,
     optimise_gameweek_lineup,
     optimise_multi_gameweek_route,
     projection_matrix,
 )
 
 
-INITIAL_SQUAD_VERSION = "fpl-initial-squad-1.2"
+INITIAL_SQUAD_VERSION = "fpl-initial-squad-1.3"
 TARGET_SEASON = "2026/27"
 BUDGET = 100.0
 STRATEGIES = {
@@ -23,7 +26,10 @@ STRATEGIES = {
     },
     "aggressive": {
         "label": "Aggressive",
-        "description": "Give extra weight to upside and lower ownership.",
+        "description": (
+            "Give extra weight to upside and lower ownership while applying a "
+            "bounded penalty to opposing attacker-defender exposure."
+        ),
     },
     "ownership_protected": {
         "label": "Ownership-protected",
@@ -202,6 +208,7 @@ def _optimise_squad(
     matrix: dict[int, dict[int, float]],
     gameweeks: list[int],
     strategy: str,
+    fixtures_by_gameweek: dict[int, dict[int, list[dict[str, Any]]]],
     beam_width: int = 700,
 ) -> dict[str, Any] | None:
     pools = _candidate_pool(metrics, strategy)
@@ -257,16 +264,42 @@ def _optimise_squad(
                     player_id: value * (1 + 0.06 * number(metrics[player_id].get("ownership")) / 100)
                     for player_id, value in points.items()
                 }
-            lineup_points, starters, _ = optimise_gameweek_lineup(squad_ids, metrics, points)
+            gameweek_fixtures = fixtures_by_gameweek.get(gameweek, {})
+            lineup_points, starters, _ = optimise_gameweek_lineup(
+                squad_ids,
+                metrics,
+                points,
+                gameweek_fixtures,
+                risk_profile=strategy,
+            )
             bench = set(squad_ids).difference(starters)
             bench_depth = sum(points.get(player_id, 0) for player_id in bench)
-            total += (0.96**offset) * (lineup_points + 0.12 * bench_depth)
+            correlation_penalty = 0.0
+            if strategy == "aggressive":
+                correlation_exposure = number(
+                    lineup_correlation_analysis(
+                        starters, metrics, gameweek_fixtures
+                    ).get("negative_correlation_exposure")
+                )
+                correlation_penalty = (
+                    NEGATIVE_CORRELATION_WEIGHT * correlation_exposure
+                )
+            total += (0.96**offset) * (
+                lineup_points + 0.12 * bench_depth - correlation_penalty
+            )
         return total
 
     best = max(legal, key=final_score)
     squad_ids, cost, _ = best
     base_points = matrix.get(gameweeks[0], {})
-    first_points, starters, captain = optimise_gameweek_lineup(squad_ids, metrics, base_points)
+    first_gameweek_fixtures = fixtures_by_gameweek.get(gameweeks[0], {})
+    first_points, starters, captain = optimise_gameweek_lineup(
+        squad_ids,
+        metrics,
+        base_points,
+        first_gameweek_fixtures,
+        risk_profile=strategy,
+    )
     starter_order = sorted(starters, key=lambda player_id: base_points.get(player_id, 0), reverse=True)
     vice_captain = next((player_id for player_id in starter_order if player_id != captain), None)
     bench = sorted(
@@ -304,6 +337,16 @@ def _optimise_squad(
         "bench_order": [public_player(player_id) for player_id in bench],
         "captain": public_player(captain) if captain else None,
         "vice_captain": public_player(vice_captain) if vice_captain else None,
+        "lineup_correlation": lineup_correlation_analysis(
+            starters, metrics, first_gameweek_fixtures
+        ),
+        "selection_objective": {
+            "risk_profile": strategy,
+            "negative_correlation_weight": (
+                NEGATIVE_CORRELATION_WEIGHT if strategy == "aggressive" else 0.0
+            ),
+            "mean_expected_points_primary": True,
+        },
         "validation": {
             "legal_squad": legal_squad(squad_ids, metrics),
             "position_counts": dict(Counter(str(metrics[player_id].get("position")) for player_id in squad_ids)),
@@ -346,8 +389,14 @@ def build_initial_squad_plan(
         gameweeks,
         first_gameweek_multiplier or {},
     )
+    fixtures_by_gameweek = {
+        gameweek: fixture_rows_by_player(fixture_projections, gameweek)
+        for gameweek in gameweeks
+    }
     variants = [
-        _optimise_squad(metrics, matrix, gameweeks, strategy)
+        _optimise_squad(
+            metrics, matrix, gameweeks, strategy, fixtures_by_gameweek
+        )
         for strategy in STRATEGIES
     ]
     if any(variant is None for variant in variants):
