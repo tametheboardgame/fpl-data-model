@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.2",
-  "generated_at": "2026-08-22T01:52:33+00:00",
+  "generated_at": "2026-08-22T02:06:12+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-1.9",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-28T17:30:00+00:00",
     "deadline_time_uk": "2026-08-28T18:30:00+01:00",
-    "hours_remaining": 159.624
+    "hours_remaining": 159.397
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -421,7 +421,7 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-08-22T01:51:32+00:00",
-    "external_context_generated_at": "2026-08-22T01:52:33+00:00",
+    "external_context_generated_at": "2026-08-22T02:06:12+00:00",
     "active_external_signals": 3096,
     "expired_external_signals": 728
   },
@@ -1147,31 +1147,10 @@
   },
   "advisory_only": true,
   "automatic_fpl_actions": false,
-  "material_changes": [
-    {
-      "type": "warning_codes",
-      "summary": "Data-quality warning state changed",
-      "before": [
-        [
-          "provider_plan_blocked",
-          "low"
-        ]
-      ],
-      "after": [
-        [
-          "expired_context",
-          "low"
-        ],
-        [
-          "provider_plan_blocked",
-          "low"
-        ]
-      ]
-    }
-  ],
-  "material_change": true,
-  "change_summary": "Data-quality warning state changed",
+  "material_changes": [],
+  "material_change": false,
+  "change_summary": "No material change since the previous report.",
   "decision_fingerprint": "f737319135a991d7e470b118285dd121a30723407a81113ce43c6911e4403a67",
-  "archive_created_this_run": "operations/gw02/20260822T015233Z.json",
-  "archive_markdown_created_this_run": "operations/gw02/20260822T015233Z.md"
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
 }
