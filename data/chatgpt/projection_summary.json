@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T13:21:22+00:00",
+  "generated_at": "2026-08-22T18:51:01+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -39,7 +39,7 @@
   "player_horizon_rows": 600,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 7536,
-  "active_external_context_signal_rows": 3208,
+  "active_external_context_signal_rows": 1792,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -709,7 +709,7 @@
     "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
     "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly."
   ],
-  "evaluated_external_context_signals": 1472,
+  "evaluated_external_context_signals": 4448,
   "chip_state_status": "ready",
   "free_transfer_state_status": "ready"
 }
