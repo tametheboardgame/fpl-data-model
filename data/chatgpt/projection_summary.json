@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T19:16:19+00:00",
+  "generated_at": "2026-08-22T01:52:33+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -39,7 +39,7 @@
   "player_horizon_rows": 600,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 7424,
-  "active_external_context_signal_rows": 3504,
+  "active_external_context_signal_rows": 3096,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -698,8 +698,8 @@
   "prospective_evaluated_gameweeks": 0,
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
-  "gameweek_report_material_change": false,
-  "gameweek_report_warning_count": 1,
+  "gameweek_report_material_change": true,
+  "gameweek_report_warning_count": 2,
   "limitations": [
     "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
     "The control and component models remain available beside every ensemble recommendation for audit.",
@@ -709,7 +709,7 @@
     "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
     "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly."
   ],
-  "evaluated_external_context_signals": 0,
+  "evaluated_external_context_signals": 728,
   "chip_state_status": "ready",
   "free_transfer_state_status": "ready"
 }
