@@ -1,9 +1,9 @@
 # FPL Gameweek 2 Deadline Report
 
 Status: ready
-Generated: 2026-08-22T07:02:03+00:00
+Generated: 2026-08-22T07:04:29+00:00
 UK deadline: 2026-08-28T18:30:00+01:00
-Hours remaining: 154.466
+Hours remaining: 154.425
 Advice level: blocked
 Firm advice allowed: False
 
@@ -40,10 +40,7 @@ Vice-captain: Tarkowski
 
 ## Changes since previous report
 
-- Starting XI changed
-- Bench order changed
-- Captain changed
-- Vice-captain changed
+- No material changes
 
 ## Warnings
 
