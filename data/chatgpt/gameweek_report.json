@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.2",
-  "generated_at": "2026-08-23T18:50:16+00:00",
+  "generated_at": "2026-08-23T18:52:22+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-1.9",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-28T17:30:00+00:00",
     "deadline_time_uk": "2026-08-28T18:30:00+01:00",
-    "hours_remaining": 118.662
+    "hours_remaining": 118.627
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -475,7 +475,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-08-23T13:05:52+00:00",
+      "generated_at": "2026-08-23T18:51:39+00:00",
       "required_action": null,
       "error": null
     },
@@ -490,8 +490,8 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-08-23T18:49:16+00:00",
-    "external_context_generated_at": "2026-08-23T18:50:16+00:00",
-    "active_external_signals": 928,
+    "external_context_generated_at": "2026-08-23T18:52:22+00:00",
+    "active_external_signals": 1096,
     "expired_external_signals": 5952
   },
   "fixture_signature": [
@@ -1216,72 +1216,10 @@
   },
   "advisory_only": true,
   "automatic_fpl_actions": false,
-  "material_changes": [
-    {
-      "type": "bench",
-      "summary": "Bench order changed",
-      "before": [
-        346,
-        481,
-        249,
-        529
-      ],
-      "after": [
-        346,
-        249,
-        481,
-        529
-      ]
-    },
-    {
-      "type": "risks",
-      "summary": "Availability information changed",
-      "before": [],
-      "after": [
-        {
-          "player_id": 481,
-          "web_name": "Anderson",
-          "role": "bench",
-          "severity": "medium",
-          "availability_status": "d",
-          "chance_of_playing": 75,
-          "news": "Knock - 75% chance of playing",
-          "news_added": "2026-08-23T17:00:07.952697Z"
-        }
-      ]
-    },
-    {
-      "type": "warning_codes",
-      "summary": "Data-quality warning state changed",
-      "before": [
-        [
-          "expired_context",
-          "low"
-        ],
-        [
-          "provider_plan_blocked",
-          "low"
-        ]
-      ],
-      "after": [
-        [
-          "expired_context",
-          "low"
-        ],
-        [
-          "player_availability",
-          "medium"
-        ],
-        [
-          "provider_plan_blocked",
-          "low"
-        ]
-      ]
-    }
-  ],
-  "material_change": true,
-  "change_summary": "Bench order changed Availability information changed Data-quality warning state changed",
+  "material_changes": [],
+  "material_change": false,
+  "change_summary": "No material change since the previous report.",
   "decision_fingerprint": "a5daf22e01a446bf123d91b735e4b173475530fae15ca0057f79d9ddbc7fd572",
-  "archive_created_this_run": "operations/gw02/20260823T185016Z.json",
-  "archive_markdown_created_this_run": "operations/gw02/20260823T185016Z.md"
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
 }
