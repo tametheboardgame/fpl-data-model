@@ -1,9 +1,9 @@
 # FPL Gameweek 2 Deadline Report
 
 Status: ready
-Generated: 2026-08-23T02:01:47+00:00
+Generated: 2026-08-23T02:15:10+00:00
 UK deadline: 2026-08-28T18:30:00+01:00
-Hours remaining: 135.47
+Hours remaining: 135.247
 Advice level: blocked
 Firm advice allowed: False
 
