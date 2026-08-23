@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.2",
-  "generated_at": "2026-08-23T07:03:35+00:00",
+  "generated_at": "2026-08-23T07:06:57+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-1.9",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-28T17:30:00+00:00",
     "deadline_time_uk": "2026-08-28T18:30:00+01:00",
-    "hours_remaining": 130.44
+    "hours_remaining": 130.384
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -459,7 +459,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-08-22T07:03:53+00:00",
+      "generated_at": "2026-08-23T07:06:14+00:00",
       "required_action": null,
       "error": null
     },
@@ -474,8 +474,8 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-08-23T07:02:21+00:00",
-    "external_context_generated_at": "2026-08-23T07:03:35+00:00",
-    "active_external_signals": 1424,
+    "external_context_generated_at": "2026-08-23T07:06:57+00:00",
+    "active_external_signals": 1536,
     "expired_external_signals": 4448
   },
   "fixture_signature": [
@@ -1200,80 +1200,10 @@
   },
   "advisory_only": true,
   "automatic_fpl_actions": false,
-  "material_changes": [
-    {
-      "type": "starting_xi",
-      "summary": "Starting XI changed",
-      "before": [
-        529,
-        498,
-        200,
-        356,
-        426,
-        13,
-        106,
-        229,
-        445,
-        155,
-        481
-      ],
-      "after": [
-        82,
-        200,
-        469,
-        356,
-        426,
-        427,
-        106,
-        498,
-        445,
-        13,
-        155
-      ]
-    },
-    {
-      "type": "bench",
-      "summary": "Bench order changed",
-      "before": [
-        427,
-        346,
-        249,
-        82
-      ],
-      "after": [
-        346,
-        481,
-        249,
-        529
-      ]
-    },
-    {
-      "type": "captain",
-      "summary": "Captain changed",
-      "before": 498,
-      "after": 426
-    },
-    {
-      "type": "vice_captain",
-      "summary": "Vice-captain changed",
-      "before": 229,
-      "after": 82
-    },
-    {
-      "type": "transfers",
-      "summary": "Transfer recommendation changed",
-      "before": [],
-      "after": [
-        [
-          229,
-          469
-        ]
-      ]
-    }
-  ],
-  "material_change": true,
-  "change_summary": "Starting XI changed Bench order changed Captain changed Vice-captain changed Transfer recommendation changed",
+  "material_changes": [],
+  "material_change": false,
+  "change_summary": "No material change since the previous report.",
   "decision_fingerprint": "3ccb8e671bab369ee53ae96d078bb1e75836a8d0acf23c661bd0fb42b1c7b871",
-  "archive_created_this_run": "operations/gw02/20260823T070335Z.json",
-  "archive_markdown_created_this_run": "operations/gw02/20260823T070335Z.md"
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
 }
