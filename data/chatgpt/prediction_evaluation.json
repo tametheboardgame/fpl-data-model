@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T13:23:16+00:00",
+  "generated_at": "2026-08-23T18:51:09+00:00",
   "evaluated_gameweeks": 1,
   "skipped_unfinalised_gameweeks": 0,
   "finality_requirement": "finished=true and data_checked=true",
@@ -8,13 +8,13 @@
     "model_version": "player-ensemble-1.0",
     "prediction_snapshot": "predictions/gw01/20260821T133423Z.csv",
     "players_evaluated": 600,
-    "mean_absolute_error": 1.456,
-    "quantitative_mean_absolute_error": 1.456,
+    "mean_absolute_error": 1.5039,
+    "quantitative_mean_absolute_error": 1.5039,
     "qualitative_mae_improvement": 0.0,
-    "root_mean_squared_error": 2.362,
-    "mean_bias": 0.3366,
+    "root_mean_squared_error": 2.5574,
+    "mean_bias": -0.0567,
     "average_predicted_points": 1.3716,
-    "average_actual_points": 1.035
+    "average_actual_points": 1.4283
   },
   "history": [
     {
@@ -22,13 +22,13 @@
       "model_version": "player-ensemble-1.0",
       "prediction_snapshot": "predictions/gw01/20260821T133423Z.csv",
       "players_evaluated": 600,
-      "mean_absolute_error": 1.456,
-      "quantitative_mean_absolute_error": 1.456,
+      "mean_absolute_error": 1.5039,
+      "quantitative_mean_absolute_error": 1.5039,
       "qualitative_mae_improvement": 0.0,
-      "root_mean_squared_error": 2.362,
-      "mean_bias": 0.3366,
+      "root_mean_squared_error": 2.5574,
+      "mean_bias": -0.0567,
       "average_predicted_points": 1.3716,
-      "average_actual_points": 1.035
+      "average_actual_points": 1.4283
     }
   ]
 }
