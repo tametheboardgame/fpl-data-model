@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T19:10:32+00:00",
+  "generated_at": "2026-08-23T02:01:47+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -33,13 +33,13 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Development-selected ensemble with player-specific early-season priors, separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
-  "player_feature_rows": 600,
+  "player_feature_rows": 604,
   "team_feature_rows": 20,
-  "fixture_projection_rows": 3600,
-  "player_horizon_rows": 600,
+  "fixture_projection_rows": 3624,
+  "player_horizon_rows": 604,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 7536,
-  "active_external_context_signal_rows": 1792,
+  "active_external_context_signal_rows": 1424,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -467,6 +467,14 @@
       "component_expected_points_next_1": 1.717
     },
     {
+      "player_id": 603,
+      "web_name": "Lienou",
+      "team_name": "Leeds",
+      "position": "Defender",
+      "price": 4.0,
+      "component_expected_points_next_1": 1.622
+    },
+    {
       "player_id": 470,
       "web_name": "Morato",
       "team_name": "Nott'm Forest",
@@ -521,14 +529,6 @@
       "position": "Defender",
       "price": 4.0,
       "component_expected_points_next_1": 1.513
-    },
-    {
-      "player_id": 17,
-      "web_name": "Merino",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 6.0,
-      "component_expected_points_next_1": 1.5
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -653,6 +653,14 @@
       "component_expected_points_next_3": 5.158
     },
     {
+      "player_id": 603,
+      "web_name": "Lienou",
+      "team_name": "Leeds",
+      "position": "Defender",
+      "price": 4.0,
+      "component_expected_points_next_3": 5.148
+    },
+    {
       "player_id": 7,
       "web_name": "Lewis-Skelly",
       "team_name": "Arsenal",
@@ -683,14 +691,6 @@
       "position": "Midfielder",
       "price": 5.0,
       "component_expected_points_next_3": 4.745
-    },
-    {
-      "player_id": 190,
-      "web_name": "Tchaouna",
-      "team_name": "Coventry City",
-      "position": "Midfielder",
-      "price": 5.5,
-      "component_expected_points_next_3": 4.73
     }
   ],
   "prediction_snapshot_created": null,
