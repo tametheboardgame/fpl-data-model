@@ -1,17 +1,33 @@
 {
-  "generated_at": "2026-08-23T13:03:29+00:00",
+  "generated_at": "2026-08-23T18:49:16+00:00",
   "season": "2026/27",
   "current_gameweek": 1,
   "next_gameweek": 2,
-  "total_managers": 9361860,
+  "total_managers": 9420640,
   "team": {
     "team_id": 39395,
     "available": true,
     "team_name": "Let's get Herr Cutts",
-    "overall_points": 19,
-    "overall_rank": 5560406
+    "overall_points": 23,
+    "overall_rank": 8011711
   },
   "top_total_points": [
+    {
+      "player_id": 115,
+      "web_name": "De Cuyper",
+      "team_name": "Brighton",
+      "position": "Defender",
+      "price": 4.5,
+      "total_points": 17
+    },
+    {
+      "player_id": 123,
+      "web_name": "Hinshelwood",
+      "team_name": "Brighton",
+      "position": "Midfielder",
+      "price": 6.0,
+      "total_points": 16
+    },
     {
       "player_id": 586,
       "web_name": "Mendy",
@@ -77,6 +93,14 @@
       "total_points": 11
     },
     {
+      "player_id": 68,
+      "web_name": "Tavernier",
+      "team_name": "Bournemouth",
+      "position": "Midfielder",
+      "price": 6.0,
+      "total_points": 10
+    },
+    {
       "player_id": 86,
       "web_name": "Lewis-Potter",
       "team_name": "Brentford",
@@ -107,33 +131,25 @@
       "position": "Defender",
       "price": 4.5,
       "total_points": 10
-    },
-    {
-      "player_id": 8,
-      "web_name": "Calafiori",
-      "team_name": "Arsenal",
-      "position": "Defender",
-      "price": 5.5,
-      "total_points": 9
-    },
-    {
-      "player_id": 12,
-      "web_name": "Saka",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 9.5,
-      "total_points": 9
-    },
-    {
-      "player_id": 98,
-      "web_name": "Janelt",
-      "team_name": "Brentford",
-      "position": "Midfielder",
-      "price": 5.0,
-      "total_points": 9
     }
   ],
   "top_form": [
+    {
+      "player_id": 115,
+      "web_name": "De Cuyper",
+      "team_name": "Brighton",
+      "position": "Defender",
+      "price": 4.5,
+      "form": "17.0"
+    },
+    {
+      "player_id": 123,
+      "web_name": "Hinshelwood",
+      "team_name": "Brighton",
+      "position": "Midfielder",
+      "price": 6.0,
+      "form": "16.0"
+    },
     {
       "player_id": 586,
       "web_name": "Mendy",
@@ -199,6 +215,14 @@
       "form": "11.0"
     },
     {
+      "player_id": 68,
+      "web_name": "Tavernier",
+      "team_name": "Bournemouth",
+      "position": "Midfielder",
+      "price": 6.0,
+      "form": "10.0"
+    },
+    {
       "player_id": 86,
       "web_name": "Lewis-Potter",
       "team_name": "Brentford",
@@ -229,30 +253,6 @@
       "position": "Defender",
       "price": 4.5,
       "form": "10.0"
-    },
-    {
-      "player_id": 8,
-      "web_name": "Calafiori",
-      "team_name": "Arsenal",
-      "position": "Defender",
-      "price": 5.5,
-      "form": "9.0"
-    },
-    {
-      "player_id": 12,
-      "web_name": "Saka",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 9.5,
-      "form": "9.0"
-    },
-    {
-      "player_id": 98,
-      "web_name": "Janelt",
-      "team_name": "Brentford",
-      "position": "Midfielder",
-      "price": 5.0,
-      "form": "9.0"
     }
   ],
   "most_transferred_in_this_gameweek": [
@@ -262,7 +262,7 @@
       "team_name": "Arsenal",
       "position": "Defender",
       "price": 5.5,
-      "transfers_in_event": 78160
+      "transfers_in_event": 102989
     },
     {
       "player_id": 15,
@@ -270,15 +270,7 @@
       "team_name": "Arsenal",
       "position": "Midfielder",
       "price": 6.5,
-      "transfers_in_event": 55603
-    },
-    {
-      "player_id": 557,
-      "web_name": "Tzolis",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 6.5,
-      "transfers_in_event": 54902
+      "transfers_in_event": 81013
     },
     {
       "player_id": 565,
@@ -286,7 +278,15 @@
       "team_name": "Brentford",
       "position": "Midfielder",
       "price": 5.5,
-      "transfers_in_event": 46516
+      "transfers_in_event": 75279
+    },
+    {
+      "player_id": 557,
+      "web_name": "Tzolis",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.5,
+      "transfers_in_event": 70462
     },
     {
       "player_id": 88,
@@ -294,7 +294,15 @@
       "team_name": "Brentford",
       "position": "Defender",
       "price": 4.5,
-      "transfers_in_event": 39265
+      "transfers_in_event": 69157
+    },
+    {
+      "player_id": 115,
+      "web_name": "De Cuyper",
+      "team_name": "Brighton",
+      "position": "Defender",
+      "price": 4.5,
+      "transfers_in_event": 55143
     },
     {
       "player_id": 26,
@@ -302,31 +310,7 @@
       "team_name": "Arsenal",
       "position": "Forward",
       "price": 7.5,
-      "transfers_in_event": 36237
-    },
-    {
-      "player_id": 10,
-      "web_name": "White",
-      "team_name": "Arsenal",
-      "position": "Defender",
-      "price": 5.5,
-      "transfers_in_event": 24694
-    },
-    {
-      "player_id": 165,
-      "web_name": "João Pedro",
-      "team_name": "Chelsea",
-      "position": "Forward",
-      "price": 7.5,
-      "transfers_in_event": 23570
-    },
-    {
-      "player_id": 586,
-      "web_name": "Mendy",
-      "team_name": "Hull City",
-      "position": "Defender",
-      "price": 4.0,
-      "transfers_in_event": 23520
+      "transfers_in_event": 52849
     },
     {
       "player_id": 236,
@@ -334,7 +318,7 @@
       "team_name": "Everton",
       "position": "Midfielder",
       "price": 6.5,
-      "transfers_in_event": 22310
+      "transfers_in_event": 38490
     },
     {
       "player_id": 368,
@@ -342,7 +326,47 @@
       "team_name": "Liverpool",
       "position": "Midfielder",
       "price": 7.0,
-      "transfers_in_event": 19986
+      "transfers_in_event": 37130
+    },
+    {
+      "player_id": 165,
+      "web_name": "João Pedro",
+      "team_name": "Chelsea",
+      "position": "Forward",
+      "price": 7.5,
+      "transfers_in_event": 35565
+    },
+    {
+      "player_id": 391,
+      "web_name": "Gvardiol",
+      "team_name": "Man City",
+      "position": "Defender",
+      "price": 5.5,
+      "transfers_in_event": 35063
+    },
+    {
+      "player_id": 10,
+      "web_name": "White",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.5,
+      "transfers_in_event": 34043
+    },
+    {
+      "player_id": 399,
+      "web_name": "Cherki",
+      "team_name": "Man City",
+      "position": "Midfielder",
+      "price": 7.5,
+      "transfers_in_event": 31487
+    },
+    {
+      "player_id": 586,
+      "web_name": "Mendy",
+      "team_name": "Hull City",
+      "position": "Defender",
+      "price": 4.0,
+      "transfers_in_event": 31135
     },
     {
       "player_id": 237,
@@ -350,31 +374,7 @@
       "team_name": "Everton",
       "position": "Midfielder",
       "price": 6.0,
-      "transfers_in_event": 19556
-    },
-    {
-      "player_id": 32,
-      "web_name": "Cash",
-      "team_name": "Aston Villa",
-      "position": "Defender",
-      "price": 4.5,
-      "transfers_in_event": 18021
-    },
-    {
-      "player_id": 112,
-      "web_name": "Van Hecke",
-      "team_name": "Spurs",
-      "position": "Defender",
-      "price": 5.0,
-      "transfers_in_event": 17077
-    },
-    {
-      "player_id": 279,
-      "web_name": "Ajayi",
-      "team_name": "Hull City",
-      "position": "Defender",
-      "price": 4.0,
-      "transfers_in_event": 15780
+      "transfers_in_event": 28720
     }
   ]
 }
