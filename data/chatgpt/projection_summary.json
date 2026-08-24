@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T13:38:58+00:00",
+  "generated_at": "2026-08-24T19:02:29+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -167,14 +167,6 @@
       "expected_points_next_1": 4.155
     },
     {
-      "player_id": 480,
-      "web_name": "Gibbs-White",
-      "team_name": "Nott'm Forest",
-      "position": "Midfielder",
-      "price": 8.0,
-      "expected_points_next_1": 4.066
-    },
-    {
       "player_id": 200,
       "web_name": "Lacroix",
       "team_name": "Chelsea",
@@ -205,6 +197,14 @@
       "position": "Forward",
       "price": 8.0,
       "expected_points_next_1": 3.994
+    },
+    {
+      "player_id": 467,
+      "web_name": "Sels",
+      "team_name": "Nott'm Forest",
+      "position": "Goalkeeper",
+      "price": 5.0,
+      "expected_points_next_1": 3.911
     }
   ],
   "top_next_three_gameweeks": [
@@ -353,20 +353,20 @@
       "expected_points_next_3": 11.511
     },
     {
-      "player_id": 480,
-      "web_name": "Gibbs-White",
-      "team_name": "Nott'm Forest",
-      "position": "Midfielder",
-      "price": 8.0,
-      "expected_points_next_3": 11.448
-    },
-    {
       "player_id": 304,
       "web_name": "O'Shea",
       "team_name": "Ipswich Town",
       "position": "Defender",
       "price": 4.0,
       "expected_points_next_3": 11.433
+    },
+    {
+      "player_id": 13,
+      "web_name": "Rice",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 7.5,
+      "expected_points_next_3": 11.352
     }
   ],
   "component_top_next_gameweek": [
