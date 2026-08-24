@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.2",
-  "generated_at": "2026-08-24T07:31:06+00:00",
+  "generated_at": "2026-08-24T07:33:26+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-1.9",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-28T17:30:00+00:00",
     "deadline_time_uk": "2026-08-28T18:30:00+01:00",
-    "hours_remaining": 105.982
+    "hours_remaining": 105.943
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -475,7 +475,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-08-23T18:51:39+00:00",
+      "generated_at": "2026-08-24T07:32:40+00:00",
       "required_action": null,
       "error": null
     },
@@ -490,8 +490,8 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-08-24T07:29:55+00:00",
-    "external_context_generated_at": "2026-08-24T07:31:06+00:00",
-    "active_external_signals": 752,
+    "external_context_generated_at": "2026-08-24T07:33:26+00:00",
+    "active_external_signals": 920,
     "expired_external_signals": 6712
   },
   "fixture_signature": [
@@ -1216,73 +1216,10 @@
   },
   "advisory_only": true,
   "automatic_fpl_actions": false,
-  "material_changes": [
-    {
-      "type": "starting_xi",
-      "summary": "Starting XI changed",
-      "before": [
-        82,
-        200,
-        469,
-        356,
-        426,
-        427,
-        106,
-        498,
-        445,
-        13,
-        155
-      ],
-      "after": [
-        82,
-        388,
-        356,
-        229,
-        426,
-        427,
-        106,
-        498,
-        13,
-        155,
-        346
-      ]
-    },
-    {
-      "type": "bench",
-      "summary": "Bench order changed",
-      "before": [
-        346,
-        249,
-        481,
-        529
-      ],
-      "after": [
-        481,
-        249,
-        445,
-        529
-      ]
-    },
-    {
-      "type": "transfers",
-      "summary": "Transfer recommendation changed",
-      "before": [
-        [
-          229,
-          469
-        ]
-      ],
-      "after": [
-        [
-          200,
-          388
-        ]
-      ]
-    }
-  ],
-  "material_change": true,
-  "change_summary": "Starting XI changed Bench order changed Transfer recommendation changed",
+  "material_changes": [],
+  "material_change": false,
+  "change_summary": "No material change since the previous report.",
   "decision_fingerprint": "3167c1ab2ba7c963284a720a9356f26e25b48c4652282fd6d1c704467e5ebada",
-  "archive_created_this_run": "operations/gw02/20260824T073106Z.json",
-  "archive_markdown_created_this_run": "operations/gw02/20260824T073106Z.md"
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
 }

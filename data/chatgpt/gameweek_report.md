@@ -1,9 +1,9 @@
 # FPL Gameweek 2 Deadline Report
 
 Status: ready
-Generated: 2026-08-24T07:31:06+00:00
+Generated: 2026-08-24T07:33:26+00:00
 UK deadline: 2026-08-28T18:30:00+01:00
-Hours remaining: 105.982
+Hours remaining: 105.943
 Advice level: blocked
 Firm advice allowed: False
 
@@ -40,9 +40,7 @@ Vice-captain: Kelleher
 
 ## Changes since previous report
 
-- Starting XI changed
-- Bench order changed
-- Transfer recommendation changed
+- No material changes
 
 ## Warnings
 
