@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T19:02:29+00:00",
+  "generated_at": "2026-08-24T19:05:14+00:00",
   "decision_version": "fpl-decisions-1.9",
   "model_version": "player-ensemble-1.0",
   "status": "ready",
@@ -41,22 +41,22 @@
       "model_expected_points": 4.39,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.39,
-      "external_upside_score": 0.2169,
+      "external_upside_score": 0.2687,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
-        "team score probability 74%",
+        "team score probability 73%",
         "clean sheet probability 25%",
-        "match win probability 35%",
-        "bookmaker-derived team expected goals 1.33"
+        "match win probability 34%",
+        "bookmaker-derived team expected goals 1.32"
       ]
     },
     {
@@ -74,13 +74,13 @@
       "model_expected_points": 4.036,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.036,
-      "external_upside_score": 0.2466,
+      "external_upside_score": 0.3082,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -88,8 +88,8 @@
       "context_reasons": [
         "team score probability 81%",
         "clean sheet probability 30%",
-        "match win probability 47%",
-        "bookmaker-derived team expected goals 1.65"
+        "match win probability 48%",
+        "bookmaker-derived team expected goals 1.66"
       ]
     },
     {
@@ -107,20 +107,20 @@
       "model_expected_points": 3.645,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.645,
-      "external_upside_score": 0.1958,
+      "external_upside_score": 0.2448,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T131746Z",
-        "odds-api-team_score_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T131746Z",
-        "odds-api-clean_sheet_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T131746Z",
-        "odds-api-team_expected_goals-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T131746Z"
+        "odds-api-match_win_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T190428Z",
+        "odds-api-team_score_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T190428Z",
+        "odds-api-clean_sheet_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T190428Z",
+        "odds-api-team_expected_goals-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
         "team score probability 69%",
-        "clean sheet probability 20%",
+        "clean sheet probability 21%",
         "match win probability 27%",
         "bookmaker-derived team expected goals 1.17"
       ]
@@ -140,13 +140,13 @@
       "model_expected_points": 3.645,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.645,
-      "external_upside_score": 0.283,
+      "external_upside_score": 0.353,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z",
-        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z",
-        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z",
-        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z"
+        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z",
+        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z",
+        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z",
+        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -173,13 +173,13 @@
       "model_expected_points": 4.824,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.824,
-      "external_upside_score": 0.2908,
+      "external_upside_score": 0.3626,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z"
+        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -206,13 +206,13 @@
       "model_expected_points": 4.26,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.26,
-      "external_upside_score": 0.2908,
+      "external_upside_score": 0.3626,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z"
+        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -239,22 +239,22 @@
       "model_expected_points": 3.994,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.994,
-      "external_upside_score": 0.2169,
+      "external_upside_score": 0.2687,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
-        "team score probability 74%",
+        "team score probability 73%",
         "clean sheet probability 25%",
-        "match win probability 35%",
-        "bookmaker-derived team expected goals 1.33"
+        "match win probability 34%",
+        "bookmaker-derived team expected goals 1.32"
       ]
     },
     {
@@ -272,13 +272,13 @@
       "model_expected_points": 4.025,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.025,
-      "external_upside_score": 0.2824,
+      "external_upside_score": 0.3522,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T131746Z",
-        "odds-api-team_score_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T131746Z",
-        "odds-api-clean_sheet_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T131746Z",
-        "odds-api-team_expected_goals-2c49e9d1ef855f62962b915e773f906d-1-20260824T131746Z"
+        "odds-api-match_win_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T190428Z",
+        "odds-api-team_score_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T190428Z",
+        "odds-api-clean_sheet_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T190428Z",
+        "odds-api-team_expected_goals-2c49e9d1ef855f62962b915e773f906d-1-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -305,22 +305,22 @@
       "model_expected_points": 3.313,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.313,
-      "external_upside_score": 0.2233,
+      "external_upside_score": 0.28,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-13-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-13-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
         "team score probability 75%",
-        "clean sheet probability 26%",
-        "match win probability 37%",
-        "bookmaker-derived team expected goals 1.38"
+        "clean sheet probability 27%",
+        "match win probability 38%",
+        "bookmaker-derived team expected goals 1.39"
       ]
     },
     {
@@ -338,13 +338,13 @@
       "model_expected_points": 3.115,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.115,
-      "external_upside_score": 0.2466,
+      "external_upside_score": 0.3082,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -352,8 +352,8 @@
       "context_reasons": [
         "team score probability 81%",
         "clean sheet probability 30%",
-        "match win probability 47%",
-        "bookmaker-derived team expected goals 1.65"
+        "match win probability 48%",
+        "bookmaker-derived team expected goals 1.66"
       ]
     },
     {
@@ -371,22 +371,22 @@
       "model_expected_points": 2.815,
       "context_multiplier": 1.0,
       "decision_expected_points": 2.815,
-      "external_upside_score": 0.2716,
+      "external_upside_score": 0.337,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z"
+        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
         "team score probability 86%",
-        "clean sheet probability 36%",
-        "match win probability 59%",
-        "bookmaker-derived team expected goals 1.97"
+        "clean sheet probability 35%",
+        "match win probability 58%",
+        "bookmaker-derived team expected goals 1.95"
       ]
     }
   ],
@@ -406,20 +406,20 @@
       "model_expected_points": 2.762,
       "context_multiplier": 1.0,
       "decision_expected_points": 2.762,
-      "external_upside_score": 0.1958,
+      "external_upside_score": 0.2448,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T131746Z",
-        "odds-api-team_score_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T131746Z",
-        "odds-api-clean_sheet_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T131746Z",
-        "odds-api-team_expected_goals-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T131746Z"
+        "odds-api-match_win_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T190428Z",
+        "odds-api-team_score_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T190428Z",
+        "odds-api-clean_sheet_probability-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T190428Z",
+        "odds-api-team_expected_goals-ff4818bd73fa63c0a1e4c98e50c7a2e5-9-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
         "team score probability 69%",
-        "clean sheet probability 20%",
+        "clean sheet probability 21%",
         "match win probability 27%",
         "bookmaker-derived team expected goals 1.17"
       ]
@@ -439,13 +439,13 @@
       "model_expected_points": 2.745,
       "context_multiplier": 1.0,
       "decision_expected_points": 2.745,
-      "external_upside_score": 0.2062,
+      "external_upside_score": 0.2587,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-7a8746a45dc76378359a7d9cc5474bc8-17-20260824T131746Z",
-        "odds-api-team_score_probability-7a8746a45dc76378359a7d9cc5474bc8-17-20260824T131746Z",
-        "odds-api-clean_sheet_probability-7a8746a45dc76378359a7d9cc5474bc8-17-20260824T131746Z",
-        "odds-api-team_expected_goals-7a8746a45dc76378359a7d9cc5474bc8-17-20260824T131746Z"
+        "odds-api-match_win_probability-7a8746a45dc76378359a7d9cc5474bc8-17-20260824T190428Z",
+        "odds-api-team_score_probability-7a8746a45dc76378359a7d9cc5474bc8-17-20260824T190428Z",
+        "odds-api-clean_sheet_probability-7a8746a45dc76378359a7d9cc5474bc8-17-20260824T190428Z",
+        "odds-api-team_expected_goals-7a8746a45dc76378359a7d9cc5474bc8-17-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -454,7 +454,7 @@
         "team score probability 74%",
         "clean sheet probability 20%",
         "match win probability 31%",
-        "bookmaker-derived team expected goals 1.33"
+        "bookmaker-derived team expected goals 1.35"
       ]
     },
     {
@@ -472,13 +472,13 @@
       "model_expected_points": 2.718,
       "context_multiplier": 1.0,
       "decision_expected_points": 2.718,
-      "external_upside_score": 0.2366,
+      "external_upside_score": 0.2935,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-7a8746a45dc76378359a7d9cc5474bc8-19-20260824T131746Z",
-        "odds-api-team_score_probability-7a8746a45dc76378359a7d9cc5474bc8-19-20260824T131746Z",
-        "odds-api-clean_sheet_probability-7a8746a45dc76378359a7d9cc5474bc8-19-20260824T131746Z",
-        "odds-api-team_expected_goals-7a8746a45dc76378359a7d9cc5474bc8-19-20260824T131746Z"
+        "odds-api-match_win_probability-7a8746a45dc76378359a7d9cc5474bc8-19-20260824T190428Z",
+        "odds-api-team_score_probability-7a8746a45dc76378359a7d9cc5474bc8-19-20260824T190428Z",
+        "odds-api-clean_sheet_probability-7a8746a45dc76378359a7d9cc5474bc8-19-20260824T190428Z",
+        "odds-api-team_expected_goals-7a8746a45dc76378359a7d9cc5474bc8-19-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -487,7 +487,7 @@
         "team score probability 80%",
         "clean sheet probability 26%",
         "match win probability 43%",
-        "bookmaker-derived team expected goals 1.62"
+        "bookmaker-derived team expected goals 1.61"
       ]
     },
     {
@@ -505,13 +505,13 @@
       "model_expected_points": 2.802,
       "context_multiplier": 1.0,
       "decision_expected_points": 2.802,
-      "external_upside_score": 0.2222,
+      "external_upside_score": 0.277,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-9becb395ad634de55caec620f9d713fa-20-20260824T131746Z",
-        "odds-api-team_score_probability-9becb395ad634de55caec620f9d713fa-20-20260824T131746Z",
-        "odds-api-clean_sheet_probability-9becb395ad634de55caec620f9d713fa-20-20260824T131746Z",
-        "odds-api-team_expected_goals-9becb395ad634de55caec620f9d713fa-20-20260824T131746Z"
+        "odds-api-match_win_probability-9becb395ad634de55caec620f9d713fa-20-20260824T190428Z",
+        "odds-api-team_score_probability-9becb395ad634de55caec620f9d713fa-20-20260824T190428Z",
+        "odds-api-clean_sheet_probability-9becb395ad634de55caec620f9d713fa-20-20260824T190428Z",
+        "odds-api-team_expected_goals-9becb395ad634de55caec620f9d713fa-20-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -540,13 +540,13 @@
       "model_expected_points": 4.824,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.824,
-      "external_upside_score": 0.2908,
+      "external_upside_score": 0.3626,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z"
+        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -573,22 +573,22 @@
       "model_expected_points": 4.39,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.39,
-      "external_upside_score": 0.2169,
+      "external_upside_score": 0.2687,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
-        "team score probability 74%",
+        "team score probability 73%",
         "clean sheet probability 25%",
-        "match win probability 35%",
-        "bookmaker-derived team expected goals 1.33"
+        "match win probability 34%",
+        "bookmaker-derived team expected goals 1.32"
       ]
     },
     "alternatives": [
@@ -607,13 +607,13 @@
         "model_expected_points": 4.824,
         "context_multiplier": 1.0,
         "decision_expected_points": 4.824,
-        "external_upside_score": 0.2908,
+        "external_upside_score": 0.3626,
         "context_signal_count": 4,
         "context_signal_ids": [
-          "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-          "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-          "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-          "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z"
+          "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+          "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+          "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+          "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z"
         ],
         "context_source_ids": [
           "odds_api_market"
@@ -640,22 +640,22 @@
         "model_expected_points": 4.39,
         "context_multiplier": 1.0,
         "decision_expected_points": 4.39,
-        "external_upside_score": 0.2169,
+        "external_upside_score": 0.2687,
         "context_signal_count": 4,
         "context_signal_ids": [
-          "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-          "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-          "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-          "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+          "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+          "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+          "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+          "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
         ],
         "context_source_ids": [
           "odds_api_market"
         ],
         "context_reasons": [
-          "team score probability 74%",
+          "team score probability 73%",
           "clean sheet probability 25%",
-          "match win probability 35%",
-          "bookmaker-derived team expected goals 1.33"
+          "match win probability 34%",
+          "bookmaker-derived team expected goals 1.32"
         ]
       },
       {
@@ -673,13 +673,13 @@
         "model_expected_points": 4.26,
         "context_multiplier": 1.0,
         "decision_expected_points": 4.26,
-        "external_upside_score": 0.2908,
+        "external_upside_score": 0.3626,
         "context_signal_count": 4,
         "context_signal_ids": [
-          "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-          "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-          "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z",
-          "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T131746Z"
+          "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+          "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+          "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z",
+          "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-16-20260824T190428Z"
         ],
         "context_source_ids": [
           "odds_api_market"
@@ -706,13 +706,13 @@
         "model_expected_points": 4.036,
         "context_multiplier": 1.0,
         "decision_expected_points": 4.036,
-        "external_upside_score": 0.2466,
+        "external_upside_score": 0.3082,
         "context_signal_count": 4,
         "context_signal_ids": [
-          "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z",
-          "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z",
-          "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z",
-          "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T131746Z"
+          "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z",
+          "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z",
+          "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z",
+          "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-6-20260824T190428Z"
         ],
         "context_source_ids": [
           "odds_api_market"
@@ -720,8 +720,8 @@
         "context_reasons": [
           "team score probability 81%",
           "clean sheet probability 30%",
-          "match win probability 47%",
-          "bookmaker-derived team expected goals 1.65"
+          "match win probability 48%",
+          "bookmaker-derived team expected goals 1.66"
         ]
       },
       {
@@ -739,13 +739,13 @@
         "model_expected_points": 4.025,
         "context_multiplier": 1.0,
         "decision_expected_points": 4.025,
-        "external_upside_score": 0.2824,
+        "external_upside_score": 0.3522,
         "context_signal_count": 4,
         "context_signal_ids": [
-          "odds-api-match_win_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T131746Z",
-          "odds-api-team_score_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T131746Z",
-          "odds-api-clean_sheet_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T131746Z",
-          "odds-api-team_expected_goals-2c49e9d1ef855f62962b915e773f906d-1-20260824T131746Z"
+          "odds-api-match_win_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T190428Z",
+          "odds-api-team_score_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T190428Z",
+          "odds-api-clean_sheet_probability-2c49e9d1ef855f62962b915e773f906d-1-20260824T190428Z",
+          "odds-api-team_expected_goals-2c49e9d1ef855f62962b915e773f906d-1-20260824T190428Z"
         ],
         "context_source_ids": [
           "odds_api_market"
@@ -781,10 +781,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.0,
       "context_signal_ids": [
-        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z"
+        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z"
       ]
     },
     {
@@ -807,10 +807,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.0,
       "context_signal_ids": [
-        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z"
+        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z"
       ]
     },
     {
@@ -833,10 +833,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.0,
       "context_signal_ids": [
-        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z"
+        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z"
       ]
     },
     {
@@ -859,10 +859,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z"
       ]
     },
     {
@@ -885,10 +885,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z",
-        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T131746Z"
+        "odds-api-match_win_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_score_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-clean_sheet_probability-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z",
+        "odds-api-team_expected_goals-373cc6e2fb57f471cd2deab9a28a6edb-15-20260824T190428Z"
       ]
     },
     {
@@ -911,10 +911,10 @@
       "free_transfers_before": 1,
       "money_remaining": 1.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ]
     },
     {
@@ -937,10 +937,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ]
     },
     {
@@ -963,10 +963,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ]
     },
     {
@@ -989,10 +989,10 @@
       "free_transfers_before": 1,
       "money_remaining": 1.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ]
     },
     {
@@ -1015,10 +1015,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.0,
       "context_signal_ids": [
-        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z",
-        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z",
-        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z",
-        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z"
+        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z",
+        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z",
+        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z",
+        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z"
       ]
     },
     {
@@ -1041,10 +1041,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ]
     },
     {
@@ -1067,10 +1067,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ]
     },
     {
@@ -1093,10 +1093,10 @@
       "free_transfers_before": 1,
       "money_remaining": 1.0,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z"
       ]
     },
     {
@@ -1119,10 +1119,10 @@
       "free_transfers_before": 1,
       "money_remaining": 1.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ]
     },
     {
@@ -1145,10 +1145,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.0,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z"
       ]
     },
     {
@@ -1171,10 +1171,10 @@
       "free_transfers_before": 1,
       "money_remaining": 1.0,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ]
     },
     {
@@ -1197,10 +1197,10 @@
       "free_transfers_before": 1,
       "money_remaining": 1.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z"
       ]
     },
     {
@@ -1223,10 +1223,10 @@
       "free_transfers_before": 1,
       "money_remaining": 1.0,
       "context_signal_ids": [
-        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z"
+        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z"
       ]
     },
     {
@@ -1249,10 +1249,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ]
     },
     {
@@ -1275,10 +1275,10 @@
       "free_transfers_before": 1,
       "money_remaining": 0.5,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z"
       ]
     }
   ],
@@ -6756,13 +6756,13 @@
       "model_expected_points": 4.67,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.67,
-      "external_upside_score": 0.1517,
+      "external_upside_score": 0.1892,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z",
-        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z",
-        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z",
-        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z"
+        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z",
+        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z",
+        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z",
+        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -6789,13 +6789,13 @@
       "model_expected_points": 4.518,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.518,
-      "external_upside_score": 0.1602,
+      "external_upside_score": 0.1998,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z"
+        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -6822,22 +6822,22 @@
       "model_expected_points": 4.389,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.389,
-      "external_upside_score": 0.2169,
+      "external_upside_score": 0.2687,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
-        "team score probability 74%",
+        "team score probability 73%",
         "clean sheet probability 25%",
-        "match win probability 35%",
-        "bookmaker-derived team expected goals 1.33"
+        "match win probability 34%",
+        "bookmaker-derived team expected goals 1.32"
       ]
     },
     {
@@ -6855,13 +6855,13 @@
       "model_expected_points": 4.292,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.292,
-      "external_upside_score": 0.1602,
+      "external_upside_score": 0.1998,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z"
+        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -6888,22 +6888,22 @@
       "model_expected_points": 4.187,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.187,
-      "external_upside_score": 0.2169,
+      "external_upside_score": 0.2687,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
-        "team score probability 74%",
+        "team score probability 73%",
         "clean sheet probability 25%",
-        "match win probability 35%",
-        "bookmaker-derived team expected goals 1.33"
+        "match win probability 34%",
+        "bookmaker-derived team expected goals 1.32"
       ]
     },
     {
@@ -6921,13 +6921,13 @@
       "model_expected_points": 4.002,
       "context_multiplier": 1.0,
       "decision_expected_points": 4.002,
-      "external_upside_score": 0.1952,
+      "external_upside_score": 0.2426,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -6936,7 +6936,7 @@
         "team score probability 70%",
         "clean sheet probability 19%",
         "match win probability 27%",
-        "bookmaker-derived team expected goals 1.20"
+        "bookmaker-derived team expected goals 1.19"
       ]
     },
     {
@@ -6954,13 +6954,13 @@
       "model_expected_points": 3.911,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.911,
-      "external_upside_score": 0.1602,
+      "external_upside_score": 0.1998,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z"
+        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -6987,13 +6987,13 @@
       "model_expected_points": 3.893,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.893,
-      "external_upside_score": 0.1952,
+      "external_upside_score": 0.2426,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -7002,7 +7002,7 @@
         "team score probability 70%",
         "clean sheet probability 19%",
         "match win probability 27%",
-        "bookmaker-derived team expected goals 1.20"
+        "bookmaker-derived team expected goals 1.19"
       ]
     },
     {
@@ -7020,13 +7020,13 @@
       "model_expected_points": 3.808,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.808,
-      "external_upside_score": 0.1602,
+      "external_upside_score": 0.1998,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z",
-        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T131746Z"
+        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z",
+        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-18-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -7053,13 +7053,13 @@
       "model_expected_points": 3.722,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.722,
-      "external_upside_score": 0.1952,
+      "external_upside_score": 0.2426,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z",
-        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T131746Z"
+        "odds-api-match_win_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_score_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-clean_sheet_probability-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z",
+        "odds-api-team_expected_goals-6a4c946a61ddb5ef4703eb4528ccdef1-5-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -7068,7 +7068,7 @@
         "team score probability 70%",
         "clean sheet probability 19%",
         "match win probability 27%",
-        "bookmaker-derived team expected goals 1.20"
+        "bookmaker-derived team expected goals 1.19"
       ]
     },
     {
@@ -7086,22 +7086,22 @@
       "model_expected_points": 3.675,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.675,
-      "external_upside_score": 0.2233,
+      "external_upside_score": 0.28,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-13-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-13-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-13-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
         "team score probability 75%",
-        "clean sheet probability 26%",
-        "match win probability 37%",
-        "bookmaker-derived team expected goals 1.38"
+        "clean sheet probability 27%",
+        "match win probability 38%",
+        "bookmaker-derived team expected goals 1.39"
       ]
     },
     {
@@ -7119,13 +7119,13 @@
       "model_expected_points": 3.61,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.61,
-      "external_upside_score": 0.1517,
+      "external_upside_score": 0.1892,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z",
-        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z",
-        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z",
-        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z"
+        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z",
+        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z",
+        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z",
+        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -7152,13 +7152,13 @@
       "model_expected_points": 3.591,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.591,
-      "external_upside_score": 0.1517,
+      "external_upside_score": 0.1892,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z",
-        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z",
-        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z",
-        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-12-20260824T131746Z"
+        "odds-api-match_win_probability-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z",
+        "odds-api-team_score_probability-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z",
+        "odds-api-clean_sheet_probability-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z",
+        "odds-api-team_expected_goals-5759167055d94ba38e145ab92188abbf-12-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -7185,13 +7185,13 @@
       "model_expected_points": 3.566,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.566,
-      "external_upside_score": 0.283,
+      "external_upside_score": 0.353,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z",
-        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z",
-        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z",
-        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-14-20260824T131746Z"
+        "odds-api-match_win_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z",
+        "odds-api-team_score_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z",
+        "odds-api-clean_sheet_probability-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z",
+        "odds-api-team_expected_goals-feafb731d0307bc91a58e18187aa2eab-14-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
@@ -7218,22 +7218,22 @@
       "model_expected_points": 3.562,
       "context_multiplier": 1.0,
       "decision_expected_points": 3.562,
-      "external_upside_score": 0.2169,
+      "external_upside_score": 0.2687,
       "context_signal_count": 4,
       "context_signal_ids": [
-        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z",
-        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T131746Z"
+        "odds-api-match_win_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_score_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-clean_sheet_probability-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z",
+        "odds-api-team_expected_goals-e479c08421b8549c6959c2b84f6f3f79-4-20260824T190428Z"
       ],
       "context_source_ids": [
         "odds_api_market"
       ],
       "context_reasons": [
-        "team score probability 74%",
+        "team score probability 73%",
         "clean sheet probability 25%",
-        "match win probability 35%",
-        "bookmaker-derived team expected goals 1.33"
+        "match win probability 34%",
+        "bookmaker-derived team expected goals 1.32"
       ]
     }
   ],
