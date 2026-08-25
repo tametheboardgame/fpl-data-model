@@ -1,1 +1,104 @@
-{}
+{
+  "launch_validation_version": "fpl-launch-validation-1.0",
+  "status": "passed",
+  "usable_for_selection": true,
+  "checks": {
+    "canonical_player_mapping": {
+      "passed": true,
+      "observed": 0,
+      "expected": 0
+    },
+    "expected_points_scale": {
+      "passed": true,
+      "observed": {
+        "top_overall": 5.547,
+        "top_attacker": 5.547,
+        "top_defender": 4.684
+      },
+      "expected": {
+        "top_overall_minimum": 4,
+        "top_attacker_minimum": 4
+      }
+    },
+    "premium_attacker_scale": {
+      "passed": true,
+      "observed": {
+        "top_premium_attacker": 5.547,
+        "top_defender": 4.684,
+        "ratio": 1.184
+      },
+      "expected": {
+        "minimum_points": 3.5,
+        "minimum_defender_ratio": 0.85
+      }
+    },
+    "previous_season_evidence": {
+      "passed": true,
+      "observed": {
+        "players": 439,
+        "coverage": 0.732
+      },
+      "expected": {
+        "minimum_players": 100,
+        "minimum_coverage": 0.25
+      }
+    },
+    "historical_baseline_ordering": {
+      "passed": true,
+      "observed": {
+        "established_players": 286,
+        "low_quartile_projection": 2.101,
+        "high_quartile_projection": 2.519
+      },
+      "expected": {
+        "minimum_quartile_gap": 0.25
+      }
+    },
+    "strategy_contracts": {
+      "passed": true,
+      "observed": {
+        "strategies": 3,
+        "failed": []
+      },
+      "expected": {
+        "strategies": 3,
+        "failed": []
+      }
+    },
+    "captaincy_sanity": {
+      "passed": true,
+      "observed": {
+        "captain": "B.Fernandes",
+        "captain_expected_points": 5.422,
+        "starting_xi_maximum": 5.422
+      },
+      "expected": {
+        "captain_is_xi_maximum": true,
+        "minimum_expected_points": 4
+      }
+    },
+    "six_gameweek_route": {
+      "passed": true,
+      "observed": {
+        "status": "ready",
+        "horizon_gameweeks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "recommended_route": true
+      },
+      "expected": {
+        "status": "ready",
+        "minimum_gameweeks": 3,
+        "recommended_route": true
+      }
+    }
+  },
+  "issues": [],
+  "high_severity_issue_count": 0,
+  "principle": "A launch squad cannot be marked ready while any high-severity mapping, projection, squad, route or captaincy check is unresolved."
+}

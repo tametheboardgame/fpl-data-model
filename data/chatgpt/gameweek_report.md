@@ -1,70 +1,60 @@
-# FPL Gameweek 2 Deadline Report
+# FPL Gameweek 1 Deadline Report
 
-Status: ready
-Generated: 2026-08-25T10:16:45+00:00
-UK deadline: 2026-08-28T18:30:00+01:00
-Hours remaining: 79.221
-Advice level: provisional
+Status: review_required
+Generated: 2026-08-21T13:34:23+00:00
+UK deadline: 2026-08-21T18:30:00+01:00
+Hours remaining: 3.927
+Advice level: blocked
 Firm advice allowed: False
 
 ## Recommended action
 
-Transfers: Roll or hold the transfer
-Recommendation source: registered_team
+Action: Review and select the proposed initial squad
+Recommendation source: initial_squad_plan
 Hit cost: 0 points
-Chip: Wildcard
+Chip: Hold
 
 ## Starting XI
 
-- Kelleher (Brentford, 3.355 xPts)
-- Virgil (Liverpool, 3.846 xPts)
-- Senesi (Spurs, 3.45 xPts)
-- Lacroix (Chelsea, 3.45 xPts)
-- B.Fernandes (Man Utd, 4.803 xPts)
-- Mbeumo (Man Utd, 4.455 xPts)
-- Calvert-Lewin (Leeds, 3.302 xPts)
-- Tarkowski (Everton, 3.18 xPts)
-- Thiago (Brentford, 3.087 xPts)
-- Rice (Arsenal, 3.075 xPts)
-- Thiaw (Newcastle, 2.779 xPts)
+- B.Fernandes (Man Utd, 5.422 xPts)
+- Senesi (Spurs, 4.684 xPts)
+- Tarkowski (Everton, 4.642 xPts)
+- Thiago (Brentford, 4.513 xPts)
+- Rice (Arsenal, 4.438 xPts)
+- Virgil (Liverpool, 4.424 xPts)
+- Anderson (Man City, 4.37 xPts)
+- Lacroix (Chelsea, 4.28 xPts)
+- Enzo (Chelsea, 4.19 xPts)
+- Roefs (Sunderland, 4.124 xPts)
+- João Pedro (Chelsea, 4.101 xPts)
 
 Captain: B.Fernandes
-Vice-captain: Mbeumo
+Vice-captain: Senesi
 
 ## Bench order
 
-1. Barry (2.474 xPts)
-2. Anderson (2.346 xPts)
-3. Enzo (2.165 xPts)
-4. Roefs (2.861 xPts)
+1. E.Le Fée (3.869 xPts)
+2. Thiaw (3.812 xPts)
+3. Calvert-Lewin (3.743 xPts)
+4. Kelleher (4.008 xPts)
 
 ## Changes since previous report
 
-- Starting XI changed
-- Bench order changed
-- Vice-captain changed
-- Transfer recommendation changed
-- Chip recommendation changed
-- Fixture information changed
-- Data-quality warning state changed
-- Deadline advice stage changed
-- Starting XI correlation exposure changed
+- No material changes
 
 ## Warnings
 
-- [MEDIUM] Anderson has an availability flag (75% chance): Knock - 75% chance of playing.
-- [LOW] The starting XI contains negatively correlated opposing players: Kelleher / Calvert-Lewin. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 7496 external-context signals have expired and are excluded.
+- [HIGH] The final pre-deadline recommendation snapshot is missing; firm advice is blocked.
 
 ## Manual late-news check
 
-Status: not_due
+Status: required_before_action
 API-Football is plan-blocked, so check official club news and trusted predicted line-ups before applying the recommendation.
 
 ## Deadline snapshot
 
-Freeze status: waiting_for_freeze_window
+Freeze status: snapshot_missing
 Immutable snapshot: Not yet available
 
 This report is advisory only. No transfers, chips or team changes are made automatically.
