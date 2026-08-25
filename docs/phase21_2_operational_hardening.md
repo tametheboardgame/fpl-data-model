@@ -7,6 +7,7 @@ Phase 21.2 closes the remaining gap between the normal six-hour production cycle
 `.github/workflows/deadline-fpl-refresh.yml` assesses the next official FPL deadline hourly. It dispatches the existing `Update FPL data` workflow once in each of these windows:
 
 - between 24 and 23 hours before the deadline;
+- between eight and seven hours before the deadline, so the immutable freeze snapshot can be created;
 - between four and three hours before the deadline;
 - during the final hour before the deadline.
 
@@ -17,7 +18,7 @@ The dispatched workflow retains the established sequence: collect official data,
 The operational report now exposes `operational_readiness` with:
 
 - `advice_level`: provisional, firm, final or blocked;
-- `firm_advice_allowed`: true only inside the final 24 hours when launch validation has passed and no high-severity operational issue exists;
+- `firm_advice_allowed`: true only inside the final 24 hours when the applicable weekly validation has passed and no high-severity operational issue exists;
 - `blocking_reasons`: machine-readable reasons the operator must not issue firm advice;
 - a mandatory late team-news review flag before any manual FPL action.
 
@@ -25,7 +26,9 @@ Inside the final four hours, official FPL data may be no more than two hours old
 
 ## Transfer stability
 
-The six-Gameweek route now includes a 0.75-point decision-friction cost for each planned transfer and a further 1.5-point penalty for selling and then quickly rebuying a player, or reversing an earlier purchase. A route containing transfers must then beat holding by at least one full decision-adjusted expected point before it becomes the recommendation. These controls represent forecast uncertainty and the option value of retaining free transfers. They affect route selection but do not alter the separately reported raw expected points.
+The six-Gameweek route now includes a 1.25-point decision-friction cost for each planned transfer and a further 1.5-point penalty for selling and then quickly rebuying a player, or reversing an earlier purchase. A route containing transfers must beat holding by at least four decision-adjusted expected points and lead the best alternative incoming target by at least 1.5 points. If either condition fails, the model explicitly recommends holding. These controls represent forecast uncertainty and the option value of retaining free transfers. They affect route selection but do not alter the separately reported raw expected points.
+
+Gameweek 1 uses the launch validation contract. From Gameweek 2 onward, readiness validates the registered 15-player squad, legal XI and bench, captaincy pair, ready multi-Gameweek route and transfer robustness directly; the expired launch-only gate is no longer reused.
 
 ## Team configuration
 

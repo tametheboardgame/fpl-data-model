@@ -29,6 +29,7 @@ from src.external_context import (
     write_signal_csv,
 )
 from src.fpl_decisions import build_decision_support, write_decision_support
+from src.fpl_finality import gameweek_finality as official_gameweek_finality
 from src.fpl_gameweek_operations import update_gameweek_operations
 from src.fpl_prospective import update_prospective_evaluation
 from src.fpl_rules import apply_bonus_transition, load_scoring_rules
@@ -612,6 +613,7 @@ def build_projections(
     simulations: int = DEFAULT_SIMULATIONS,
     ensemble_config: dict[str, Any] | None = None,
     scoring_rules: dict[str, Any] | None = None,
+    target_gameweek: int | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     scoring_rules = scoring_rules or {"version": SCORING_RULES_VERSION}
     scoring_rules_version = str(scoring_rules.get("version") or SCORING_RULES_VERSION)
@@ -643,7 +645,12 @@ def build_projections(
     future = [
         row
         for row in fixtures
-        if not truthy(row.get("finished")) and integer(row.get("gameweek"))
+        if not truthy(row.get("finished"))
+        and integer(row.get("gameweek"))
+        and (
+            not target_gameweek
+            or integer(row.get("gameweek")) >= integer(target_gameweek)
+        )
     ]
     future.sort(key=lambda row: (integer(row.get("gameweek")), row.get("kickoff_time") or ""))
     forecast_gameweeks = sorted({integer(row.get("gameweek")) for row in future})[
@@ -1226,31 +1233,89 @@ def write_prediction_snapshot(
 
 
 def gameweek_finality(data_dir: Path) -> dict[int, bool]:
-    events: list[dict[str, Any]] = []
-    gameweeks_path = data_dir / "chatgpt" / "gameweeks.json"
-    if gameweeks_path.is_file():
-        events = json.loads(gameweeks_path.read_text(encoding="utf-8"))
-    else:
-        bootstrap_path = data_dir / "raw" / "latest" / "bootstrap-static.json"
-        if bootstrap_path.is_file():
-            events = json.loads(bootstrap_path.read_text(encoding="utf-8")).get(
-                "events", []
-            )
-        else:
-            current_path = data_dir / "chatgpt" / "current_gameweek.json"
-            if current_path.is_file():
-                current = json.loads(current_path.read_text(encoding="utf-8"))
-                events = [
-                    event
-                    for event in (current.get("current"), current.get("next"))
-                    if event
-                ]
+    finality, _ = official_gameweek_finality(data_dir)
+    return finality
+
+
+def managed_team_prediction_audit(
+    data_dir: Path,
+    gameweek: int,
+    prediction_rows: list[dict[str, Any]],
+    actual: dict[tuple[int, int], float],
+) -> dict[str, Any] | None:
+    """Score the manager's submitted XI, not just the full player population."""
+
+    path = data_dir / "raw" / "latest" / "latest-picks.json"
+    if not path.is_file():
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    entry_history = payload.get("entry_history") or {}
+    if integer(entry_history.get("event")) != gameweek:
+        return None
+    picks = payload.get("picks") or []
+    predicted = {
+        integer(row.get("player_id")): number(row.get("expected_points_next_1"))
+        for row in prediction_rows
+    }
+    starters = [row for row in picks if integer(row.get("multiplier")) > 0]
+    if len(starters) != 11:
+        return None
+    comparable = [
+        row
+        for row in starters
+        if integer(row.get("element")) in predicted
+        and (gameweek, integer(row.get("element"))) in actual
+    ]
+    if len(comparable) != 11:
+        return None
+    errors = [
+        predicted[integer(row.get("element"))]
+        - actual[(gameweek, integer(row.get("element")))]
+        for row in comparable
+    ]
+    model_starting_points = sum(
+        predicted[integer(row.get("element"))] for row in starters
+    )
+    actual_starting_points = sum(
+        actual[(gameweek, integer(row.get("element")))] for row in starters
+    )
+    model_total = sum(
+        predicted.get(integer(row.get("element")), 0)
+        * integer(row.get("multiplier"))
+        for row in picks
+    )
+    actual_total = sum(
+        actual.get((gameweek, integer(row.get("element"))), 0)
+        * integer(row.get("multiplier"))
+        for row in picks
+    )
+    bench_points = sum(
+        actual.get((gameweek, integer(row.get("element"))), 0)
+        for row in picks
+        if integer(row.get("multiplier")) == 0
+    )
+    captain = next((row for row in picks if row.get("is_captain")), {})
     return {
-        integer(event.get("id")): bool(
-            truthy(event.get("finished")) and truthy(event.get("data_checked"))
-        )
-        for event in events
-        if integer(event.get("id"))
+        "gameweek": gameweek,
+        "selected_xi_players_evaluated": len(errors),
+        "selected_xi_mean_absolute_error": round(
+            sum(abs(error) for error in errors) / len(errors), 4
+        ),
+        "selected_xi_mean_bias": round(sum(errors) / len(errors), 4),
+        "starting_xi_predicted_points_before_captain": round(
+            model_starting_points, 3
+        ),
+        "starting_xi_actual_points_before_captain": round(
+            actual_starting_points, 3
+        ),
+        "submitted_team_predicted_points": round(model_total, 3),
+        "submitted_team_actual_points": round(actual_total, 3),
+        "official_manager_points": number(entry_history.get("points")),
+        "captain_player_id": integer(captain.get("element")) or None,
+        "bench_actual_points": round(bench_points, 3),
     }
 
 
@@ -1261,7 +1326,7 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
         actual[(integer(row.get("gameweek")), integer(row.get("player_id")))] = number(row.get("total_points"))
 
     results: list[dict[str, Any]] = []
-    finality = gameweek_finality(data_dir)
+    finality, finality_source = official_gameweek_finality(data_dir)
     skipped_unfinalised = 0
     prediction_root = data_dir / "predictions"
     for gameweek_dir in sorted(prediction_root.glob("gw*")):
@@ -1299,6 +1364,9 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
             quantitative_errors
         )
         rmse = math.sqrt(sum(error * error for error in errors) / len(errors))
+        managed_team = managed_team_prediction_audit(
+            data_dir, gameweek, rows, actual
+        )
         results.append(
             {
                 "gameweek": gameweek,
@@ -1312,6 +1380,7 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
                 "mean_bias": round(sum(errors) / len(errors), 4),
                 "average_predicted_points": round(sum(predictions) / len(predictions), 4),
                 "average_actual_points": round(sum(actual_values) / len(actual_values), 4),
+                "managed_team": managed_team,
             }
         )
     fields = [
@@ -1333,7 +1402,16 @@ def evaluate_predictions(data_dir: Path) -> dict[str, Any]:
         "evaluated_gameweeks": len(results),
         "skipped_unfinalised_gameweeks": skipped_unfinalised,
         "finality_requirement": "finished=true and data_checked=true",
+        "finality_source": finality_source,
         "latest": results[-1] if results else None,
+        "managed_team_latest": next(
+            (
+                row.get("managed_team")
+                for row in reversed(results)
+                if row.get("managed_team")
+            ),
+            None,
+        ),
         "history": results,
     }
     write_json(data_dir / "chatgpt" / "prediction_evaluation.json", summary)
@@ -1370,6 +1448,12 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     players = read_csv(chatgpt_dir / "players.csv")
     teams = read_csv(chatgpt_dir / "teams.csv")
     fixtures = read_csv(chatgpt_dir / "fixtures.csv")
+    current_gameweek = json.loads(
+        (chatgpt_dir / "current_gameweek.json").read_text(encoding="utf-8")
+    )
+    target_gameweek = integer(
+        (current_gameweek.get("next") or {}).get("id")
+    ) or None
     fixture_history = read_csv(chatgpt_dir / "player_fixtures.csv")
     past_seasons = read_csv(data_dir / "history" / "current_player_past_seasons.csv")
     observations = read_observations(data_dir / "scouting" / "observations.jsonl")
@@ -1409,6 +1493,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         observations,
         ensemble_config=ensemble_config,
         scoring_rules=scoring_rules,
+        target_gameweek=target_gameweek,
     )
 
     write_csv(
@@ -1458,7 +1543,6 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     )
 
     generated_at = utc_now()
-    current_gameweek = json.loads((chatgpt_dir / "current_gameweek.json").read_text(encoding="utf-8"))
     my_team_path = chatgpt_dir / "my_team.json"
     my_team = (
         json.loads(my_team_path.read_text(encoding="utf-8"))
@@ -1518,6 +1602,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         context_signals,
         source_registry,
         generated_at,
+        fixture_projections=projections,
     )
     decision_support["prospective_evaluation"] = {
         "status": prospective["evaluation"].get("status"),

@@ -60,7 +60,8 @@ class Phase21OperationsTests(unittest.TestCase):
             for gameweek in (1, 2, 3)
             for row in self.players
         ]
-        starters = list(range(1, 12))
+        starters = [1, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14]
+        bench = [2, 6, 7, 15]
         self.decision = {
             "status": "ready",
             "decision_version": DECISION_VERSION,
@@ -68,13 +69,14 @@ class Phase21OperationsTests(unittest.TestCase):
             "bank": 0.5,
             "free_transfer_state": {"available": 1},
             "recommended_lineup": [{"player_id": value} for value in starters],
-            "bench_order": [{"player_id": value} for value in range(12, 16)],
+            "bench_order": [{"player_id": value} for value in bench],
             "captaincy": {
                 "captain": {"player_id": 1},
-                "vice_captain": {"player_id": 2},
+                "vice_captain": {"player_id": 3},
             },
             "multi_gameweek_plan": {
                 "status": "ready",
+                "robustness": {"passed": True, "selected_action": "hold"},
                 "horizon_gameweeks": [1, 2, 3],
                 "recommended_route": {
                     "net_gain_vs_hold": 4.5,
@@ -155,10 +157,11 @@ class Phase21OperationsTests(unittest.TestCase):
 
     def test_detects_material_captain_fixture_and_availability_changes(self) -> None:
         previous = self.build()
-        self.decision["multi_gameweek_plan"]["recommended_route"]["gameweek_plan"][0]["captain_player_id"] = 2
-        self.players[1]["status"] = "d"
-        self.players[1]["chance_of_playing_next_round"] = 50
-        self.players[1]["news"] = "Knock, late test."
+        self.decision["captaincy"]["captain"] = {"player_id": 3}
+        self.decision["captaincy"]["vice_captain"] = {"player_id": 4}
+        self.players[2]["status"] = "d"
+        self.players[2]["chance_of_playing_next_round"] = 50
+        self.players[2]["news"] = "Knock, late test."
         self.projections[0]["kickoff_time"] = "2026-08-15T17:30:00Z"
         report = self.build(previous=previous)
         change_types = {row["type"] for row in report["material_changes"]}
@@ -187,6 +190,25 @@ class Phase21OperationsTests(unittest.TestCase):
         )
         self.assertEqual(report["status"], "review_required")
         self.assertFalse(report["operational_readiness"]["firm_advice_allowed"])
+
+    def test_reports_opposing_player_correlation_without_blocking_advice(self) -> None:
+        self.decision["lineup_correlation"] = {
+            "opposing_pair_count": 1,
+            "negative_correlation_exposure": 0.4,
+            "opposing_pairs": [
+                {"defender": "Player 3", "attacker": "Player 13"}
+            ],
+        }
+        report = self.build()
+        warning = next(
+            row
+            for row in report["warnings"]
+            if row["code"] == "opposing_player_correlation"
+        )
+        self.assertEqual(warning["severity"], "low")
+        self.assertTrue(
+            report["operational_readiness"]["firm_advice_allowed"]
+        )
 
     def test_gameweek_one_uses_initial_squad_when_registered_team_is_empty(self) -> None:
         self.my_team = {"available": True, "squad": []}
@@ -232,6 +254,54 @@ class Phase21OperationsTests(unittest.TestCase):
         self.assertNotIn(
             "invalid_starting_xi",
             {row["code"] for row in report["warnings"]},
+        )
+
+    def test_gameweek_two_validates_registered_team_without_launch_validation(self) -> None:
+        self.current["next"] = {
+            "id": 2,
+            "deadline_time": "2026-08-21T16:30:00+00:00",
+        }
+        route = self.decision["multi_gameweek_plan"]
+        route["horizon_gameweeks"] = [2, 3]
+        route["robustness"] = {"passed": True, "selected_action": "hold"}
+        route["recommended_route"]["gameweek_plan"][0]["gameweek"] = 2
+        self.decision["target_gameweek"] = 2
+        self.decision["initial_squad_plan"] = {
+            "status": "not_applicable_after_gameweek_1"
+        }
+
+        report = self.build()
+
+        self.assertEqual(report["decision_validation"]["status"], "passed")
+        self.assertTrue(report["operational_readiness"]["validation_passed"])
+        self.assertNotIn(
+            "validation_not_passed",
+            report["operational_readiness"]["blocking_reasons"],
+        )
+
+    def test_gameweek_two_blocks_a_route_without_robustness_evidence(self) -> None:
+        self.current["next"] = {
+            "id": 2,
+            "deadline_time": "2026-08-21T16:30:00+00:00",
+        }
+        route = self.decision["multi_gameweek_plan"]
+        route["horizon_gameweeks"] = [2, 3]
+        route.pop("robustness")
+        route["recommended_route"]["gameweek_plan"][0]["gameweek"] = 2
+        self.decision["target_gameweek"] = 2
+
+        report = self.build()
+
+        self.assertEqual(
+            report["decision_validation"]["status"], "review_required"
+        )
+        self.assertIn(
+            "transfer_robustness",
+            report["decision_validation"]["failed_checks"],
+        )
+        self.assertIn(
+            "validation_not_passed",
+            report["operational_readiness"]["blocking_reasons"],
         )
 
     def test_archives_only_materially_changed_reports(self) -> None:

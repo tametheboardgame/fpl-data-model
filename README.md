@@ -45,7 +45,7 @@ The files under `data/chatgpt/` are the conversational interface to the model:
 - `projection_summary.json`: model version, row counts, limitations and leading projections
 - `prediction_index.json`: index of immutable pre-deadline prediction snapshots
 - `prediction_accuracy.csv`: gameweek-level MAE, RMSE and bias once results are known
-- `prediction_evaluation.json`: compact prediction-accuracy history
+- `prediction_evaluation.json`: compact prediction-accuracy history, including a separate submitted-XI audit so whole-player-pool MAE cannot conceal poor manager-facing selections
 - `scouting_observations.csv`: conversational copy of timestamped qualitative match observations
 - `qualitative_signal_summary.json`: observation counts, adjustment limits and application status
 - `external_context_signals.csv`: validated team-news, market and role signals with source provenance

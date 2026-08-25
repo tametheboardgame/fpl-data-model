@@ -29,7 +29,9 @@ Single-transfer hit accounting is Phase 16 scope. Joint multi-transfer route opt
 
 ## Evaluation finality
 
-The collector stores the complete FPL event metadata in `gameweeks.json`. Prediction and external-context evaluation only score a Gameweek when both `finished` and `data_checked` are true. This protects prospective metrics from the 2026/27 09:00 UK next-day finalisation window and later Opta corrections.
+Prediction and external-context evaluation only score a Gameweek when both `finished` and `data_checked` are true. Finality is read from the live `bootstrap-static` snapshot first, then the current-gameweek snapshot, with `gameweeks.json` used only as a last-resort fallback because historical synchronisation can temporarily leave it on a previous season. This protects prospective metrics from the 2026/27 09:00 UK next-day finalisation window, later Opta corrections and stale-season contamination.
+
+Projection horizons begin at the official `next` Gameweek ID. They do not infer the boundary from fixture `finished` flags, which can remain false after a Gameweek has ended while FPL is still completing its data checks.
 
 ## Sources
 

@@ -3,6 +3,8 @@ from __future__ import annotations
 import unittest
 
 from src.fpl_multiweek import (
+    lineup_correlation_analysis,
+    optimise_gameweek_lineup,
     optimise_multi_gameweek_route,
     transfer_decision_cost,
 )
@@ -121,7 +123,7 @@ class MultiGameweekOptimiserTests(unittest.TestCase):
             [{"sell_player_id": 99, "buy_player_id": 15}],
         )
         self.assertEqual(reversals, 1)
-        self.assertEqual(cost, 2.25)
+        self.assertEqual(cost, 2.75)
 
     def test_holds_when_best_route_does_not_clear_actionability_floor(self) -> None:
         projections = self.projections()
@@ -142,12 +144,114 @@ class MultiGameweekOptimiserTests(unittest.TestCase):
         )
         self.assertIn("minimum decision-adjusted edge", result["recommendation_reason"])
 
+    def test_holds_when_two_high_edge_transfer_targets_are_indistinguishable(self) -> None:
+        projections = self.projections()
+        self.players.extend(
+            [player(99, "Forward", 1), player(100, "Forward", 1)]
+        )
+        projections.extend(
+            [
+                {"player_id": 99, "gameweek": 1, "expected_points": 10.0},
+                {"player_id": 100, "gameweek": 1, "expected_points": 9.9},
+            ]
+        )
+
+        result = optimise_multi_gameweek_route(
+            projections,
+            self.players,
+            self.squad,
+            bank=0,
+            free_transfers=1,
+            target_gameweek=1,
+            horizon=1,
+        )
+
+        self.assertEqual(
+            result["recommended_route"]["gameweek_plan"][0]["transfers"], []
+        )
+        self.assertEqual(
+            result["robustness"]["rejected_transfer_reason"],
+            "ambiguous_best_route",
+        )
+
+    def test_equal_mean_captaincy_prefers_an_attacker(self) -> None:
+        points = {row["player_id"]: 4.0 for row in self.players}
+
+        _, _, captain = optimise_gameweek_lineup(
+            tuple(row["player_id"] for row in self.players),
+            {row["player_id"]: row for row in self.players},
+            points,
+        )
+
+        self.assertIn(
+            next(row for row in self.players if row["player_id"] == captain)[
+                "position"
+            ],
+            {"Midfielder", "Forward"},
+        )
+
     def test_waits_without_fixture_projections(self) -> None:
         result = optimise_multi_gameweek_route(
             [], self.players, self.squad, bank=0, free_transfers=1
         )
         self.assertEqual(result["status"], "waiting_for_projections")
         self.assertEqual(result["routes"], [])
+
+    def test_aggressive_lineup_can_avoid_opposing_defender_attacker_pair(self) -> None:
+        players = {
+            row["player_id"]: row for row in self.players
+        }
+        players[3]["team_id"] = 1
+        players[13]["team_id"] = 2
+        players[14]["team_id"] = 3
+        players[15]["team_id"] = 4
+        points = {player_id: 4.0 for player_id in players}
+        points.update(
+            {
+                1: 6.0,
+                2: 0.0,
+                3: 5.0,
+                8: 6.0,
+                9: 6.0,
+                10: 6.0,
+                11: 6.0,
+                12: 6.0,
+                13: 5.0,
+                14: 4.9,
+                15: 4.8,
+            }
+        )
+        fixtures = {
+            3: [
+                {
+                    "fixture_id": 100,
+                    "opponent_team_id": 2,
+                    "clean_sheet_probability": 0.5,
+                    "component_clean_sheet_points": 2.5,
+                }
+            ],
+            13: [
+                {
+                    "fixture_id": 100,
+                    "opponent_team_id": 1,
+                    "component_attacking_return_probability": 0.9,
+                }
+            ],
+        }
+        squad_ids = tuple(players)
+        _, balanced, _ = optimise_gameweek_lineup(
+            squad_ids, players, points, fixtures, risk_profile="balanced"
+        )
+        _, aggressive, _ = optimise_gameweek_lineup(
+            squad_ids, players, points, fixtures, risk_profile="aggressive"
+        )
+        self.assertIn(3, balanced)
+        self.assertIn(13, balanced)
+        self.assertIn(3, aggressive)
+        self.assertNotIn(13, aggressive)
+        analysis = lineup_correlation_analysis(balanced, players, fixtures)
+        self.assertEqual(analysis["opposing_pair_count"], 1)
+        self.assertGreater(analysis["negative_correlation_exposure"], 0)
 
 
 if __name__ == "__main__":

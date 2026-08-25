@@ -35,6 +35,10 @@ The decision fingerprint excludes generation timestamps and other refresh noise.
 - known fixture structure;
 - operational readiness or warning state.
 
+The report publishes `decision_validation`. Gameweek 1 requires the launch-plan
+contract; later Gameweeks validate the registered 15-player squad, legal XI and bench,
+captaincy pair and robust transfer route independently.
+
 ## Freshness and safety
 
 Official FPL data may be no more than eight hours old during normal operation, three hours old inside the eight-hour deadline freeze window, and two hours old inside the final four hours. Missing, stale or internally contradictory data raises a warning. A high-severity warning changes the report status to `review_required` rather than silently presenting the recommendation as ready.
@@ -54,6 +58,6 @@ This preserves the exact pre-deadline recommendation for later evaluation. The l
 
 ## Automation
 
-The existing six-hour official-data refresh starts the production model build after validation. Phase 21.2 adds deadline-specific refreshes around 24 hours, four hours and one hour before the official deadline. Material external-context changes also rebuild decisions in their existing workflow.
+The existing six-hour official-data refresh starts the production model build after validation. Phase 21.2 adds deadline-specific refreshes around 24 hours, eight hours, four hours and one hour before the official deadline. Material external-context changes also rebuild decisions in their existing workflow.
 
 No transfer, chip, line-up or captain action is performed automatically. The manager must review and confirm all changes in FPL.

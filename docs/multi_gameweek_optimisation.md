@@ -36,15 +36,18 @@ Candidate and state pruning use only information available in the current foreca
 - New signings can later be sold for their purchase price because no price changes are forecast.
 - Transfers preserve player position.
 - No chip is assumed inside a Phase 17 route.
-- First-Gameweek external context multipliers are included; later Gameweeks use the underlying fixture projections until newer context arrives.
-- Every planned transfer carries 0.75 points of decision friction, and a short-horizon reversal carries a further 1.5-point penalty.
-- A transfer route must retain at least a one-point decision-adjusted edge over holding before it is promoted as the recommendation.
+- First-Gameweek external context adjustments are included; bookmaker team-goal and clean-sheet markets alter only supported scoring components, while later Gameweeks use the underlying fixture projections until newer context arrives.
+- Opposing attacker-defender exposure is measured for every line-up. It remains informational for balanced expected-points routes and receives a bounded penalty only in the aggressive initial-squad strategy.
+- Every planned transfer carries 1.25 points of decision friction, and a short-horizon reversal carries a further 1.5-point penalty.
+- A transfer route must retain at least a four-point decision-adjusted edge over holding before it is promoted.
+- The leading route must also beat the best route with a different incoming target by at least 1.5 points. Otherwise the recommendation is to hold and retain the free transfer.
+- Goalkeepers and defenders receive a small captaincy uncertainty penalty, so a marginally higher clean-sheet forecast does not displace an attacker with a comparable mean and greater scoring ceiling.
 
 Blank and Double Gameweeks already flow through the fixture-level projection matrix. Explicit chip optimisation across those schedules remains Phase 18.
 
 ## Output contract
 
-`data/chatgpt/fpl_decisions.json` now uses `fpl-decisions-1.3` and adds `multi_gameweek_plan` containing:
+`data/chatgpt/fpl_decisions.json` now uses `fpl-decisions-2.1` and includes `multi_gameweek_plan` containing:
 
 - Horizon Gameweeks and objective.
 - Hold-squad expected points.
@@ -52,5 +55,6 @@ Blank and Double Gameweeks already flow through the fixture-level projection mat
 - Gameweek-by-Gameweek transfers, hit costs, bank, line-up and captain.
 - Final squad, bank and free-transfer balance.
 - Search parameters and modelling assumptions.
+- A robustness decision showing the transfer edge, runner-up separation and any reason a proposed transfer was rejected.
 
 When future projections are unavailable, the field returns a clean waiting state and no route.

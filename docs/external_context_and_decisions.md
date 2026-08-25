@@ -47,9 +47,20 @@ every production build.
 ## Prediction boundary
 
 External context does not silently rewrite `player-ensemble-1.0`. The original expected
-points are retained as `model_expected_points`; a bounded context multiplier produces
+points are retained as `model_expected_points`; a bounded context adjustment produces
 `decision_expected_points` only for the decision surface. Signal IDs, source IDs and
 human-readable reasons are attached to the affected player.
+
+Bookmaker team expected goals and clean-sheet probabilities adjust only the components
+they can support:
+
+- team expected goals scale projected goal and assist points
+- clean-sheet probabilities scale clean-sheet points for goalkeepers, defenders and midfielders
+- goalkeeper and defender goals-conceded deductions are recalculated from the blended market rate
+
+The market value is blended 75% towards the source-weighted signal and bounded before
+use. Availability, expected-minutes, starting-probability and attacking-role signals
+retain their separate bounded multiplier. Raw ensemble outputs are never overwritten.
 
 This separation is deliberate. Once enough prospective signals and outcomes exist, the
 external layer can be evaluated honestly and promoted into the simulator only if it
@@ -57,9 +68,19 @@ improves held-out performance.
 
 ## Decision logic
 
-Line-up selection maximises next-gameweek decision expected points while enforcing one
-goalkeeper and legal defender, midfielder and forward limits. Captaincy uses expected
-FPL points first, with 10+ probability and the 90th-percentile return as tie-breakers.
+Line-up selection maximises a separate `selection_expected_points` score while enforcing
+one goalkeeper and legal defender, midfielder and forward limits. The raw forecast is
+retained, but selection is conservatively reduced where projected minutes conflict with
+observed starts, official availability is uncertain, or the control and component models
+materially disagree. Captaincy combines this robust score with 10+/15+ probabilities and
+the 90th-percentile return, with a small goalkeeper/defender uncertainty penalty.
+
+Every selected XI also receives an opposing-player correlation analysis. A goalkeeper
+or defender facing a selected opposing midfielder or forward is reported with a
+point-scaled negative-correlation exposure based on clean-sheet value and attacking-return
+probability. This does not reduce the balanced strategy's mean expected-points score.
+The aggressive initial-squad strategy applies a bounded exposure penalty so that it can
+prefer a slightly lower-mean but higher-ceiling line-up where the trade-off is small.
 
 Single-transfer candidates:
 

@@ -10,6 +10,7 @@ from src.evaluate_external_context import evaluate_external_signals, write_exter
 from src.external_context import load_source_registry, read_context_signals
 from src.fpl_chips import derive_chip_state
 from src.fpl_decisions import DECISION_VERSION
+from src.fpl_finality import official_events
 from src.fpl_transfers import derive_free_transfer_state
 
 
@@ -28,12 +29,14 @@ def finalise(data_dir: Path) -> dict[str, Any]:
     chatgpt = data_dir / "chatgpt"
     registry = load_source_registry(data_dir / "context" / "sources.json")
     signals = read_context_signals(data_dir / "context" / "signals.jsonl", registry)
+    gameweeks, finality_source = official_events(data_dir)
     rows, evaluation = evaluate_external_signals(
         signals,
         read_csv(chatgpt / "player_fixtures.csv"),
         read_csv(chatgpt / "fixtures.csv"),
-        read_json(chatgpt / "gameweeks.json", []),
+        gameweeks,
     )
+    evaluation["finality_source"] = finality_source
     write_external_evaluation(chatgpt, rows, evaluation)
 
     manifest = read_json(chatgpt / "manifest.json", {})
