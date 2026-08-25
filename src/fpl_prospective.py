@@ -253,7 +253,7 @@ def build_snapshot(
     no_external_points: dict[int, float] = {}
     quantitative_points: dict[int, float] = {}
     ownership_points: dict[int, float] = {}
-    active_context_signal_ids: set[str] = set()
+    context_signal_ids_by_player: dict[int, set[str]] = defaultdict(set)
     fixture = {"gameweek": gameweek}
     target_fixture_rows = fixture_rows_with_model_team_xg(
         fixture_projections or [], gameweek
@@ -285,7 +285,7 @@ def build_snapshot(
                     exact_fixture,
                     created_at,
                 )
-                active_context_signal_ids.update(
+                context_signal_ids_by_player[player_id].update(
                     str(signal_id)
                     for signal_id in exact_full_context.get("signal_ids", [])
                 )
@@ -317,7 +317,7 @@ def build_snapshot(
                 ).get("decision_expected_points")
             )
         else:
-            active_context_signal_ids.update(
+            context_signal_ids_by_player[player_id].update(
                 str(signal_id)
                 for signal_id in full_context.get("signal_ids", [])
             )
@@ -375,6 +375,20 @@ def build_snapshot(
             "Legal XI and captain chosen only by FPL ownership percentage.",
         ),
     ]
+    relevant_player_ids: set[int] = set()
+    for arm in arms:
+        relevant_player_ids.update(
+            integer(value) for value in arm.get("squad_player_ids", [])
+        )
+        for transfer in arm.get("transfers", []):
+            relevant_player_ids.add(integer(transfer.get("sell_player_id")))
+            relevant_player_ids.add(integer(transfer.get("buy_player_id")))
+    active_context_signal_ids = {
+        signal_id
+        for player_id in relevant_player_ids
+        if player_id
+        for signal_id in context_signal_ids_by_player.get(player_id, set())
+    }
     return {
         "prospective_version": PROSPECTIVE_VERSION,
         "created_at": created_at.astimezone(timezone.utc).replace(microsecond=0).isoformat(),
