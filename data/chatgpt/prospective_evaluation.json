@@ -1,6 +1,6 @@
 {
-  "prospective_version": "fpl-prospective-1.0",
-  "generated_at": "2026-08-25T07:33:27+00:00",
+  "prospective_version": "fpl-prospective-1.1",
+  "generated_at": "2026-08-25T10:17:41+00:00",
   "status": "waiting_for_finalised_gameweeks",
   "evaluated_gameweeks": 0,
   "skipped_unfinalised_gameweeks": 0,
@@ -55,5 +55,6 @@
   ],
   "latest_gameweek": null,
   "finality_requirement": "finished=true and data_checked=true",
+  "finality_source": "raw/latest/bootstrap-static.json",
   "governance": "Evidence is reported prospectively; source weights are not changed automatically."
 }

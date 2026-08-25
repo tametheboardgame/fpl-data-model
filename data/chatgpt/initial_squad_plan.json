@@ -1,5 +1,5 @@
 {
-  "initial_squad_version": "fpl-initial-squad-1.2",
+  "initial_squad_version": "fpl-initial-squad-1.4",
   "status": "not_applicable_after_gameweek_1",
   "target_season": "2026/27",
   "budget": 100.0,
@@ -41,14 +41,14 @@
         }
       },
       "future_fixture_horizon": {
-        "passed": true,
+        "passed": false,
         "observed": [
-          1,
           2,
           3,
           4,
           5,
-          6
+          6,
+          7
         ],
         "minimum_gameweeks": 3
       },
@@ -58,7 +58,8 @@
       }
     },
     "missing": [
-      "gameweek_1_is_next"
+      "gameweek_1_is_next",
+      "future_fixture_horizon"
     ]
   },
   "recommended_strategy": null,

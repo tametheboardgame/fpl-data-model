@@ -1,34 +1,10 @@
 {
-  "generated_at": "2026-08-25T07:33:27+00:00",
-  "evaluated_gameweeks": 1,
-  "skipped_unfinalised_gameweeks": 0,
+  "generated_at": "2026-08-25T10:17:41+00:00",
+  "evaluated_gameweeks": 0,
+  "skipped_unfinalised_gameweeks": 1,
   "finality_requirement": "finished=true and data_checked=true",
-  "latest": {
-    "gameweek": 1,
-    "model_version": "player-ensemble-1.0",
-    "prediction_snapshot": "predictions/gw01/20260821T133423Z.csv",
-    "players_evaluated": 600,
-    "mean_absolute_error": 1.5059,
-    "quantitative_mean_absolute_error": 1.5059,
-    "qualitative_mae_improvement": 0.0,
-    "root_mean_squared_error": 2.6003,
-    "mean_bias": -0.2051,
-    "average_predicted_points": 1.3716,
-    "average_actual_points": 1.5767
-  },
-  "history": [
-    {
-      "gameweek": 1,
-      "model_version": "player-ensemble-1.0",
-      "prediction_snapshot": "predictions/gw01/20260821T133423Z.csv",
-      "players_evaluated": 600,
-      "mean_absolute_error": 1.5059,
-      "quantitative_mean_absolute_error": 1.5059,
-      "qualitative_mae_improvement": 0.0,
-      "root_mean_squared_error": 2.6003,
-      "mean_bias": -0.2051,
-      "average_predicted_points": 1.3716,
-      "average_actual_points": 1.5767
-    }
-  ]
+  "finality_source": "raw/latest/bootstrap-static.json",
+  "latest": null,
+  "managed_team_latest": null,
+  "history": []
 }
