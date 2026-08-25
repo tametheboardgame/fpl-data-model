@@ -19,6 +19,7 @@ class DeadlineRefreshSchedulerTests(unittest.TestCase):
     def test_triggers_once_inside_each_deadline_window(self) -> None:
         cases = (
             ("2026-08-20T18:00:00", 24),
+            ("2026-08-21T10:00:00", 8),
             ("2026-08-21T14:00:00", 4),
             ("2026-08-21T17:00:00", 1),
         )

@@ -9,9 +9,10 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from src.external_context import number
+from src.fpl_multiweek import fixture_rows_by_player, lineup_correlation_analysis
 
 
-OPERATIONS_VERSION = "fpl-gameweek-operations-1.2"
+OPERATIONS_VERSION = "fpl-gameweek-operations-1.4"
 FREEZE_WINDOW_HOURS = 8
 NORMAL_DATA_MAX_AGE_HOURS = 8
 DEADLINE_DATA_MAX_AGE_HOURS = 3
@@ -86,12 +87,36 @@ def _selection(
     horizons: list[dict[str, Any]],
     my_team: dict[str, Any],
     gameweek: int,
+    fixture_projections: list[dict[str, Any]],
 ) -> dict[str, Any]:
     points = {
         integer(row.get("player_id")): number(row.get("expected_points_next_1"))
         for row in horizons
     }
     initial_plan = decision.get("initial_squad_plan") or {}
+    points.update(
+        {
+            integer(row.get("player_id")): number(
+                row.get("gameweek_1_expected_points")
+            )
+            for row in initial_plan.get("recommended_squad", [])
+            if integer(row.get("player_id"))
+            and row.get("gameweek_1_expected_points") not in {None, ""}
+        }
+    )
+    points.update(
+        {
+            integer(row.get("player_id")): number(
+                row.get("selection_expected_points")
+                if row.get("selection_expected_points") not in {None, ""}
+                else row.get("decision_expected_points")
+            )
+            for row in (decision.get("recommended_lineup") or [])
+            + (decision.get("bench_order") or [])
+            if integer(row.get("player_id"))
+            and row.get("decision_expected_points") not in {None, ""}
+        }
+    )
     if (
         gameweek == 1
         and (not my_team.get("available") or not my_team.get("squad"))
@@ -112,6 +137,15 @@ def _selection(
         captain_id = integer((initial_plan.get("captain") or {}).get("player_id"))
         vice_id = integer(
             (initial_plan.get("vice_captain") or {}).get("player_id")
+        )
+        selected_variant = next(
+            (
+                row
+                for row in initial_plan.get("strategy_comparison", [])
+                if row.get("strategy")
+                == initial_plan.get("recommended_strategy")
+            ),
+            {},
         )
         return {
             "selection_source": "initial_squad_plan",
@@ -157,6 +191,9 @@ def _selection(
                 .get("total_hit_cost")
             ),
             "squad_player_ids": squad_ids,
+            "lineup_correlation": selected_variant.get(
+                "lineup_correlation", {}
+            ),
         }
     move = _route_move(decision, gameweek)
     transfers = move.get("transfers", []) or []
@@ -175,10 +212,24 @@ def _selection(
             integer(row.get("player_id"))
             for row in decision.get("recommended_lineup", [])
         ]
-    captain_id = integer(move.get("captain_player_id"))
-    if not captain_id:
-        captain_id = integer(
-            ((decision.get("captaincy") or {}).get("captain") or {}).get("player_id")
+    decision_captain_id = integer(
+        ((decision.get("captaincy") or {}).get("captain") or {}).get("player_id")
+    )
+    route_captain_id = integer(move.get("captain_player_id"))
+    captain_id = (
+        decision_captain_id
+        if decision_captain_id in starter_ids
+        else route_captain_id
+    )
+    if captain_id not in starter_ids:
+        captain_id = next(
+            (
+                player_id
+                for player_id in sorted(
+                    starter_ids, key=lambda item: points.get(item, 0), reverse=True
+                )
+            ),
+            0,
         )
     vice_id = integer(
         ((decision.get("captaincy") or {}).get("vice_captain") or {}).get("player_id")
@@ -217,6 +268,11 @@ def _selection(
         for row in transfers
     ]
     route = (decision.get("multi_gameweek_plan") or {}).get("recommended_route") or {}
+    lineup_correlation = lineup_correlation_analysis(
+        starter_ids,
+        players,
+        fixture_rows_by_player(fixture_projections, gameweek),
+    )
     return {
         "selection_source": "registered_team",
         "starting_xi": [_player(player_id, players, points) for player_id in starter_ids],
@@ -232,6 +288,8 @@ def _selection(
         "net_expected_points": move.get("net_expected_points"),
         "six_gameweek_net_gain_vs_hold": route.get("net_gain_vs_hold"),
         "six_gameweek_total_hit_cost": route.get("total_hit_cost"),
+        "lineup_correlation": lineup_correlation,
+        "squad_player_ids": sorted(squad_ids),
     }
 
 
@@ -393,6 +451,23 @@ def _warnings(
         )
     for risk in _risks(selection):
         warnings.append({"code": "player_availability", "severity": risk["severity"], "message": f"{risk['web_name']} has an availability flag ({risk.get('chance_of_playing')}% chance): {risk.get('news') or risk.get('availability_status')}."})
+    correlation = selection.get("lineup_correlation") or {}
+    if integer(correlation.get("opposing_pair_count")):
+        pair_names = [
+            f"{row.get('defender')} / {row.get('attacker')}"
+            for row in correlation.get("opposing_pairs", [])[:3]
+        ]
+        warnings.append(
+            {
+                "code": "opposing_player_correlation",
+                "severity": "low",
+                "message": (
+                    "The starting XI contains negatively correlated opposing "
+                    f"players: {', '.join(pair_names)}. This affects variance, "
+                    "not mean expected points."
+                ),
+            }
+        )
     for provider in providers:
         if provider.get("status") in {"error", "failed"}:
             warnings.append({"code": "provider_error", "severity": "medium", "message": f"{provider['provider']} is reporting an error."})
@@ -409,19 +484,14 @@ def _operational_readiness(
     freeze: dict[str, Any],
     hours_to_deadline: float | None,
     providers: list[dict[str, Any]],
+    decision_validation: dict[str, Any],
 ) -> dict[str, Any]:
     blocking = [
         str(row.get("code"))
         for row in warnings
         if row.get("severity") == "high"
     ]
-    launch_validation = (
-        (decision.get("initial_squad_plan") or {}).get("launch_validation") or {}
-    )
-    validation_passed = (
-        decision.get("status") == "ready"
-        and launch_validation.get("status") == "passed"
-    )
+    validation_passed = decision_validation.get("status") == "passed"
     if not validation_passed:
         blocking.append("validation_not_passed")
     inside_freeze = (
@@ -464,6 +534,77 @@ def _operational_readiness(
     }
 
 
+def _decision_validation(
+    decision: dict[str, Any], selection: dict[str, Any], gameweek: int
+) -> dict[str, Any]:
+    starters = selection.get("starting_xi", [])
+    bench = selection.get("bench_order", [])
+    starter_ids = [integer(row.get("player_id")) for row in starters]
+    bench_ids = [integer(row.get("player_id")) for row in bench]
+    squad_ids = [integer(value) for value in selection.get("squad_player_ids", [])]
+    if not squad_ids:
+        squad_ids = starter_ids + bench_ids
+    position_counts = Counter(str(row.get("position")) for row in starters)
+    captain_id = integer((selection.get("captain") or {}).get("player_id"))
+    vice_id = integer((selection.get("vice_captain") or {}).get("player_id"))
+    route = decision.get("multi_gameweek_plan") or {}
+    route_robustness = route.get("robustness") or {"passed": False}
+    squad_rows = starters + bench
+    squad_positions = Counter(str(row.get("position")) for row in squad_rows)
+    squad_clubs = Counter(
+        integer(row.get("team_id"))
+        for row in squad_rows
+        if integer(row.get("team_id"))
+    )
+    checks = {
+        "decision_ready": decision.get("status") == "ready",
+        "complete_unique_squad": len(squad_ids) == 15
+        and len(set(squad_ids)) == 15,
+        "complete_unique_lineup": len(starter_ids) == 11
+        and len(set(starter_ids)) == 11,
+        "complete_unique_bench": len(bench_ids) == 4
+        and len(set(bench_ids)) == 4,
+        "lineup_and_bench_disjoint": not set(starter_ids).intersection(bench_ids),
+        "legal_squad_structure": squad_positions
+        == Counter(
+            {
+                "Goalkeeper": 2,
+                "Defender": 5,
+                "Midfielder": 5,
+                "Forward": 3,
+            }
+        ),
+        "three_player_club_limit": bool(squad_clubs)
+        and max(squad_clubs.values(), default=0) <= 3,
+        "legal_formation": position_counts.get("Goalkeeper") == 1
+        and 3 <= position_counts.get("Defender", 0) <= 5
+        and 2 <= position_counts.get("Midfielder", 0) <= 5
+        and 1 <= position_counts.get("Forward", 0) <= 3,
+        "captain_in_lineup": captain_id in starter_ids,
+        "vice_captain_in_lineup": vice_id in starter_ids
+        and vice_id != captain_id,
+    }
+    if gameweek <= 1 and selection.get("selection_source") == "initial_squad_plan":
+        launch_validation = (
+            (decision.get("initial_squad_plan") or {}).get("launch_validation")
+            or {}
+        )
+        checks["launch_validation"] = launch_validation.get("status") == "passed"
+    else:
+        checks["multi_gameweek_route"] = route.get("status") == "ready"
+        checks["transfer_robustness"] = bool(route_robustness.get("passed", True))
+    failed = [name for name, passed in checks.items() if not passed]
+    return {
+        "status": "passed" if not failed else "review_required",
+        "checks": checks,
+        "failed_checks": failed,
+        "principle": (
+            "GW1 uses launch validation; later Gameweeks validate the registered "
+            "squad, legal weekly selection and transfer robustness directly."
+        ),
+    }
+
+
 def _material_state(report: dict[str, Any]) -> dict[str, Any]:
     selection = report.get("recommendation", {})
     return {
@@ -481,6 +622,11 @@ def _material_state(report: dict[str, Any]) -> dict[str, Any]:
         "warning_codes": sorted((row.get("code"), row.get("severity")) for row in report.get("warnings", [])),
         "advice_level": (report.get("operational_readiness") or {}).get("advice_level"),
         "firm_advice_allowed": (report.get("operational_readiness") or {}).get("firm_advice_allowed"),
+        "lineup_correlation": (
+            (selection.get("lineup_correlation") or {}).get(
+                "negative_correlation_exposure"
+            )
+        ),
     }
 
 
@@ -505,6 +651,7 @@ def _changes(previous: dict[str, Any] | None, current: dict[str, Any]) -> list[d
         "warning_codes": "Data-quality warning state changed",
         "advice_level": "Deadline advice stage changed",
         "firm_advice_allowed": "Firm-advice safety gate changed",
+        "lineup_correlation": "Starting XI correlation exposure changed",
     }
     for key, summary in labels.items():
         if before.get(key) != after.get(key):
@@ -555,7 +702,14 @@ def build_gameweek_report(
     deadline = parse_time(next_event.get("deadline_time"))
     hours_to_deadline = round((deadline - generated).total_seconds() / 3600, 3) if deadline else None
     player_by_id = {integer(row.get("player_id")): row for row in players}
-    selection = _selection(decision, player_by_id, horizons, my_team, gameweek) if decision.get("status") == "ready" else {
+    selection = _selection(
+        decision,
+        player_by_id,
+        horizons,
+        my_team,
+        gameweek,
+        fixture_projections,
+    ) if decision.get("status") == "ready" else {
         "starting_xi": [], "bench_order": [], "captain": None, "vice_captain": None,
         "transfers": [], "transfer_action": "unavailable", "hit_cost": 0,
     }
@@ -578,11 +732,30 @@ def build_gameweek_report(
             "severity": "high",
             "message": "The final pre-deadline recommendation snapshot is missing; firm advice is blocked.",
         })
+    decision_validation = _decision_validation(decision, selection, gameweek)
+    if decision_validation.get("status") != "passed":
+        warnings.append(
+            {
+                "code": "weekly_decision_validation_failed",
+                "severity": "high",
+                "message": (
+                    "The registered squad, weekly selection or transfer route failed "
+                    "validation: "
+                    + ", ".join(decision_validation.get("failed_checks", []))
+                    + "."
+                ),
+            }
+        )
     status = "ready" if decision.get("status") == "ready" else "waiting_for_recommendations"
     if status == "ready" and any(row.get("severity") == "high" for row in warnings):
         status = "review_required"
     readiness = _operational_readiness(
-        decision, warnings, freeze, hours_to_deadline, providers
+        decision,
+        warnings,
+        freeze,
+        hours_to_deadline,
+        providers,
+        decision_validation,
     )
     report = {
         "operations_version": OPERATIONS_VERSION,
@@ -615,6 +788,7 @@ def build_gameweek_report(
         },
         "fixture_signature": fixture_signature,
         "deadline_freeze": freeze,
+        "decision_validation": decision_validation,
         "operational_readiness": readiness,
         "advisory_only": True,
         "automatic_fpl_actions": False,

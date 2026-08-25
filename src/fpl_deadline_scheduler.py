@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
-REFRESH_TARGET_HOURS = (24, 4, 1)
+REFRESH_TARGET_HOURS = (24, 8, 4, 1)
 
 
 def parse_time(value: Any) -> datetime | None:

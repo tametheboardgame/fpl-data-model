@@ -162,6 +162,28 @@ class ModelTests(unittest.TestCase):
         self.assertIn("probability_10_plus_next_1", horizons[0])
         self.assertIn("probability_15_plus_next_1", horizons[0])
 
+    def test_horizons_start_at_official_next_gameweek_even_if_prior_is_unfinished(self) -> None:
+        fixtures = [
+            {**self.fixtures[0], "fixture_id": 99, "gameweek": 1},
+            {**self.fixtures[0], "fixture_id": 100, "gameweek": 2},
+        ]
+        projections, horizons = build_projections(
+            self.players,
+            build_player_features(self.players, self.history),
+            build_team_features(self.teams, self.history),
+            fixtures,
+            {},
+            [],
+            target_gameweek=2,
+        )
+
+        self.assertEqual({row["gameweek"] for row in projections}, {2})
+        self.assertAlmostEqual(
+            horizons[0]["expected_points_next_1"],
+            projections[0]["expected_points"],
+            places=3,
+        )
+
     def test_creates_immutable_predeadline_snapshot(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             data_dir = Path(temporary)
