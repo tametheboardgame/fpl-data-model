@@ -192,13 +192,33 @@ class Phase21OperationsTests(unittest.TestCase):
         self.assertFalse(report["operational_readiness"]["firm_advice_allowed"])
 
     def test_reports_opposing_player_correlation_without_blocking_advice(self) -> None:
-        self.decision["lineup_correlation"] = {
-            "opposing_pair_count": 1,
-            "negative_correlation_exposure": 0.4,
-            "opposing_pairs": [
-                {"defender": "Player 3", "attacker": "Player 13"}
-            ],
-        }
+        defender_projection = next(
+            row
+            for row in self.projections
+            if row["gameweek"] == 1 and row["player_id"] == 3
+        )
+        attacker_projection = next(
+            row
+            for row in self.projections
+            if row["gameweek"] == 1 and row["player_id"] == 8
+        )
+        defender_projection.update(
+            {
+                "fixture_id": 199,
+                "opponent_team_id": 8,
+                "clean_sheet_probability": 0.45,
+                "component_clean_sheet_points": 1.8,
+                "expected_minutes": 90,
+            }
+        )
+        attacker_projection.update(
+            {
+                "fixture_id": 199,
+                "opponent_team_id": 3,
+                "expected_goals": 0.5,
+                "expected_assists": 0.2,
+            }
+        )
         report = self.build()
         warning = next(
             row
@@ -206,6 +226,7 @@ class Phase21OperationsTests(unittest.TestCase):
             if row["code"] == "opposing_player_correlation"
         )
         self.assertEqual(warning["severity"], "low")
+        self.assertIn("Player 3 / Player 8", warning["message"])
         self.assertTrue(
             report["operational_readiness"]["firm_advice_allowed"]
         )
