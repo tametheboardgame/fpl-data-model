@@ -101,6 +101,118 @@ jobs:
         run: python -m src.build_fpl_model --data-dir data
       - name: Score context and attach chip state
         run: python -m src.finalise_external_context --data-dir data
+      - name: Print isolated GW1 replay and actual score
+        run: |
+          git fetch origin main --depth=1
+          git show origin/main:data/chatgpt/players.csv > /tmp/current-players.csv
+          python - <<'PY'
+          import csv
+          import json
+          from collections import Counter
+          from pathlib import Path
+
+          plan = json.loads(Path('data/chatgpt/initial_squad_plan.json').read_text())
+          with open('/tmp/current-players.csv', newline='', encoding='utf-8') as handle:
+              rows = list(csv.DictReader(handle))
+          actual = {
+              int(row['player_id']): {
+                  'points': int(float(row.get('event_points') or 0)),
+                  'minutes': int(float(row.get('minutes') or 0)),
+                  'name': row.get('web_name') or '',
+                  'position': row.get('position') or '',
+              }
+              for row in rows
+          }
+
+          squad = plan.get('recommended_squad') or []
+          starters = [dict(player) for player in (plan.get('recommended_starting_xi') or [])]
+          bench = [dict(player) for player in (plan.get('bench_order') or [])]
+          captain = plan.get('captain') or {}
+          vice = plan.get('vice_captain') or {}
+
+          for player in squad + starters + bench:
+              pid = int(player.get('player_id') or 0)
+              if pid in actual:
+                  player['actual_points'] = actual[pid]['points']
+                  player['actual_minutes'] = actual[pid]['minutes']
+
+          def position_counts(players):
+              return Counter(p.get('position') for p in players if p.get('position') != 'Goalkeeper')
+
+          effective = list(starters)
+          autosubs = []
+
+          gk_idx = next((i for i, p in enumerate(effective) if p.get('position') == 'Goalkeeper'), None)
+          bench_gk = next((p for p in bench if p.get('position') == 'Goalkeeper'), None)
+          if gk_idx is not None and int(effective[gk_idx].get('actual_minutes') or 0) == 0 and bench_gk and int(bench_gk.get('actual_minutes') or 0) > 0:
+              outgoing = effective[gk_idx]
+              effective[gk_idx] = bench_gk
+              autosubs.append({'out': outgoing.get('web_name'), 'in': bench_gk.get('web_name')})
+
+          used_bench_ids = {int(bench_gk.get('player_id') or 0)} if autosubs and bench_gk else set()
+          nonplaying = [p for p in list(effective) if p.get('position') != 'Goalkeeper' and int(p.get('actual_minutes') or 0) == 0]
+          for outgoing in nonplaying:
+              out_idx = next((i for i, p in enumerate(effective) if int(p.get('player_id') or 0) == int(outgoing.get('player_id') or 0)), None)
+              if out_idx is None:
+                  continue
+              for candidate in bench:
+                  cid = int(candidate.get('player_id') or 0)
+                  if candidate.get('position') == 'Goalkeeper' or cid in used_bench_ids or int(candidate.get('actual_minutes') or 0) == 0:
+                      continue
+                  trial = list(effective)
+                  trial[out_idx] = candidate
+                  counts = position_counts(trial)
+                  if counts['Defender'] < 3 or counts['Midfielder'] < 2 or counts['Forward'] < 1:
+                      continue
+                  if counts['Defender'] > 5 or counts['Midfielder'] > 5 or counts['Forward'] > 3:
+                      continue
+                  effective[out_idx] = candidate
+                  used_bench_ids.add(cid)
+                  autosubs.append({'out': outgoing.get('web_name'), 'in': candidate.get('web_name')})
+                  break
+
+          base_score = sum(int(p.get('actual_points') or 0) for p in effective)
+          captain_id = int(captain.get('player_id') or 0)
+          vice_id = int(vice.get('player_id') or 0)
+          effective_ids = {int(p.get('player_id') or 0) for p in effective}
+          captain_bonus = 0
+          doubled = None
+          if captain_id in effective_ids and actual.get(captain_id, {}).get('minutes', 0) > 0:
+              captain_bonus = actual[captain_id]['points']
+              doubled = actual[captain_id]['name']
+          elif vice_id in effective_ids and actual.get(vice_id, {}).get('minutes', 0) > 0:
+              captain_bonus = actual[vice_id]['points']
+              doubled = actual[vice_id]['name']
+
+          result = {
+              'strategy': plan.get('recommended_strategy'),
+              'total_cost': plan.get('total_cost'),
+              'bank': plan.get('bank'),
+              'squad': [
+                  {
+                      'id': int(p.get('player_id') or 0),
+                      'name': p.get('web_name'),
+                      'position': p.get('position'),
+                      'price': p.get('price'),
+                      'gw1_points': actual.get(int(p.get('player_id') or 0), {}).get('points', 0),
+                      'gw1_minutes': actual.get(int(p.get('player_id') or 0), {}).get('minutes', 0),
+                  }
+                  for p in squad
+              ],
+              'starting_xi_before_autosubs': [p.get('web_name') for p in starters],
+              'bench_order': [p.get('web_name') for p in bench],
+              'captain': captain.get('web_name'),
+              'vice_captain': vice.get('web_name'),
+              'autosubs': autosubs,
+              'effective_xi': [p.get('web_name') for p in effective],
+              'base_xi_score': base_score,
+              'doubled_player': doubled,
+              'captain_bonus': captain_bonus,
+              'gw1_total_score': base_score + captain_bonus,
+          }
+          print('GW1_REPLAY_RESULT_JSON=' + json.dumps(result, separators=(',', ':')))
+          print('GW1_REPLAY_PLAN_JSON=' + json.dumps(plan, separators=(',', ':')))
+          PY
       - name: Commit model outputs
         if: github.event_name != 'pull_request'
         run: |
