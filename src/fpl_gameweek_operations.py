@@ -9,6 +9,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from src.external_context import number
+from src.fpl_multiweek import fixture_rows_by_player, lineup_correlation_analysis
 
 
 OPERATIONS_VERSION = "fpl-gameweek-operations-1.4"
@@ -86,6 +87,7 @@ def _selection(
     horizons: list[dict[str, Any]],
     my_team: dict[str, Any],
     gameweek: int,
+    fixture_projections: list[dict[str, Any]],
 ) -> dict[str, Any]:
     points = {
         integer(row.get("player_id")): number(row.get("expected_points_next_1"))
@@ -266,6 +268,11 @@ def _selection(
         for row in transfers
     ]
     route = (decision.get("multi_gameweek_plan") or {}).get("recommended_route") or {}
+    lineup_correlation = lineup_correlation_analysis(
+        starter_ids,
+        players,
+        fixture_rows_by_player(fixture_projections, gameweek),
+    )
     return {
         "selection_source": "registered_team",
         "starting_xi": [_player(player_id, players, points) for player_id in starter_ids],
@@ -281,7 +288,7 @@ def _selection(
         "net_expected_points": move.get("net_expected_points"),
         "six_gameweek_net_gain_vs_hold": route.get("net_gain_vs_hold"),
         "six_gameweek_total_hit_cost": route.get("total_hit_cost"),
-        "lineup_correlation": decision.get("lineup_correlation", {}),
+        "lineup_correlation": lineup_correlation,
         "squad_player_ids": sorted(squad_ids),
     }
 
@@ -695,7 +702,14 @@ def build_gameweek_report(
     deadline = parse_time(next_event.get("deadline_time"))
     hours_to_deadline = round((deadline - generated).total_seconds() / 3600, 3) if deadline else None
     player_by_id = {integer(row.get("player_id")): row for row in players}
-    selection = _selection(decision, player_by_id, horizons, my_team, gameweek) if decision.get("status") == "ready" else {
+    selection = _selection(
+        decision,
+        player_by_id,
+        horizons,
+        my_team,
+        gameweek,
+        fixture_projections,
+    ) if decision.get("status") == "ready" else {
         "starting_xi": [], "bench_order": [], "captain": None, "vice_captain": None,
         "transfers": [], "transfer_action": "unavailable", "hit_cost": 0,
     }
