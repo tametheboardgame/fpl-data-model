@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.2",
-  "generated_at": "2026-08-25T07:11:00+00:00",
+  "generated_at": "2026-08-25T07:32:28+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-1.9",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-28T17:30:00+00:00",
     "deadline_time_uk": "2026-08-28T18:30:00+01:00",
-    "hours_remaining": 82.317
+    "hours_remaining": 81.959
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -491,7 +491,7 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-08-25T07:09:42+00:00",
-    "external_context_generated_at": "2026-08-25T07:11:00+00:00",
+    "external_context_generated_at": "2026-08-25T07:32:28+00:00",
     "active_external_signals": 1072,
     "expired_external_signals": 7496
   },
@@ -1217,57 +1217,10 @@
   },
   "advisory_only": true,
   "automatic_fpl_actions": false,
-  "material_changes": [
-    {
-      "type": "starting_xi",
-      "summary": "Starting XI changed",
-      "before": [
-        82,
-        388,
-        356,
-        229,
-        426,
-        427,
-        106,
-        498,
-        13,
-        155,
-        346
-      ],
-      "after": [
-        82,
-        356,
-        229,
-        498,
-        426,
-        427,
-        106,
-        368,
-        13,
-        200,
-        346
-      ]
-    },
-    {
-      "type": "transfers",
-      "summary": "Transfer recommendation changed",
-      "before": [
-        [
-          200,
-          388
-        ]
-      ],
-      "after": [
-        [
-          155,
-          368
-        ]
-      ]
-    }
-  ],
-  "material_change": true,
-  "change_summary": "Starting XI changed Transfer recommendation changed",
+  "material_changes": [],
+  "material_change": false,
+  "change_summary": "No material change since the previous report.",
   "decision_fingerprint": "59fb069702f4a43504d45b8e36d7bb525bc55124795c28a2dd3d1fdc7f6fe5d7",
-  "archive_created_this_run": "operations/gw02/20260825T071100Z.json",
-  "archive_markdown_created_this_run": "operations/gw02/20260825T071100Z.md"
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
 }
