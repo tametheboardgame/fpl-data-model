@@ -1,9 +1,9 @@
 # FPL Gameweek 2 Deadline Report
 
 Status: ready
-Generated: 2026-08-24T19:19:14+00:00
+Generated: 2026-08-25T01:54:46+00:00
 UK deadline: 2026-08-28T18:30:00+01:00
-Hours remaining: 94.179
+Hours remaining: 87.587
 Advice level: blocked
 Firm advice allowed: False
 
@@ -46,7 +46,7 @@ Vice-captain: Kelleher
 
 - [MEDIUM] Anderson has an availability flag (75% chance): Knock - 75% chance of playing.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 6712 external-context signals have expired and are excluded.
+- [LOW] 7496 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 

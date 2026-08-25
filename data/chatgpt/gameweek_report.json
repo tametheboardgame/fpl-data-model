@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.2",
-  "generated_at": "2026-08-24T19:19:14+00:00",
+  "generated_at": "2026-08-25T01:54:46+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-1.9",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-28T17:30:00+00:00",
     "deadline_time_uk": "2026-08-28T18:30:00+01:00",
-    "hours_remaining": 94.179
+    "hours_remaining": 87.587
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -467,7 +467,7 @@
     {
       "code": "expired_context",
       "severity": "low",
-      "message": "6712 external-context signals have expired and are excluded."
+      "message": "7496 external-context signals have expired and are excluded."
     }
   ],
   "providers": [
@@ -489,10 +489,10 @@
     }
   ],
   "source_freshness": {
-    "official_fpl_generated_at": "2026-08-24T19:01:14+00:00",
-    "external_context_generated_at": "2026-08-24T19:19:14+00:00",
-    "active_external_signals": 1240,
-    "expired_external_signals": 6712
+    "official_fpl_generated_at": "2026-08-25T01:53:37+00:00",
+    "external_context_generated_at": "2026-08-25T01:54:46+00:00",
+    "active_external_signals": 912,
+    "expired_external_signals": 7496
   },
   "fixture_signature": [
     [
