@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-27T10:37:54+00:00",
+  "generated_at": "2026-08-27T22:18:36+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -33,10 +33,10 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Development-selected ensemble with player-specific early-season priors, separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
-  "player_feature_rows": 614,
+  "player_feature_rows": 616,
   "team_feature_rows": 20,
-  "fixture_projection_rows": 3684,
-  "player_horizon_rows": 614,
+  "fixture_projection_rows": 3696,
+  "player_horizon_rows": 616,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 9368,
   "active_external_context_signal_rows": 1872,
@@ -191,20 +191,20 @@
       "expected_points_next_1": 3.631
     },
     {
+      "player_id": 481,
+      "web_name": "Anderson",
+      "team_name": "Man City",
+      "position": "Midfielder",
+      "price": 6.5,
+      "expected_points_next_1": 3.62
+    },
+    {
       "player_id": 13,
       "web_name": "Rice",
       "team_name": "Arsenal",
       "position": "Midfielder",
       "price": 7.5,
       "expected_points_next_1": 3.587
-    },
-    {
-      "player_id": 12,
-      "web_name": "Saka",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 9.5,
-      "expected_points_next_1": 3.579
     }
   ],
   "top_next_three_gameweeks": [
@@ -321,6 +321,14 @@
       "expected_points_next_3": 11.511
     },
     {
+      "player_id": 481,
+      "web_name": "Anderson",
+      "team_name": "Man City",
+      "position": "Midfielder",
+      "price": 6.5,
+      "expected_points_next_3": 11.303
+    },
+    {
       "player_id": 68,
       "web_name": "Tavernier",
       "team_name": "Bournemouth",
@@ -359,14 +367,6 @@
       "position": "Defender",
       "price": 5.0,
       "expected_points_next_3": 10.996
-    },
-    {
-      "player_id": 94,
-      "web_name": "Schade",
-      "team_name": "Brentford",
-      "position": "Midfielder",
-      "price": 6.0,
-      "expected_points_next_3": 10.939
     }
   ],
   "component_top_next_gameweek": [
@@ -475,14 +475,6 @@
       "component_expected_points_next_1": 2.712
     },
     {
-      "player_id": 123,
-      "web_name": "Hinshelwood",
-      "team_name": "Brighton",
-      "position": "Midfielder",
-      "price": 6.0,
-      "component_expected_points_next_1": 2.707
-    },
-    {
       "player_id": 40,
       "web_name": "Rogers",
       "team_name": "Chelsea",
@@ -529,6 +521,14 @@
       "position": "Defender",
       "price": 5.5,
       "component_expected_points_next_1": 2.503
+    },
+    {
+      "player_id": 356,
+      "web_name": "Virgil",
+      "team_name": "Liverpool",
+      "position": "Defender",
+      "price": 6.5,
+      "component_expected_points_next_1": 2.483
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -555,14 +555,6 @@
       "position": "Defender",
       "price": 6.0,
       "component_expected_points_next_3": 9.417
-    },
-    {
-      "player_id": 123,
-      "web_name": "Hinshelwood",
-      "team_name": "Brighton",
-      "position": "Midfielder",
-      "price": 6.0,
-      "component_expected_points_next_3": 9.005
     },
     {
       "player_id": 411,
@@ -691,6 +683,14 @@
       "position": "Midfielder",
       "price": 5.5,
       "component_expected_points_next_3": 7.563
+    },
+    {
+      "player_id": 8,
+      "web_name": "Calafiori",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.6,
+      "component_expected_points_next_3": 7.517
     }
   ],
   "prediction_snapshot_created": null,
@@ -699,7 +699,7 @@
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 4,
+  "gameweek_report_warning_count": 3,
   "limitations": [
     "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
     "The control and component models remain available beside every ensemble recommendation for audit.",
