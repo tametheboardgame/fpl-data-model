@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.4",
-  "generated_at": "2026-08-27T09:53:30+00:00",
+  "generated_at": "2026-08-27T09:59:19+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-2.1",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-08-28T17:30:00+00:00",
     "deadline_time_uk": "2026-08-28T18:30:00+01:00",
-    "hours_remaining": 31.608
+    "hours_remaining": 31.511
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -20,7 +20,7 @@
         "team_name": "Brentford",
         "position": "Goalkeeper",
         "price": 5.0,
-        "expected_points": 3.413,
+        "expected_points": 3.247,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -33,7 +33,7 @@
         "team_name": "Liverpool",
         "position": "Defender",
         "price": 6.5,
-        "expected_points": 3.807,
+        "expected_points": 3.87,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -46,7 +46,7 @@
         "team_name": "Chelsea",
         "position": "Defender",
         "price": 6.0,
-        "expected_points": 3.393,
+        "expected_points": 3.613,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -59,7 +59,7 @@
         "team_name": "Spurs",
         "position": "Defender",
         "price": 6.0,
-        "expected_points": 3.391,
+        "expected_points": 3.505,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -72,7 +72,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 12.0,
-        "expected_points": 4.689,
+        "expected_points": 5.041,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -85,7 +85,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 8.0,
-        "expected_points": 4.345,
+        "expected_points": 4.682,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -98,7 +98,7 @@
         "team_name": "Leeds",
         "position": "Forward",
         "price": 6.0,
-        "expected_points": 3.22,
+        "expected_points": 3.466,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -111,20 +111,7 @@
         "team_name": "Everton",
         "position": "Defender",
         "price": 6.0,
-        "expected_points": 3.211,
-        "availability_status": "a",
-        "chance_of_playing": null,
-        "news": "",
-        "news_added": ""
-      },
-      {
-        "player_id": 106,
-        "web_name": "Thiago",
-        "team_id": 4,
-        "team_name": "Brentford",
-        "position": "Forward",
-        "price": 8.0,
-        "expected_points": 3.147,
+        "expected_points": 3.113,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -137,7 +124,20 @@
         "team_name": "Arsenal",
         "position": "Midfielder",
         "price": 7.5,
-        "expected_points": 3.09,
+        "expected_points": 3.051,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 106,
+        "web_name": "Thiago",
+        "team_id": 4,
+        "team_name": "Brentford",
+        "position": "Forward",
+        "price": 8.0,
+        "expected_points": 2.983,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -150,7 +150,7 @@
         "team_name": "Newcastle",
         "position": "Defender",
         "price": 5.0,
-        "expected_points": 2.8,
+        "expected_points": 2.758,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -165,7 +165,7 @@
         "team_name": "Everton",
         "position": "Forward",
         "price": 5.5,
-        "expected_points": 2.49,
+        "expected_points": 2.441,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -178,7 +178,7 @@
         "team_name": "Man City",
         "position": "Midfielder",
         "price": 6.5,
-        "expected_points": 2.33,
+        "expected_points": 2.373,
         "availability_status": "d",
         "chance_of_playing": 75,
         "news": "Knock - 75% chance of playing",
@@ -191,7 +191,7 @@
         "team_name": "Chelsea",
         "position": "Midfielder",
         "price": 7.0,
-        "expected_points": 2.167,
+        "expected_points": 2.271,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -204,7 +204,7 @@
         "team_name": "Sunderland",
         "position": "Goalkeeper",
         "price": 5.0,
-        "expected_points": 2.852,
+        "expected_points": 2.879,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -218,7 +218,7 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 12.0,
-      "expected_points": 4.689,
+      "expected_points": 5.041,
       "availability_status": "a",
       "chance_of_playing": null,
       "news": "",
@@ -231,7 +231,7 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 8.0,
-      "expected_points": 4.345,
+      "expected_points": 4.682,
       "availability_status": "a",
       "chance_of_playing": null,
       "news": "",
@@ -242,8 +242,8 @@
     "free_transfers_before": 1,
     "hit_cost": 0,
     "bank_after": 0.0,
-    "expected_points": 43.195,
-    "net_expected_points": 43.195,
+    "expected_points": 44.37,
+    "net_expected_points": 44.37,
     "six_gameweek_net_gain_vs_hold": 0.0,
     "six_gameweek_total_hit_cost": 0,
     "lineup_correlation": {
@@ -288,7 +288,7 @@
     "chip": "wildcard",
     "chip_name": "Wildcard",
     "gameweek": 2,
-    "incremental_expected_points": 23.374,
+    "incremental_expected_points": 22.199,
     "reason": "The projected gain clears the save threshold within the known horizon."
   },
   "six_gameweek_plan": {
@@ -309,8 +309,8 @@
         "free_transfers_before": 1,
         "hit_cost": 0,
         "bank_after": 0.0,
-        "lineup_expected_points": 43.195,
-        "net_expected_points": 43.195,
+        "lineup_expected_points": 44.37,
+        "net_expected_points": 44.37,
         "captain_player_id": 426,
         "captain": "B.Fernandes",
         "starter_player_ids": [
@@ -322,8 +322,8 @@
           427,
           346,
           229,
-          106,
           13,
+          106,
           445
         ]
       },
@@ -488,7 +488,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-08-26T20:11:20+00:00",
+      "generated_at": "2026-08-27T09:58:32+00:00",
       "required_action": null,
       "error": null
     },
@@ -503,8 +503,8 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-08-27T09:52:24+00:00",
-    "external_context_generated_at": "2026-08-27T09:53:30+00:00",
-    "active_external_signals": 1712,
+    "external_context_generated_at": "2026-08-27T09:59:19+00:00",
+    "active_external_signals": 1872,
     "expired_external_signals": 7496
   },
   "fixture_signature": [
@@ -1399,8 +1399,8 @@
         427,
         346,
         229,
-        13,
         106,
+        13,
         445
       ],
       "after": [
@@ -1412,8 +1412,8 @@
         427,
         346,
         229,
-        106,
         13,
+        106,
         445
       ]
     },
@@ -1425,7 +1425,7 @@
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 2,
-        "incremental_expected_points": 23.058,
+        "incremental_expected_points": 23.374,
         "reason": "The projected gain clears the save threshold within the known horizon."
       },
       "after": {
@@ -1433,14 +1433,14 @@
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 2,
-        "incremental_expected_points": 23.374,
+        "incremental_expected_points": 22.199,
         "reason": "The projected gain clears the save threshold within the known horizon."
       }
     }
   ],
   "material_change": true,
   "change_summary": "Starting XI changed Chip recommendation changed",
-  "decision_fingerprint": "a203be3b600df22992d16dceb43406530b7ac9d7c3e4e96560b10b6b00da395e",
-  "archive_created_this_run": "operations/gw02/20260827T095330Z.json",
-  "archive_markdown_created_this_run": "operations/gw02/20260827T095330Z.md"
+  "decision_fingerprint": "e37a1b440171456d3ce0dba0bcb13fe1f20cb305d36e364ae3d5f37dd6b1745c",
+  "archive_created_this_run": "operations/gw02/20260827T095919Z.json",
+  "archive_markdown_created_this_run": "operations/gw02/20260827T095919Z.md"
 }

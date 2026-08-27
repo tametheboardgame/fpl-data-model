@@ -1,9 +1,9 @@
 # FPL Gameweek 2 Deadline Report
 
 Status: ready
-Generated: 2026-08-27T09:53:30+00:00
+Generated: 2026-08-27T09:59:19+00:00
 UK deadline: 2026-08-28T18:30:00+01:00
-Hours remaining: 31.608
+Hours remaining: 31.511
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,27 +16,27 @@ Chip: Wildcard
 
 ## Starting XI
 
-- Kelleher (Brentford, 3.413 xPts)
-- Virgil (Liverpool, 3.807 xPts)
-- Lacroix (Chelsea, 3.393 xPts)
-- Senesi (Spurs, 3.391 xPts)
-- B.Fernandes (Man Utd, 4.689 xPts)
-- Mbeumo (Man Utd, 4.345 xPts)
-- Calvert-Lewin (Leeds, 3.22 xPts)
-- Tarkowski (Everton, 3.211 xPts)
-- Thiago (Brentford, 3.147 xPts)
-- Rice (Arsenal, 3.09 xPts)
-- Thiaw (Newcastle, 2.8 xPts)
+- Kelleher (Brentford, 3.247 xPts)
+- Virgil (Liverpool, 3.87 xPts)
+- Lacroix (Chelsea, 3.613 xPts)
+- Senesi (Spurs, 3.505 xPts)
+- B.Fernandes (Man Utd, 5.041 xPts)
+- Mbeumo (Man Utd, 4.682 xPts)
+- Calvert-Lewin (Leeds, 3.466 xPts)
+- Tarkowski (Everton, 3.113 xPts)
+- Rice (Arsenal, 3.051 xPts)
+- Thiago (Brentford, 2.983 xPts)
+- Thiaw (Newcastle, 2.758 xPts)
 
 Captain: B.Fernandes
 Vice-captain: Mbeumo
 
 ## Bench order
 
-1. Barry (2.49 xPts)
-2. Anderson (2.33 xPts)
-3. Enzo (2.167 xPts)
-4. Roefs (2.852 xPts)
+1. Barry (2.441 xPts)
+2. Anderson (2.373 xPts)
+3. Enzo (2.271 xPts)
+4. Roefs (2.879 xPts)
 
 ## Changes since previous report
 
