@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T11:27:35+00:00",
+  "generated_at": "2026-08-28T11:31:56+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -38,8 +38,8 @@
   "fixture_projection_rows": 3696,
   "player_horizon_rows": 616,
   "scouting_observation_rows": 0,
-  "external_context_signal_rows": 9528,
-  "active_external_context_signal_rows": 2032,
+  "external_context_signal_rows": 9688,
+  "active_external_context_signal_rows": 2192,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -693,10 +693,10 @@
       "component_expected_points_next_3": 7.517
     }
   ],
-  "prediction_snapshot_created": "predictions/gw02/20260828T112735Z.csv",
+  "prediction_snapshot_created": "predictions/gw02/20260828T113156Z.csv",
   "evaluated_gameweeks": 1,
   "prospective_evaluated_gameweeks": 0,
-  "prospective_snapshot_created": "prospective/gw02/20260828T112735Z.json",
+  "prospective_snapshot_created": "prospective/gw02/20260828T113156Z.json",
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
   "gameweek_report_warning_count": 3,
