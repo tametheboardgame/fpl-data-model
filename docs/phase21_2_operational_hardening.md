@@ -4,12 +4,14 @@ Phase 21.2 closes the remaining gap between the normal six-hour production cycle
 
 ## Deadline refresh schedule
 
-`.github/workflows/deadline-fpl-refresh.yml` assesses the next official FPL deadline hourly. It dispatches the existing `Update FPL data` workflow once in each of these windows:
+`.github/workflows/deadline-fpl-refresh.yml` assesses the next official FPL deadline four times an hour. It treats the refresh times as persistent checkpoints rather than one-hour trigger bands:
 
-- between 24 and 23 hours before the deadline;
-- between eight and seven hours before the deadline, so the immutable freeze snapshot can be created;
-- between four and three hours before the deadline;
-- during the final hour before the deadline.
+- 24 hours before the deadline;
+- eight hours before the deadline, when the immutable freeze snapshot becomes mandatory;
+- four hours before the deadline;
+- one hour before the deadline.
+
+Each checkpoint remains due until both the official FPL data and the model report are demonstrably newer than the checkpoint. Inside eight hours, the report must also contain the immutable snapshot. A delayed GitHub schedule therefore catches up on its next run instead of permanently missing a narrow trigger band. Completed checkpoints are idempotent, and a 20-minute grace period lets an already-dispatched model build finish before the scheduler retries a stale build or missing snapshot.
 
 The dispatched workflow retains the established sequence: collect official data, validate it, commit the refreshed datasets, then start the prediction-model workflow. Routine six-hour refreshes continue unchanged. A manual forced dispatch remains available.
 
