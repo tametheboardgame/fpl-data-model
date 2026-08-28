@@ -1,9 +1,9 @@
 # FPL Gameweek 3 Deadline Report
 
 Status: ready
-Generated: 2026-08-28T22:24:08+00:00
+Generated: 2026-08-28T22:28:26+00:00
 UK deadline: 2026-09-04T18:30:00+01:00
-Hours remaining: 163.098
+Hours remaining: 163.026
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,42 +16,34 @@ Chip: Wildcard
 
 ## Starting XI
 
-- Kelleher (Brentford, 3.205 xPts)
+- Kelleher (Brentford, 3.149 xPts)
 - Guéhi (Man City, 5.825 xPts)
-- Virgil (Liverpool, 3.069 xPts)
-- Senesi (Spurs, 3.005 xPts)
-- Anderson (Man City, 3.587 xPts)
-- B.Fernandes (Man Utd, 3.434 xPts)
-- Thiago (Brentford, 3.093 xPts)
+- Senesi (Spurs, 3.198 xPts)
+- Virgil (Liverpool, 3.172 xPts)
+- Anderson (Man City, 3.633 xPts)
+- B.Fernandes (Man Utd, 3.385 xPts)
+- Calvert-Lewin (Leeds, 3.003 xPts)
 - Szoboszlai (Liverpool, 3.947 xPts)
-- Mbeumo (Man Utd, 2.979 xPts)
-- Calvert-Lewin (Leeds, 2.824 xPts)
-- Thiaw (Newcastle, 2.792 xPts)
+- Thiago (Brentford, 2.956 xPts)
+- Mbeumo (Man Utd, 2.932 xPts)
+- Thiaw (Newcastle, 2.799 xPts)
 
-Captain: B.Fernandes
-Vice-captain: Anderson
+Captain: Anderson
+Vice-captain: B.Fernandes
 
 ## Bench order
 
-1. Rice (2.596 xPts)
-2. Lacroix (2.392 xPts)
-3. Barry (2.29 xPts)
-4. Roefs (1.808 xPts)
+1. Rice (2.608 xPts)
+2. Lacroix (2.382 xPts)
+3. Barry (2.308 xPts)
+4. Roefs (1.907 xPts)
 
 ## Changes since previous report
 
-- Target Gameweek changed
-- Deadline changed
 - Starting XI changed
-- Bench order changed
+- Captain changed
 - Vice-captain changed
-- Transfer recommendation changed
 - Chip recommendation changed
-- Fixture information changed
-- Data-quality warning state changed
-- Deadline advice stage changed
-- Firm-advice safety gate changed
-- Starting XI correlation exposure changed
 
 ## Warnings
 
