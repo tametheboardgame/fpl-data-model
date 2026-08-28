@@ -12,11 +12,11 @@
       },
       "gameweek_1_is_next": {
         "passed": false,
-        "observed": 2
+        "observed": 3
       },
       "gameweek_1_deadline": {
         "passed": true,
-        "observed": "2026-08-28T17:30:00Z"
+        "observed": "2026-09-04T17:30:00Z"
       },
       "twenty_clubs": {
         "passed": true,
@@ -24,31 +24,31 @@
       },
       "complete_player_pool": {
         "passed": true,
-        "observed": 619,
+        "observed": 622,
         "minimum": 300
       },
       "unique_player_ids": {
         "passed": true,
-        "observed": 619
+        "observed": 622
       },
       "position_coverage": {
         "passed": true,
         "observed": {
           "Goalkeeper": 68,
-          "Defender": 205,
-          "Midfielder": 273,
+          "Defender": 207,
+          "Midfielder": 274,
           "Forward": 73
         }
       },
       "future_fixture_horizon": {
         "passed": false,
         "observed": [
-          2,
           3,
           4,
           5,
           6,
-          7
+          7,
+          8
         ],
         "minimum_gameweeks": 3
       },
