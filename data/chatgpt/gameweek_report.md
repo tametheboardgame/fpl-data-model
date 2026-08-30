@@ -1,9 +1,9 @@
 # FPL Gameweek 3 Deadline Report
 
 Status: ready
-Generated: 2026-08-30T12:01:23+00:00
+Generated: 2026-08-30T12:18:29+00:00
 UK deadline: 2026-09-04T18:30:00+01:00
-Hours remaining: 125.477
+Hours remaining: 125.192
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,32 +16,31 @@ Chip: Hold
 
 ## Starting XI
 
-- Kelleher (Brentford, 2.799 xPts)
+- Kelleher (Brentford, 2.803 xPts)
 - Guéhi (Man City, 5.269 xPts)
-- Virgil (Liverpool, 4.012 xPts)
-- Tarkowski (Everton, 3.564 xPts)
+- Virgil (Liverpool, 4.007 xPts)
+- Tarkowski (Everton, 3.565 xPts)
 - Szoboszlai (Liverpool, 4.297 xPts)
-- Anderson (Man City, 3.742 xPts)
-- Thiago (Brentford, 3.065 xPts)
-- Thiaw (Newcastle, 3.441 xPts)
-- Barry (Everton, 2.962 xPts)
+- Anderson (Man City, 3.739 xPts)
+- Thiago (Brentford, 3.061 xPts)
+- Thiaw (Newcastle, 3.44 xPts)
+- Barry (Everton, 2.961 xPts)
 - B.Fernandes (Man Utd, 2.925 xPts)
-- Mbeumo (Man Utd, 2.661 xPts)
+- Mbeumo (Man Utd, 2.66 xPts)
 
 Captain: Virgil
 Vice-captain: Anderson
 
 ## Bench order
 
-1. Calvert-Lewin (2.454 xPts)
-2. Lacroix (2.206 xPts)
+1. Calvert-Lewin (2.449 xPts)
+2. Lacroix (2.208 xPts)
 3. Enzo (1.492 xPts)
-4. Roefs (1.786 xPts)
+4. Roefs (1.788 xPts)
 
 ## Changes since previous report
 
-- Captain changed
-- Vice-captain changed
+- No material changes
 
 ## Warnings
 
