@@ -1,9 +1,9 @@
 # FPL Gameweek 3 Deadline Report
 
 Status: ready
-Generated: 2026-08-30T11:58:13+00:00
+Generated: 2026-08-30T12:01:23+00:00
 UK deadline: 2026-09-04T18:30:00+01:00
-Hours remaining: 125.53
+Hours remaining: 125.477
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,36 +16,32 @@ Chip: Hold
 
 ## Starting XI
 
-- Kelleher (Brentford, 2.864 xPts)
+- Kelleher (Brentford, 2.799 xPts)
 - Guéhi (Man City, 5.269 xPts)
-- Virgil (Liverpool, 3.93 xPts)
-- Tarkowski (Everton, 3.563 xPts)
+- Virgil (Liverpool, 4.012 xPts)
+- Tarkowski (Everton, 3.564 xPts)
 - Szoboszlai (Liverpool, 4.297 xPts)
-- Anderson (Man City, 3.682 xPts)
-- Thiago (Brentford, 2.996 xPts)
-- Thiaw (Newcastle, 3.4 xPts)
-- Barry (Everton, 2.922 xPts)
-- B.Fernandes (Man Utd, 2.917 xPts)
-- Mbeumo (Man Utd, 2.653 xPts)
+- Anderson (Man City, 3.742 xPts)
+- Thiago (Brentford, 3.065 xPts)
+- Thiaw (Newcastle, 3.441 xPts)
+- Barry (Everton, 2.962 xPts)
+- B.Fernandes (Man Utd, 2.925 xPts)
+- Mbeumo (Man Utd, 2.661 xPts)
 
-Captain: Anderson
-Vice-captain: Virgil
+Captain: Virgil
+Vice-captain: Anderson
 
 ## Bench order
 
-1. Calvert-Lewin (2.358 xPts)
-2. Lacroix (2.258 xPts)
-3. Enzo (1.488 xPts)
-4. Roefs (1.825 xPts)
+1. Calvert-Lewin (2.454 xPts)
+2. Lacroix (2.206 xPts)
+3. Enzo (1.492 xPts)
+4. Roefs (1.786 xPts)
 
 ## Changes since previous report
 
-- Starting XI changed
-- Bench order changed
+- Captain changed
 - Vice-captain changed
-- Transfer recommendation changed
-- Data-quality warning state changed
-- Starting XI correlation exposure changed
 
 ## Warnings
 
