@@ -1,9 +1,9 @@
 # FPL Gameweek 3 Deadline Report
 
 Status: ready
-Generated: 2026-08-30T05:31:58+00:00
+Generated: 2026-08-30T05:55:39+00:00
 UK deadline: 2026-09-04T18:30:00+01:00
-Hours remaining: 131.967
+Hours remaining: 131.572
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,32 +16,31 @@ Chip: Hold
 
 ## Starting XI
 
-- Kelleher (Brentford, 2.799 xPts)
+- Kelleher (Brentford, 2.804 xPts)
 - Guéhi (Man City, 5.692 xPts)
-- Virgil (Liverpool, 3.41 xPts)
-- Thiaw (Newcastle, 2.902 xPts)
+- Virgil (Liverpool, 3.408 xPts)
+- Thiaw (Newcastle, 2.903 xPts)
 - Foden (Man City, 4.052 xPts)
-- Anderson (Man City, 3.947 xPts)
-- Thiago (Brentford, 3.065 xPts)
-- B.Fernandes (Man Utd, 3.304 xPts)
-- Mbeumo (Man Utd, 2.867 xPts)
-- Senesi (Spurs, 2.849 xPts)
-- Calvert-Lewin (Leeds, 2.454 xPts)
+- Anderson (Man City, 3.943 xPts)
+- Thiago (Brentford, 3.059 xPts)
+- B.Fernandes (Man Utd, 3.3 xPts)
+- Mbeumo (Man Utd, 2.862 xPts)
+- Senesi (Spurs, 2.848 xPts)
+- Calvert-Lewin (Leeds, 2.447 xPts)
 
 Captain: Anderson
 Vice-captain: B.Fernandes
 
 ## Bench order
 
-1. Lacroix (2.206 xPts)
-2. Barry (2.125 xPts)
+1. Lacroix (2.21 xPts)
+2. Barry (2.12 xPts)
 3. Enzo (1.492 xPts)
-4. Roefs (1.786 xPts)
+4. Roefs (1.789 xPts)
 
 ## Changes since previous report
 
-- Starting XI changed
-- Bench order changed
+- No material changes
 
 ## Warnings
 
