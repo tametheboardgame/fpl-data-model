@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.4",
-  "generated_at": "2026-08-31T05:40:23+00:00",
+  "generated_at": "2026-08-31T05:46:46+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-2.1",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-09-04T17:30:00+00:00",
     "deadline_time_uk": "2026-09-04T18:30:00+01:00",
-    "hours_remaining": 107.827
+    "hours_remaining": 107.721
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -20,7 +20,7 @@
         "team_name": "Brentford",
         "position": "Goalkeeper",
         "price": 5.0,
-        "expected_points": 3.194,
+        "expected_points": 3.115,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -46,7 +46,7 @@
         "team_name": "Liverpool",
         "position": "Defender",
         "price": 6.5,
-        "expected_points": 3.916,
+        "expected_points": 4.036,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -59,7 +59,7 @@
         "team_name": "Everton",
         "position": "Defender",
         "price": 6.0,
-        "expected_points": 3.547,
+        "expected_points": 3.537,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -85,7 +85,7 @@
         "team_name": "Man City",
         "position": "Midfielder",
         "price": 6.4,
-        "expected_points": 3.67,
+        "expected_points": 3.744,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -98,7 +98,7 @@
         "team_name": "Brentford",
         "position": "Forward",
         "price": 8.0,
-        "expected_points": 3.266,
+        "expected_points": 3.383,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -111,7 +111,7 @@
         "team_name": "Newcastle",
         "position": "Defender",
         "price": 5.0,
-        "expected_points": 3.417,
+        "expected_points": 3.439,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -124,7 +124,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 12.0,
-        "expected_points": 3.176,
+        "expected_points": 3.194,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -137,7 +137,7 @@
         "team_name": "Everton",
         "position": "Forward",
         "price": 5.5,
-        "expected_points": 2.912,
+        "expected_points": 2.95,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -150,7 +150,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 8.0,
-        "expected_points": 2.818,
+        "expected_points": 2.835,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -165,7 +165,7 @@
         "team_name": "Leeds",
         "position": "Forward",
         "price": 6.0,
-        "expected_points": 2.465,
+        "expected_points": 2.593,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -178,7 +178,7 @@
         "team_name": "Chelsea",
         "position": "Defender",
         "price": 6.0,
-        "expected_points": 2.46,
+        "expected_points": 2.395,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -191,7 +191,7 @@
         "team_name": "Chelsea",
         "position": "Midfielder",
         "price": 6.9,
-        "expected_points": 1.496,
+        "expected_points": 1.505,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -204,7 +204,7 @@
         "team_name": "Sunderland",
         "position": "Goalkeeper",
         "price": 5.0,
-        "expected_points": 1.982,
+        "expected_points": 1.918,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -212,30 +212,30 @@
       }
     ],
     "captain": {
-      "player_id": 481,
-      "web_name": "Anderson",
-      "team_id": 15,
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 6.4,
-      "expected_points": 3.67,
-      "availability_status": "a",
-      "chance_of_playing": 100,
-      "news": "",
-      "news_added": "2026-08-23T17:00:07.952697Z"
-    },
-    "vice_captain": {
       "player_id": 356,
       "web_name": "Virgil",
       "team_id": 14,
       "team_name": "Liverpool",
       "position": "Defender",
       "price": 6.5,
-      "expected_points": 3.916,
+      "expected_points": 4.036,
       "availability_status": "a",
       "chance_of_playing": null,
       "news": "",
       "news_added": ""
+    },
+    "vice_captain": {
+      "player_id": 481,
+      "web_name": "Anderson",
+      "team_id": 15,
+      "team_name": "Man City",
+      "position": "Midfielder",
+      "price": 6.4,
+      "expected_points": 3.744,
+      "availability_status": "a",
+      "chance_of_playing": 100,
+      "news": "",
+      "news_added": "2026-08-23T17:00:07.952697Z"
     },
     "transfers": [
       {
@@ -259,9 +259,9 @@
     "free_transfers_before": 2,
     "hit_cost": 0,
     "bank_after": 0.5,
-    "expected_points": 44.693,
-    "net_expected_points": 44.693,
-    "six_gameweek_net_gain_vs_hold": 33.057,
+    "expected_points": 45.363,
+    "net_expected_points": 45.363,
+    "six_gameweek_net_gain_vs_hold": 33.123,
     "six_gameweek_total_hit_cost": 0,
     "lineup_correlation": {
       "opposing_pairs": [
@@ -330,7 +330,7 @@
       7,
       8
     ],
-    "net_gain_vs_hold": 33.057,
+    "net_gain_vs_hold": 33.123,
     "gameweek_plan": [
       {
         "gameweek": 3,
@@ -355,8 +355,8 @@
         "free_transfers_before": 2,
         "hit_cost": 0,
         "bank_after": 0.5,
-        "lineup_expected_points": 44.693,
-        "net_expected_points": 44.693,
+        "lineup_expected_points": 45.363,
+        "net_expected_points": 45.363,
         "captain_player_id": 388,
         "captain": "Guéhi",
         "starter_player_ids": [
@@ -545,7 +545,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-08-30T21:13:44+00:00",
+      "generated_at": "2026-08-31T05:46:02+00:00",
       "required_action": null,
       "error": null
     },
@@ -560,8 +560,8 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-08-31T05:39:12+00:00",
-    "external_context_generated_at": "2026-08-31T05:40:23+00:00",
-    "active_external_signals": 1872,
+    "external_context_generated_at": "2026-08-31T05:46:46+00:00",
+    "active_external_signals": 2040,
     "expired_external_signals": 8816
   },
   "fixture_signature": [
@@ -1447,19 +1447,19 @@
     {
       "type": "captain",
       "summary": "Captain changed",
-      "before": 356,
-      "after": 481
+      "before": 481,
+      "after": 356
     },
     {
       "type": "vice_captain",
       "summary": "Vice-captain changed",
-      "before": 481,
-      "after": 356
+      "before": 356,
+      "after": 481
     }
   ],
   "material_change": true,
   "change_summary": "Captain changed Vice-captain changed",
-  "decision_fingerprint": "2cbc846531cf324534f94db03d4cdd0a50f33bf9763644518dacd9bf8d2d9cd7",
-  "archive_created_this_run": "operations/gw03/20260831T054023Z.json",
-  "archive_markdown_created_this_run": "operations/gw03/20260831T054023Z.md"
+  "decision_fingerprint": "2130766ea8014e8c6fb55bcd57c02980c987540afa13a886cc5f705072480818",
+  "archive_created_this_run": "operations/gw03/20260831T054646Z.json",
+  "archive_markdown_created_this_run": "operations/gw03/20260831T054646Z.md"
 }
