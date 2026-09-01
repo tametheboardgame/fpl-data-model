@@ -1,24 +1,48 @@
 {
-  "generated_at": "2026-09-01T12:07:39+00:00",
-  "evaluated_gameweeks": 1,
-  "skipped_unfinalised_gameweeks": 1,
+  "generated_at": "2026-09-01T16:44:28+00:00",
+  "evaluated_gameweeks": 2,
+  "skipped_unfinalised_gameweeks": 0,
   "finality_requirement": "finished=true and data_checked=true",
   "finality_source": "raw/latest/bootstrap-static.json",
   "latest": {
-    "gameweek": 1,
+    "gameweek": 2,
     "model_version": "player-ensemble-1.0",
-    "prediction_snapshot": "predictions/gw01/20260821T133423Z.csv",
-    "players_evaluated": 600,
-    "mean_absolute_error": 1.5059,
-    "quantitative_mean_absolute_error": 1.5059,
+    "prediction_snapshot": "predictions/gw02/20260828T141740Z.csv",
+    "players_evaluated": 619,
+    "mean_absolute_error": 1.2289,
+    "quantitative_mean_absolute_error": 1.2289,
     "qualitative_mae_improvement": 0.0,
-    "root_mean_squared_error": 2.6003,
-    "mean_bias": -0.2051,
-    "average_predicted_points": 1.3716,
-    "average_actual_points": 1.5767,
-    "managed_team": null
+    "root_mean_squared_error": 2.2018,
+    "mean_bias": -0.1643,
+    "average_predicted_points": 1.2718,
+    "average_actual_points": 1.4362,
+    "managed_team": {
+      "gameweek": 2,
+      "selected_xi_players_evaluated": 11,
+      "selected_xi_mean_absolute_error": 4.7697,
+      "selected_xi_mean_bias": -2.8861,
+      "starting_xi_predicted_points_before_captain": 42.253,
+      "starting_xi_actual_points_before_captain": 74.0,
+      "submitted_team_predicted_points": 47.055,
+      "submitted_team_actual_points": 97.0,
+      "official_manager_points": 97.0,
+      "captain_player_id": 426,
+      "bench_actual_points": 8.0
+    }
   },
-  "managed_team_latest": null,
+  "managed_team_latest": {
+    "gameweek": 2,
+    "selected_xi_players_evaluated": 11,
+    "selected_xi_mean_absolute_error": 4.7697,
+    "selected_xi_mean_bias": -2.8861,
+    "starting_xi_predicted_points_before_captain": 42.253,
+    "starting_xi_actual_points_before_captain": 74.0,
+    "submitted_team_predicted_points": 47.055,
+    "submitted_team_actual_points": 97.0,
+    "official_manager_points": 97.0,
+    "captain_player_id": 426,
+    "bench_actual_points": 8.0
+  },
   "history": [
     {
       "gameweek": 1,
@@ -33,6 +57,32 @@
       "average_predicted_points": 1.3716,
       "average_actual_points": 1.5767,
       "managed_team": null
+    },
+    {
+      "gameweek": 2,
+      "model_version": "player-ensemble-1.0",
+      "prediction_snapshot": "predictions/gw02/20260828T141740Z.csv",
+      "players_evaluated": 619,
+      "mean_absolute_error": 1.2289,
+      "quantitative_mean_absolute_error": 1.2289,
+      "qualitative_mae_improvement": 0.0,
+      "root_mean_squared_error": 2.2018,
+      "mean_bias": -0.1643,
+      "average_predicted_points": 1.2718,
+      "average_actual_points": 1.4362,
+      "managed_team": {
+        "gameweek": 2,
+        "selected_xi_players_evaluated": 11,
+        "selected_xi_mean_absolute_error": 4.7697,
+        "selected_xi_mean_bias": -2.8861,
+        "starting_xi_predicted_points_before_captain": 42.253,
+        "starting_xi_actual_points_before_captain": 74.0,
+        "submitted_team_predicted_points": 47.055,
+        "submitted_team_actual_points": 97.0,
+        "official_manager_points": 97.0,
+        "captain_player_id": 426,
+        "bench_actual_points": 8.0
+      }
     }
   ]
 }

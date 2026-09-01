@@ -1,59 +1,96 @@
 {
   "prospective_version": "fpl-prospective-1.1",
-  "generated_at": "2026-09-01T12:07:39+00:00",
-  "status": "waiting_for_finalised_gameweeks",
-  "evaluated_gameweeks": 0,
-  "skipped_unfinalised_gameweeks": 1,
+  "generated_at": "2026-09-01T16:44:28+00:00",
+  "status": "ready",
+  "evaluated_gameweeks": 1,
+  "skipped_unfinalised_gameweeks": 0,
   "minimum_gameweeks_for_evidence": 10,
-  "arms": [],
+  "arms": [
+    {
+      "arm_id": "full_context_selection",
+      "evaluated_gameweeks": 1,
+      "total_actual_points": 91.0,
+      "average_actual_points": 91.0
+    },
+    {
+      "arm_id": "no_external_selection",
+      "evaluated_gameweeks": 1,
+      "total_actual_points": 91.0,
+      "average_actual_points": 91.0
+    },
+    {
+      "arm_id": "no_odds_selection",
+      "evaluated_gameweeks": 1,
+      "total_actual_points": 91.0,
+      "average_actual_points": 91.0
+    },
+    {
+      "arm_id": "ownership_baseline",
+      "evaluated_gameweeks": 1,
+      "total_actual_points": 91.0,
+      "average_actual_points": 91.0
+    },
+    {
+      "arm_id": "quantitative_only_selection",
+      "evaluated_gameweeks": 1,
+      "total_actual_points": 91.0,
+      "average_actual_points": 91.0
+    },
+    {
+      "arm_id": "system_strategy",
+      "evaluated_gameweeks": 1,
+      "total_actual_points": 102.0,
+      "average_actual_points": 102.0
+    }
+  ],
   "comparisons": [
     {
       "comparison_id": "all_context_value",
       "treatment": "full_context_selection",
       "control": "no_external_selection",
-      "paired_gameweeks": 0,
-      "average_points_delta": 0,
-      "treatment_win_rate": null,
+      "paired_gameweeks": 1,
+      "average_points_delta": 0.0,
+      "treatment_win_rate": 0.0,
       "status": "insufficient_evidence"
     },
     {
       "comparison_id": "odds_value",
       "treatment": "full_context_selection",
       "control": "no_odds_selection",
-      "paired_gameweeks": 0,
-      "average_points_delta": 0,
-      "treatment_win_rate": null,
+      "paired_gameweeks": 1,
+      "average_points_delta": 0.0,
+      "treatment_win_rate": 0.0,
       "status": "insufficient_evidence"
     },
     {
       "comparison_id": "qualitative_value",
       "treatment": "no_external_selection",
       "control": "quantitative_only_selection",
-      "paired_gameweeks": 0,
-      "average_points_delta": 0,
-      "treatment_win_rate": null,
+      "paired_gameweeks": 1,
+      "average_points_delta": 0.0,
+      "treatment_win_rate": 0.0,
       "status": "insufficient_evidence"
     },
     {
       "comparison_id": "model_vs_ownership",
       "treatment": "full_context_selection",
       "control": "ownership_baseline",
-      "paired_gameweeks": 0,
-      "average_points_delta": 0,
-      "treatment_win_rate": null,
+      "paired_gameweeks": 1,
+      "average_points_delta": 0.0,
+      "treatment_win_rate": 0.0,
       "status": "insufficient_evidence"
     },
     {
       "comparison_id": "strategy_vs_ownership",
       "treatment": "system_strategy",
       "control": "ownership_baseline",
-      "paired_gameweeks": 0,
-      "average_points_delta": 0,
-      "treatment_win_rate": null,
+      "paired_gameweeks": 1,
+      "average_points_delta": 11.0,
+      "treatment_win_rate": 1.0,
       "status": "insufficient_evidence"
     }
   ],
-  "latest_gameweek": null,
+  "latest_gameweek": 2,
   "finality_requirement": "finished=true and data_checked=true",
   "finality_source": "raw/latest/bootstrap-static.json",
   "governance": "Evidence is reported prospectively; source weights are not changed automatically."
