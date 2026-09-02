@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T11:46:08+00:00",
+  "generated_at": "2026-09-02T16:38:35+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -33,10 +33,10 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Development-selected ensemble with player-specific early-season priors, separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
-  "player_feature_rows": 629,
+  "player_feature_rows": 651,
   "team_feature_rows": 20,
-  "fixture_projection_rows": 3774,
-  "player_horizon_rows": 629,
+  "fixture_projection_rows": 3906,
+  "player_horizon_rows": 651,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 11824,
   "active_external_context_signal_rows": 2800,
@@ -167,6 +167,14 @@
       "expected_points_next_1": 3.955
     },
     {
+      "player_id": 237,
+      "web_name": "Ndiaye",
+      "team_name": "Man City",
+      "position": "Midfielder",
+      "price": 6.0,
+      "expected_points_next_1": 3.949
+    },
+    {
       "player_id": 398,
       "web_name": "Foden",
       "team_name": "Man City",
@@ -197,14 +205,6 @@
       "position": "Midfielder",
       "price": 6.0,
       "expected_points_next_1": 3.83
-    },
-    {
-      "player_id": 69,
-      "web_name": "Scott",
-      "team_name": "Bournemouth",
-      "position": "Midfielder",
-      "price": 6.0,
-      "expected_points_next_1": 3.738
     }
   ],
   "top_next_three_gameweeks": [
