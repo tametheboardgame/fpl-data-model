@@ -1109,6 +1109,10 @@ def build_projections(
                 else 0,
                 3,
             )
+            base[f"component_expected_minutes_next_{horizon}"] = round(
+                sum(number(row.get("component_expected_minutes")) for row in selected),
+                2,
+            )
             base[f"component_points_p10_next_{horizon}"] = percentile(
                 combined_component_samples, 0.10
             )

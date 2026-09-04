@@ -5,9 +5,13 @@ import unittest
 from src.fpl_chip_optimizer import (
     WILDCARD_OBJECTIVE_VERSION,
     _captain_utility,
+    _fixture_metric_matrix,
     _ownership_pressure,
+    _select_strategic_captain,
+    _select_near_optimal_wildcard_variant,
     _strategic_gameweek_score,
     _wildcard_search_heuristic,
+    optimise_budget_squad,
 )
 
 
@@ -17,13 +21,14 @@ def player(
     *,
     ownership: float = 0.0,
     team_id: int | None = None,
+    price: float = 5.0,
 ) -> dict:
     return {
         "player_id": player_id,
         "web_name": f"Player {player_id}",
         "position": position,
         "team_id": team_id or player_id,
-        "price": 5.0,
+        "price": price,
         "selected_by_percent": ownership,
     }
 
@@ -151,8 +156,158 @@ class WildcardStrategyTests(unittest.TestCase):
         self.assertGreater(strategic, mean_score)
         self.assertGreater(components["strategic_bonus"], 0.0)
 
+    def test_beam_reserves_budget_for_a_legal_completion(self) -> None:
+        players = {}
+        points = {}
+        player_id = 1
+        for position, required in (("Goalkeeper", 2), ("Defender", 5), ("Midfielder", 5), ("Forward", 3)):
+            # Enough expensive, high-heuristic choices to strand the old beam, plus
+            # cheap alternatives that make a legal squad possible under the budget.
+            for _ in range(required):
+                players[player_id] = player(
+                    player_id, position, team_id=player_id, price=10.0
+                )
+                points[player_id] = 10.0
+                player_id += 1
+            for _ in range(required):
+                players[player_id] = player(
+                    player_id, position, team_id=player_id, price=4.0
+                )
+                points[player_id] = 1.0
+                player_id += 1
+
+        result = optimise_budget_squad(
+            players, points, budget=100.0, beam_width=1
+        )
+
+        self.assertIsNotNone(result)
+        squad_ids, cost, _, _, _ = result
+        self.assertEqual(len(squad_ids), 15)
+        self.assertLessEqual(cost, 100.0)
+
+    def test_preselected_premium_can_complete_budget_legal_squad(self) -> None:
+        players = {}
+        points = {}
+        player_id = 1
+        premium_id = 999
+        for position, required in (("Goalkeeper", 2), ("Defender", 5), ("Midfielder", 5), ("Forward", 3)):
+            for _ in range(required + 2):
+                price = 4.0 if position != "Forward" else 5.0
+                players[player_id] = player(
+                    player_id, position, team_id=player_id, price=price
+                )
+                points[player_id] = 2.0
+                player_id += 1
+        players[premium_id] = player(
+            premium_id, "Forward", team_id=90, price=15.5
+        )
+        points[premium_id] = 12.0
+
+        result = optimise_budget_squad(
+            players,
+            points,
+            budget=100.0,
+            beam_width=10,
+            preselected_player_ids=(premium_id,),
+        )
+
+        self.assertIsNotNone(result)
+        self.assertIn(premium_id, result[0])
+        self.assertEqual(len(result[0]), 15)
+        self.assertLessEqual(result[1], 100.0)
+
+    def test_near_optimal_wildcard_prefers_stronger_current_attacking_captain(self) -> None:
+        players = {
+            1: player(1, "Forward", team_id=1),
+            2: player(2, "Forward", team_id=2),
+        }
+        expected = {1: 7.0, 2: 5.0}
+        p90 = {1: 14.0, 2: 9.0}
+        p10 = {1: 0.35, 2: 0.10}
+        p15 = {1: 0.12, 2: 0.02}
+        variants = [
+            {"result": ((2,), 5.0, 100.0, [2], 2), "seed_player_ids": ()},
+            {"result": ((1,), 5.0, 98.6, [1], 1), "seed_player_ids": (1,)},
+        ]
+
+        selected, audit = _select_near_optimal_wildcard_variant(
+            variants, players, expected, p90, p10, p15
+        )
+
+        self.assertEqual(selected["result"][0], (1,))
+        self.assertTrue(next(row for row in audit if row["seed_player_ids"] == [1])["selected"])
+
+    def test_wildcard_separation_band_does_not_rescue_materially_worse_archetype(self) -> None:
+        players = {
+            1: player(1, "Forward", team_id=1),
+            2: player(2, "Forward", team_id=2),
+        }
+        expected = {1: 7.0, 2: 5.0}
+        p90 = {1: 14.0, 2: 9.0}
+        p10 = {1: 0.35, 2: 0.10}
+        p15 = {1: 0.12, 2: 0.02}
+        variants = [
+            {"result": ((2,), 5.0, 100.0, [2], 2), "seed_player_ids": ()},
+            {"result": ((1,), 5.0, 98.4, [1], 1), "seed_player_ids": (1,)},
+        ]
+
+        selected, _ = _select_near_optimal_wildcard_variant(
+            variants, players, expected, p90, p10, p15
+        )
+
+        self.assertEqual(selected["result"][0], (2,))
+
+    def test_target_gameweek_p90_scales_with_decision_mean(self) -> None:
+        rows = [
+            {"player_id": 1, "gameweek": 3, "points_p90": 10.0},
+            {"player_id": 1, "gameweek": 4, "points_p90": 9.0},
+        ]
+        matrix = _fixture_metric_matrix(
+            rows, [3, 4], ("points_p90",), {1: 1.2}
+        )
+
+        self.assertAlmostEqual(matrix[3][1], 12.0)
+        self.assertAlmostEqual(matrix[4][1], 9.0)
+
+    def test_strategic_captain_prefers_attacker_inside_uncertainty_band(self) -> None:
+        players = {
+            1: player(1, "Defender", ownership=75.0),
+            2: player(2, "Forward", ownership=50.0),
+        }
+        expected = {1: 6.0, 2: 5.8}
+        p90 = {1: 8.0, 2: 8.5}
+        p10 = {1: 0.10, 2: 0.10}
+        p15 = {1: 0.0, 2: 0.01}
+
+        defender_utility = _captain_utility(1, players, expected, p90, p10, p15)[0]
+        attacker_utility = _captain_utility(2, players, expected, p90, p10, p15)[0]
+        self.assertGreater(defender_utility, attacker_utility)
+        self.assertLessEqual(defender_utility - attacker_utility, 1.5)
+        self.assertEqual(
+            _select_strategic_captain({1, 2}, players, expected, p90, p10, p15),
+            2,
+        )
+
+    def test_exceptional_defender_can_still_be_strategic_captain(self) -> None:
+        players = {
+            1: player(1, "Defender", ownership=75.0),
+            2: player(2, "Forward", ownership=5.0),
+        }
+        expected = {1: 9.0, 2: 5.0}
+        p90 = {1: 14.0, 2: 8.0}
+        p10 = {1: 0.40, 2: 0.08}
+        p15 = {1: 0.10, 2: 0.01}
+
+        defender_utility = _captain_utility(1, players, expected, p90, p10, p15)[0]
+        attacker_utility = _captain_utility(2, players, expected, p90, p10, p15)[0]
+        self.assertGreater(defender_utility - attacker_utility, 1.5)
+        self.assertEqual(
+            _select_strategic_captain({1, 2}, players, expected, p90, p10, p15),
+            1,
+        )
+
     def test_objective_version_records_beam_search_fix(self) -> None:
-        self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.1")
+        self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.4")
 
 
 if __name__ == "__main__":

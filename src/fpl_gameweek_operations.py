@@ -16,7 +16,7 @@ from src.fpl_multiweek import (
 )
 
 
-OPERATIONS_VERSION = "fpl-gameweek-operations-1.5"
+OPERATIONS_VERSION = "fpl-gameweek-operations-1.6"
 FREEZE_WINDOW_HOURS = 8
 NORMAL_DATA_MAX_AGE_HOURS = 8
 DEADLINE_DATA_MAX_AGE_HOURS = 3
@@ -336,15 +336,50 @@ def _apply_wildcard_selection(
         for row in horizons
         if integer(row.get("player_id"))
     }
-    wildcard_score, starter_ids, captain_id = optimise_gameweek_lineup(
-        tuple(sorted(replacement_ids)),
-        players,
-        wildcard_points,
-        fixture_rows_by_player(fixture_projections, gameweek),
+    recommendation_points = {
+        integer(player_id): number(value)
+        for player_id, value in (
+            recommendation.get("gameweek_expected_points_by_player") or {}
+        ).items()
+        if integer(player_id)
+    }
+    if replacement_ids and replacement_ids.issubset(recommendation_points):
+        wildcard_points.update(
+            {player_id: recommendation_points[player_id] for player_id in replacement_ids}
+        )
+        wildcard_points_source = "chip_optimisation_target_gameweek"
+    else:
+        wildcard_points_source = "horizon_fallback"
+    recommended_starter_ids = [
+        integer(value)
+        for value in recommendation.get("starter_player_ids", [])
+        if integer(value)
+    ]
+    recommended_captain_id = integer(recommendation.get("captain_player_id"))
+    optimiser_selection_valid = (
+        len(recommended_starter_ids) == 11
+        and len(set(recommended_starter_ids)) == 11
+        and set(recommended_starter_ids).issubset(replacement_ids)
+        and recommended_captain_id in recommended_starter_ids
     )
-    starter_ids = [integer(value) for value in starter_ids]
-    if len(starter_ids) != 11 or captain_id not in starter_ids:
-        return selection
+    if optimiser_selection_valid:
+        starter_ids = recommended_starter_ids
+        captain_id = recommended_captain_id
+        wildcard_score = sum(
+            wildcard_points.get(player_id, 0.0) for player_id in starter_ids
+        ) + wildcard_points.get(captain_id, 0.0)
+        wildcard_lineup_source = "chip_optimisation"
+    else:
+        wildcard_score, starter_ids, captain_id = optimise_gameweek_lineup(
+            tuple(sorted(replacement_ids)),
+            players,
+            wildcard_points,
+            fixture_rows_by_player(fixture_projections, gameweek),
+        )
+        starter_ids = [integer(value) for value in starter_ids]
+        if len(starter_ids) != 11 or captain_id not in starter_ids:
+            return selection
+        wildcard_lineup_source = "mean_lineup_fallback"
 
     vice_id = next(
         (
@@ -412,6 +447,15 @@ def _apply_wildcard_selection(
             "wildcard_incremental_expected_points": recommendation.get(
                 "incremental_expected_points"
             ),
+            "wildcard_lineup_source": wildcard_lineup_source,
+            "wildcard_points_source": wildcard_points_source,
+            "wildcard_objective_version": recommendation.get(
+                "wildcard_objective_version"
+            ),
+            "wildcard_strategic_objective_edge": recommendation.get(
+                "strategic_objective_edge"
+            ),
+            "wildcard_search_audit": recommendation.get("wildcard_search_audit"),
         }
     )
     return selection
@@ -431,8 +475,18 @@ def _chip(decision: dict[str, Any], gameweek: int) -> dict[str, Any]:
     }
     for key in (
         "replacement_squad_player_ids",
+        "starter_player_ids",
+        "captain_player_id",
         "transfers_in_rebuild",
         "squad_cost",
+        "wildcard_objective_version",
+        "strategic_objective_edge",
+        "strategic_objective_score",
+        "wildcard_discounted_mean_points",
+        "baseline_discounted_mean_points_recomputed",
+        "strategic_audit",
+        "wildcard_search_audit",
+        "wildcard_archetype_separation_points",
     ):
         if recommendation.get(key) is not None:
             result[key] = recommendation.get(key)

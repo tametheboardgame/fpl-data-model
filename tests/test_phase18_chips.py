@@ -111,6 +111,27 @@ class Phase18ChipOptimiserTests(unittest.TestCase):
         )
         self.assertEqual(result["recommendation"]["action"], "hold")
 
+    def test_wildcard_candidate_exports_target_gameweek_mean_basis(self) -> None:
+        result = optimise_chip_plan(
+            self.projections(),
+            self.players,
+            self.squad,
+            25.0,
+            self.chips,
+            self.route,
+            10,
+            first_gameweek_multiplier={1: 1.5},
+        )
+        wildcard = result["best_by_chip"]["wildcard"]
+        self.assertAlmostEqual(
+            wildcard["gameweek_expected_points_by_player"]["1"],
+            4.5,
+        )
+        self.assertAlmostEqual(
+            wildcard["gameweek_expected_points_by_player"]["2"],
+            3.0,
+        )
+
     def test_used_chip_is_not_considered(self) -> None:
         self.chips["periods"][0]["chips"]["freehit"]["remaining"] = 0
         result = optimise_chip_plan(
