@@ -1,0 +1,167 @@
+name: Validate Wildcard captain archetypes
+
+on:
+  push:
+    branches:
+      - fix/wildcard-captain-archetype-search
+    paths:
+      - ".github/workflows/validate-wildcard-archetypes.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/wildcard-captain-archetype-search
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --requirement requirements.txt
+
+      - name: Apply archetype search patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: str, old: str, new: str) -> None:
+              target = Path(path)
+              text = target.read_text(encoding="utf-8")
+              if old not in text:
+                  raise SystemExit(f"Missing patch anchor in {path}: {old[:120]!r}")
+              target.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          replace_once(
+              "src/fpl_chip_optimizer.py",
+              '''from src.fpl_multiweek import (\n    POSITION_LIMITS,''',
+              '''from src.fpl_multiweek import (\n    MINIMUM_ROUTE_SEPARATION_POINTS,\n    POSITION_LIMITS,''',
+          )
+          replace_once(
+              "src/fpl_chip_optimizer.py",
+              'WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.2"',
+              'WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.3"',
+          )
+
+          # General preselection support lets the optimiser explore a deliberately
+          # different premium/captain structure without hard-coding any player.
+          replace_once(
+              "src/fpl_chip_optimizer.py",
+              '''    final_scorer: Callable[[tuple[int, ...]], tuple[float, list[int], int | None]] | None = None,\n) -> tuple[tuple[int, ...], float, float, list[int], int | None] | None:''',
+              '''    final_scorer: Callable[[tuple[int, ...]], tuple[float, list[int], int | None]] | None = None,\n    preselected_player_ids: tuple[int, ...] = (),\n) -> tuple[tuple[int, ...], float, float, list[int], int | None] | None:''',
+          )
+
+          # Precompute a deliberately optimistic minimum completion cost. It is a
+          # safe lower bound (so it cannot falsely prune a feasible squad) and avoids
+          # sorting candidate prices inside every beam state.
+          replace_once(
+              "src/fpl_chip_optimizer.py",
+              '''        candidates[position] = list(dict.fromkeys(rows[: limits[position]] + cheapest))\n\n    slots = [\n        position\n        for position, count in POSITION_LIMITS.items()\n        for _ in range(count)\n    ]\n    states: list[tuple[tuple[int, ...], float, float, dict[int, int], dict[str, int]]] = [\n        ((), 0.0, 0.0, {}, {})\n    ]''',
+              '''        candidates[position] = list(dict.fromkeys(rows[: limits[position]] + cheapest))\n\n    cheapest_prefix: dict[str, list[float]] = {}\n    for position, player_ids in candidates.items():\n        prices = sorted(number(player_by_id[player_id].get("price")) for player_id in player_ids)\n        prefix = [0.0]\n        for price in prices:\n            prefix.append(prefix[-1] + price)\n        cheapest_prefix[position] = prefix\n\n    preselected = tuple(dict.fromkeys(preselected_player_ids))\n    if len(preselected) != len(preselected_player_ids) or any(\n        player_id not in player_by_id for player_id in preselected\n    ):\n        return None\n    preselected_counts: dict[str, int] = {}\n    preselected_clubs: dict[int, int] = {}\n    preselected_cost = 0.0\n    preselected_score = 0.0\n    for player_id in preselected:\n        player = player_by_id[player_id]\n        position = str(player.get("position"))\n        team_id = integer(player.get("team_id"))\n        preselected_counts[position] = preselected_counts.get(position, 0) + 1\n        preselected_clubs[team_id] = preselected_clubs.get(team_id, 0) + 1\n        preselected_cost += number(player.get("price"))\n        preselected_score += points_by_player.get(player_id, 0.0)\n    if (\n        preselected_cost > budget + 1e-9\n        or any(count > 3 for count in preselected_clubs.values())\n        or any(\n            count > POSITION_LIMITS.get(position, 0)\n            for position, count in preselected_counts.items()\n        )\n    ):\n        return None\n\n    slots = [\n        position\n        for position, count in POSITION_LIMITS.items()\n        for _ in range(count - preselected_counts.get(position, 0))\n    ]\n    states: list[tuple[tuple[int, ...], float, float, dict[int, int], dict[str, int]]] = [\n        (preselected, preselected_cost, preselected_score, preselected_clubs, {})\n    ]''',
+          )
+
+          replace_once(
+              "src/fpl_chip_optimizer.py",
+              '''    for slot_index, position in enumerate(slots):\n        remaining_slots = slots[slot_index + 1 :]\n        expanded = []''',
+              '''    for slot_index, position in enumerate(slots):\n        remaining_slots = slots[slot_index + 1 :]\n        remaining_counts: dict[str, int] = {}\n        for remaining_position in remaining_slots:\n            remaining_counts[remaining_position] = remaining_counts.get(remaining_position, 0) + 1\n        minimum_remaining_cost = 0.0\n        completion_possible = True\n        for remaining_position, required_count in remaining_counts.items():\n            prefix = cheapest_prefix.get(remaining_position, [0.0])\n            if required_count >= len(prefix):\n                completion_possible = False\n                break\n            minimum_remaining_cost += prefix[required_count]\n        expanded = []''',
+          )
+
+          replace_once(
+              "src/fpl_chip_optimizer.py",
+              '''                # Reserve enough budget to complete every remaining positional slot.\n                # This is deliberately a lower bound: it ignores club limits, so it can\n                # keep an infeasible state but can never prune a genuinely feasible one.\n                new_selected = selected + (player_id,)\n                remaining_counts: dict[str, int] = {}\n                for remaining_position in remaining_slots:\n                    remaining_counts[remaining_position] = (\n                        remaining_counts.get(remaining_position, 0) + 1\n                    )\n                minimum_remaining_cost = 0.0\n                completion_possible = True\n                selected_set = set(new_selected)\n                for remaining_position, required_count in remaining_counts.items():\n                    available_prices = sorted(\n                        number(player_by_id[candidate_id].get("price"))\n                        for candidate_id in candidates[remaining_position]\n                        if candidate_id not in selected_set\n                    )\n                    if len(available_prices) < required_count:\n                        completion_possible = False\n                        break\n                    minimum_remaining_cost += sum(available_prices[:required_count])\n                if (\n                    not completion_possible\n                    or new_cost + minimum_remaining_cost > budget + 1e-9\n                ):\n                    continue\n\n                new_clubs = dict(clubs)''',
+              '''                # Reserve enough budget for a complete future squad. The\n                # precomputed value is intentionally optimistic because it may reuse\n                # an already-selected cheap player; that can retain extra states but\n                # can never prune a genuinely feasible one.\n                new_selected = selected + (player_id,)\n                if (\n                    not completion_possible\n                    or new_cost + minimum_remaining_cost > budget + 1e-9\n                ):\n                    continue\n\n                new_clubs = dict(clubs)''',
+          )
+
+          # Add reusable captain-archetype helpers directly after captain utility.
+          anchor = '''def _strategic_gameweek_score(\n'''
+          target = Path("src/fpl_chip_optimizer.py")
+          text = target.read_text(encoding="utf-8")
+          helpers = '''def _best_attacking_captain_utility(\n    squad_ids: tuple[int, ...],\n    player_by_id: dict[int, dict[str, Any]],\n    expected_points: dict[int, float],\n    p90: dict[int, float],\n    probability_10_plus: dict[int, float],\n    probability_15_plus: dict[int, float],\n) -> tuple[int | None, float]:\n    attackers = [\n        player_id\n        for player_id in squad_ids\n        if str(player_by_id.get(player_id, {}).get("position")) in {"Midfielder", "Forward"}\n        and expected_points.get(player_id, 0.0) > 0\n    ]\n    if not attackers:\n        return None, 0.0\n    player_id = max(\n        attackers,\n        key=lambda candidate: _captain_utility(\n            candidate,\n            player_by_id,\n            expected_points,\n            p90,\n            probability_10_plus,\n            probability_15_plus,\n        )[0],\n    )\n    utility = _captain_utility(\n        player_id,\n        player_by_id,\n        expected_points,\n        p90,\n        probability_10_plus,\n        probability_15_plus,\n    )[0]\n    return player_id, utility\n\n\ndef _missing_elite_attacking_captain_seed(\n    squad_ids: tuple[int, ...],\n    player_by_id: dict[int, dict[str, Any]],\n    expected_points: dict[int, float],\n    p90: dict[int, float],\n    probability_10_plus: dict[int, float],\n    probability_15_plus: dict[int, float],\n) -> int | None:\n    owned = set(squad_ids)\n    candidates = [\n        player_id\n        for player_id, player in player_by_id.items()\n        if str(player.get("position")) in {"Midfielder", "Forward"}\n        and expected_points.get(player_id, 0.0) > 0\n    ]\n    candidates.sort(\n        key=lambda player_id: _captain_utility(\n            player_id,\n            player_by_id,\n            expected_points,\n            p90,\n            probability_10_plus,\n            probability_15_plus,\n        )[0],\n        reverse=True,\n    )\n    return next((player_id for player_id in candidates if player_id not in owned), None)\n\n\ndef _select_near_optimal_wildcard_variant(\n    variants: list[dict[str, Any]],\n    player_by_id: dict[int, dict[str, Any]],\n    expected_points: dict[int, float],\n    p90: dict[int, float],\n    probability_10_plus: dict[int, float],\n    probability_15_plus: dict[int, float],\n) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:\n    if not variants:\n        return None, []\n    best_strategic = max(number(variant["result"][2]) for variant in variants)\n    audited: list[dict[str, Any]] = []\n    for variant in variants:\n        result = variant["result"]\n        captain_id, captain_utility = _best_attacking_captain_utility(\n            result[0],\n            player_by_id,\n            expected_points,\n            p90,\n            probability_10_plus,\n            probability_15_plus,\n        )\n        audited.append(\n            {\n                **variant,\n                "strategic_score": number(result[2]),\n                "strategic_gap_to_best": best_strategic - number(result[2]),\n                "target_attacking_captain_id": captain_id,\n                "target_attacking_captain_utility": captain_utility,\n            }\n        )\n    near_optimal = [\n        variant\n        for variant in audited\n        if number(variant["strategic_gap_to_best"])\n        <= MINIMUM_ROUTE_SEPARATION_POINTS + 1e-9\n    ]\n    selected = max(\n        near_optimal,\n        key=lambda variant: (\n            number(variant["target_attacking_captain_utility"]),\n            number(variant["strategic_score"]),\n        ),\n    )\n    audit = [\n        {\n            "seed_player_ids": list(variant.get("seed_player_ids", ())),\n            "strategic_score": round(number(variant["strategic_score"]), 3),\n            "strategic_gap_to_best": round(number(variant["strategic_gap_to_best"]), 3),\n            "target_attacking_captain_id": variant["target_attacking_captain_id"],\n            "target_attacking_captain_utility": round(\n                number(variant["target_attacking_captain_utility"]), 3\n            ),\n            "inside_route_separation_band": variant in near_optimal,\n            "selected": variant is selected,\n        }\n        for variant in audited\n    ]\n    return selected, audit\n\n\n'''
+          if anchor not in text:
+              raise SystemExit("strategic score anchor missing")
+          target.write_text(text.replace(anchor, helpers + anchor, 1), encoding="utf-8")
+
+          # Search one deliberately different target-GW captain archetype when the
+          # unrestricted beam omits the strongest attacking captain candidate.
+          replace_once(
+              "src/fpl_chip_optimizer.py",
+              '''                wildcard = optimise_budget_squad(\n                    player_by_id,\n                    remaining_points,\n                    total_budget,\n                    final_scorer=wildcard_final_scorer,\n                )\n                if wildcard:\n                    wc_ids, wc_cost, wildcard_objective, _, _ = wildcard''',
+              '''                baseline_wildcard = optimise_budget_squad(\n                    player_by_id,\n                    remaining_points,\n                    total_budget,\n                    final_scorer=wildcard_final_scorer,\n                )\n                wildcard_variants: list[dict[str, Any]] = []\n                if baseline_wildcard:\n                    wildcard_variants.append(\n                        {"result": baseline_wildcard, "seed_player_ids": ()}\n                    )\n                if gameweek == target_gameweek and baseline_wildcard:\n                    seed_player_id = _missing_elite_attacking_captain_seed(\n                        baseline_wildcard[0],\n                        player_by_id,\n                        matrix.get(gameweek, {}),\n                        p90_matrix.get(gameweek, {}),\n                        p10_matrix.get(gameweek, {}),\n                        p15_matrix.get(gameweek, {}),\n                    )\n                    if seed_player_id is not None:\n                        seeded_wildcard = optimise_budget_squad(\n                            player_by_id,\n                            remaining_points,\n                            total_budget,\n                            final_scorer=wildcard_final_scorer,\n                            preselected_player_ids=(seed_player_id,),\n                        )\n                        if seeded_wildcard:\n                            wildcard_variants.append(\n                                {\n                                    "result": seeded_wildcard,\n                                    "seed_player_ids": (seed_player_id,),\n                                }\n                            )\n                selected_variant, wildcard_search_audit = _select_near_optimal_wildcard_variant(\n                    wildcard_variants,\n                    player_by_id,\n                    matrix.get(gameweek, {}),\n                    p90_matrix.get(gameweek, {}),\n                    p10_matrix.get(gameweek, {}),\n                    p15_matrix.get(gameweek, {}),\n                )\n                wildcard = selected_variant["result"] if selected_variant else None\n                if wildcard:\n                    wc_ids, wc_cost, wildcard_objective, _, _ = wildcard''',
+          )
+
+          replace_once(
+              "src/fpl_chip_optimizer.py",
+              '''                        "strategic_audit": wildcard_audit,\n                    })''',
+              '''                        "strategic_audit": wildcard_audit,\n                        "wildcard_search_audit": wildcard_search_audit,\n                        "wildcard_archetype_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,\n                    })''',
+          )
+
+          replace_once(
+              "src/fpl_chip_optimizer.py",
+              '''            "search_captain_access_weight": SEARCH_CAPTAIN_ACCESS_WEIGHT,\n            "hard_coded_players": False,''',
+              '''            "search_captain_access_weight": SEARCH_CAPTAIN_ACCESS_WEIGHT,\n            "archetype_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,\n            "target_gameweek_missing_elite_captain_seed_count": 1,\n            "hard_coded_players": False,''',
+          )
+
+          # Tests for preselection, separation-band resolution, and versioning.
+          target = Path("tests/test_wildcard_strategy.py")
+          text = target.read_text(encoding="utf-8")
+          text = text.replace(
+              '''    _strategic_gameweek_score,\n    _wildcard_search_heuristic,\n    optimise_budget_squad,\n)''',
+              '''    _select_near_optimal_wildcard_variant,\n    _strategic_gameweek_score,\n    _wildcard_search_heuristic,\n    optimise_budget_squad,\n)''',
+              1,
+          )
+          anchor = '''    def test_objective_version_records_beam_search_fix(self) -> None:\n'''
+          tests = '''    def test_preselected_premium_can_complete_budget_legal_squad(self) -> None:\n        players = {}\n        points = {}\n        player_id = 1\n        premium_id = 999\n        for position, required in (("Goalkeeper", 2), ("Defender", 5), ("Midfielder", 5), ("Forward", 3)):\n            for _ in range(required + 2):\n                price = 4.0 if position != "Forward" else 5.0\n                players[player_id] = player(\n                    player_id, position, team_id=player_id, price=price\n                )\n                points[player_id] = 2.0\n                player_id += 1\n        players[premium_id] = player(\n            premium_id, "Forward", team_id=90, price=15.5\n        )\n        points[premium_id] = 12.0\n\n        result = optimise_budget_squad(\n            players,\n            points,\n            budget=100.0,\n            beam_width=10,\n            preselected_player_ids=(premium_id,),\n        )\n\n        self.assertIsNotNone(result)\n        self.assertIn(premium_id, result[0])\n        self.assertEqual(len(result[0]), 15)\n        self.assertLessEqual(result[1], 100.0)\n\n    def test_near_optimal_wildcard_prefers_stronger_current_attacking_captain(self) -> None:\n        players = {\n            1: player(1, "Forward", team_id=1),\n            2: player(2, "Forward", team_id=2),\n        }\n        expected = {1: 7.0, 2: 5.0}\n        p90 = {1: 14.0, 2: 9.0}\n        p10 = {1: 0.35, 2: 0.10}\n        p15 = {1: 0.12, 2: 0.02}\n        variants = [\n            {"result": ((2,), 5.0, 100.0, [2], 2), "seed_player_ids": ()},\n            {"result": ((1,), 5.0, 98.6, [1], 1), "seed_player_ids": (1,)},\n        ]\n\n        selected, audit = _select_near_optimal_wildcard_variant(\n            variants, players, expected, p90, p10, p15\n        )\n\n        self.assertEqual(selected["result"][0], (1,))\n        self.assertTrue(next(row for row in audit if row["seed_player_ids"] == [1])["selected"])\n\n    def test_wildcard_separation_band_does_not_rescue_materially_worse_archetype(self) -> None:\n        players = {\n            1: player(1, "Forward", team_id=1),\n            2: player(2, "Forward", team_id=2),\n        }\n        expected = {1: 7.0, 2: 5.0}\n        p90 = {1: 14.0, 2: 9.0}\n        p10 = {1: 0.35, 2: 0.10}\n        p15 = {1: 0.12, 2: 0.02}\n        variants = [\n            {"result": ((2,), 5.0, 100.0, [2], 2), "seed_player_ids": ()},\n            {"result": ((1,), 5.0, 98.4, [1], 1), "seed_player_ids": (1,)},\n        ]\n\n        selected, _ = _select_near_optimal_wildcard_variant(\n            variants, players, expected, p90, p10, p15\n        )\n\n        self.assertEqual(selected["result"][0], (2,))\n\n'''
+          if anchor not in text:
+              raise SystemExit("test anchor missing")
+          text = text.replace(anchor, tests + anchor, 1)
+          text = text.replace(
+              'self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.2")',
+              'self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.3")',
+              1,
+          )
+          target.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Run full unit suite
+        run: python -m unittest discover -s tests -v
+
+      - name: Build live shadow model
+        run: python -m src.build_fpl_model --data-dir data
+
+      - name: Print target Wildcard archetype audit
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          decision = json.loads(Path("data/chatgpt/fpl_decisions.json").read_text(encoding="utf-8"))
+          target = int(decision.get("target_gameweek") or 0)
+          opt = decision.get("chip_optimisation", {})
+          candidates = [
+              row for row in opt.get("candidates", [])
+              if row.get("chip") == "wildcard" and int(row.get("gameweek") or 0) == target
+          ]
+          best = max(candidates, key=lambda row: row.get("strategic_objective_score", 0), default={})
+          print("TARGET_WILDCARD", json.dumps({
+              "target_gameweek": target,
+              "status": best.get("status"),
+              "mean_edge": best.get("incremental_expected_points"),
+              "strategic_edge": best.get("strategic_objective_edge"),
+              "strategic_score": best.get("strategic_objective_score"),
+              "captain_player_id": best.get("captain_player_id"),
+              "replacement_squad_player_ids": best.get("replacement_squad_player_ids"),
+              "wildcard_search_audit": best.get("wildcard_search_audit"),
+          }, indent=2, ensure_ascii=False))
+          PY
+
+      - name: Commit validated source and tests
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/fpl_chip_optimizer.py tests/test_wildcard_strategy.py
+          git diff --cached --check
+          git commit -m "Explore near-optimal Wildcard captain archetypes"
+          git push origin fix/wildcard-captain-archetype-search
