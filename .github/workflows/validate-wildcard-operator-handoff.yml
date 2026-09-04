@@ -1,4 +1,4 @@
-name: Validate Wildcard operator handoff
+name: Validate Wildcard scoring-basis handoff
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
           cache: pip
       - run: python -m pip install --requirement requirements.txt
 
-      - name: Apply operator handoff patch
+      - name: Apply scoring-basis handoff patch
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -33,45 +33,55 @@ jobs:
               target = Path(path)
               text = target.read_text(encoding="utf-8")
               if old not in text:
-                  raise SystemExit(f"Missing patch anchor in {path}: {old[:160]!r}")
+                  raise SystemExit(f"Missing patch anchor in {path}: {old[:180]!r}")
               target.write_text(text.replace(old, new, 1), encoding="utf-8")
 
+          # Persist the exact target-Gameweek mean basis used to score the selected
+          # Wildcard. This keeps the operator report on the same decision-adjusted
+          # xPts basis without leaking strategic bonuses into expected points.
           replace_once(
-              "src/fpl_gameweek_operations.py",
-              'OPERATIONS_VERSION = "fpl-gameweek-operations-1.5"',
-              'OPERATIONS_VERSION = "fpl-gameweek-operations-1.6"',
+              "src/fpl_chip_optimizer.py",
+              '''                        "starter_player_ids": wc_starters,\n                        "captain_player_id": wc_captain,\n                        "transfers_in_rebuild": transfers,''',
+              '''                        "starter_player_ids": wc_starters,\n                        "captain_player_id": wc_captain,\n                        "gameweek_expected_points_by_player": {\n                            str(player_id): round(\n                                matrix.get(gameweek, {}).get(player_id, 0.0), 6\n                            )\n                            for player_id in wc_ids\n                        },\n                        "transfers_in_rebuild": transfers,''',
           )
 
           replace_once(
               "src/fpl_gameweek_operations.py",
-              '''    wildcard_score, starter_ids, captain_id = optimise_gameweek_lineup(\n        tuple(sorted(replacement_ids)),\n        players,\n        wildcard_points,\n        fixture_rows_by_player(fixture_projections, gameweek),\n    )\n    starter_ids = [integer(value) for value in starter_ids]\n    if len(starter_ids) != 11 or captain_id not in starter_ids:\n        return selection\n\n    vice_id = next(''',
-              '''    recommended_starter_ids = [\n        integer(value)\n        for value in recommendation.get("starter_player_ids", [])\n        if integer(value)\n    ]\n    recommended_captain_id = integer(recommendation.get("captain_player_id"))\n    optimiser_selection_valid = (\n        len(recommended_starter_ids) == 11\n        and len(set(recommended_starter_ids)) == 11\n        and set(recommended_starter_ids).issubset(replacement_ids)\n        and recommended_captain_id in recommended_starter_ids\n    )\n    if optimiser_selection_valid:\n        starter_ids = recommended_starter_ids\n        captain_id = recommended_captain_id\n        wildcard_score = sum(\n            wildcard_points.get(player_id, 0.0) for player_id in starter_ids\n        ) + wildcard_points.get(captain_id, 0.0)\n        wildcard_lineup_source = "chip_optimisation"\n    else:\n        wildcard_score, starter_ids, captain_id = optimise_gameweek_lineup(\n            tuple(sorted(replacement_ids)),\n            players,\n            wildcard_points,\n            fixture_rows_by_player(fixture_projections, gameweek),\n        )\n        starter_ids = [integer(value) for value in starter_ids]\n        if len(starter_ids) != 11 or captain_id not in starter_ids:\n            return selection\n        wildcard_lineup_source = "mean_lineup_fallback"\n\n    vice_id = next(''',
+              '''    wildcard_points = {\n        integer(row.get("player_id")): number(row.get("expected_points_next_1"))\n        for row in horizons\n        if integer(row.get("player_id"))\n    }\n    recommended_starter_ids = [''',
+              '''    wildcard_points = {\n        integer(row.get("player_id")): number(row.get("expected_points_next_1"))\n        for row in horizons\n        if integer(row.get("player_id"))\n    }\n    recommendation_points = {\n        integer(player_id): number(value)\n        for player_id, value in (\n            recommendation.get("gameweek_expected_points_by_player") or {}\n        ).items()\n        if integer(player_id)\n    }\n    if replacement_ids and replacement_ids.issubset(recommendation_points):\n        wildcard_points.update(\n            {player_id: recommendation_points[player_id] for player_id in replacement_ids}\n        )\n        wildcard_points_source = "chip_optimisation_target_gameweek"\n    else:\n        wildcard_points_source = "horizon_fallback"\n    recommended_starter_ids = [''',
           )
 
           replace_once(
               "src/fpl_gameweek_operations.py",
-              '''            "wildcard_incremental_expected_points": recommendation.get(\n                "incremental_expected_points"\n            ),\n        }''',
-              '''            "wildcard_incremental_expected_points": recommendation.get(\n                "incremental_expected_points"\n            ),\n            "wildcard_lineup_source": wildcard_lineup_source,\n            "wildcard_objective_version": recommendation.get(\n                "wildcard_objective_version"\n            ),\n            "wildcard_strategic_objective_edge": recommendation.get(\n                "strategic_objective_edge"\n            ),\n            "wildcard_search_audit": recommendation.get("wildcard_search_audit"),\n        }''',
+              '''            "wildcard_lineup_source": wildcard_lineup_source,\n            "wildcard_objective_version": recommendation.get(''',
+              '''            "wildcard_lineup_source": wildcard_lineup_source,\n            "wildcard_points_source": wildcard_points_source,\n            "wildcard_objective_version": recommendation.get(''',
           )
 
+          # Synthetic operator test: make the recommendation scoring basis visibly
+          # different from the raw horizon values and assert that the report uses it.
           replace_once(
-              "src/fpl_gameweek_operations.py",
-              '''    for key in (\n        "replacement_squad_player_ids",\n        "transfers_in_rebuild",\n        "squad_cost",\n    ):''',
-              '''    for key in (\n        "replacement_squad_player_ids",\n        "starter_player_ids",\n        "captain_player_id",\n        "transfers_in_rebuild",\n        "squad_cost",\n        "wildcard_objective_version",\n        "strategic_objective_edge",\n        "strategic_objective_score",\n        "wildcard_discounted_mean_points",\n        "baseline_discounted_mean_points_recomputed",\n        "strategic_audit",\n        "wildcard_search_audit",\n        "wildcard_archetype_separation_points",\n    ):''',
+              "tests/test_wildcard_operations.py",
+              '''                    "captain_player_id": 8,\n                    "transfers_in_rebuild": 4,''',
+              '''                    "captain_player_id": 8,\n                    "gameweek_expected_points_by_player": {\n                        str(player_id): (\n                            7.0 if player_id == 8 else 2.0\n                        )\n                        for player_id in self.wildcard_squad\n                    },\n                    "transfers_in_rebuild": 4,''',
           )
 
+          anchor = '''    def test_wildcard_lineup_falls_back_when_optimiser_metadata_is_missing(self) -> None:\n'''
           target = Path("tests/test_wildcard_operations.py")
           text = target.read_text(encoding="utf-8")
-          text = text.replace(
-              '''                    "replacement_squad_player_ids": self.wildcard_squad,\n                    "transfers_in_rebuild": 4,\n                    "squad_cost": 99.5,''',
-              '''                    "replacement_squad_player_ids": self.wildcard_squad,\n                    "starter_player_ids": [1, 3, 4, 5, 8, 9, 10, 11, 13, 14, 19],\n                    "captain_player_id": 8,\n                    "transfers_in_rebuild": 4,\n                    "squad_cost": 99.5,\n                    "wildcard_objective_version": "captaincy-ceiling-test",\n                    "strategic_objective_edge": 12.3,\n                    "strategic_objective_score": 101.4,\n                    "strategic_audit": [{"gameweek": 3, "captain_player_id": 8}],\n                    "wildcard_search_audit": [{"selected": True, "seed_player_ids": [8]}],\n                    "wildcard_archetype_separation_points": 1.5,''',
-              1,
-          )
-          anchor = '''    def test_invalid_wildcard_rebuild_blocks_firm_advice(self) -> None:\n'''
-          tests = '''    def test_wildcard_preserves_optimiser_captain_and_strategy_audit(self) -> None:\n        report = self.build()\n        selection = report["recommendation"]\n        chip = report["chip_recommendation"]\n\n        # Player 19 has the highest raw mean in this synthetic Wildcard XI, so\n        # preserving player 8 proves the operator did not silently recalculate\n        # captaincy from mean expected points.\n        self.assertEqual(selection["captain"]["player_id"], 8)\n        self.assertEqual(selection["wildcard_lineup_source"], "chip_optimisation")\n        self.assertEqual(selection["wildcard_objective_version"], "captaincy-ceiling-test")\n        self.assertEqual(selection["wildcard_strategic_objective_edge"], 12.3)\n        self.assertEqual(chip["captain_player_id"], 8)\n        self.assertEqual(chip["wildcard_objective_version"], "captaincy-ceiling-test")\n        self.assertEqual(chip["strategic_objective_edge"], 12.3)\n        self.assertEqual(chip["strategic_audit"][0]["captain_player_id"], 8)\n        self.assertTrue(chip["wildcard_search_audit"][0]["selected"])\n\n    def test_wildcard_lineup_falls_back_when_optimiser_metadata_is_missing(self) -> None:\n        recommendation = self.decision["chip_optimisation"]["recommendation"]\n        recommendation.pop("starter_player_ids")\n        recommendation.pop("captain_player_id")\n\n        report = self.build()\n        selection = report["recommendation"]\n\n        self.assertEqual(selection["selection_source"], "wildcard_rebuild")\n        self.assertEqual(selection["wildcard_lineup_source"], "mean_lineup_fallback")\n        self.assertIn(\n            selection["captain"]["player_id"],\n            {row["player_id"] for row in selection["starting_xi"]},\n        )\n\n'''
+          tests = '''    def test_wildcard_report_uses_optimiser_gameweek_mean_basis(self) -> None:\n        report = self.build()\n        selection = report["recommendation"]\n        starter_points = {\n            row["player_id"]: row["expected_points"]\n            for row in selection["starting_xi"]\n        }\n\n        self.assertEqual(selection["wildcard_points_source"], "chip_optimisation_target_gameweek")\n        self.assertEqual(starter_points[8], 7.0)\n        # Ten other starters at 2.0, captain 8 at 7.0, then captain doubled.\n        self.assertEqual(selection["expected_points"], 34.0)\n        self.assertEqual(selection["net_expected_points"], 34.0)\n\n    def test_wildcard_report_falls_back_to_horizon_points_without_scoring_map(self) -> None:\n        self.decision["chip_optimisation"]["recommendation"].pop(\n            "gameweek_expected_points_by_player"\n        )\n\n        report = self.build()\n\n        self.assertEqual(\n            report["recommendation"]["wildcard_points_source"],\n            "horizon_fallback",\n        )\n\n'''
           if anchor not in text:
-              raise SystemExit("Wildcard operations test anchor missing")
+              raise SystemExit("Wildcard scoring-basis test anchor missing")
           target.write_text(text.replace(anchor, tests + anchor, 1), encoding="utf-8")
+
+          # Direct optimiser regression: prove the candidate carries the same
+          # first-GW multiplier that was used to make the Wildcard decision.
+          target = Path("tests/test_phase18_chips.py")
+          text = target.read_text(encoding="utf-8")
+          anchor = '''    def test_used_chip_is_not_considered(self) -> None:\n'''
+          test = '''    def test_wildcard_candidate_exports_target_gameweek_mean_basis(self) -> None:\n        result = optimise_chip_plan(\n            self.projections(),\n            self.players,\n            self.squad,\n            25.0,\n            self.chips,\n            self.route,\n            10,\n            first_gameweek_multiplier={1: 1.5},\n        )\n        wildcard = result["best_by_chip"]["wildcard"]\n        self.assertAlmostEqual(\n            wildcard["gameweek_expected_points_by_player"]["1"],\n            4.5,\n        )\n        self.assertAlmostEqual(\n            wildcard["gameweek_expected_points_by_player"]["2"],\n            3.0,\n        )\n\n'''
+          if anchor not in text:
+              raise SystemExit("Phase 18 scoring-basis test anchor missing")
+          target.write_text(text.replace(anchor, test + anchor, 1), encoding="utf-8")
           PY
 
       - name: Run full unit suite
@@ -80,7 +90,7 @@ jobs:
       - name: Build live integration shadow
         run: python -m src.build_fpl_model --data-dir data
 
-      - name: Verify optimiser-to-operator captain handoff
+      - name: Verify scoring-basis consistency
         run: |
           python - <<'PY'
           import json
@@ -90,22 +100,22 @@ jobs:
           report = json.loads(Path("data/chatgpt/gameweek_report.json").read_text(encoding="utf-8"))
           chip = (decision.get("chip_optimisation") or {}).get("recommendation") or {}
           selection = report.get("recommendation") or {}
-          public_chip = report.get("chip_recommendation") or {}
           if chip.get("action") == "play" and chip.get("chip") == "wildcard":
-              expected_captain = int(chip.get("captain_player_id") or 0)
-              reported_captain = int((selection.get("captain") or {}).get("player_id") or 0)
-              if expected_captain and reported_captain != expected_captain:
-                  raise SystemExit(f"Wildcard captain handoff mismatch: {expected_captain=} {reported_captain=}")
-              if public_chip.get("wildcard_objective_version") != chip.get("wildcard_objective_version"):
-                  raise SystemExit("Wildcard objective metadata was dropped by the operator")
+              audit = chip.get("strategic_audit") or []
+              target_mean = float((audit[0] if audit else {}).get("mean_expected_points") or 0)
+              reported_mean = float(selection.get("expected_points") or 0)
+              if abs(target_mean - reported_mean) > 0.002:
+                  raise SystemExit(
+                      f"Wildcard xPts basis mismatch: {target_mean=} {reported_mean=}"
+                  )
+              if selection.get("wildcard_points_source") != "chip_optimisation_target_gameweek":
+                  raise SystemExit("Operator did not use optimiser target-GW mean basis")
           print(json.dumps({
-              "optimiser_captain_player_id": chip.get("captain_player_id"),
-              "reported_captain_player_id": (selection.get("captain") or {}).get("player_id"),
-              "reported_captain": (selection.get("captain") or {}).get("web_name"),
+              "captain": (selection.get("captain") or {}).get("web_name"),
               "vice_captain": (selection.get("vice_captain") or {}).get("web_name"),
-              "wildcard_lineup_source": selection.get("wildcard_lineup_source"),
-              "wildcard_objective_version": public_chip.get("wildcard_objective_version"),
-              "strategic_objective_edge": public_chip.get("strategic_objective_edge"),
+              "reported_expected_points": selection.get("expected_points"),
+              "strategic_audit_mean": ((chip.get("strategic_audit") or [{}])[0]).get("mean_expected_points"),
+              "wildcard_points_source": selection.get("wildcard_points_source"),
           }, indent=2, ensure_ascii=False))
           PY
 
@@ -113,7 +123,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/fpl_gameweek_operations.py tests/test_wildcard_operations.py
+          git add src/fpl_chip_optimizer.py src/fpl_gameweek_operations.py tests/test_wildcard_operations.py tests/test_phase18_chips.py
           git diff --cached --check
-          git commit -m "Preserve Wildcard strategic captain in operator report"
+          git commit -m "Keep Wildcard report on optimiser xPts basis"
           git push origin fix/wildcard-captain-archetype-search
