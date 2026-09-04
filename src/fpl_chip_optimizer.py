@@ -507,6 +507,7 @@ def optimise_chip_plan(
     multi_gameweek_plan: dict[str, Any],
     target_gameweek: int | None,
     discount: float = 0.96,
+    first_gameweek_multiplier: dict[int, float] | None = None,
 ) -> dict[str, Any]:
     gameweeks = [integer(gw) for gw in multi_gameweek_plan.get("horizon_gameweeks", [])]
     routes = multi_gameweek_plan.get("routes", [])
@@ -529,7 +530,9 @@ def optimise_chip_plan(
 
     player_by_id = {integer(player.get("player_id")): player for player in players}
     starting_ids = tuple(sorted(integer(row.get("player_id")) for row in squad))
-    matrix = projection_matrix(fixture_projections, gameweeks)
+    matrix = projection_matrix(
+        fixture_projections, gameweeks, first_gameweek_multiplier
+    )
     p90_matrix = _fixture_metric_matrix(
         fixture_projections,
         gameweeks,
@@ -832,6 +835,18 @@ def optimise_chip_plan(
             "search and final selection use bounded captaincy/ceiling/rank-aware objectives, "
             "while chip timing thresholds remain anchored to real expected-points gain."
         ),
+        "context_wiring": {
+            "first_gameweek_multiplier_applied": bool(first_gameweek_multiplier),
+            "adjusted_player_count": sum(
+                abs(number(value) - 1.0) > 1e-9
+                for value in (first_gameweek_multiplier or {}).values()
+            ),
+            "principle": (
+                "The target-Gameweek mean follows the same decision-layer market and "
+                "selection-risk adjustment as the transfer optimiser; raw tail "
+                "probabilities remain unchanged."
+            ),
+        },
         "wildcard_objective": {
             "version": WILDCARD_OBJECTIVE_VERSION,
             "mean_expected_points_primary": True,
