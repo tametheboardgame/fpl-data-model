@@ -1,0 +1,180 @@
+name: Patch and validate component role prior
+
+on:
+  push:
+    branches:
+      - fix/component-role-prior-continuity
+    paths:
+      - ".github/workflows/patch-component-role-prior.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v7
+        with:
+          ref: fix/component-role-prior-continuity
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Apply role-prior continuity patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: str, old: str, new: str) -> None:
+              target = Path(path)
+              text = target.read_text(encoding="utf-8")
+              if old not in text:
+                  raise SystemExit(f"Expected patch anchor not found in {path}: {old[:100]!r}")
+              target.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          # Version the changed component and ensemble behaviour explicitly.
+          replace_once(
+              "src/component_player_simulator.py",
+              'COMPONENT_MODEL_VERSION = "player-sim-3.0-candidate"',
+              'COMPONENT_MODEL_VERSION = "player-sim-3.1-candidate"',
+          )
+          replace_once(
+              "src/build_fpl_model.py",
+              'ENSEMBLE_MODEL_VERSION = "player-ensemble-1.0"',
+              'ENSEMBLE_MODEL_VERSION = "player-ensemble-1.1"',
+          )
+
+          # Preserve an explicit historical player-role prior before current-season blending.
+          replace_once(
+              "src/build_fpl_model.py",
+              '''        "previous_season_minutes": past_minutes,\n        "availability_probability": availability,''',
+              '''        "previous_season_minutes": past_minutes,\n        "role_prior_source": "previous_season" if past_minutes else "position_prior",\n        "role_prior_start_rate": max(0, min(1, past_start_rate)),\n        "role_prior_appearance_rate": max(\n            0, min(1, max(past_start_rate, past_appearance_rate))\n        ),\n        "availability_probability": availability,''',
+          )
+
+          # Use the player-role prior for component start/appearance smoothing once current evidence exists.
+          replace_once(
+              "src/component_player_simulator.py",
+              '''    fixtures_6 = number(feature.get("fixtures_6"))\n    start_rate_6 = number(feature.get("start_rate_6"))\n    appearance_rate_6 = number(feature.get("appearance_rate_6"))''',
+              '''    role_prior_start_rate = clamp(\n        number(base_inputs.get("role_prior_start_rate"))\n        if "role_prior_start_rate" in base_inputs\n        else number(prior.get("start_rate")),\n        0,\n        1,\n    )\n    role_prior_appearance_rate = clamp(\n        number(base_inputs.get("role_prior_appearance_rate"))\n        if "role_prior_appearance_rate" in base_inputs\n        else max(\n            number(prior.get("start_rate")),\n            number(prior.get("appearance_rate")),\n        ),\n        role_prior_start_rate,\n        1,\n    )\n    fixtures_6 = number(feature.get("fixtures_6"))\n    start_rate_6 = number(feature.get("start_rate_6"))\n    appearance_rate_6 = number(feature.get("appearance_rate_6"))''',
+          )
+          replace_once(
+              "src/component_player_simulator.py",
+              '''        smoothed_start = beta_smoothed_rate(\n            start_rate_6,\n            fixtures_6,\n            number(prior.get("start_rate")),\n        )\n        smoothed_appearance = beta_smoothed_rate(\n            max(start_rate_6, appearance_rate_6),\n            fixtures_6,\n            max(\n                number(prior.get("start_rate")),\n                number(prior.get("appearance_rate")),\n            ),\n        )''',
+              '''        smoothed_start = beta_smoothed_rate(\n            start_rate_6,\n            fixtures_6,\n            role_prior_start_rate,\n        )\n        smoothed_appearance = beta_smoothed_rate(\n            max(start_rate_6, appearance_rate_6),\n            fixtures_6,\n            role_prior_appearance_rate,\n        )''',
+          )
+          replace_once(
+              "src/component_player_simulator.py",
+              '''        "position": position,\n        "appearance_probability": clamp(appearance_probability, 0, 1),''',
+              '''        "position": position,\n        "role_prior_start_rate": role_prior_start_rate,\n        "role_prior_appearance_rate": role_prior_appearance_rate,\n        "appearance_probability": clamp(appearance_probability, 0, 1),''',
+          )
+
+          # Expose the prior used in production projections for auditability.
+          replace_once(
+              "src/build_fpl_model.py",
+              '''                "component_probability_start": round(\n                    component_adjusted["probability_start"], 4\n                ),''',
+              '''                "component_role_prior_start_rate": round(\n                    number(component_base_inputs.get("role_prior_start_rate")), 4\n                ),\n                "component_role_prior_appearance_rate": round(\n                    number(component_base_inputs.get("role_prior_appearance_rate")), 4\n                ),\n                "component_probability_start": round(\n                    component_adjusted["probability_start"], 4\n                ),''',
+          )
+
+          # Make the walk-forward harness exercise the same principle without leakage:
+          # all prior fixtures establish a stable player role, recent windows drive updates.
+          replace_once(
+              "src/backtest_fpl_model.py",
+              '''    metrics_3 = recent_metrics(history, 3)\n    metrics_6 = recent_metrics(history, 6)\n    metrics_10 = recent_metrics(history, 10)''',
+              '''    metrics_3 = recent_metrics(history, 3)\n    metrics_6 = recent_metrics(history, 6)\n    metrics_10 = recent_metrics(history, 10)\n    role_window = max(1, len(history))\n    role_metrics = recent_metrics(history, role_window)\n    role_prior_start_rate = number(role_metrics.get(f"start_rate_{role_window}"))\n    role_prior_appearance_rate = max(\n        role_prior_start_rate,\n        number(role_metrics.get(f"appearance_rate_{role_window}")),\n    )''',
+          )
+          replace_once(
+              "src/backtest_fpl_model.py",
+              '''        "position": position,\n        "appearance_probability": appearance_probability,\n        "start_probability": start_probability,''',
+              '''        "position": position,\n        "role_prior_start_rate": role_prior_start_rate,\n        "role_prior_appearance_rate": role_prior_appearance_rate,\n        "appearance_probability": appearance_probability,\n        "start_probability": start_probability,''',
+          )
+
+          # Regression coverage for the GW1->GW2 discontinuity and for rotation players.
+          replace_once(
+              "tests/test_phase21_1_launch_hardening.py",
+              'from src.build_fpl_model import build_player_features, build_projections',
+              'from src.build_fpl_model import build_player_features, build_projections, projection_inputs',
+          )
+          anchor = '''    def test_compressed_launch_projections_block_ready_status(self) -> None:\n'''
+          tests = '''    def test_component_current_role_shrinks_toward_player_history(self) -> None:\n        prior = {\n            "start_rate": 0.24,\n            "appearance_rate": 0.43,\n            "average_minutes_per_fixture": 24,\n            "points_per_90": 4.9,\n            "xg_per_90": 0.21,\n            "xa_per_90": 0.04,\n        }\n        feature = {\n            "fixtures_6": 2,\n            "fixtures_3": 2,\n            "start_rate_6": 1.0,\n            "start_rate_3": 1.0,\n            "appearance_rate_6": 1.0,\n            "appearance_rate_3": 1.0,\n            "average_minutes_6": 90.0,\n            "average_minutes_3": 90.0,\n            "starter_average_minutes_6": 90.0,\n            "minutes_6": 180.0,\n            "minutes_10": 180.0,\n        }\n        base = projection_inputs(\n            {"status": "a"},\n            feature,\n            prior,\n            {\n                "season_name": "2025/26",\n                "minutes": 3000,\n                "starts": 35,\n            },\n        )\n        result = build_component_inputs({**base, "position": "FWD"}, feature, prior)\n        self.assertAlmostEqual(base["role_prior_start_rate"], 35 / 38)\n        self.assertGreater(result["start_probability"], 0.94)\n\n        generic_base = {\n            key: value\n            for key, value in base.items()\n            if key not in {"role_prior_start_rate", "role_prior_appearance_rate"}\n        }\n        generic = build_component_inputs(\n            {**generic_base, "position": "FWD"}, feature, prior\n        )\n        self.assertLess(generic["start_probability"], 0.70)\n        self.assertGreater(\n            result["start_probability"], generic["start_probability"] + 0.25\n        )\n\n    def test_component_role_prior_does_not_blanket_boost_rotation_players(self) -> None:\n        prior = {\n            "start_rate": 0.24,\n            "appearance_rate": 0.43,\n            "average_minutes_per_fixture": 24,\n            "points_per_90": 4.9,\n            "xg_per_90": 0.21,\n            "xa_per_90": 0.04,\n        }\n        feature = {\n            "fixtures_6": 2,\n            "fixtures_3": 2,\n            "start_rate_6": 1.0,\n            "start_rate_3": 1.0,\n            "appearance_rate_6": 1.0,\n            "appearance_rate_3": 1.0,\n            "average_minutes_6": 90.0,\n            "average_minutes_3": 90.0,\n            "starter_average_minutes_6": 90.0,\n            "minutes_6": 180.0,\n            "minutes_10": 180.0,\n        }\n        base = projection_inputs(\n            {"status": "a"},\n            feature,\n            prior,\n            {\n                "season_name": "2025/26",\n                "minutes": 1000,\n                "starts": 8,\n            },\n        )\n        result = build_component_inputs({**base, "position": "FWD"}, feature, prior)\n        self.assertLess(base["role_prior_start_rate"], 0.25)\n        self.assertLess(result["start_probability"], 0.65)\n\n'''
+          target = Path("tests/test_phase21_1_launch_hardening.py")
+          text = target.read_text(encoding="utf-8")
+          if anchor not in text:
+              raise SystemExit("Test insertion anchor missing")
+          target.write_text(text.replace(anchor, tests + anchor, 1), encoding="utf-8")
+          PY
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Run leakage-safe held-out backtest
+        run: python -m src.backtest_fpl_model --data-dir data
+
+      - name: Require ensemble promotion gate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          component = json.loads(Path("data/model/component_model_candidate.json").read_text())
+          ensemble = json.loads(Path("data/model/ensemble_model_candidate.json").read_text())
+          print("COMPONENT_ASSESSMENT")
+          print(json.dumps(component, indent=2))
+          print("ENSEMBLE_ASSESSMENT")
+          print(json.dumps(ensemble, indent=2))
+          if ensemble.get("status") != "recommended_for_live_promotion":
+              raise SystemExit("Patched ensemble failed the held-out promotion gate")
+          PY
+
+      - name: Build live GW3 shadow recommendation
+        run: python -m src.build_fpl_model --data-dir data
+
+      - name: Print GW3 shadow audit
+        run: |
+          python - <<'PY'
+          import csv
+          import json
+          from pathlib import Path
+          with Path("data/chatgpt/player_projections.csv").open(encoding="utf-8", newline="") as handle:
+              rows = list(csv.DictReader(handle))
+          for player_id, name in ((411, "Haaland"), (426, "B.Fernandes")):
+              row = next(r for r in rows if int(r["player_id"]) == player_id and int(r["gameweek"]) == 3)
+              print(name, json.dumps({
+                  key: row.get(key) for key in (
+                      "expected_points", "control_expected_points", "component_expected_points",
+                      "component_role_prior_start_rate", "component_probability_start",
+                      "component_expected_minutes", "probability_10_plus", "probability_15_plus",
+                  )
+              }, indent=2))
+          report = json.loads(Path("data/chatgpt/gameweek_report.json").read_text(encoding="utf-8"))
+          recommendation = report.get("recommendation") or {}
+          chip = report.get("chip_recommendation") or {}
+          print("GW3_RECOMMENDATION", json.dumps({
+              "selection_source": recommendation.get("selection_source"),
+              "transfer_action": recommendation.get("transfer_action"),
+              "expected_points": recommendation.get("expected_points"),
+              "captain": (recommendation.get("captain") or {}).get("web_name"),
+              "vice_captain": (recommendation.get("vice_captain") or {}).get("web_name"),
+              "starting_xi": [r.get("web_name") for r in recommendation.get("starting_xi", [])],
+              "squad_player_ids": recommendation.get("squad_player_ids", []),
+              "chip_action": chip.get("action"),
+              "chip": chip.get("chip"),
+              "chip_gameweek": chip.get("gameweek"),
+          }, indent=2, ensure_ascii=False))
+          PY
+
+      - name: Commit validated model change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/component_player_simulator.py src/build_fpl_model.py src/backtest_fpl_model.py tests/test_phase21_1_launch_hardening.py data/backtests data/model
+          git diff --cached --check
+          git commit -m "Preserve player-specific role priors in component model"
+          git push origin fix/component-role-prior-continuity
