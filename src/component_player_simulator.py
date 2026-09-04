@@ -17,7 +17,7 @@ from src.player_return_simulator import (
 )
 
 
-COMPONENT_MODEL_VERSION = "player-sim-3.0-candidate"
+COMPONENT_MODEL_VERSION = "player-sim-3.2-candidate"
 STARTER_MINUTES_PRIOR = {"GK": 89.0, "DEF": 82.0, "MID": 78.0, "FWD": 75.0}
 SUBSTITUTE_MINUTES_PRIOR = {"GK": 8.0, "DEF": 18.0, "MID": 20.0, "FWD": 19.0}
 ATTACK_DISPERSION_SHAPE = {"GK": 8.0, "DEF": 5.0, "MID": 3.0, "FWD": 1.8}
@@ -113,6 +113,17 @@ def build_component_inputs(
     fixtures_6 = number(feature.get("fixtures_6"))
     start_rate_6 = number(feature.get("start_rate_6"))
     appearance_rate_6 = number(feature.get("appearance_rate_6"))
+    player_start_rate_prior = (
+        number(base_inputs.get("player_start_rate_prior"))
+        if "player_start_rate_prior" in base_inputs
+        else number(prior.get("start_rate"))
+    )
+    player_appearance_rate_prior = (
+        number(base_inputs.get("player_appearance_rate_prior"))
+        if "player_appearance_rate_prior" in base_inputs
+        else number(prior.get("appearance_rate"))
+    )
+    usage_prior_strength = max(0.0, 2.0 * (1.0 - fixtures_6 / 6.0))
     if not fixtures_6:
         # At season launch the rolling window is empty. The control layer has
         # already derived player-specific probabilities from the previous
@@ -132,15 +143,14 @@ def build_component_inputs(
         smoothed_start = beta_smoothed_rate(
             start_rate_6,
             fixtures_6,
-            number(prior.get("start_rate")),
+            player_start_rate_prior,
+            prior_strength=usage_prior_strength,
         )
         smoothed_appearance = beta_smoothed_rate(
             max(start_rate_6, appearance_rate_6),
             fixtures_6,
-            max(
-                number(prior.get("start_rate")),
-                number(prior.get("appearance_rate")),
-            ),
+            max(player_start_rate_prior, player_appearance_rate_prior),
+            prior_strength=usage_prior_strength,
         )
     else:
         smoothed_start = start_rate_6
@@ -185,6 +195,7 @@ def build_component_inputs(
     output = {
         **base_inputs,
         "position": position,
+        "usage_prior_strength": usage_prior_strength,
         "appearance_probability": clamp(appearance_probability, 0, 1),
         "start_probability": clamp(start_probability, 0, appearance_probability),
         "starter_minutes_mean": clamp(starter_minutes_mean, 45, 90),

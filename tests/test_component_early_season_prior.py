@@ -57,8 +57,58 @@ class ComponentEarlySeasonPriorTests(unittest.TestCase):
             prior,
         )
         self.assertGreater(nailed["start_probability"], 0.9)
-        self.assertLess(fringe["start_probability"], 0.6)
-        self.assertGreater(nailed["expected_minutes"], fringe["expected_minutes"] + 25)
+        self.assertLess(fringe["start_probability"], 0.7)
+        self.assertAlmostEqual(nailed["usage_prior_strength"], 4 / 3, places=3)
+        self.assertGreater(nailed["expected_minutes"], fringe["expected_minutes"] + 20)
+
+    def test_player_specific_usage_prior_fades_out_after_six_fixtures(self) -> None:
+        feature = {
+            "fixtures_6": 6,
+            "start_rate_6": 0.5,
+            "appearance_rate_6": 0.75,
+            "starter_average_minutes_6": 82,
+            "substitute_average_minutes_6": 18,
+            "minutes_6": 360,
+            "minutes_10": 360,
+        }
+        base = {
+            "position": "FWD",
+            "availability_probability": 1.0,
+            "start_probability": 0.5,
+            "appearance_probability": 0.75,
+            "expected_minutes": 50,
+        }
+        prior = {"start_rate": 0.43, "appearance_rate": 0.62}
+        formerly_nailed = build_component_inputs(
+            {
+                **base,
+                "player_start_rate_prior": 0.95,
+                "player_appearance_rate_prior": 1.0,
+            },
+            feature,
+            prior,
+        )
+        formerly_fringe = build_component_inputs(
+            {
+                **base,
+                "player_start_rate_prior": 0.05,
+                "player_appearance_rate_prior": 0.10,
+            },
+            feature,
+            prior,
+        )
+        self.assertEqual(formerly_nailed["usage_prior_strength"], 0.0)
+        self.assertEqual(formerly_fringe["usage_prior_strength"], 0.0)
+        self.assertAlmostEqual(
+            formerly_nailed["start_probability"],
+            formerly_fringe["start_probability"],
+            places=8,
+        )
+        self.assertAlmostEqual(
+            formerly_nailed["expected_minutes"],
+            formerly_fringe["expected_minutes"],
+            places=8,
+        )
 
     def test_live_projection_wires_previous_season_usage_into_component(self) -> None:
         players = [
@@ -241,7 +291,7 @@ class ComponentEarlySeasonPriorTests(unittest.TestCase):
         )
         self.assertGreater(
             nailed_gw4["component_predicted_minutes"],
-            fringe_gw4["component_predicted_minutes"] + 20,
+            fringe_gw4["component_predicted_minutes"] + 15,
         )
 
 

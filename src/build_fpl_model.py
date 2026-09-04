@@ -132,6 +132,9 @@ PROJECTION_FIELDS = [
     "component_quantitative_expected_points",
     "component_qualitative_expected_points_delta",
     "component_expected_points",
+    "component_start_rate_prior",
+    "component_appearance_rate_prior",
+    "component_usage_prior_strength",
     "component_expected_minutes",
     "component_probability_start",
     "component_probability_60_plus",
@@ -225,7 +228,13 @@ def load_ensemble_config(path: Path) -> dict[str, Any]:
         candidate = json.loads(path.read_text(encoding="utf-8"))
         if candidate.get("status") != "recommended_for_live_promotion":
             return {**disabled, "status": str(candidate.get("status") or "not_recommended")}
-        selection = candidate.get("assessment", {}).get("selection", {})
+        assessment = candidate.get("assessment", {})
+        if assessment.get("component_model_version") != COMPONENT_MODEL_VERSION:
+            return {
+                **disabled,
+                "status": "candidate_component_version_mismatch",
+            }
+        selection = assessment.get("selection", {})
         point_weight = max(0.0, min(1.0, number(selection.get("selected_point_weight"))))
         probability_weights = {
             str(threshold): max(
@@ -562,6 +571,10 @@ def projection_inputs(
         "projection_evidence_source": evidence_source,
         "previous_season": (past or {}).get("season_name"),
         "previous_season_minutes": past_minutes,
+        "player_start_rate_prior": max(0, min(1, past_start_rate)),
+        "player_appearance_rate_prior": max(
+            0, min(1, max(past_start_rate, past_appearance_rate))
+        ),
         "availability_probability": availability,
         "start_probability": max(0, min(1, availability * start_rate)),
         "appearance_probability": max(
@@ -933,6 +946,15 @@ def build_projections(
                     4,
                 ),
                 "component_expected_points": round(component_adjusted["expected_points"], 4),
+                "component_start_rate_prior": round(
+                    number(component_base_inputs.get("player_start_rate_prior")), 4
+                ),
+                "component_appearance_rate_prior": round(
+                    number(component_base_inputs.get("player_appearance_rate_prior")), 4
+                ),
+                "component_usage_prior_strength": round(
+                    number(component_base_inputs.get("usage_prior_strength")), 4
+                ),
                 "component_expected_minutes": round(
                     component_adjusted["expected_minutes_simulated"], 2
                 ),

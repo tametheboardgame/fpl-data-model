@@ -122,6 +122,45 @@ def player_key(row: dict[str, Any]) -> str:
     return element if element else str(row.get("player_name") or "").strip().lower()
 
 
+def cross_season_player_key(row: dict[str, Any]) -> str:
+    return str(row.get("player_name") or "").strip().casefold()
+
+
+def previous_season_name(season: str) -> str:
+    parts = str(season).split("-")
+    if len(parts) != 2:
+        return ""
+    try:
+        start = int(parts[0])
+        end = int(parts[1])
+    except ValueError:
+        return ""
+    return f"{start - 1}-{(end - 1) % 100:02d}"
+
+
+def previous_season_usage(rows: list[dict[str, Any]]) -> dict[str, dict[str, float]]:
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        key = cross_season_player_key(row)
+        if key:
+            grouped[key].append(row)
+    output: dict[str, dict[str, float]] = {}
+    for key, player_rows in grouped.items():
+        minutes = sum(number(row.get("minutes")) for row in player_rows)
+        starts = sum(
+            number(row.get("starts")) > 0 or number(row.get("minutes")) >= 60
+            for row in player_rows
+        )
+        start_rate = clamp(starts / 38, 0, 1)
+        appearance_rate = clamp(max(start_rate, minutes / (38 * 60)), 0, 1)
+        output[key] = {
+            "player_start_rate_prior": start_rate,
+            "player_appearance_rate_prior": appearance_rate,
+            "previous_season_minutes": minutes,
+        }
+    return output
+
+
 def position_code(row: dict[str, Any]) -> str:
     value = str(row.get("position") or "").upper()
     return value if value in FALLBACK_PRIORS else "MID"
@@ -217,6 +256,7 @@ def fixture_prediction(
     history: list[dict[str, Any]],
     team_histories: dict[str, list[dict[str, Any]]],
     opponent: str,
+    usage_prior: dict[str, Any] | None = None,
     *,
     simulations: int,
 ) -> dict[str, Any]:
@@ -272,6 +312,18 @@ def fixture_prediction(
         "penalties_missed_per_90": rate("penalties_missed_per_90"),
         "penalties_saved_per_90": rate("penalties_saved_per_90"),
     }
+    if usage_prior:
+        inputs["player_start_rate_prior"] = clamp(
+            number(usage_prior.get("player_start_rate_prior")), 0, 1
+        )
+        inputs["player_appearance_rate_prior"] = clamp(
+            max(
+                number(usage_prior.get("player_start_rate_prior")),
+                number(usage_prior.get("player_appearance_rate_prior")),
+            ),
+            0,
+            1,
+        )
     # Defensive-contribution points did not exist in the seasons under test.
     inputs["defensive_contribution_per_90"] = 0
     seed = (row.get("season"), row.get("gameweek"), row.get("fixture"), player_key(row))
@@ -297,8 +349,12 @@ def fixture_prediction(
 
 
 def walk_forward_season(
-    season_rows: list[dict[str, Any]], *, simulations: int = BACKTEST_SIMULATIONS
+    season_rows: list[dict[str, Any]],
+    previous_season_rows: list[dict[str, Any]] | None = None,
+    *,
+    simulations: int = BACKTEST_SIMULATIONS,
 ) -> list[dict[str, Any]]:
+    usage_priors = previous_season_usage(previous_season_rows or [])
     by_gameweek: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for row in season_rows:
         by_gameweek[integer(row.get("gameweek"))].append(row)
@@ -334,6 +390,7 @@ def walk_forward_season(
                         history,
                         team_histories,
                         opponent,
+                        usage_priors.get(cross_season_player_key(sample)),
                         simulations=simulations,
                     )
                 )
@@ -873,14 +930,26 @@ def run_backtest(
 ) -> dict[str, Any]:
     seasons = seasons or DEFAULT_SEASONS
     historical_path = data_dir / "history" / "historical_player_gameweeks.csv.gz"
-    rows = read_historical(historical_path, seasons)
+    prior_context_seasons = sorted(
+        {
+            previous
+            for season in seasons
+            if (previous := previous_season_name(season))
+        }
+    )
+    source_seasons = sorted(set(seasons).union(prior_context_seasons))
+    rows = read_historical(historical_path, source_seasons)
     by_season: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in rows:
         by_season[str(row.get("season"))].append(row)
     predictions = []
     for season in seasons:
         predictions.extend(
-            walk_forward_season(by_season.get(season, []), simulations=simulations)
+            walk_forward_season(
+                by_season.get(season, []),
+                by_season.get(previous_season_name(season), []),
+                simulations=simulations,
+            )
         )
     development = [row for row in predictions if row.get("season") in DEVELOPMENT_SEASONS]
     held_out = [row for row in predictions if row.get("season") == HELD_OUT_SEASON]
@@ -1030,6 +1099,7 @@ def run_backtest(
         "seasons": seasons,
         "development_seasons": DEVELOPMENT_SEASONS,
         "held_out_season": HELD_OUT_SEASON,
+        "prior_context_seasons": prior_context_seasons,
         "historical_source_rows": len(rows),
         "eligible_prediction_rows": len(predictions),
         "backtested_gameweeks": len(
@@ -1046,7 +1116,7 @@ def run_backtest(
         "success_criteria": success,
         "limitations": [
             "The historical archive does not contain timestamped qualitative observations, so only the quantitative model is backtested.",
-            "Players are evaluated only after three prior fixture rows, excluding early-season and immediate new-signing decisions.",
+            "Players are evaluated only after three prior fixture rows; previous-season usage is supplied without target-season lookahead when available.",
             "Historical team context is reconstructed from official player-level expected statistics rather than betting markets.",
             "The simulator uses simplified bonus and disciplinary-event distributions.",
         ],
