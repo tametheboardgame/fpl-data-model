@@ -1,0 +1,79 @@
+name: Diagnose budget-feasible Haaland preseed
+
+on:
+  push:
+    branches:
+      - diagnose/haaland-budget-feasible-preseed
+    paths:
+      - ".github/workflows/diagnose-haaland-budget-feasible-preseed.yml"
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: diagnose/haaland-budget-feasible-preseed
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --requirement requirements.txt
+
+      - name: Add diagnostic preselection support
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path("src/fpl_chip_optimizer.py")
+          text = p.read_text(encoding="utf-8")
+
+          old = '''    final_scorer: Callable[[tuple[int, ...]], tuple[float, list[int], int | None]] | None = None,\n) -> tuple[tuple[int, ...], float, float, list[int], int | None] | None:'''
+          new = '''    final_scorer: Callable[[tuple[int, ...]], tuple[float, list[int], int | None]] | None = None,\n    preselected_player_ids: tuple[int, ...] = (),\n) -> tuple[tuple[int, ...], float, float, list[int], int | None] | None:'''
+          if old not in text:
+              raise SystemExit("signature anchor missing")
+          text = text.replace(old, new, 1)
+
+          old = '''    slots = [\n        position\n        for position, count in POSITION_LIMITS.items()\n        for _ in range(count)\n    ]\n    states: list[tuple[tuple[int, ...], float, float, dict[int, int], dict[str, int]]] = [\n        ((), 0.0, 0.0, {}, {})\n    ]'''
+          new = '''    preselected = tuple(dict.fromkeys(preselected_player_ids))\n    if len(preselected) != len(preselected_player_ids) or any(\n        player_id not in player_by_id for player_id in preselected\n    ):\n        return None\n    preselected_counts: dict[str, int] = {}\n    preselected_clubs: dict[int, int] = {}\n    preselected_cost = 0.0\n    preselected_score = 0.0\n    for player_id in preselected:\n        player = player_by_id[player_id]\n        position = str(player.get("position"))\n        team_id = integer(player.get("team_id"))\n        preselected_counts[position] = preselected_counts.get(position, 0) + 1\n        preselected_clubs[team_id] = preselected_clubs.get(team_id, 0) + 1\n        preselected_cost += number(player.get("price"))\n        preselected_score += points_by_player.get(player_id, 0.0)\n    if (\n        preselected_cost > budget + 1e-9\n        or any(count > 3 for count in preselected_clubs.values())\n        or any(\n            count > POSITION_LIMITS.get(position, 0)\n            for position, count in preselected_counts.items()\n        )\n    ):\n        return None\n    slots = [\n        position\n        for position, count in POSITION_LIMITS.items()\n        for _ in range(count - preselected_counts.get(position, 0))\n    ]\n    states: list[tuple[tuple[int, ...], float, float, dict[int, int], dict[str, int]]] = [\n        (preselected, preselected_cost, preselected_score, preselected_clubs, {})\n    ]'''
+          if old not in text:
+              raise SystemExit("state anchor missing")
+          text = text.replace(old, new, 1)
+
+          old = '''                wildcard = optimise_budget_squad(\n                    player_by_id,\n                    remaining_points,\n                    total_budget,\n                    final_scorer=wildcard_final_scorer,\n                )'''
+          new = '''                wildcard = optimise_budget_squad(\n                    player_by_id,\n                    remaining_points,\n                    total_budget,\n                    final_scorer=wildcard_final_scorer,\n                    preselected_player_ids=(411,) if gameweek == target_gameweek else (),\n                )'''
+          if old not in text:
+              raise SystemExit("wildcard call anchor missing")
+          p.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
+
+      - name: Build forced counterfactual
+        run: python -m src.build_fpl_model --data-dir data
+
+      - name: Print forced GW3 Wildcard
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          decision = json.loads(Path("data/chatgpt/fpl_decisions.json").read_text(encoding="utf-8"))
+          opt = decision.get("chip_optimisation", {})
+          wc3 = [
+              row for row in opt.get("candidates", [])
+              if row.get("chip") == "wildcard" and int(row.get("gameweek") or 0) == 3
+          ]
+          best = max(wc3, key=lambda row: row.get("strategic_objective_score", 0), default={})
+          players = {int(row["player_id"]): row.get("web_name") for row in json.loads(Path("data/chatgpt/players.json").read_text(encoding="utf-8"))} if Path("data/chatgpt/players.json").exists() else {}
+          print("FORCED_GW3", json.dumps({
+              "candidate_count": len(wc3),
+              "status": best.get("status"),
+              "mean_edge": best.get("incremental_expected_points"),
+              "strategic_edge": best.get("strategic_objective_edge"),
+              "strategic_score": best.get("strategic_objective_score"),
+              "discounted_mean": best.get("wildcard_discounted_mean_points"),
+              "squad_cost": best.get("squad_cost"),
+              "captain_player_id": best.get("captain_player_id"),
+              "contains_haaland": 411 in (best.get("replacement_squad_player_ids") or []),
+              "replacement_squad_player_ids": best.get("replacement_squad_player_ids"),
+              "strategic_audit": best.get("strategic_audit"),
+          }, indent=2, ensure_ascii=False))
+          PY
