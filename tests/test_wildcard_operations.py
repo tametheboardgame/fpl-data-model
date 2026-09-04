@@ -119,8 +119,16 @@ class WildcardOperationsTests(unittest.TestCase):
                     "gameweek": 3,
                     "incremental_expected_points": 21.177,
                     "replacement_squad_player_ids": self.wildcard_squad,
+                    "starter_player_ids": [1, 3, 4, 5, 8, 9, 10, 11, 13, 14, 19],
+                    "captain_player_id": 8,
                     "transfers_in_rebuild": 4,
                     "squad_cost": 99.5,
+                    "wildcard_objective_version": "captaincy-ceiling-test",
+                    "strategic_objective_edge": 12.3,
+                    "strategic_objective_score": 101.4,
+                    "strategic_audit": [{"gameweek": 3, "captain_player_id": 8}],
+                    "wildcard_search_audit": [{"selected": True, "seed_player_ids": [8]}],
+                    "wildcard_archetype_separation_points": 1.5,
                     "reason": "The projected gain clears the save threshold within the known horizon.",
                 }
             },
@@ -188,6 +196,39 @@ class WildcardOperationsTests(unittest.TestCase):
         self.assertIn("Wildcard out:", markdown)
         self.assertIn("Wildcard in:", markdown)
         self.assertNotIn("Roll or hold the transfer", markdown)
+
+    def test_wildcard_preserves_optimiser_captain_and_strategy_audit(self) -> None:
+        report = self.build()
+        selection = report["recommendation"]
+        chip = report["chip_recommendation"]
+
+        # Player 19 has the highest raw mean in this synthetic Wildcard XI, so
+        # preserving player 8 proves the operator did not silently recalculate
+        # captaincy from mean expected points.
+        self.assertEqual(selection["captain"]["player_id"], 8)
+        self.assertEqual(selection["wildcard_lineup_source"], "chip_optimisation")
+        self.assertEqual(selection["wildcard_objective_version"], "captaincy-ceiling-test")
+        self.assertEqual(selection["wildcard_strategic_objective_edge"], 12.3)
+        self.assertEqual(chip["captain_player_id"], 8)
+        self.assertEqual(chip["wildcard_objective_version"], "captaincy-ceiling-test")
+        self.assertEqual(chip["strategic_objective_edge"], 12.3)
+        self.assertEqual(chip["strategic_audit"][0]["captain_player_id"], 8)
+        self.assertTrue(chip["wildcard_search_audit"][0]["selected"])
+
+    def test_wildcard_lineup_falls_back_when_optimiser_metadata_is_missing(self) -> None:
+        recommendation = self.decision["chip_optimisation"]["recommendation"]
+        recommendation.pop("starter_player_ids")
+        recommendation.pop("captain_player_id")
+
+        report = self.build()
+        selection = report["recommendation"]
+
+        self.assertEqual(selection["selection_source"], "wildcard_rebuild")
+        self.assertEqual(selection["wildcard_lineup_source"], "mean_lineup_fallback")
+        self.assertIn(
+            selection["captain"]["player_id"],
+            {row["player_id"] for row in selection["starting_xi"]},
+        )
 
     def test_invalid_wildcard_rebuild_blocks_firm_advice(self) -> None:
         self.decision["chip_optimisation"]["recommendation"][
