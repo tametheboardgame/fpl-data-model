@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Callable
 
 from src.fpl_multiweek import (
     POSITION_LIMITS,
@@ -19,6 +19,28 @@ CHIP_LABELS = {
     "3xc": "Triple Captain",
 }
 MINIMUM_EDGE = {"wildcard": 12.0, "freehit": 10.0, "bboost": 8.0, "3xc": 7.5}
+
+# Wildcard selection is intentionally not a pure mean-EV exercise. FPL captaincy
+# doubles one player's return, so access to elite captaincy, haul probability and
+# bounded rank exposure have strategic value beyond raw squad efficiency.
+WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.1"
+STARTER_CEILING_WEIGHT = 0.08
+CAPTAIN_CEILING_WEIGHT = 0.70
+CAPTAIN_RANK_WEIGHT = 0.45
+SEARCH_PLAYER_CEILING_WEIGHT = 0.12
+SEARCH_CAPTAIN_ACCESS_WEIGHT = 0.65
+P90_GAP_WEIGHT = 0.16
+PROBABILITY_10_PLUS_WEIGHT = 1.20
+PROBABILITY_15_PLUS_WEIGHT = 2.00
+MAX_PLAYER_CEILING_BONUS = 1.75
+MAX_CAPTAIN_STRATEGIC_BONUS = 1.80
+DEFENSIVE_CAPTAIN_PENALTY = 0.30
+OWNERSHIP_PRESSURE_FLOOR = 35.0
+OWNERSHIP_PRESSURE_FULL = 75.0
+
+
+def clamp(value: float, lower: float, upper: float) -> float:
+    return max(lower, min(upper, value))
 
 
 def fixture_counts(
@@ -102,7 +124,16 @@ def optimise_budget_squad(
     points_by_player: dict[int, float],
     budget: float,
     beam_width: int = 1200,
+    final_scorer: Callable[[tuple[int, ...]], tuple[float, list[int], int | None]] | None = None,
 ) -> tuple[tuple[int, ...], float, float, list[int], int | None] | None:
+    """Return the best legal squad.
+
+    `points_by_player` is the beam-search heuristic. `final_scorer`, when supplied,
+    performs the authoritative final ranking of complete squads. This lets the
+    Wildcard optimiser retain an efficient search while evaluating captaincy and
+    ceiling non-linearly at the full-squad level.
+    """
+
     candidates: dict[str, list[int]] = {}
     limits = {"Goalkeeper": 14, "Defender": 26, "Midfielder": 26, "Forward": 20}
     for position, count in POSITION_LIMITS.items():
@@ -176,9 +207,12 @@ def optimise_budget_squad(
         squad_ids = tuple(sorted(selected))
         if not legal_squad(squad_ids, player_by_id):
             continue
-        score, starters, captain = optimise_gameweek_lineup(
-            squad_ids, player_by_id, points_by_player
-        )
+        if final_scorer is None:
+            score, starters, captain = optimise_gameweek_lineup(
+                squad_ids, player_by_id, points_by_player
+            )
+        else:
+            score, starters, captain = final_scorer(squad_ids)
         result = (squad_ids, cost, score, starters, captain)
         if best is None or score > best[2]:
             best = result
@@ -221,6 +255,249 @@ def candidate_status(
     return "play", "The projected gain clears the save threshold within the known horizon."
 
 
+def _fixture_metric_matrix(
+    fixture_projections: list[dict[str, Any]],
+    gameweeks: list[int],
+    fields: tuple[str, ...],
+) -> dict[int, dict[int, float]]:
+    selected = set(gameweeks)
+    result: dict[int, dict[int, float]] = {}
+    for row in fixture_projections:
+        gameweek = integer(row.get("gameweek"))
+        if gameweek not in selected:
+            continue
+        player_id = integer(row.get("player_id"))
+        if not player_id:
+            continue
+        value = 0.0
+        for field in fields:
+            raw = row.get(field)
+            if raw not in {None, ""}:
+                value = number(raw)
+                break
+        result.setdefault(gameweek, {})[player_id] = (
+            result.setdefault(gameweek, {}).get(player_id, 0.0) + value
+        )
+    return result
+
+
+def _ownership_pressure(player: dict[str, Any]) -> float:
+    ownership = number(player.get("selected_by_percent"))
+    return clamp(
+        (ownership - OWNERSHIP_PRESSURE_FLOOR)
+        / max(1.0, OWNERSHIP_PRESSURE_FULL - OWNERSHIP_PRESSURE_FLOOR),
+        0.0,
+        1.0,
+    )
+
+
+def _ceiling_bonus(
+    expected_points: float,
+    p90: float,
+    probability_10_plus: float,
+    probability_15_plus: float,
+) -> float:
+    p90_gap = max(0.0, p90 - expected_points)
+    bonus = (
+        P90_GAP_WEIGHT * p90_gap
+        + PROBABILITY_10_PLUS_WEIGHT * clamp(probability_10_plus, 0.0, 1.0)
+        + PROBABILITY_15_PLUS_WEIGHT * clamp(probability_15_plus, 0.0, 1.0)
+    )
+    return min(MAX_PLAYER_CEILING_BONUS, bonus)
+
+
+def _captain_utility(
+    player_id: int,
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> tuple[float, float, float]:
+    mean = expected_points.get(player_id, 0.0)
+    ceiling = _ceiling_bonus(
+        mean,
+        p90.get(player_id, mean),
+        probability_10_plus.get(player_id, 0.0),
+        probability_15_plus.get(player_id, 0.0),
+    )
+    player = player_by_id.get(player_id, {})
+    rank_pressure = _ownership_pressure(player)
+    position = str(player.get("position"))
+    defensive_penalty = (
+        DEFENSIVE_CAPTAIN_PENALTY
+        if position in {"Goalkeeper", "Defender"}
+        else 0.0
+    )
+    strategic_bonus = min(
+        MAX_CAPTAIN_STRATEGIC_BONUS,
+        CAPTAIN_CEILING_WEIGHT * ceiling + CAPTAIN_RANK_WEIGHT * rank_pressure,
+    )
+    return mean + strategic_bonus - defensive_penalty, ceiling, rank_pressure
+
+
+def _strategic_gameweek_score(
+    squad_ids: tuple[int, ...],
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> tuple[float, float, list[int], int | None, dict[str, float]]:
+    """Score one Gameweek for a mini-league-winning objective.
+
+    Mean expected points remains the foundation. A bounded starter ceiling premium
+    rewards explosive attackers, while the captain is selected on a separate
+    captaincy utility that values upper-tail outcomes and extreme ownership/rank
+    exposure. This avoids hard-coding any individual premium player.
+    """
+
+    _, starters, _ = optimise_gameweek_lineup(
+        squad_ids, player_by_id, expected_points
+    )
+    starter_set = set(starters)
+    captain = max(
+        starter_set,
+        key=lambda player_id: _captain_utility(
+            player_id,
+            player_by_id,
+            expected_points,
+            p90,
+            probability_10_plus,
+            probability_15_plus,
+        )[0],
+        default=None,
+    )
+    mean_score = sum(expected_points.get(player_id, 0.0) for player_id in starters)
+    if captain is not None:
+        mean_score += expected_points.get(captain, 0.0)
+
+    starter_ceiling = sum(
+        _ceiling_bonus(
+            expected_points.get(player_id, 0.0),
+            p90.get(player_id, expected_points.get(player_id, 0.0)),
+            probability_10_plus.get(player_id, 0.0),
+            probability_15_plus.get(player_id, 0.0),
+        )
+        for player_id in starters
+    )
+    captain_ceiling = 0.0
+    captain_rank_pressure = 0.0
+    if captain is not None:
+        _, captain_ceiling, captain_rank_pressure = _captain_utility(
+            captain,
+            player_by_id,
+            expected_points,
+            p90,
+            probability_10_plus,
+            probability_15_plus,
+        )
+
+    strategic_bonus = (
+        STARTER_CEILING_WEIGHT * starter_ceiling
+        + CAPTAIN_CEILING_WEIGHT * captain_ceiling
+        + CAPTAIN_RANK_WEIGHT * captain_rank_pressure
+    )
+    strategic_score = mean_score + strategic_bonus
+    return (
+        strategic_score,
+        mean_score,
+        starters,
+        captain,
+        {
+            "starter_ceiling_bonus": STARTER_CEILING_WEIGHT * starter_ceiling,
+            "captain_ceiling_bonus": CAPTAIN_CEILING_WEIGHT * captain_ceiling,
+            "captain_rank_pressure_bonus": CAPTAIN_RANK_WEIGHT * captain_rank_pressure,
+            "strategic_bonus": strategic_bonus,
+        },
+    )
+
+
+def _wildcard_search_heuristic(
+    player_by_id: dict[int, dict[str, Any]],
+    gameweeks: list[int],
+    offset: int,
+    matrix: dict[int, dict[int, float]],
+    p90_matrix: dict[int, dict[int, float]],
+    p10_matrix: dict[int, dict[int, float]],
+    p15_matrix: dict[int, dict[int, float]],
+    discount: float,
+) -> dict[int, float]:
+    """Build a captaincy-aware beam-search heuristic for Wildcard candidates.
+
+    The beam is only a search/pruning device, not the authoritative objective. It
+    deliberately gives bounded credit to upper-tail value and potential captaincy
+    access so expensive explosive players are not discarded before the full-squad
+    strategic scorer can evaluate them.
+    """
+
+    result: dict[int, float] = {}
+    for player_id in player_by_id:
+        total = 0.0
+        for future_offset, gameweek in enumerate(gameweeks[offset:], start=offset):
+            mean = matrix.get(gameweek, {}).get(player_id, 0.0)
+            captain_utility, ceiling, _ = _captain_utility(
+                player_id,
+                player_by_id,
+                matrix.get(gameweek, {}),
+                p90_matrix.get(gameweek, {}),
+                p10_matrix.get(gameweek, {}),
+                p15_matrix.get(gameweek, {}),
+            )
+            captain_access = max(0.0, captain_utility - mean)
+            factor = discount ** (future_offset - offset)
+            total += factor * (
+                mean
+                + SEARCH_PLAYER_CEILING_WEIGHT * ceiling
+                + SEARCH_CAPTAIN_ACCESS_WEIGHT * captain_access
+            )
+        result[player_id] = total
+    return result
+
+
+def _strategic_horizon_score(
+    squad_ids: tuple[int, ...],
+    player_by_id: dict[int, dict[str, Any]],
+    gameweeks: list[int],
+    offset: int,
+    matrix: dict[int, dict[int, float]],
+    p90_matrix: dict[int, dict[int, float]],
+    p10_matrix: dict[int, dict[int, float]],
+    p15_matrix: dict[int, dict[int, float]],
+    discount: float,
+) -> tuple[float, float, list[int], int | None, list[dict[str, Any]]]:
+    strategic_total = 0.0
+    mean_total = 0.0
+    first_starters: list[int] = []
+    first_captain: int | None = None
+    audit: list[dict[str, Any]] = []
+    for future_offset, gameweek in enumerate(gameweeks[offset:], start=offset):
+        strategic, mean_score, starters, captain, components = _strategic_gameweek_score(
+            squad_ids,
+            player_by_id,
+            matrix.get(gameweek, {}),
+            p90_matrix.get(gameweek, {}),
+            p10_matrix.get(gameweek, {}),
+            p15_matrix.get(gameweek, {}),
+        )
+        factor = discount ** (future_offset - offset)
+        strategic_total += factor * strategic
+        mean_total += factor * mean_score
+        if future_offset == offset:
+            first_starters = starters
+            first_captain = captain
+        audit.append(
+            {
+                "gameweek": gameweek,
+                "mean_expected_points": round(mean_score, 3),
+                "strategic_score": round(strategic, 3),
+                "captain_player_id": captain,
+                **{key: round(value, 3) for key, value in components.items()},
+            }
+        )
+    return strategic_total, mean_total, first_starters, first_captain, audit
+
+
 def optimise_chip_plan(
     fixture_projections: list[dict[str, Any]],
     players: list[dict[str, Any]],
@@ -253,6 +530,21 @@ def optimise_chip_plan(
     player_by_id = {integer(player.get("player_id")): player for player in players}
     starting_ids = tuple(sorted(integer(row.get("player_id")) for row in squad))
     matrix = projection_matrix(fixture_projections, gameweeks)
+    p90_matrix = _fixture_metric_matrix(
+        fixture_projections,
+        gameweeks,
+        ("points_p90", "component_points_p90"),
+    )
+    p10_matrix = _fixture_metric_matrix(
+        fixture_projections,
+        gameweeks,
+        ("probability_10_plus", "component_probability_10_plus"),
+    )
+    p15_matrix = _fixture_metric_matrix(
+        fixture_projections,
+        gameweeks,
+        ("probability_15_plus", "component_probability_15_plus"),
+    )
     counts = fixture_counts(fixture_projections, players, gameweeks)
     structures = {gw: gameweek_structure(counts.get(gw, {})) for gw in gameweeks}
     period = active_chip_period(chip_state)
@@ -341,34 +633,89 @@ def optimise_chip_plan(
                     })
 
             if chip_available(chip_state, "wildcard"):
-                remaining_points = {
-                    player_id: sum(
-                        (discount ** (future_offset - offset))
-                        * matrix.get(future_gw, {}).get(player_id, 0)
-                        for future_offset, future_gw in enumerate(gameweeks[offset:], start=offset)
+                remaining_points = _wildcard_search_heuristic(
+                    player_by_id,
+                    gameweeks,
+                    offset,
+                    matrix,
+                    p90_matrix,
+                    p10_matrix,
+                    p15_matrix,
+                    discount,
+                )
+
+                def wildcard_final_scorer(
+                    squad_ids: tuple[int, ...],
+                ) -> tuple[float, list[int], int | None]:
+                    strategic, _, first_starters, first_captain, _ = _strategic_horizon_score(
+                        squad_ids,
+                        player_by_id,
+                        gameweeks,
+                        offset,
+                        matrix,
+                        p90_matrix,
+                        p10_matrix,
+                        p15_matrix,
+                        discount,
                     )
-                    for player_id in player_by_id
-                }
+                    return strategic, first_starters, first_captain
+
                 wildcard = optimise_budget_squad(
-                    player_by_id, remaining_points, total_budget
+                    player_by_id,
+                    remaining_points,
+                    total_budget,
+                    final_scorer=wildcard_final_scorer,
                 )
                 if wildcard:
-                    wc_ids, wc_cost, _, _, _ = wildcard
-                    wildcard_points = 0.0
-                    for future_offset, future_gw in enumerate(gameweeks[offset:], start=offset):
-                        score, _, _ = optimise_gameweek_lineup(
-                            wc_ids, player_by_id, matrix.get(future_gw, {})
-                        )
-                        wildcard_points += (discount ** (future_offset - offset)) * score
+                    wc_ids, wc_cost, wildcard_objective, _, _ = wildcard
+                    (
+                        wildcard_strategic,
+                        wildcard_points,
+                        wc_starters,
+                        wc_captain,
+                        wildcard_audit,
+                    ) = _strategic_horizon_score(
+                        wc_ids,
+                        player_by_id,
+                        gameweeks,
+                        offset,
+                        matrix,
+                        p90_matrix,
+                        p10_matrix,
+                        p15_matrix,
+                        discount,
+                    )
+
                     baseline_points = sum(
                         (discount ** (future_offset - offset))
                         * baseline_by_gw.get(future_gw, 0)
                         for future_offset, future_gw in enumerate(gameweeks[offset:], start=offset)
                     )
-                    edge = wildcard_points - baseline_points
+                    baseline_strategic = 0.0
+                    baseline_mean_recomputed = 0.0
+                    for future_offset, future_gw in enumerate(gameweeks[offset:], start=offset):
+                        future_squad = squads.get(future_gw, route_squad)
+                        strategic, mean_score, _, _, _ = _strategic_gameweek_score(
+                            future_squad,
+                            player_by_id,
+                            matrix.get(future_gw, {}),
+                            p90_matrix.get(future_gw, {}),
+                            p10_matrix.get(future_gw, {}),
+                            p15_matrix.get(future_gw, {}),
+                        )
+                        hit_cost = integer((moves_by_gw.get(future_gw) or {}).get("hit_cost"))
+                        factor = discount ** (future_offset - offset)
+                        baseline_strategic += factor * (strategic - hit_cost)
+                        baseline_mean_recomputed += factor * (mean_score - hit_cost)
+
+                    mean_edge = wildcard_points - baseline_points
+                    strategic_edge = wildcard_strategic - baseline_strategic
                     transfers = len(set(wc_ids) - set(route_squad))
+                    # Chip-use thresholds remain anchored to expected-points gain. The
+                    # strategic objective chooses *which* Wildcard squad to own and is
+                    # reported separately rather than fabricating xPts.
                     status, reason = candidate_status(
-                        "wildcard", edge, structure, horizon_reaches_expiry
+                        "wildcard", mean_edge, structure, horizon_reaches_expiry
                     )
                     if transfers < 4 and status == "play":
                         status = "hold"
@@ -379,14 +726,24 @@ def optimise_chip_plan(
                         "gameweek": gameweek,
                         "route_index": route_index,
                         "event_structure": structure,
-                        "incremental_expected_points": round(edge, 3),
-                        "discounted_incremental_points": round((discount ** offset) * edge, 3),
+                        "incremental_expected_points": round(mean_edge, 3),
+                        "discounted_incremental_points": round((discount ** offset) * mean_edge, 3),
+                        "strategic_objective_edge": round(strategic_edge, 3),
+                        "strategic_objective_score": round(wildcard_objective, 3),
+                        "wildcard_discounted_mean_points": round(wildcard_points, 3),
+                        "baseline_discounted_mean_points_recomputed": round(
+                            baseline_mean_recomputed, 3
+                        ),
+                        "wildcard_objective_version": WILDCARD_OBJECTIVE_VERSION,
                         "status": status,
                         "reason": reason,
                         "replacement_squad_player_ids": list(wc_ids),
+                        "starter_player_ids": wc_starters,
+                        "captain_player_id": wc_captain,
                         "transfers_in_rebuild": transfers,
                         "squad_cost": round(wc_cost, 1),
                         "permanent_squad_change": True,
+                        "strategic_audit": wildcard_audit,
                     })
 
     best_by_chip: dict[str, dict[str, Any]] = {}
@@ -471,12 +828,25 @@ def optimise_chip_plan(
             reverse=True,
         ),
         "method": (
-            "Compare each available chip with the same no-chip transfer route, enforce one chip "
-            "per Gameweek, and retain save thresholds while stronger unseen opportunities remain."
+            "Compare each available chip with the same no-chip transfer route. Wildcard squad "
+            "search and final selection use bounded captaincy/ceiling/rank-aware objectives, "
+            "while chip timing thresholds remain anchored to real expected-points gain."
         ),
+        "wildcard_objective": {
+            "version": WILDCARD_OBJECTIVE_VERSION,
+            "mean_expected_points_primary": True,
+            "starter_ceiling_weight": STARTER_CEILING_WEIGHT,
+            "captain_ceiling_weight": CAPTAIN_CEILING_WEIGHT,
+            "captain_rank_weight": CAPTAIN_RANK_WEIGHT,
+            "search_player_ceiling_weight": SEARCH_PLAYER_CEILING_WEIGHT,
+            "search_captain_access_weight": SEARCH_CAPTAIN_ACCESS_WEIGHT,
+            "hard_coded_players": False,
+        },
         "assumptions": [
             "Free Hit uses a temporary budget-legal 15-player squad and reverts after the Gameweek.",
             "Wildcard uses a permanent budget-legal rebuild over the remaining known horizon.",
+            "Wildcard squad search and selection explicitly value weekly captaincy access and bounded upper-tail outcomes.",
+            "Ownership is used only as bounded captaincy rank-risk pressure, never as a blanket reason to own a player.",
             "Bench Boost adds the expected points of the four players outside the optimal XI.",
             "Triple Captain adds one further copy of the selected captain's expected points.",
             "Player prices are held constant across the known planning horizon.",

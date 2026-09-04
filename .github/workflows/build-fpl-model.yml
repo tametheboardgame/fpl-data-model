@@ -48,6 +48,9 @@ on:
       - "src/fpl_deadline_scheduler.py"
       - "src/evaluate_external_context.py"
       - "src/finalise_external_context.py"
+      - "tests/test_phase18_chips.py"
+      - "tests/test_wildcard_strategy.py"
+      - "tests/test_wildcard_operations.py"
       - "tests/test_phase19_prospective.py"
       - "tests/test_phase20_initial_squad.py"
       - "tests/test_phase21_gameweek_operations.py"
@@ -75,7 +78,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: fpl-prediction-model
+  group: fpl-prediction-model-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
   cancel-in-progress: true
 
 jobs:
@@ -103,6 +106,37 @@ jobs:
         run: python -m src.build_fpl_model --data-dir data
       - name: Score context and attach chip state
         run: python -m src.finalise_external_context --data-dir data
+      - name: Audit generated recommendation
+        if: github.event_name == 'pull_request'
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report_path = Path("data/chatgpt/gameweek_report.json")
+          report = json.loads(report_path.read_text(encoding="utf-8"))
+          recommendation = report.get("recommendation") or {}
+          chip = report.get("chip_recommendation") or {}
+          audit = {
+              "target_gameweek": report.get("target_gameweek"),
+              "selection_source": recommendation.get("selection_source"),
+              "transfer_action": recommendation.get("transfer_action"),
+              "expected_points": recommendation.get("expected_points"),
+              "captain": (recommendation.get("captain") or {}).get("web_name"),
+              "vice_captain": (recommendation.get("vice_captain") or {}).get("web_name"),
+              "starting_xi": [row.get("web_name") for row in recommendation.get("starting_xi", [])],
+              "squad_player_ids": recommendation.get("squad_player_ids", []),
+              "chip_action": chip.get("action"),
+              "chip": chip.get("chip"),
+              "chip_gameweek": chip.get("gameweek"),
+              "chip_incremental_expected_points": chip.get("incremental_expected_points"),
+              "wildcard_objective_version": chip.get("wildcard_objective_version"),
+              "strategic_objective_edge": chip.get("strategic_objective_edge"),
+              "strategic_audit": chip.get("strategic_audit"),
+          }
+          print("PR_MODEL_RECOMMENDATION_AUDIT")
+          print(json.dumps(audit, indent=2, ensure_ascii=False))
+          PY
       - name: Commit model outputs
         if: github.event_name != 'pull_request'
         run: |
