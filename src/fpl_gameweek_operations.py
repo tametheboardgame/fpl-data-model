@@ -9,10 +9,14 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from src.external_context import number
-from src.fpl_multiweek import fixture_rows_by_player, lineup_correlation_analysis
+from src.fpl_multiweek import (
+    fixture_rows_by_player,
+    lineup_correlation_analysis,
+    optimise_gameweek_lineup,
+)
 
 
-OPERATIONS_VERSION = "fpl-gameweek-operations-1.4"
+OPERATIONS_VERSION = "fpl-gameweek-operations-1.5"
 FREEZE_WINDOW_HOURS = 8
 NORMAL_DATA_MAX_AGE_HOURS = 8
 DEADLINE_DATA_MAX_AGE_HOURS = 3
@@ -273,7 +277,7 @@ def _selection(
         players,
         fixture_rows_by_player(fixture_projections, gameweek),
     )
-    return {
+    selection = {
         "selection_source": "registered_team",
         "starting_xi": [_player(player_id, players, points) for player_id in starter_ids],
         "bench_order": [_player(player_id, players, points) for player_id in bench_ids],
@@ -291,6 +295,126 @@ def _selection(
         "lineup_correlation": lineup_correlation,
         "squad_player_ids": sorted(squad_ids),
     }
+    return _apply_wildcard_selection(
+        selection,
+        decision,
+        players,
+        horizons,
+        my_team,
+        gameweek,
+        fixture_projections,
+    )
+
+
+def _apply_wildcard_selection(
+    selection: dict[str, Any],
+    decision: dict[str, Any],
+    players: dict[int, dict[str, Any]],
+    horizons: list[dict[str, Any]],
+    my_team: dict[str, Any],
+    gameweek: int,
+    fixture_projections: list[dict[str, Any]],
+) -> dict[str, Any]:
+    recommendation = (decision.get("chip_optimisation") or {}).get("recommendation") or {}
+    if (
+        recommendation.get("action") != "play"
+        or str(recommendation.get("chip") or "") != "wildcard"
+        or integer(recommendation.get("gameweek")) != gameweek
+    ):
+        return selection
+
+    replacement_ids = {
+        integer(value)
+        for value in recommendation.get("replacement_squad_player_ids", [])
+        if integer(value)
+    }
+    if len(replacement_ids) != 15:
+        return selection
+
+    wildcard_points = {
+        integer(row.get("player_id")): number(row.get("expected_points_next_1"))
+        for row in horizons
+        if integer(row.get("player_id"))
+    }
+    wildcard_score, starter_ids, captain_id = optimise_gameweek_lineup(
+        tuple(sorted(replacement_ids)),
+        players,
+        wildcard_points,
+        fixture_rows_by_player(fixture_projections, gameweek),
+    )
+    starter_ids = [integer(value) for value in starter_ids]
+    if len(starter_ids) != 11 or captain_id not in starter_ids:
+        return selection
+
+    vice_id = next(
+        (
+            player_id
+            for player_id in sorted(
+                starter_ids,
+                key=lambda item: wildcard_points.get(item, 0),
+                reverse=True,
+            )
+            if player_id != captain_id
+        ),
+        0,
+    )
+    bench_ids = list(replacement_ids.difference(starter_ids))
+    bench_ids.sort(
+        key=lambda player_id: (
+            str(players.get(player_id, {}).get("position")) != "Goalkeeper",
+            wildcard_points.get(player_id, 0),
+        ),
+        reverse=True,
+    )
+    registered_ids = {
+        integer(row.get("player_id"))
+        for row in my_team.get("squad", [])
+        if integer(row.get("player_id"))
+    }
+    wildcard_out = sorted(registered_ids.difference(replacement_ids))
+    wildcard_in = sorted(replacement_ids.difference(registered_ids))
+    lineup_correlation = lineup_correlation_analysis(
+        starter_ids,
+        players,
+        fixture_rows_by_player(fixture_projections, gameweek),
+    )
+    selection.update(
+        {
+            "selection_source": "wildcard_rebuild",
+            "starting_xi": [
+                _player(player_id, players, wildcard_points)
+                for player_id in starter_ids
+            ],
+            "bench_order": [
+                _player(player_id, players, wildcard_points)
+                for player_id in bench_ids
+            ],
+            "captain": _player(captain_id, players, wildcard_points),
+            "vice_captain": _player(vice_id, players, wildcard_points) if vice_id else None,
+            "transfers": [],
+            "transfer_action": "play_wildcard",
+            "hit_cost": 0,
+            "expected_points": round(wildcard_score, 3),
+            "net_expected_points": round(wildcard_score, 3),
+            "lineup_correlation": lineup_correlation,
+            "squad_player_ids": sorted(replacement_ids),
+            "chip_squad_changes": {
+                "out": [
+                    _player(player_id, players, wildcard_points)
+                    for player_id in wildcard_out
+                ],
+                "in": [
+                    _player(player_id, players, wildcard_points)
+                    for player_id in wildcard_in
+                ],
+            },
+            "wildcard_squad_cost": recommendation.get("squad_cost"),
+            "wildcard_incremental_expected_points": recommendation.get(
+                "incremental_expected_points"
+            ),
+        }
+    )
+    return selection
 
 
 def _chip(decision: dict[str, Any], gameweek: int) -> dict[str, Any]:
@@ -305,6 +429,13 @@ def _chip(decision: dict[str, Any], gameweek: int) -> dict[str, Any]:
         "incremental_expected_points": recommendation.get("incremental_expected_points"),
         "reason": recommendation.get("reason"),
     }
+    for key in (
+        "replacement_squad_player_ids",
+        "transfers_in_rebuild",
+        "squad_cost",
+    ):
+        if recommendation.get(key) is not None:
+            result[key] = recommendation.get(key)
     if recommendation.get("next_planned_use"):
         planned = recommendation["next_planned_use"]
         result["next_planned_use"] = {
@@ -438,6 +569,26 @@ def _warnings(
                 and 1 <= positions.get("Forward", 0) <= 3
             ):
                 warnings.append({"code": "invalid_starting_formation", "severity": "high", "message": "The proposed initial starting XI does not use a legal FPL formation."})
+        chip_recommendation = (
+            (decision.get("chip_optimisation") or {}).get("recommendation") or {}
+        )
+        target_gameweek = integer((current_gameweek.get("next") or {}).get("id"))
+        if (
+            chip_recommendation.get("action") == "play"
+            and chip_recommendation.get("chip") == "wildcard"
+            and integer(chip_recommendation.get("gameweek")) == target_gameweek
+            and selection.get("selection_source") != "wildcard_rebuild"
+        ):
+            warnings.append(
+                {
+                    "code": "wildcard_rebuild_unavailable",
+                    "severity": "high",
+                    "message": (
+                        "The model recommends a Wildcard but no valid 15-player "
+                        "Wildcard rebuild could be applied to the operational report."
+                    ),
+                }
+            )
     for issue in (
         ((decision.get("initial_squad_plan") or {}).get("launch_validation") or {})
         .get("issues", [])
@@ -616,6 +767,7 @@ def _material_state(report: dict[str, Any]) -> dict[str, Any]:
         "captain": (selection.get("captain") or {}).get("player_id"),
         "vice_captain": (selection.get("vice_captain") or {}).get("player_id"),
         "transfers": [(row.get("sell_player_id"), row.get("buy_player_id")) for row in selection.get("transfers", [])],
+        "chip_squad_changes": selection.get("chip_squad_changes"),
         "chip": report.get("chip_recommendation"),
         "risks": report.get("availability_risks", []),
         "fixture_signature": report.get("fixture_signature", []),
@@ -645,6 +797,7 @@ def _changes(previous: dict[str, Any] | None, current: dict[str, Any]) -> list[d
         "captain": "Captain changed",
         "vice_captain": "Vice-captain changed",
         "transfers": "Transfer recommendation changed",
+        "chip_squad_changes": "Chip-selected squad changed",
         "chip": "Chip recommendation changed",
         "risks": "Availability information changed",
         "fixture_signature": "Fixture information changed",
@@ -824,6 +977,17 @@ def render_markdown(report: dict[str, Any]) -> str:
         transfers = recommendation.get("transfers", [])
         if recommendation.get("transfer_action") == "select_initial_squad":
             lines.append("Action: Review and select the proposed initial squad")
+        elif recommendation.get("transfer_action") == "play_wildcard":
+            lines.append("Action: Play Wildcard and rebuild the squad")
+            changes = recommendation.get("chip_squad_changes") or {}
+            wildcard_out = ", ".join(
+                str(row.get("web_name")) for row in changes.get("out", [])
+            )
+            wildcard_in = ", ".join(
+                str(row.get("web_name")) for row in changes.get("in", [])
+            )
+            lines.append(f"Wildcard out: {wildcard_out or 'None'}")
+            lines.append(f"Wildcard in: {wildcard_in or 'None'}")
         else:
             lines.append("Transfers: " + (", ".join(f"{row.get('sell')} to {row.get('buy')}" for row in transfers) if transfers else "Roll or hold the transfer"))
         lines.append(
