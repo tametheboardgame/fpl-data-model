@@ -1,9 +1,9 @@
 # FPL Gameweek 3 Deadline Report
 
 Status: ready
-Generated: 2026-09-04T16:18:07+00:00
+Generated: 2026-09-04T16:28:30+00:00
 UK deadline: 2026-09-04T18:30:00+01:00
-Hours remaining: 1.198
+Hours remaining: 1.025
 Advice level: final
 Firm advice allowed: True
 
@@ -58,6 +58,6 @@ API-Football is plan-blocked, so check official club news and trusted predicted 
 ## Deadline snapshot
 
 Freeze status: frozen
-Immutable snapshot: prospective/gw03/20260904T161807Z.json
+Immutable snapshot: prospective/gw03/20260904T162830Z.json
 
 This report is advisory only. No transfers, chips or team changes are made automatically.

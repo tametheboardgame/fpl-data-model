@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.5",
-  "generated_at": "2026-09-04T16:18:07+00:00",
+  "generated_at": "2026-09-04T16:28:30+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-2.2",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-09-04T17:30:00+00:00",
     "deadline_time_uk": "2026-09-04T18:30:00+01:00",
-    "hours_remaining": 1.198
+    "hours_remaining": 1.025
   },
   "recommendation": {
     "selection_source": "wildcard_rebuild",
@@ -471,14 +471,14 @@
       ]
     },
     "wildcard_squad_cost": 99.4,
-    "wildcard_incremental_expected_points": 14.725
+    "wildcard_incremental_expected_points": 14.645
   },
   "chip_recommendation": {
     "action": "play",
     "chip": "wildcard",
     "chip_name": "Wildcard",
     "gameweek": 3,
-    "incremental_expected_points": 14.725,
+    "incremental_expected_points": 14.645,
     "reason": "The projected gain clears the save threshold within the known horizon.",
     "replacement_squad_player_ids": [
       4,
@@ -518,8 +518,8 @@
         "free_transfers_before": 2,
         "hit_cost": 0,
         "bank_after": 0.0,
-        "lineup_expected_points": 45.828,
-        "net_expected_points": 45.828,
+        "lineup_expected_points": 45.817,
+        "net_expected_points": 45.817,
         "captain_player_id": 426,
         "captain": "B.Fernandes",
         "starter_player_ids": [
@@ -681,7 +681,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-09-04T11:27:23+00:00",
+      "generated_at": "2026-09-04T16:27:55+00:00",
       "required_action": null,
       "error": null
     },
@@ -695,9 +695,9 @@
     }
   ],
   "source_freshness": {
-    "official_fpl_generated_at": "2026-09-04T16:16:49+00:00",
-    "external_context_generated_at": "2026-09-04T16:18:07+00:00",
-    "active_external_signals": 3920,
+    "official_fpl_generated_at": "2026-09-04T16:26:51+00:00",
+    "external_context_generated_at": "2026-09-04T16:28:30+00:00",
+    "active_external_signals": 4080,
     "expired_external_signals": 9024
   },
   "fixture_signature": [
@@ -1545,8 +1545,8 @@
   "deadline_freeze": {
     "status": "frozen",
     "window_hours": 8,
-    "immutable_snapshot": "prospective/gw03/20260904T161807Z.json",
-    "snapshot_created_this_run": "prospective/gw03/20260904T161807Z.json"
+    "immutable_snapshot": "prospective/gw03/20260904T162830Z.json",
+    "snapshot_created_this_run": "prospective/gw03/20260904T162830Z.json"
   },
   "decision_validation": {
     "status": "passed",
@@ -1589,7 +1589,7 @@
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 3,
-        "incremental_expected_points": 19.21,
+        "incremental_expected_points": 14.725,
         "reason": "The projected gain clears the save threshold within the known horizon.",
         "replacement_squad_player_ids": [
           4,
@@ -1616,7 +1616,7 @@
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 3,
-        "incremental_expected_points": 14.725,
+        "incremental_expected_points": 14.645,
         "reason": "The projected gain clears the save threshold within the known horizon.",
         "replacement_squad_player_ids": [
           4,
@@ -1642,7 +1642,7 @@
   ],
   "material_change": true,
   "change_summary": "Chip recommendation changed",
-  "decision_fingerprint": "6b9e95949ba4dcb7b04b0499972bfc08536cda9094b271215d71aaad2b15fbe5",
-  "archive_created_this_run": "operations/gw03/20260904T161807Z.json",
-  "archive_markdown_created_this_run": "operations/gw03/20260904T161807Z.md"
+  "decision_fingerprint": "12ae5a4731f31e42df81f29fe38d3a9999083008d1762faf831917eea0f7b5fc",
+  "archive_created_this_run": "operations/gw03/20260904T162830Z.json",
+  "archive_markdown_created_this_run": "operations/gw03/20260904T162830Z.md"
 }
