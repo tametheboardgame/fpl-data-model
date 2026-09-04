@@ -48,6 +48,9 @@ on:
       - "src/fpl_deadline_scheduler.py"
       - "src/evaluate_external_context.py"
       - "src/finalise_external_context.py"
+      - "tests/test_phase18_chips.py"
+      - "tests/test_wildcard_strategy.py"
+      - "tests/test_wildcard_operations.py"
       - "tests/test_phase19_prospective.py"
       - "tests/test_phase20_initial_squad.py"
       - "tests/test_phase21_gameweek_operations.py"
@@ -75,7 +78,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: fpl-prediction-model
+  group: fpl-prediction-model-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
   cancel-in-progress: true
 
 jobs:
@@ -122,7 +125,7 @@ jobs:
               "captain": (recommendation.get("captain") or {}).get("web_name"),
               "vice_captain": (recommendation.get("vice_captain") or {}).get("web_name"),
               "starting_xi": [row.get("web_name") for row in recommendation.get("starting_xi", [])],
-              "squad": [row.get("web_name") for row in recommendation.get("squad", [])],
+              "squad_player_ids": recommendation.get("squad_player_ids", []),
               "chip_action": chip.get("action"),
               "chip": chip.get("chip"),
               "chip_gameweek": chip.get("gameweek"),
