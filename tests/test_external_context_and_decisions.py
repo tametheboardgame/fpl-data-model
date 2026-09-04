@@ -343,6 +343,54 @@ class DecisionTests(unittest.TestCase):
         self.assertLess(adjustment["selection_expected_points"], 5.0)
         self.assertIn("observed usage", adjustment["selection_risk_reasons"][0])
 
+    def test_role_supported_component_minutes_gap_is_not_double_penalised(self) -> None:
+        horizon = {
+            "expected_minutes_next_1": 81,
+            "component_expected_minutes_next_1": 50,
+            "control_expected_points_next_1": 6.0,
+            "component_expected_points_next_1": 3.8,
+            "points_p90_next_1": 11,
+            "probability_10_plus_next_1": 0.2,
+            "probability_15_plus_next_1": 0.05,
+        }
+        supported = selection_risk_adjustment(
+            {"position": "Forward", "starts": 2, "minutes": 180, "status": "a"},
+            horizon,
+            {"decision_expected_points": 6.4, "market_adjustment_points": 0.9},
+            target_gameweek=3,
+        )
+        self.assertGreater(supported["role_supported_disagreement"], 2.0)
+        self.assertLess(supported["model_disagreement_penalty"], 0.05)
+        self.assertGreater(supported["selection_expected_points"], 6.35)
+
+        unsupported_market = selection_risk_adjustment(
+            {"position": "Forward", "starts": 2, "minutes": 180, "status": "a"},
+            horizon,
+            {"decision_expected_points": 6.4, "market_adjustment_points": -0.2},
+            target_gameweek=3,
+        )
+        self.assertEqual(unsupported_market["role_supported_disagreement"], 0)
+        self.assertGreater(unsupported_market["model_disagreement_penalty"], 0.5)
+
+    def test_role_disagreement_relief_requires_proven_current_usage(self) -> None:
+        adjustment = selection_risk_adjustment(
+            {"position": "Forward", "starts": 0, "minutes": 30, "status": "a"},
+            {
+                "expected_minutes_next_1": 81,
+                "component_expected_minutes_next_1": 50,
+                "control_expected_points_next_1": 6.0,
+                "component_expected_points_next_1": 3.8,
+                "points_p90_next_1": 11,
+                "probability_10_plus_next_1": 0.2,
+                "probability_15_plus_next_1": 0.05,
+            },
+            {"decision_expected_points": 6.4, "market_adjustment_points": 0.9},
+            target_gameweek=3,
+        )
+        self.assertEqual(adjustment["role_supported_disagreement"], 0)
+        self.assertGreater(adjustment["minutes_risk_penalty"], 0)
+        self.assertGreater(adjustment["model_disagreement_penalty"], 0.5)
+
     def test_market_context_adjusts_relevant_expected_point_components(self) -> None:
         context = {
             "signal_count": 2,

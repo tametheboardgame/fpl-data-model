@@ -20,7 +20,7 @@ from src.fpl_multiweek import (
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-2.2"
+DECISION_VERSION = "fpl-decisions-2.3"
 MARKET_BLEND_WEIGHT = 0.75
 MINUTES_RISK_WEIGHT = 0.30
 MODEL_DISAGREEMENT_WEIGHT = 0.25
@@ -357,8 +357,35 @@ def selection_risk_adjustment(
         if control_points > 0 and component_points > 0
         else 0.0
     )
+    component_expected_minutes = horizon_value(
+        horizon, 1, "component_expected_minutes"
+    )
+    projected_usage = (
+        clamp(expected_minutes / 90, 0.0, 1.0) if expected_minutes > 0 else 0.0
+    )
+    role_supported_disagreement = 0.0
+    if (
+        model_disagreement > 0
+        and observed_usage is not None
+        and expected_minutes > 0
+        and component_expected_minutes > 0
+        and observed_usage + 0.05 >= projected_usage
+        and number(projection.get("market_adjustment_points")) > 0
+    ):
+        component_minutes_gap = max(
+            0.0, expected_minutes - component_expected_minutes
+        )
+        minutes_explained_points = control_points * clamp(
+            component_minutes_gap / expected_minutes, 0.0, 1.0
+        )
+        role_supported_disagreement = min(
+            model_disagreement, minutes_explained_points
+        )
+    penalised_model_disagreement = max(
+        0.0, model_disagreement - role_supported_disagreement
+    )
     disagreement_penalty = min(
-        0.75, MODEL_DISAGREEMENT_WEIGHT * model_disagreement
+        0.75, MODEL_DISAGREEMENT_WEIGHT * penalised_model_disagreement
     )
     total_penalty = min(
         decision_points * MAX_SELECTION_RISK_SHARE,
@@ -383,9 +410,14 @@ def selection_risk_adjustment(
         )
     if availability_penalty > 0.05:
         reasons.append("official availability uncertainty")
+    if role_supported_disagreement > 0.05:
+        reasons.append(
+            "component disagreement partly explained by a minutes gap contradicted "
+            "by observed usage and positive market context"
+        )
     if disagreement_penalty > 0.05:
         reasons.append(
-            f"control/component disagreement {model_disagreement:.2f} points"
+            f"unexplained control/component disagreement {penalised_model_disagreement:.2f} points"
         )
     return {
         "selection_expected_points": round(selection_points, 3),
@@ -393,6 +425,10 @@ def selection_risk_adjustment(
         "minutes_risk_penalty": round(minutes_penalty, 3),
         "availability_risk_penalty": round(availability_penalty, 3),
         "model_disagreement_penalty": round(disagreement_penalty, 3),
+        "raw_model_disagreement": round(model_disagreement, 3),
+        "penalised_model_disagreement": round(penalised_model_disagreement, 3),
+        "role_supported_disagreement": round(role_supported_disagreement, 3),
+        "component_expected_minutes_next_1": round(component_expected_minutes, 2),
         "observed_usage_rate": (
             round(observed_usage, 4) if observed_usage is not None else None
         ),
