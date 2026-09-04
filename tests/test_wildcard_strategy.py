@@ -6,6 +6,7 @@ from src.fpl_chip_optimizer import (
     WILDCARD_OBJECTIVE_VERSION,
     _captain_utility,
     _ownership_pressure,
+    _select_near_optimal_wildcard_variant,
     _strategic_gameweek_score,
     _wildcard_search_heuristic,
     optimise_budget_squad,
@@ -182,8 +183,80 @@ class WildcardStrategyTests(unittest.TestCase):
         self.assertEqual(len(squad_ids), 15)
         self.assertLessEqual(cost, 100.0)
 
+    def test_preselected_premium_can_complete_budget_legal_squad(self) -> None:
+        players = {}
+        points = {}
+        player_id = 1
+        premium_id = 999
+        for position, required in (("Goalkeeper", 2), ("Defender", 5), ("Midfielder", 5), ("Forward", 3)):
+            for _ in range(required + 2):
+                price = 4.0 if position != "Forward" else 5.0
+                players[player_id] = player(
+                    player_id, position, team_id=player_id, price=price
+                )
+                points[player_id] = 2.0
+                player_id += 1
+        players[premium_id] = player(
+            premium_id, "Forward", team_id=90, price=15.5
+        )
+        points[premium_id] = 12.0
+
+        result = optimise_budget_squad(
+            players,
+            points,
+            budget=100.0,
+            beam_width=10,
+            preselected_player_ids=(premium_id,),
+        )
+
+        self.assertIsNotNone(result)
+        self.assertIn(premium_id, result[0])
+        self.assertEqual(len(result[0]), 15)
+        self.assertLessEqual(result[1], 100.0)
+
+    def test_near_optimal_wildcard_prefers_stronger_current_attacking_captain(self) -> None:
+        players = {
+            1: player(1, "Forward", team_id=1),
+            2: player(2, "Forward", team_id=2),
+        }
+        expected = {1: 7.0, 2: 5.0}
+        p90 = {1: 14.0, 2: 9.0}
+        p10 = {1: 0.35, 2: 0.10}
+        p15 = {1: 0.12, 2: 0.02}
+        variants = [
+            {"result": ((2,), 5.0, 100.0, [2], 2), "seed_player_ids": ()},
+            {"result": ((1,), 5.0, 98.6, [1], 1), "seed_player_ids": (1,)},
+        ]
+
+        selected, audit = _select_near_optimal_wildcard_variant(
+            variants, players, expected, p90, p10, p15
+        )
+
+        self.assertEqual(selected["result"][0], (1,))
+        self.assertTrue(next(row for row in audit if row["seed_player_ids"] == [1])["selected"])
+
+    def test_wildcard_separation_band_does_not_rescue_materially_worse_archetype(self) -> None:
+        players = {
+            1: player(1, "Forward", team_id=1),
+            2: player(2, "Forward", team_id=2),
+        }
+        expected = {1: 7.0, 2: 5.0}
+        p90 = {1: 14.0, 2: 9.0}
+        p10 = {1: 0.35, 2: 0.10}
+        p15 = {1: 0.12, 2: 0.02}
+        variants = [
+            {"result": ((2,), 5.0, 100.0, [2], 2), "seed_player_ids": ()},
+            {"result": ((1,), 5.0, 98.4, [1], 1), "seed_player_ids": (1,)},
+        ]
+
+        selected, _ = _select_near_optimal_wildcard_variant(
+            variants, players, expected, p90, p10, p15
+        )
+
+        self.assertEqual(selected["result"][0], (2,))
+
     def test_objective_version_records_beam_search_fix(self) -> None:
-        self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.2")
+        self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.3")
 
 
 if __name__ == "__main__":

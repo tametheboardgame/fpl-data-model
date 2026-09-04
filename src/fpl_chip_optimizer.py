@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from src.fpl_multiweek import (
+    MINIMUM_ROUTE_SEPARATION_POINTS,
     POSITION_LIMITS,
     integer,
     legal_squad,
@@ -23,7 +24,7 @@ MINIMUM_EDGE = {"wildcard": 12.0, "freehit": 10.0, "bboost": 8.0, "3xc": 7.5}
 # Wildcard selection is intentionally not a pure mean-EV exercise. FPL captaincy
 # doubles one player's return, so access to elite captaincy, haul probability and
 # bounded rank exposure have strategic value beyond raw squad efficiency.
-WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.2"
+WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.3"
 STARTER_CEILING_WEIGHT = 0.08
 CAPTAIN_CEILING_WEIGHT = 0.70
 CAPTAIN_RANK_WEIGHT = 0.45
@@ -125,6 +126,7 @@ def optimise_budget_squad(
     budget: float,
     beam_width: int = 1200,
     final_scorer: Callable[[tuple[int, ...]], tuple[float, list[int], int | None]] | None = None,
+    preselected_player_ids: tuple[int, ...] = (),
 ) -> tuple[tuple[int, ...], float, float, list[int], int | None] | None:
     """Return the best legal squad.
 
@@ -156,16 +158,62 @@ def optimise_budget_squad(
         )[:count]
         candidates[position] = list(dict.fromkeys(rows[: limits[position]] + cheapest))
 
+    cheapest_prefix: dict[str, list[float]] = {}
+    for position, player_ids in candidates.items():
+        prices = sorted(number(player_by_id[player_id].get("price")) for player_id in player_ids)
+        prefix = [0.0]
+        for price in prices:
+            prefix.append(prefix[-1] + price)
+        cheapest_prefix[position] = prefix
+
+    preselected = tuple(dict.fromkeys(preselected_player_ids))
+    if len(preselected) != len(preselected_player_ids) or any(
+        player_id not in player_by_id for player_id in preselected
+    ):
+        return None
+    preselected_counts: dict[str, int] = {}
+    preselected_clubs: dict[int, int] = {}
+    preselected_cost = 0.0
+    preselected_score = 0.0
+    for player_id in preselected:
+        player = player_by_id[player_id]
+        position = str(player.get("position"))
+        team_id = integer(player.get("team_id"))
+        preselected_counts[position] = preselected_counts.get(position, 0) + 1
+        preselected_clubs[team_id] = preselected_clubs.get(team_id, 0) + 1
+        preselected_cost += number(player.get("price"))
+        preselected_score += points_by_player.get(player_id, 0.0)
+    if (
+        preselected_cost > budget + 1e-9
+        or any(count > 3 for count in preselected_clubs.values())
+        or any(
+            count > POSITION_LIMITS.get(position, 0)
+            for position, count in preselected_counts.items()
+        )
+    ):
+        return None
+
     slots = [
         position
         for position, count in POSITION_LIMITS.items()
-        for _ in range(count)
+        for _ in range(count - preselected_counts.get(position, 0))
     ]
     states: list[tuple[tuple[int, ...], float, float, dict[int, int], dict[str, int]]] = [
-        ((), 0.0, 0.0, {}, {})
+        (preselected, preselected_cost, preselected_score, preselected_clubs, {})
     ]
     for slot_index, position in enumerate(slots):
         remaining_slots = slots[slot_index + 1 :]
+        remaining_counts: dict[str, int] = {}
+        for remaining_position in remaining_slots:
+            remaining_counts[remaining_position] = remaining_counts.get(remaining_position, 0) + 1
+        minimum_remaining_cost = 0.0
+        completion_possible = True
+        for remaining_position, required_count in remaining_counts.items():
+            prefix = cheapest_prefix.get(remaining_position, [0.0])
+            if required_count >= len(prefix):
+                completion_possible = False
+                break
+            minimum_remaining_cost += prefix[required_count]
         expanded = []
         for selected, cost, raw_score, clubs, last_by_position in states:
             last_id = last_by_position.get(position, 0)
@@ -179,28 +227,11 @@ def optimise_budget_squad(
                 if new_cost > budget + 1e-9:
                     continue
 
-                # Reserve enough budget to complete every remaining positional slot.
-                # This is deliberately a lower bound: it ignores club limits, so it can
-                # keep an infeasible state but can never prune a genuinely feasible one.
+                # Reserve enough budget for a complete future squad. The
+                # precomputed value is intentionally optimistic because it may reuse
+                # an already-selected cheap player; that can retain extra states but
+                # can never prune a genuinely feasible one.
                 new_selected = selected + (player_id,)
-                remaining_counts: dict[str, int] = {}
-                for remaining_position in remaining_slots:
-                    remaining_counts[remaining_position] = (
-                        remaining_counts.get(remaining_position, 0) + 1
-                    )
-                minimum_remaining_cost = 0.0
-                completion_possible = True
-                selected_set = set(new_selected)
-                for remaining_position, required_count in remaining_counts.items():
-                    available_prices = sorted(
-                        number(player_by_id[candidate_id].get("price"))
-                        for candidate_id in candidates[remaining_position]
-                        if candidate_id not in selected_set
-                    )
-                    if len(available_prices) < required_count:
-                        completion_possible = False
-                        break
-                    minimum_remaining_cost += sum(available_prices[:required_count])
                 if (
                     not completion_possible
                     or new_cost + minimum_remaining_cost > budget + 1e-9
@@ -364,6 +395,134 @@ def _captain_utility(
         CAPTAIN_CEILING_WEIGHT * ceiling + CAPTAIN_RANK_WEIGHT * rank_pressure,
     )
     return mean + strategic_bonus - defensive_penalty, ceiling, rank_pressure
+
+
+def _best_attacking_captain_utility(
+    squad_ids: tuple[int, ...],
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> tuple[int | None, float]:
+    attackers = [
+        player_id
+        for player_id in squad_ids
+        if str(player_by_id.get(player_id, {}).get("position")) in {"Midfielder", "Forward"}
+        and expected_points.get(player_id, 0.0) > 0
+    ]
+    if not attackers:
+        return None, 0.0
+    player_id = max(
+        attackers,
+        key=lambda candidate: _captain_utility(
+            candidate,
+            player_by_id,
+            expected_points,
+            p90,
+            probability_10_plus,
+            probability_15_plus,
+        )[0],
+    )
+    utility = _captain_utility(
+        player_id,
+        player_by_id,
+        expected_points,
+        p90,
+        probability_10_plus,
+        probability_15_plus,
+    )[0]
+    return player_id, utility
+
+
+def _missing_elite_attacking_captain_seed(
+    squad_ids: tuple[int, ...],
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> int | None:
+    owned = set(squad_ids)
+    candidates = [
+        player_id
+        for player_id, player in player_by_id.items()
+        if str(player.get("position")) in {"Midfielder", "Forward"}
+        and expected_points.get(player_id, 0.0) > 0
+    ]
+    candidates.sort(
+        key=lambda player_id: _captain_utility(
+            player_id,
+            player_by_id,
+            expected_points,
+            p90,
+            probability_10_plus,
+            probability_15_plus,
+        )[0],
+        reverse=True,
+    )
+    return next((player_id for player_id in candidates if player_id not in owned), None)
+
+
+def _select_near_optimal_wildcard_variant(
+    variants: list[dict[str, Any]],
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
+    if not variants:
+        return None, []
+    best_strategic = max(number(variant["result"][2]) for variant in variants)
+    audited: list[dict[str, Any]] = []
+    for variant in variants:
+        result = variant["result"]
+        captain_id, captain_utility = _best_attacking_captain_utility(
+            result[0],
+            player_by_id,
+            expected_points,
+            p90,
+            probability_10_plus,
+            probability_15_plus,
+        )
+        audited.append(
+            {
+                **variant,
+                "strategic_score": number(result[2]),
+                "strategic_gap_to_best": best_strategic - number(result[2]),
+                "target_attacking_captain_id": captain_id,
+                "target_attacking_captain_utility": captain_utility,
+            }
+        )
+    near_optimal = [
+        variant
+        for variant in audited
+        if number(variant["strategic_gap_to_best"])
+        <= MINIMUM_ROUTE_SEPARATION_POINTS + 1e-9
+    ]
+    selected = max(
+        near_optimal,
+        key=lambda variant: (
+            number(variant["target_attacking_captain_utility"]),
+            number(variant["strategic_score"]),
+        ),
+    )
+    audit = [
+        {
+            "seed_player_ids": list(variant.get("seed_player_ids", ())),
+            "strategic_score": round(number(variant["strategic_score"]), 3),
+            "strategic_gap_to_best": round(number(variant["strategic_gap_to_best"]), 3),
+            "target_attacking_captain_id": variant["target_attacking_captain_id"],
+            "target_attacking_captain_utility": round(
+                number(variant["target_attacking_captain_utility"]), 3
+            ),
+            "inside_route_separation_band": variant in near_optimal,
+            "selected": variant is selected,
+        }
+        for variant in audited
+    ]
+    return selected, audit
 
 
 def _strategic_gameweek_score(
@@ -693,12 +852,50 @@ def optimise_chip_plan(
                     )
                     return strategic, first_starters, first_captain
 
-                wildcard = optimise_budget_squad(
+                baseline_wildcard = optimise_budget_squad(
                     player_by_id,
                     remaining_points,
                     total_budget,
                     final_scorer=wildcard_final_scorer,
                 )
+                wildcard_variants: list[dict[str, Any]] = []
+                if baseline_wildcard:
+                    wildcard_variants.append(
+                        {"result": baseline_wildcard, "seed_player_ids": ()}
+                    )
+                if gameweek == target_gameweek and baseline_wildcard:
+                    seed_player_id = _missing_elite_attacking_captain_seed(
+                        baseline_wildcard[0],
+                        player_by_id,
+                        matrix.get(gameweek, {}),
+                        p90_matrix.get(gameweek, {}),
+                        p10_matrix.get(gameweek, {}),
+                        p15_matrix.get(gameweek, {}),
+                    )
+                    if seed_player_id is not None:
+                        seeded_wildcard = optimise_budget_squad(
+                            player_by_id,
+                            remaining_points,
+                            total_budget,
+                            final_scorer=wildcard_final_scorer,
+                            preselected_player_ids=(seed_player_id,),
+                        )
+                        if seeded_wildcard:
+                            wildcard_variants.append(
+                                {
+                                    "result": seeded_wildcard,
+                                    "seed_player_ids": (seed_player_id,),
+                                }
+                            )
+                selected_variant, wildcard_search_audit = _select_near_optimal_wildcard_variant(
+                    wildcard_variants,
+                    player_by_id,
+                    matrix.get(gameweek, {}),
+                    p90_matrix.get(gameweek, {}),
+                    p10_matrix.get(gameweek, {}),
+                    p15_matrix.get(gameweek, {}),
+                )
+                wildcard = selected_variant["result"] if selected_variant else None
                 if wildcard:
                     wc_ids, wc_cost, wildcard_objective, _, _ = wildcard
                     (
@@ -777,6 +974,8 @@ def optimise_chip_plan(
                         "squad_cost": round(wc_cost, 1),
                         "permanent_squad_change": True,
                         "strategic_audit": wildcard_audit,
+                        "wildcard_search_audit": wildcard_search_audit,
+                        "wildcard_archetype_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,
                     })
 
     best_by_chip: dict[str, dict[str, Any]] = {}
@@ -885,6 +1084,8 @@ def optimise_chip_plan(
             "captain_rank_weight": CAPTAIN_RANK_WEIGHT,
             "search_player_ceiling_weight": SEARCH_PLAYER_CEILING_WEIGHT,
             "search_captain_access_weight": SEARCH_CAPTAIN_ACCESS_WEIGHT,
+            "archetype_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,
+            "target_gameweek_missing_elite_captain_seed_count": 1,
             "hard_coded_players": False,
         },
         "assumptions": [
