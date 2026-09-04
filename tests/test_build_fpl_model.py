@@ -8,6 +8,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from src.fpl_decisions import DECISION_VERSION
+from src.component_player_simulator import COMPONENT_MODEL_VERSION
 from src.build_fpl_model import (
     ENSEMBLE_MODEL_VERSION,
     PROJECTION_FIELDS,
@@ -288,6 +289,7 @@ class ModelTests(unittest.TestCase):
                     {
                         "status": "recommended_for_live_promotion",
                         "assessment": {
+                            "component_model_version": COMPONENT_MODEL_VERSION,
                             "selection": {
                                 "selected_point_weight": 0.2,
                                 "selected_probability_weights": {
