@@ -1,62 +1,6 @@
 {
-  "generated_at": "2026-09-04T16:26:51+00:00",
+  "generated_at": "2026-09-04T19:45:30+00:00",
   "current": {
-    "id": 2,
-    "name": "Gameweek 2",
-    "deadline_time": "2026-08-28T17:30:00Z",
-    "release_time": null,
-    "average_entry_score": 81,
-    "finished": true,
-    "data_checked": true,
-    "highest_scoring_entry": 2241815,
-    "deadline_time_epoch": 1787938200,
-    "deadline_time_game_offset": 0,
-    "highest_score": 161,
-    "is_previous": false,
-    "is_current": true,
-    "is_next": false,
-    "cup_leagues_created": true,
-    "h2h_ko_matches_created": true,
-    "can_enter": false,
-    "can_manage": false,
-    "released": true,
-    "ranked_count": 9904815,
-    "overrides": {
-      "rules": {},
-      "scoring": {},
-      "element_types": [],
-      "pick_multiplier": null
-    },
-    "chip_plays": [
-      {
-        "chip_name": "bboost",
-        "num_played": 338660
-      },
-      {
-        "chip_name": "freehit",
-        "num_played": 78863
-      },
-      {
-        "chip_name": "wildcard",
-        "num_played": 279227
-      },
-      {
-        "chip_name": "3xc",
-        "num_played": 233946
-      }
-    ],
-    "most_selected": 165,
-    "most_transferred_in": 115,
-    "top_element": 426,
-    "top_element_info": {
-      "id": 426,
-      "points": 23
-    },
-    "transfers_made": 11562127,
-    "most_captained": 411,
-    "most_vice_captained": 1
-  },
-  "next": {
     "id": 3,
     "name": "Gameweek 3",
     "deadline_time": "2026-09-04T17:30:00Z",
@@ -69,10 +13,66 @@
     "deadline_time_game_offset": 0,
     "highest_score": null,
     "is_previous": false,
-    "is_current": false,
-    "is_next": true,
+    "is_current": true,
+    "is_next": false,
     "cup_leagues_created": true,
     "h2h_ko_matches_created": true,
+    "can_enter": false,
+    "can_manage": false,
+    "released": true,
+    "ranked_count": 0,
+    "overrides": {
+      "rules": {},
+      "scoring": {},
+      "element_types": [],
+      "pick_multiplier": null
+    },
+    "chip_plays": [
+      {
+        "chip_name": "bboost",
+        "num_played": 144735
+      },
+      {
+        "chip_name": "freehit",
+        "num_played": 421239
+      },
+      {
+        "chip_name": "wildcard",
+        "num_played": 709478
+      },
+      {
+        "chip_name": "3xc",
+        "num_played": 1787071
+      }
+    ],
+    "most_selected": 411,
+    "most_transferred_in": 399,
+    "top_element": 379,
+    "top_element_info": {
+      "id": 379,
+      "points": 12
+    },
+    "transfers_made": 27412065,
+    "most_captained": 411,
+    "most_vice_captained": 426
+  },
+  "next": {
+    "id": 4,
+    "name": "Gameweek 4",
+    "deadline_time": "2026-09-12T12:30:00Z",
+    "release_time": null,
+    "average_entry_score": 0,
+    "finished": false,
+    "data_checked": false,
+    "highest_scoring_entry": null,
+    "deadline_time_epoch": 1789216200,
+    "deadline_time_game_offset": 0,
+    "highest_score": null,
+    "is_previous": false,
+    "is_current": false,
+    "is_next": true,
+    "cup_leagues_created": false,
+    "h2h_ko_matches_created": false,
     "can_enter": true,
     "can_manage": true,
     "released": true,
