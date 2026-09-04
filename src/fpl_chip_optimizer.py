@@ -23,10 +23,12 @@ MINIMUM_EDGE = {"wildcard": 12.0, "freehit": 10.0, "bboost": 8.0, "3xc": 7.5}
 # Wildcard selection is intentionally not a pure mean-EV exercise. FPL captaincy
 # doubles one player's return, so access to elite captaincy, haul probability and
 # bounded rank exposure have strategic value beyond raw squad efficiency.
-WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.0"
+WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.1"
 STARTER_CEILING_WEIGHT = 0.08
 CAPTAIN_CEILING_WEIGHT = 0.70
 CAPTAIN_RANK_WEIGHT = 0.45
+SEARCH_PLAYER_CEILING_WEIGHT = 0.12
+SEARCH_CAPTAIN_ACCESS_WEIGHT = 0.65
 P90_GAP_WEIGHT = 0.16
 PROBABILITY_10_PLUS_WEIGHT = 1.20
 PROBABILITY_15_PLUS_WEIGHT = 2.00
@@ -411,6 +413,48 @@ def _strategic_gameweek_score(
     )
 
 
+def _wildcard_search_heuristic(
+    player_by_id: dict[int, dict[str, Any]],
+    gameweeks: list[int],
+    offset: int,
+    matrix: dict[int, dict[int, float]],
+    p90_matrix: dict[int, dict[int, float]],
+    p10_matrix: dict[int, dict[int, float]],
+    p15_matrix: dict[int, dict[int, float]],
+    discount: float,
+) -> dict[int, float]:
+    """Build a captaincy-aware beam-search heuristic for Wildcard candidates.
+
+    The beam is only a search/pruning device, not the authoritative objective. It
+    deliberately gives bounded credit to upper-tail value and potential captaincy
+    access so expensive explosive players are not discarded before the full-squad
+    strategic scorer can evaluate them.
+    """
+
+    result: dict[int, float] = {}
+    for player_id in player_by_id:
+        total = 0.0
+        for future_offset, gameweek in enumerate(gameweeks[offset:], start=offset):
+            mean = matrix.get(gameweek, {}).get(player_id, 0.0)
+            captain_utility, ceiling, _ = _captain_utility(
+                player_id,
+                player_by_id,
+                matrix.get(gameweek, {}),
+                p90_matrix.get(gameweek, {}),
+                p10_matrix.get(gameweek, {}),
+                p15_matrix.get(gameweek, {}),
+            )
+            captain_access = max(0.0, captain_utility - mean)
+            factor = discount ** (future_offset - offset)
+            total += factor * (
+                mean
+                + SEARCH_PLAYER_CEILING_WEIGHT * ceiling
+                + SEARCH_CAPTAIN_ACCESS_WEIGHT * captain_access
+            )
+        result[player_id] = total
+    return result
+
+
 def _strategic_horizon_score(
     squad_ids: tuple[int, ...],
     player_by_id: dict[int, dict[str, Any]],
@@ -589,14 +633,16 @@ def optimise_chip_plan(
                     })
 
             if chip_available(chip_state, "wildcard"):
-                remaining_points = {
-                    player_id: sum(
-                        (discount ** (future_offset - offset))
-                        * matrix.get(future_gw, {}).get(player_id, 0)
-                        for future_offset, future_gw in enumerate(gameweeks[offset:], start=offset)
-                    )
-                    for player_id in player_by_id
-                }
+                remaining_points = _wildcard_search_heuristic(
+                    player_by_id,
+                    gameweeks,
+                    offset,
+                    matrix,
+                    p90_matrix,
+                    p10_matrix,
+                    p15_matrix,
+                    discount,
+                )
 
                 def wildcard_final_scorer(
                     squad_ids: tuple[int, ...],
@@ -783,8 +829,8 @@ def optimise_chip_plan(
         ),
         "method": (
             "Compare each available chip with the same no-chip transfer route. Wildcard squad "
-            "selection uses a bounded captaincy/ceiling/rank-aware objective while chip timing "
-            "thresholds remain anchored to real expected-points gain."
+            "search and final selection use bounded captaincy/ceiling/rank-aware objectives, "
+            "while chip timing thresholds remain anchored to real expected-points gain."
         ),
         "wildcard_objective": {
             "version": WILDCARD_OBJECTIVE_VERSION,
@@ -792,12 +838,14 @@ def optimise_chip_plan(
             "starter_ceiling_weight": STARTER_CEILING_WEIGHT,
             "captain_ceiling_weight": CAPTAIN_CEILING_WEIGHT,
             "captain_rank_weight": CAPTAIN_RANK_WEIGHT,
+            "search_player_ceiling_weight": SEARCH_PLAYER_CEILING_WEIGHT,
+            "search_captain_access_weight": SEARCH_CAPTAIN_ACCESS_WEIGHT,
             "hard_coded_players": False,
         },
         "assumptions": [
             "Free Hit uses a temporary budget-legal 15-player squad and reverts after the Gameweek.",
             "Wildcard uses a permanent budget-legal rebuild over the remaining known horizon.",
-            "Wildcard squad selection explicitly values weekly captaincy access and bounded upper-tail outcomes.",
+            "Wildcard squad search and selection explicitly value weekly captaincy access and bounded upper-tail outcomes.",
             "Ownership is used only as bounded captaincy rank-risk pressure, never as a blanket reason to own a player.",
             "Bench Boost adds the expected points of the four players outside the optimal XI.",
             "Triple Captain adds one further copy of the selected captain's expected points.",
