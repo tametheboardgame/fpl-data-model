@@ -1,0 +1,126 @@
+name: Patch and validate role disagreement
+
+on:
+  push:
+    branches:
+      - fix/early-role-disagreement-calibration
+    paths:
+      - ".github/workflows/patch-role-disagreement.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v7
+        with:
+          ref: fix/early-role-disagreement-calibration
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Apply decision calibration patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: str, old: str, new: str) -> None:
+              target = Path(path)
+              text = target.read_text(encoding="utf-8")
+              if old not in text:
+                  raise SystemExit(f"Missing patch anchor in {path}: {old[:120]!r}")
+              target.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          # Audit component minutes at horizon level without changing any forecast values.
+          replace_once(
+              "src/build_fpl_model.py",
+              '''            base[f"component_expected_points_next_{horizon}"] = round(\n                statistics.fmean(combined_component_samples)\n                if combined_component_samples\n                else 0,\n                3,\n            )''',
+              '''            base[f"component_expected_points_next_{horizon}"] = round(\n                statistics.fmean(combined_component_samples)\n                if combined_component_samples\n                else 0,\n                3,\n            )\n            base[f"component_expected_minutes_next_{horizon}"] = round(\n                sum(number(row.get("component_expected_minutes")) for row in selected),\n                2,\n            )''',
+          )
+
+          # Decompose model disagreement so a component minutes/role miss is not charged twice
+          # when actual current-season usage supports the control minutes and market context is positive.
+          replace_once(
+              "src/fpl_decisions.py",
+              '''    model_disagreement = (\n        abs(control_points - component_points)\n        if control_points > 0 and component_points > 0\n        else 0.0\n    )\n    disagreement_penalty = min(\n        0.75, MODEL_DISAGREEMENT_WEIGHT * model_disagreement\n    )''',
+              '''    model_disagreement = (\n        abs(control_points - component_points)\n        if control_points > 0 and component_points > 0\n        else 0.0\n    )\n    component_expected_minutes = horizon_value(\n        horizon, 1, "component_expected_minutes"\n    )\n    projected_usage = clamp(expected_minutes / 90, 0.0, 1.0) if expected_minutes > 0 else 0.0\n    role_supported_disagreement = 0.0\n    if (\n        model_disagreement > 0\n        and observed_usage is not None\n        and expected_minutes > 0\n        and component_expected_minutes > 0\n        and observed_usage + 0.05 >= projected_usage\n        and number(projection.get("market_adjustment_points")) > 0\n    ):\n        component_minutes_gap = max(0.0, expected_minutes - component_expected_minutes)\n        minutes_explained_points = control_points * clamp(\n            component_minutes_gap / expected_minutes, 0.0, 1.0\n        )\n        role_supported_disagreement = min(\n            model_disagreement, minutes_explained_points\n        )\n    penalised_model_disagreement = max(\n        0.0, model_disagreement - role_supported_disagreement\n    )\n    disagreement_penalty = min(\n        0.75, MODEL_DISAGREEMENT_WEIGHT * penalised_model_disagreement\n    )''',
+          )
+          replace_once(
+              "src/fpl_decisions.py",
+              '''    if disagreement_penalty > 0.05:\n        reasons.append(\n            f"control/component disagreement {model_disagreement:.2f} points"\n        )''',
+              '''    if role_supported_disagreement > 0.05:\n        reasons.append(\n            "component disagreement partly explained by a minutes gap contradicted "\n            "by observed usage and positive market context"\n        )\n    if disagreement_penalty > 0.05:\n        reasons.append(\n            f"unexplained control/component disagreement {penalised_model_disagreement:.2f} points"\n        )''',
+          )
+          replace_once(
+              "src/fpl_decisions.py",
+              '''        "model_disagreement_penalty": round(disagreement_penalty, 3),\n        "observed_usage_rate": (''',
+              '''        "model_disagreement_penalty": round(disagreement_penalty, 3),\n        "raw_model_disagreement": round(model_disagreement, 3),\n        "penalised_model_disagreement": round(penalised_model_disagreement, 3),\n        "role_supported_disagreement": round(role_supported_disagreement, 3),\n        "component_expected_minutes_next_1": round(component_expected_minutes, 2),\n        "observed_usage_rate": (''',
+          )
+
+          # Decision behaviour changed, but the validated ensemble itself did not.
+          replace_once(
+              "src/fpl_decisions.py",
+              'DECISION_VERSION = "fpl-decisions-2.2"',
+              'DECISION_VERSION = "fpl-decisions-2.3"',
+          )
+
+          # Regression: role-driven disagreement can be explained only with BOTH usage and market support.
+          target = Path("tests/test_external_context_and_decisions.py")
+          text = target.read_text(encoding="utf-8")
+          anchor = '''    def test_market_context_adjusts_relevant_expected_point_components(self) -> None:\n'''
+          tests = '''    def test_role_supported_component_minutes_gap_is_not_double_penalised(self) -> None:\n        horizon = {\n            "expected_minutes_next_1": 81,\n            "component_expected_minutes_next_1": 50,\n            "control_expected_points_next_1": 6.0,\n            "component_expected_points_next_1": 3.8,\n            "points_p90_next_1": 11,\n            "probability_10_plus_next_1": 0.2,\n            "probability_15_plus_next_1": 0.05,\n        }\n        supported = selection_risk_adjustment(\n            {\n                "position": "Forward",\n                "starts": 2,\n                "minutes": 180,\n                "status": "a",\n            },\n            horizon,\n            {"decision_expected_points": 6.4, "market_adjustment_points": 0.9},\n            target_gameweek=3,\n        )\n        self.assertGreater(supported["role_supported_disagreement"], 2.0)\n        self.assertLess(supported["model_disagreement_penalty"], 0.05)\n        self.assertGreater(supported["selection_expected_points"], 6.35)\n\n        unsupported_market = selection_risk_adjustment(\n            {\n                "position": "Forward",\n                "starts": 2,\n                "minutes": 180,\n                "status": "a",\n            },\n            horizon,\n            {"decision_expected_points": 6.4, "market_adjustment_points": -0.2},\n            target_gameweek=3,\n        )\n        self.assertEqual(unsupported_market["role_supported_disagreement"], 0)\n        self.assertGreater(unsupported_market["model_disagreement_penalty"], 0.5)\n\n    def test_role_disagreement_relief_requires_proven_current_usage(self) -> None:\n        adjustment = selection_risk_adjustment(\n            {\n                "position": "Forward",\n                "starts": 0,\n                "minutes": 30,\n                "status": "a",\n            },\n            {\n                "expected_minutes_next_1": 81,\n                "component_expected_minutes_next_1": 50,\n                "control_expected_points_next_1": 6.0,\n                "component_expected_points_next_1": 3.8,\n                "points_p90_next_1": 11,\n                "probability_10_plus_next_1": 0.2,\n                "probability_15_plus_next_1": 0.05,\n            },\n            {"decision_expected_points": 6.4, "market_adjustment_points": 0.9},\n            target_gameweek=3,\n        )\n        self.assertEqual(adjustment["role_supported_disagreement"], 0)\n        self.assertGreater(adjustment["minutes_risk_penalty"], 0)\n        self.assertGreater(adjustment["model_disagreement_penalty"], 0.5)\n\n'''
+          if anchor not in text:
+              raise SystemExit("Test anchor missing")
+          target.write_text(text.replace(anchor, tests + anchor, 1), encoding="utf-8")
+          PY
+
+      - name: Run full unit suite
+        run: python -m unittest discover -s tests -v
+
+      - name: Build live GW3 shadow recommendation
+        run: python -m src.build_fpl_model --data-dir data
+
+      - name: Print live shadow audit
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          decision = json.loads(Path("data/chatgpt/fpl_decisions.json").read_text(encoding="utf-8"))
+          evaluated = {int(row["player_id"]): row for row in decision.get("players", [])}\n              if isinstance(decision.get("players"), list) else {}
+          for player_id, name in ((411, "Haaland"), (426, "B.Fernandes")):
+              row = evaluated.get(player_id, {})
+              print(name, json.dumps({key: row.get(key) for key in (\n                  "model_expected_points", "decision_expected_points", "selection_expected_points",\n                  "market_adjustment_points", "raw_model_disagreement",\n                  "role_supported_disagreement", "penalised_model_disagreement",\n                  "model_disagreement_penalty", "component_expected_minutes_next_1",\n                  "observed_usage_rate", "captain_score")}, indent=2))
+          report = json.loads(Path("data/chatgpt/gameweek_report.json").read_text(encoding="utf-8"))
+          recommendation = report.get("recommendation") or {}
+          chip = report.get("chip_recommendation") or {}
+          print("GW3_RECOMMENDATION", json.dumps({
+              "selection_source": recommendation.get("selection_source"),
+              "transfer_action": recommendation.get("transfer_action"),
+              "expected_points": recommendation.get("expected_points"),
+              "captain": (recommendation.get("captain") or {}).get("web_name"),
+              "vice_captain": (recommendation.get("vice_captain") or {}).get("web_name"),
+              "starting_xi": [r.get("web_name") for r in recommendation.get("starting_xi", [])],
+              "squad_player_ids": recommendation.get("squad_player_ids", []),
+              "chip_action": chip.get("action"),
+              "chip": chip.get("chip"),
+              "chip_gameweek": chip.get("gameweek"),
+          }, indent=2, ensure_ascii=False))
+          PY
+
+      - name: Commit validated decision change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/build_fpl_model.py src/fpl_decisions.py tests/test_external_context_and_decisions.py
+          git diff --cached --check
+          git commit -m "Calibrate early role-driven model disagreement"
+          git push origin fix/early-role-disagreement-calibration
