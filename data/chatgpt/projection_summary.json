@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T05:10:21+00:00",
+  "generated_at": "2026-09-04T11:22:17+00:00",
   "model_version": "player-ensemble-1.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -443,14 +443,6 @@
       "component_expected_points_next_1": 3.348
     },
     {
-      "player_id": 130,
-      "web_name": "Wieffer",
-      "team_name": "Brighton",
-      "position": "Defender",
-      "price": 5.0,
-      "component_expected_points_next_1": 3.343
-    },
-    {
       "player_id": 106,
       "web_name": "Thiago",
       "team_name": "Brentford",
@@ -529,6 +521,14 @@
       "position": "Defender",
       "price": 4.0,
       "component_expected_points_next_1": 3.093
+    },
+    {
+      "player_id": 165,
+      "web_name": "Jo\u00e3o Pedro",
+      "team_name": "Chelsea",
+      "position": "Forward",
+      "price": 7.7,
+      "component_expected_points_next_1": 3.067
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -629,14 +629,6 @@
       "component_expected_points_next_3": 9.657
     },
     {
-      "player_id": 130,
-      "web_name": "Wieffer",
-      "team_name": "Brighton",
-      "position": "Defender",
-      "price": 5.0,
-      "component_expected_points_next_3": 9.395
-    },
-    {
       "player_id": 40,
       "web_name": "Rogers",
       "team_name": "Chelsea",
@@ -691,12 +683,20 @@
       "position": "Defender",
       "price": 5.0,
       "component_expected_points_next_3": 8.718
+    },
+    {
+      "player_id": 94,
+      "web_name": "Schade",
+      "team_name": "Brentford",
+      "position": "Midfielder",
+      "price": 6.0,
+      "component_expected_points_next_3": 8.688
     }
   ],
-  "prediction_snapshot_created": null,
+  "prediction_snapshot_created": "predictions/gw03/20260904T112217Z.csv",
   "evaluated_gameweeks": 2,
   "prospective_evaluated_gameweeks": 1,
-  "prospective_snapshot_created": null,
+  "prospective_snapshot_created": "prospective/gw03/20260904T112217Z.json",
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
   "gameweek_report_warning_count": 3,

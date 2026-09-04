@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T05:10:21+00:00",
+  "generated_at": "2026-09-04T11:22:17+00:00",
   "decision_version": "fpl-decisions-2.1",
   "model_version": "player-ensemble-1.0",
   "status": "ready",
@@ -41,16 +41,16 @@
       "team_name": "Brentford",
       "position": "Goalkeeper",
       "price": 5.0,
-      "ownership_percent": 7.5,
+      "ownership_percent": 7.6,
       "expected_points_next_3": 10.753,
       "points_p90_next_1": 6.800000000000001,
       "probability_10_plus_next_1": 0.0117,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 4.152,
-      "context_multiplier": 1.0218,
-      "decision_expected_points": 4.243,
-      "market_adjustment_points": 0.091,
-      "external_upside_score": 0.3343,
+      "context_multiplier": 1.0172,
+      "decision_expected_points": 4.224,
+      "market_adjustment_points": 0.071,
+      "external_upside_score": 0.2633,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -71,19 +71,19 @@
         {
           "fixture_id": 22,
           "model_expected_points": 4.1517,
-          "decision_expected_points": 4.2423,
-          "context_multiplier": 1.0218,
-          "market_adjustment_points": 0.0906,
+          "decision_expected_points": 4.2232,
+          "context_multiplier": 1.0172,
+          "market_adjustment_points": 0.0715,
           "market_adjustment_components": {
-            "team_attack_market": -0.0003,
-            "clean_sheet_market": 0.0629,
-            "goals_conceded_market": 0.028
+            "team_attack_market": -0.0002,
+            "clean_sheet_market": 0.0496,
+            "goals_conceded_market": 0.0222
           },
           "model_team_expected_goals": 1.8624,
           "market_team_expected_goals": 1.8117,
           "model_clean_sheet_probability": 0.3572,
-          "decision_clean_sheet_probability": 0.3811,
-          "external_upside_score": 0.3343,
+          "decision_clean_sheet_probability": 0.376,
+          "external_upside_score": 0.2633,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -102,13 +102,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.812,
+      "selection_expected_points": 3.793,
       "selection_risk_penalty": 0.431,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.431,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.8547,
+      "captain_score": 3.8385,
       "selection_risk_reasons": [
         "control/component disagreement 1.73 points"
       ]
@@ -126,10 +126,10 @@
       "probability_10_plus_next_1": 0.0233,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.585,
-      "context_multiplier": 1.1389,
-      "decision_expected_points": 4.083,
-      "market_adjustment_points": 0.498,
-      "external_upside_score": 0.3417,
+      "context_multiplier": 1.1111,
+      "decision_expected_points": 3.983,
+      "market_adjustment_points": 0.398,
+      "external_upside_score": 0.2691,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-625c096fabb6047cbeb082dab9affce4-14-20260904T044238Z",
@@ -150,19 +150,19 @@
         {
           "fixture_id": 21,
           "model_expected_points": 3.5853,
-          "decision_expected_points": 4.0833,
-          "context_multiplier": 1.1389,
-          "market_adjustment_points": 0.498,
+          "decision_expected_points": 3.9837,
+          "context_multiplier": 1.1111,
+          "market_adjustment_points": 0.3984,
           "market_adjustment_components": {
-            "team_attack_market": 0.0634,
-            "clean_sheet_market": 0.2519,
-            "goals_conceded_market": 0.1827
+            "team_attack_market": 0.05,
+            "clean_sheet_market": 0.1984,
+            "goals_conceded_market": 0.15
           },
           "model_team_expected_goals": 2.0867,
           "market_team_expected_goals": 2.3627,
           "model_clean_sheet_probability": 0.1921,
-          "decision_clean_sheet_probability": 0.2828,
-          "external_upside_score": 0.3417,
+          "decision_clean_sheet_probability": 0.2636,
+          "external_upside_score": 0.2691,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-625c096fabb6047cbeb082dab9affce4-14-20260904T044238Z",
@@ -181,13 +181,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.742,
+      "selection_expected_points": 3.642,
       "selection_risk_penalty": 0.341,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.341,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.8179,
+      "captain_score": 3.7329,
       "selection_risk_reasons": [
         "control/component disagreement 1.37 points"
       ]
@@ -205,10 +205,10 @@
       "probability_10_plus_next_1": 0.03,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.644,
-      "context_multiplier": 1.0342,
-      "decision_expected_points": 3.769,
-      "market_adjustment_points": 0.125,
-      "external_upside_score": 0.2935,
+      "context_multiplier": 1.027,
+      "decision_expected_points": 3.742,
+      "market_adjustment_points": 0.098,
+      "external_upside_score": 0.2312,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-686358c484cc44fe8e617674c335d531-17-20260904T044238Z",
@@ -229,19 +229,19 @@
         {
           "fixture_id": 27,
           "model_expected_points": 3.6437,
-          "decision_expected_points": 3.7685,
-          "context_multiplier": 1.0343,
-          "market_adjustment_points": 0.1248,
+          "decision_expected_points": 3.7421,
+          "context_multiplier": 1.027,
+          "market_adjustment_points": 0.0984,
           "market_adjustment_components": {
-            "team_attack_market": 0.0553,
-            "clean_sheet_market": 0.043,
-            "goals_conceded_market": 0.0264
+            "team_attack_market": 0.0436,
+            "clean_sheet_market": 0.0339,
+            "goals_conceded_market": 0.021
           },
           "model_team_expected_goals": 1.5311,
           "market_team_expected_goals": 1.7371,
           "model_clean_sheet_probability": 0.2298,
-          "decision_clean_sheet_probability": 0.243,
-          "external_upside_score": 0.2935,
+          "decision_clean_sheet_probability": 0.2402,
+          "external_upside_score": 0.2312,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-686358c484cc44fe8e617674c335d531-17-20260904T044238Z",
@@ -260,13 +260,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.484,
+      "selection_expected_points": 3.457,
       "selection_risk_penalty": 0.285,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.285,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.6426,
+      "captain_score": 3.6197,
       "selection_risk_reasons": [
         "control/component disagreement 1.14 points"
       ]
@@ -284,10 +284,10 @@
       "probability_10_plus_next_1": 0.005,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.07,
-      "context_multiplier": 1.111,
-      "decision_expected_points": 3.411,
-      "market_adjustment_points": 0.341,
-      "external_upside_score": 0.2478,
+      "context_multiplier": 1.0897,
+      "decision_expected_points": 3.345,
+      "market_adjustment_points": 0.275,
+      "external_upside_score": 0.1952,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-9-20260904T044238Z",
@@ -308,19 +308,19 @@
         {
           "fixture_id": 30,
           "model_expected_points": 3.07,
-          "decision_expected_points": 3.4108,
-          "context_multiplier": 1.111,
-          "market_adjustment_points": 0.3408,
+          "decision_expected_points": 3.3454,
+          "context_multiplier": 1.0897,
+          "market_adjustment_points": 0.2754,
           "market_adjustment_components": {
-            "team_attack_market": -0.0376,
-            "clean_sheet_market": 0.1714,
-            "goals_conceded_market": 0.207
+            "team_attack_market": -0.0296,
+            "clean_sheet_market": 0.135,
+            "goals_conceded_market": 0.17
           },
           "model_team_expected_goals": 1.4749,
           "market_team_expected_goals": 1.2922,
           "model_clean_sheet_probability": 0.1078,
-          "decision_clean_sheet_probability": 0.1644,
-          "external_upside_score": 0.2478,
+          "decision_clean_sheet_probability": 0.1523,
+          "external_upside_score": 0.1952,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-9-20260904T044238Z",
@@ -339,13 +339,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.113,
+      "selection_expected_points": 3.047,
       "selection_risk_penalty": 0.298,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.298,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.2156,
+      "captain_score": 3.1595,
       "selection_risk_reasons": [
         "control/component disagreement 1.19 points"
       ]
@@ -357,16 +357,16 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 12.0,
-      "ownership_percent": 48.6,
+      "ownership_percent": 48.5,
       "expected_points_next_3": 16.944,
       "points_p90_next_1": 10.200000000000001,
       "probability_10_plus_next_1": 0.115,
       "probability_15_plus_next_1": 0.0117,
       "model_expected_points": 5.693,
-      "context_multiplier": 0.9174,
-      "decision_expected_points": 5.223,
-      "market_adjustment_points": -0.47,
-      "external_upside_score": 0.2945,
+      "context_multiplier": 0.9349,
+      "decision_expected_points": 5.322,
+      "market_adjustment_points": -0.371,
+      "external_upside_score": 0.2319,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -387,18 +387,18 @@
         {
           "fixture_id": 30,
           "model_expected_points": 5.693,
-          "decision_expected_points": 5.2225,
-          "context_multiplier": 0.9174,
-          "market_adjustment_points": -0.4705,
+          "decision_expected_points": 5.3224,
+          "context_multiplier": 0.9349,
+          "market_adjustment_points": -0.3706,
           "market_adjustment_components": {
-            "team_attack_market": -0.4904,
-            "clean_sheet_market": 0.0199
+            "team_attack_market": -0.3863,
+            "clean_sheet_market": 0.0157
           },
           "model_team_expected_goals": 2.2275,
           "market_team_expected_goals": 1.6446,
           "model_clean_sheet_probability": 0.2288,
-          "decision_clean_sheet_probability": 0.2592,
-          "external_upside_score": 0.2945,
+          "decision_clean_sheet_probability": 0.2528,
+          "external_upside_score": 0.2319,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -417,13 +417,13 @@
           ]
         }
       ],
-      "selection_expected_points": 4.899,
+      "selection_expected_points": 4.998,
       "selection_risk_penalty": 0.323,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.323,
       "observed_usage_rate": 1.0,
-      "captain_score": 5.7439,
+      "captain_score": 5.828,
       "selection_risk_reasons": [
         "control/component disagreement 1.29 points"
       ]
@@ -435,16 +435,16 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 8.0,
-      "ownership_percent": 28.5,
+      "ownership_percent": 27.8,
       "expected_points_next_3": 14.206,
       "points_p90_next_1": 9.4,
       "probability_10_plus_next_1": 0.08,
       "probability_15_plus_next_1": 0.0083,
       "model_expected_points": 4.92,
-      "context_multiplier": 0.9178,
-      "decision_expected_points": 4.516,
-      "market_adjustment_points": -0.404,
-      "external_upside_score": 0.2945,
+      "context_multiplier": 0.9353,
+      "decision_expected_points": 4.602,
+      "market_adjustment_points": -0.318,
+      "external_upside_score": 0.2319,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -465,18 +465,18 @@
         {
           "fixture_id": 30,
           "model_expected_points": 4.9197,
-          "decision_expected_points": 4.5155,
-          "context_multiplier": 0.9178,
-          "market_adjustment_points": -0.4042,
+          "decision_expected_points": 4.6013,
+          "context_multiplier": 0.9353,
+          "market_adjustment_points": -0.3184,
           "market_adjustment_components": {
-            "team_attack_market": -0.4268,
-            "clean_sheet_market": 0.0226
+            "team_attack_market": -0.3362,
+            "clean_sheet_market": 0.0178
           },
           "model_team_expected_goals": 2.2275,
           "market_team_expected_goals": 1.6446,
           "model_clean_sheet_probability": 0.2288,
-          "decision_clean_sheet_probability": 0.2592,
-          "external_upside_score": 0.2945,
+          "decision_clean_sheet_probability": 0.2528,
+          "external_upside_score": 0.2319,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -495,13 +495,13 @@
           ]
         }
       ],
-      "selection_expected_points": 4.407,
+      "selection_expected_points": 4.493,
       "selection_risk_penalty": 0.109,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.109,
       "observed_usage_rate": 1.0,
-      "captain_score": 5.208,
+      "captain_score": 5.2811,
       "selection_risk_reasons": [
         "control/component disagreement 0.43 points"
       ]
@@ -513,16 +513,16 @@
       "team_name": "Brentford",
       "position": "Forward",
       "price": 8.0,
-      "ownership_percent": 14.3,
+      "ownership_percent": 14.2,
       "expected_points_next_3": 12.617,
       "points_p90_next_1": 8.4,
       "probability_10_plus_next_1": 0.0433,
       "probability_15_plus_next_1": 0.005,
       "model_expected_points": 4.589,
-      "context_multiplier": 0.9891,
-      "decision_expected_points": 4.539,
-      "market_adjustment_points": -0.05,
-      "external_upside_score": 0.3343,
+      "context_multiplier": 0.9914,
+      "decision_expected_points": 4.55,
+      "market_adjustment_points": -0.039,
+      "external_upside_score": 0.2633,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -543,17 +543,17 @@
         {
           "fixture_id": 22,
           "model_expected_points": 4.5887,
-          "decision_expected_points": 4.5388,
-          "context_multiplier": 0.9891,
-          "market_adjustment_points": -0.0499,
+          "decision_expected_points": 4.5494,
+          "context_multiplier": 0.9914,
+          "market_adjustment_points": -0.0393,
           "market_adjustment_components": {
-            "team_attack_market": -0.0499
+            "team_attack_market": -0.0393
           },
           "model_team_expected_goals": 1.8624,
           "market_team_expected_goals": 1.8117,
           "model_clean_sheet_probability": 0.3572,
-          "decision_clean_sheet_probability": 0.3811,
-          "external_upside_score": 0.3343,
+          "decision_clean_sheet_probability": 0.376,
+          "external_upside_score": 0.2633,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -572,13 +572,13 @@
           ]
         }
       ],
-      "selection_expected_points": 4.131,
+      "selection_expected_points": 4.142,
       "selection_risk_penalty": 0.408,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.408,
       "observed_usage_rate": 0.9844,
-      "captain_score": 4.7473,
+      "captain_score": 4.7566,
       "selection_risk_reasons": [
         "control/component disagreement 1.63 points"
       ]
@@ -596,10 +596,10 @@
       "probability_10_plus_next_1": 0.015,
       "probability_15_plus_next_1": 0.0017,
       "model_expected_points": 3.885,
-      "context_multiplier": 1.0779,
-      "decision_expected_points": 4.188,
-      "market_adjustment_points": 0.302,
-      "external_upside_score": 0.3933,
+      "context_multiplier": 1.0613,
+      "decision_expected_points": 4.123,
+      "market_adjustment_points": 0.238,
+      "external_upside_score": 0.3098,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -620,18 +620,18 @@
         {
           "fixture_id": 26,
           "model_expected_points": 3.885,
-          "decision_expected_points": 4.1875,
-          "context_multiplier": 1.0779,
-          "market_adjustment_points": 0.3025,
+          "decision_expected_points": 4.1233,
+          "context_multiplier": 1.0613,
+          "market_adjustment_points": 0.2383,
           "market_adjustment_components": {
-            "team_attack_market": 0.3033,
-            "clean_sheet_market": -0.0008
+            "team_attack_market": 0.2389,
+            "clean_sheet_market": -0.0006
           },
           "model_team_expected_goals": 1.9393,
           "market_team_expected_goals": 2.953,
           "model_clean_sheet_probability": 0.4797,
-          "decision_clean_sheet_probability": 0.4785,
-          "external_upside_score": 0.3933,
+          "decision_clean_sheet_probability": 0.4788,
+          "external_upside_score": 0.3098,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -650,13 +650,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.786,
+      "selection_expected_points": 3.721,
       "selection_risk_penalty": 0.402,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.402,
       "observed_usage_rate": 0.9281,
-      "captain_score": 4.1304,
+      "captain_score": 4.0751,
       "selection_risk_reasons": [
         "control/component disagreement 1.61 points"
       ]
@@ -668,16 +668,16 @@
       "team_name": "Leeds",
       "position": "Forward",
       "price": 6.0,
-      "ownership_percent": 26.0,
+      "ownership_percent": 25.8,
       "expected_points_next_3": 11.635,
       "points_p90_next_1": 7.000000000000001,
       "probability_10_plus_next_1": 0.03,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.731,
-      "context_multiplier": 1.0059,
-      "decision_expected_points": 3.753,
-      "market_adjustment_points": 0.022,
-      "external_upside_score": 0.2331,
+      "context_multiplier": 1.0046,
+      "decision_expected_points": 3.748,
+      "market_adjustment_points": 0.017,
+      "external_upside_score": 0.1836,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-3b81531990da7ea3e461c43e8827672b-13-20260904T044238Z",
@@ -698,17 +698,17 @@
         {
           "fixture_id": 23,
           "model_expected_points": 3.731,
-          "decision_expected_points": 3.7529,
-          "context_multiplier": 1.0059,
-          "market_adjustment_points": 0.0219,
+          "decision_expected_points": 3.7483,
+          "context_multiplier": 1.0046,
+          "market_adjustment_points": 0.0173,
           "market_adjustment_components": {
-            "team_attack_market": 0.0219
+            "team_attack_market": 0.0173
           },
           "model_team_expected_goals": 1.0942,
           "market_team_expected_goals": 1.1163,
           "model_clean_sheet_probability": 0.1771,
-          "decision_clean_sheet_probability": 0.1909,
-          "external_upside_score": 0.2331,
+          "decision_clean_sheet_probability": 0.188,
+          "external_upside_score": 0.1836,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-3b81531990da7ea3e461c43e8827672b-13-20260904T044238Z",
@@ -727,13 +727,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.469,
+      "selection_expected_points": 3.464,
       "selection_risk_penalty": 0.284,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.284,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.9801,
+      "captain_score": 3.9758,
       "selection_risk_reasons": [
         "control/component disagreement 1.14 points"
       ]
@@ -745,16 +745,16 @@
       "team_name": "Arsenal",
       "position": "Midfielder",
       "price": 7.5,
-      "ownership_percent": 14.6,
+      "ownership_percent": 14.4,
       "expected_points_next_3": 10.645,
       "points_p90_next_1": 5.800000000000001,
       "probability_10_plus_next_1": 0.0083,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.426,
-      "context_multiplier": 1.0303,
-      "decision_expected_points": 3.53,
-      "market_adjustment_points": 0.104,
-      "external_upside_score": 0.3286,
+      "context_multiplier": 1.0239,
+      "decision_expected_points": 3.508,
+      "market_adjustment_points": 0.082,
+      "external_upside_score": 0.2588,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-78d4dfda8c2dc27bdc3ec26c2654f8fc-1-20260904T044238Z",
@@ -775,18 +775,18 @@
         {
           "fixture_id": 29,
           "model_expected_points": 3.4257,
-          "decision_expected_points": 3.5295,
-          "context_multiplier": 1.0303,
-          "market_adjustment_points": 0.1038,
+          "decision_expected_points": 3.5075,
+          "context_multiplier": 1.0239,
+          "market_adjustment_points": 0.0818,
           "market_adjustment_components": {
-            "team_attack_market": 0.0338,
-            "clean_sheet_market": 0.07
+            "team_attack_market": 0.0267,
+            "clean_sheet_market": 0.0551
           },
           "model_team_expected_goals": 1.701,
           "market_team_expected_goals": 1.8164,
           "model_clean_sheet_probability": 0.244,
-          "decision_clean_sheet_probability": 0.3273,
-          "external_upside_score": 0.3286,
+          "decision_clean_sheet_probability": 0.3096,
+          "external_upside_score": 0.2588,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-78d4dfda8c2dc27bdc3ec26c2654f8fc-1-20260904T044238Z",
@@ -805,13 +805,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.204,
+      "selection_expected_points": 3.182,
       "selection_risk_penalty": 0.326,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.326,
       "observed_usage_rate": 0.9436,
-      "captain_score": 3.5509,
+      "captain_score": 3.5322,
       "selection_risk_reasons": [
         "control/component disagreement 1.30 points"
       ]
@@ -829,10 +829,10 @@
       "probability_10_plus_next_1": 0.0233,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.165,
-      "context_multiplier": 0.9679,
-      "decision_expected_points": 3.064,
-      "market_adjustment_points": -0.102,
-      "external_upside_score": 0.2478,
+      "context_multiplier": 0.9747,
+      "decision_expected_points": 3.085,
+      "market_adjustment_points": -0.08,
+      "external_upside_score": 0.1952,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-9-20260904T044238Z",
@@ -853,17 +853,17 @@
         {
           "fixture_id": 30,
           "model_expected_points": 3.1653,
-          "decision_expected_points": 3.0638,
-          "context_multiplier": 0.9679,
-          "market_adjustment_points": -0.1015,
+          "decision_expected_points": 3.0853,
+          "context_multiplier": 0.9747,
+          "market_adjustment_points": -0.08,
           "market_adjustment_components": {
-            "team_attack_market": -0.1015
+            "team_attack_market": -0.08
           },
           "model_team_expected_goals": 1.4749,
           "market_team_expected_goals": 1.2922,
           "model_clean_sheet_probability": 0.1078,
-          "decision_clean_sheet_probability": 0.1644,
-          "external_upside_score": 0.2478,
+          "decision_clean_sheet_probability": 0.1523,
+          "external_upside_score": 0.1952,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-9-20260904T044238Z",
@@ -882,13 +882,13 @@
           ]
         }
       ],
-      "selection_expected_points": 2.91,
+      "selection_expected_points": 2.931,
       "selection_risk_penalty": 0.154,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.154,
       "observed_usage_rate": 0.9358,
-      "captain_score": 3.4293,
+      "captain_score": 3.4471,
       "selection_risk_reasons": [
         "control/component disagreement 0.61 points"
       ]
@@ -902,16 +902,16 @@
       "team_name": "Chelsea",
       "position": "Defender",
       "price": 6.0,
-      "ownership_percent": 8.3,
+      "ownership_percent": 8.2,
       "expected_points_next_3": 11.226,
       "points_p90_next_1": 6.4,
       "probability_10_plus_next_1": 0.005,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.348,
-      "context_multiplier": 0.9609,
-      "decision_expected_points": 3.217,
-      "market_adjustment_points": -0.131,
-      "external_upside_score": 0.2116,
+      "context_multiplier": 0.9693,
+      "decision_expected_points": 3.245,
+      "market_adjustment_points": -0.103,
+      "external_upside_score": 0.1666,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-78d4dfda8c2dc27bdc3ec26c2654f8fc-6-20260904T044238Z",
@@ -932,19 +932,19 @@
         {
           "fixture_id": 29,
           "model_expected_points": 3.3477,
-          "decision_expected_points": 3.2169,
-          "context_multiplier": 0.9609,
-          "market_adjustment_points": -0.1308,
+          "decision_expected_points": 3.2449,
+          "context_multiplier": 0.9693,
+          "market_adjustment_points": -0.1028,
           "market_adjustment_components": {
-            "team_attack_market": -0.0588,
-            "clean_sheet_market": -0.0356,
-            "goals_conceded_market": -0.0363
+            "team_attack_market": -0.0463,
+            "clean_sheet_market": -0.0281,
+            "goals_conceded_market": -0.0284
           },
           "model_team_expected_goals": 1.4106,
           "market_team_expected_goals": 0.9953,
           "model_clean_sheet_probability": 0.1825,
-          "decision_clean_sheet_probability": 0.1693,
-          "external_upside_score": 0.2116,
+          "decision_clean_sheet_probability": 0.1721,
+          "external_upside_score": 0.1666,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-78d4dfda8c2dc27bdc3ec26c2654f8fc-6-20260904T044238Z",
@@ -963,13 +963,13 @@
           ]
         }
       ],
-      "selection_expected_points": 2.901,
+      "selection_expected_points": 2.929,
       "selection_risk_penalty": 0.316,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.316,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.033,
+      "captain_score": 3.0568,
       "selection_risk_reasons": [
         "control/component disagreement 1.26 points"
       ]
@@ -981,16 +981,16 @@
       "team_name": "Spurs",
       "position": "Defender",
       "price": 5.9,
-      "ownership_percent": 5.7,
+      "ownership_percent": 5.6,
       "expected_points_next_3": 9.192,
       "points_p90_next_1": 6.4,
       "probability_10_plus_next_1": 0.0083,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 2.93,
-      "context_multiplier": 1.0893,
-      "decision_expected_points": 3.192,
-      "market_adjustment_points": 0.262,
-      "external_upside_score": 0.2589,
+      "context_multiplier": 1.071,
+      "decision_expected_points": 3.138,
+      "market_adjustment_points": 0.208,
+      "external_upside_score": 0.2039,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-a6f2622727548c33369cc15c88b2aabd-19-20260904T044238Z",
@@ -1011,19 +1011,19 @@
         {
           "fixture_id": 28,
           "model_expected_points": 2.93,
-          "decision_expected_points": 3.1916,
-          "context_multiplier": 1.0893,
-          "market_adjustment_points": 0.2616,
+          "decision_expected_points": 3.1381,
+          "context_multiplier": 1.071,
+          "market_adjustment_points": 0.2081,
           "market_adjustment_components": {
-            "team_attack_market": 0.062,
-            "clean_sheet_market": 0.1034,
-            "goals_conceded_market": 0.0962
+            "team_attack_market": 0.0488,
+            "clean_sheet_market": 0.0814,
+            "goals_conceded_market": 0.0778
           },
           "model_team_expected_goals": 1.004,
           "market_team_expected_goals": 1.2471,
           "model_clean_sheet_probability": 0.1777,
-          "decision_clean_sheet_probability": 0.226,
-          "external_upside_score": 0.2589,
+          "decision_clean_sheet_probability": 0.2158,
+          "external_upside_score": 0.2039,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-a6f2622727548c33369cc15c88b2aabd-19-20260904T044238Z",
@@ -1042,13 +1042,13 @@
           ]
         }
       ],
-      "selection_expected_points": 2.554,
-      "selection_risk_penalty": 0.638,
-      "minutes_risk_penalty": 0.257,
+      "selection_expected_points": 2.504,
+      "selection_risk_penalty": 0.634,
+      "minutes_risk_penalty": 0.252,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.381,
       "observed_usage_rate": 0.5,
-      "captain_score": 2.6918,
+      "captain_score": 2.6503,
       "selection_risk_reasons": [
         "observed usage 50% trails projected minutes",
         "control/component disagreement 1.52 points"
@@ -1067,10 +1067,10 @@
       "probability_10_plus_next_1": 0.04,
       "probability_15_plus_next_1": 0.0067,
       "model_expected_points": 3.162,
-      "context_multiplier": 1.1611,
-      "decision_expected_points": 3.671,
-      "market_adjustment_points": 0.509,
-      "external_upside_score": 0.3933,
+      "context_multiplier": 1.1269,
+      "decision_expected_points": 3.563,
+      "market_adjustment_points": 0.401,
+      "external_upside_score": 0.3098,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -1091,18 +1091,18 @@
         {
           "fixture_id": 26,
           "model_expected_points": 3.162,
-          "decision_expected_points": 3.6714,
-          "context_multiplier": 1.1611,
-          "market_adjustment_points": 0.5094,
+          "decision_expected_points": 3.5632,
+          "context_multiplier": 1.1269,
+          "market_adjustment_points": 0.4012,
           "market_adjustment_components": {
-            "team_attack_market": 0.5096,
-            "clean_sheet_market": -0.0002
+            "team_attack_market": 0.4014,
+            "clean_sheet_market": -0.0001
           },
           "model_team_expected_goals": 1.9393,
           "market_team_expected_goals": 2.953,
           "model_clean_sheet_probability": 0.4797,
-          "decision_clean_sheet_probability": 0.4785,
-          "external_upside_score": 0.3933,
+          "decision_clean_sheet_probability": 0.4788,
+          "external_upside_score": 0.3098,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -1121,13 +1121,13 @@
           ]
         }
       ],
-      "selection_expected_points": 2.39,
-      "selection_risk_penalty": 1.281,
-      "minutes_risk_penalty": 0.681,
+      "selection_expected_points": 2.302,
+      "selection_risk_penalty": 1.261,
+      "minutes_risk_penalty": 0.661,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.6,
       "observed_usage_rate": 0.0486,
-      "captain_score": 2.8952,
+      "captain_score": 2.8234,
       "selection_risk_reasons": [
         "observed usage 5% trails projected minutes",
         "control/component disagreement 2.40 points"
@@ -1146,10 +1146,10 @@
       "probability_10_plus_next_1": 0.0067,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 2.554,
-      "context_multiplier": 1.011,
-      "decision_expected_points": 2.582,
-      "market_adjustment_points": 0.028,
-      "external_upside_score": 0.205,
+      "context_multiplier": 1.0087,
+      "decision_expected_points": 2.576,
+      "market_adjustment_points": 0.022,
+      "external_upside_score": 0.1615,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-20-20260904T044238Z",
@@ -1170,19 +1170,19 @@
         {
           "fixture_id": 22,
           "model_expected_points": 2.554,
-          "decision_expected_points": 2.5821,
-          "context_multiplier": 1.011,
-          "market_adjustment_points": 0.0281,
+          "decision_expected_points": 2.5762,
+          "context_multiplier": 1.0087,
+          "market_adjustment_points": 0.0222,
           "market_adjustment_components": {
-            "team_attack_market": -0.0004,
-            "clean_sheet_market": 0.012,
-            "goals_conceded_market": 0.0165
+            "team_attack_market": -0.0003,
+            "clean_sheet_market": 0.0094,
+            "goals_conceded_market": 0.0131
           },
           "model_team_expected_goals": 1.0295,
           "market_team_expected_goals": 0.9333,
           "model_clean_sheet_probability": 0.1553,
-          "decision_clean_sheet_probability": 0.1607,
-          "external_upside_score": 0.205,
+          "decision_clean_sheet_probability": 0.1595,
+          "external_upside_score": 0.1615,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-20-20260904T044238Z",
@@ -1201,13 +1201,13 @@
           ]
         }
       ],
-      "selection_expected_points": 2.303,
+      "selection_expected_points": 2.297,
       "selection_risk_penalty": 0.279,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.279,
       "observed_usage_rate": 1.0,
-      "captain_score": 2.4116,
+      "captain_score": 2.4065,
       "selection_risk_reasons": [
         "control/component disagreement 1.11 points"
       ]
@@ -1252,16 +1252,16 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 12.0,
-      "ownership_percent": 48.6,
+      "ownership_percent": 48.5,
       "expected_points_next_3": 16.944,
       "points_p90_next_1": 10.200000000000001,
       "probability_10_plus_next_1": 0.115,
       "probability_15_plus_next_1": 0.0117,
       "model_expected_points": 5.693,
-      "context_multiplier": 0.9174,
-      "decision_expected_points": 5.223,
-      "market_adjustment_points": -0.47,
-      "external_upside_score": 0.2945,
+      "context_multiplier": 0.9349,
+      "decision_expected_points": 5.322,
+      "market_adjustment_points": -0.371,
+      "external_upside_score": 0.2319,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -1282,18 +1282,18 @@
         {
           "fixture_id": 30,
           "model_expected_points": 5.693,
-          "decision_expected_points": 5.2225,
-          "context_multiplier": 0.9174,
-          "market_adjustment_points": -0.4705,
+          "decision_expected_points": 5.3224,
+          "context_multiplier": 0.9349,
+          "market_adjustment_points": -0.3706,
           "market_adjustment_components": {
-            "team_attack_market": -0.4904,
-            "clean_sheet_market": 0.0199
+            "team_attack_market": -0.3863,
+            "clean_sheet_market": 0.0157
           },
           "model_team_expected_goals": 2.2275,
           "market_team_expected_goals": 1.6446,
           "model_clean_sheet_probability": 0.2288,
-          "decision_clean_sheet_probability": 0.2592,
-          "external_upside_score": 0.2945,
+          "decision_clean_sheet_probability": 0.2528,
+          "external_upside_score": 0.2319,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -1312,13 +1312,13 @@
           ]
         }
       ],
-      "selection_expected_points": 4.899,
+      "selection_expected_points": 4.998,
       "selection_risk_penalty": 0.323,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.323,
       "observed_usage_rate": 1.0,
-      "captain_score": 5.7439,
+      "captain_score": 5.828,
       "selection_risk_reasons": [
         "control/component disagreement 1.29 points"
       ]
@@ -1330,16 +1330,16 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 8.0,
-      "ownership_percent": 28.5,
+      "ownership_percent": 27.8,
       "expected_points_next_3": 14.206,
       "points_p90_next_1": 9.4,
       "probability_10_plus_next_1": 0.08,
       "probability_15_plus_next_1": 0.0083,
       "model_expected_points": 4.92,
-      "context_multiplier": 0.9178,
-      "decision_expected_points": 4.516,
-      "market_adjustment_points": -0.404,
-      "external_upside_score": 0.2945,
+      "context_multiplier": 0.9353,
+      "decision_expected_points": 4.602,
+      "market_adjustment_points": -0.318,
+      "external_upside_score": 0.2319,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -1360,18 +1360,18 @@
         {
           "fixture_id": 30,
           "model_expected_points": 4.9197,
-          "decision_expected_points": 4.5155,
-          "context_multiplier": 0.9178,
-          "market_adjustment_points": -0.4042,
+          "decision_expected_points": 4.6013,
+          "context_multiplier": 0.9353,
+          "market_adjustment_points": -0.3184,
           "market_adjustment_components": {
-            "team_attack_market": -0.4268,
-            "clean_sheet_market": 0.0226
+            "team_attack_market": -0.3362,
+            "clean_sheet_market": 0.0178
           },
           "model_team_expected_goals": 2.2275,
           "market_team_expected_goals": 1.6446,
           "model_clean_sheet_probability": 0.2288,
-          "decision_clean_sheet_probability": 0.2592,
-          "external_upside_score": 0.2945,
+          "decision_clean_sheet_probability": 0.2528,
+          "external_upside_score": 0.2319,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -1390,13 +1390,13 @@
           ]
         }
       ],
-      "selection_expected_points": 4.407,
+      "selection_expected_points": 4.493,
       "selection_risk_penalty": 0.109,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.109,
       "observed_usage_rate": 1.0,
-      "captain_score": 5.208,
+      "captain_score": 5.2811,
       "selection_risk_reasons": [
         "control/component disagreement 0.43 points"
       ]
@@ -1409,16 +1409,16 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 12.0,
-        "ownership_percent": 48.6,
+        "ownership_percent": 48.5,
         "expected_points_next_3": 16.944,
         "points_p90_next_1": 10.200000000000001,
         "probability_10_plus_next_1": 0.115,
         "probability_15_plus_next_1": 0.0117,
         "model_expected_points": 5.693,
-        "context_multiplier": 0.9174,
-        "decision_expected_points": 5.223,
-        "market_adjustment_points": -0.47,
-        "external_upside_score": 0.2945,
+        "context_multiplier": 0.9349,
+        "decision_expected_points": 5.322,
+        "market_adjustment_points": -0.371,
+        "external_upside_score": 0.2319,
         "context_signal_count": 4,
         "context_signal_ids": [
           "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -1439,18 +1439,18 @@
           {
             "fixture_id": 30,
             "model_expected_points": 5.693,
-            "decision_expected_points": 5.2225,
-            "context_multiplier": 0.9174,
-            "market_adjustment_points": -0.4705,
+            "decision_expected_points": 5.3224,
+            "context_multiplier": 0.9349,
+            "market_adjustment_points": -0.3706,
             "market_adjustment_components": {
-              "team_attack_market": -0.4904,
-              "clean_sheet_market": 0.0199
+              "team_attack_market": -0.3863,
+              "clean_sheet_market": 0.0157
             },
             "model_team_expected_goals": 2.2275,
             "market_team_expected_goals": 1.6446,
             "model_clean_sheet_probability": 0.2288,
-            "decision_clean_sheet_probability": 0.2592,
-            "external_upside_score": 0.2945,
+            "decision_clean_sheet_probability": 0.2528,
+            "external_upside_score": 0.2319,
             "context_signal_count": 4,
             "context_signal_ids": [
               "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -1469,13 +1469,13 @@
             ]
           }
         ],
-        "selection_expected_points": 4.899,
+        "selection_expected_points": 4.998,
         "selection_risk_penalty": 0.323,
         "minutes_risk_penalty": 0.0,
         "availability_risk_penalty": 0.0,
         "model_disagreement_penalty": 0.323,
         "observed_usage_rate": 1.0,
-        "captain_score": 5.7439,
+        "captain_score": 5.828,
         "selection_risk_reasons": [
           "control/component disagreement 1.29 points"
         ]
@@ -1487,16 +1487,16 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 8.0,
-        "ownership_percent": 28.5,
+        "ownership_percent": 27.8,
         "expected_points_next_3": 14.206,
         "points_p90_next_1": 9.4,
         "probability_10_plus_next_1": 0.08,
         "probability_15_plus_next_1": 0.0083,
         "model_expected_points": 4.92,
-        "context_multiplier": 0.9178,
-        "decision_expected_points": 4.516,
-        "market_adjustment_points": -0.404,
-        "external_upside_score": 0.2945,
+        "context_multiplier": 0.9353,
+        "decision_expected_points": 4.602,
+        "market_adjustment_points": -0.318,
+        "external_upside_score": 0.2319,
         "context_signal_count": 4,
         "context_signal_ids": [
           "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -1517,18 +1517,18 @@
           {
             "fixture_id": 30,
             "model_expected_points": 4.9197,
-            "decision_expected_points": 4.5155,
-            "context_multiplier": 0.9178,
-            "market_adjustment_points": -0.4042,
+            "decision_expected_points": 4.6013,
+            "context_multiplier": 0.9353,
+            "market_adjustment_points": -0.3184,
             "market_adjustment_components": {
-              "team_attack_market": -0.4268,
-              "clean_sheet_market": 0.0226
+              "team_attack_market": -0.3362,
+              "clean_sheet_market": 0.0178
             },
             "model_team_expected_goals": 2.2275,
             "market_team_expected_goals": 1.6446,
             "model_clean_sheet_probability": 0.2288,
-            "decision_clean_sheet_probability": 0.2592,
-            "external_upside_score": 0.2945,
+            "decision_clean_sheet_probability": 0.2528,
+            "external_upside_score": 0.2319,
             "context_signal_count": 4,
             "context_signal_ids": [
               "odds-api-match_win_probability-8ea6c863f1852654399073b518b0a1f8-16-20260904T044238Z",
@@ -1547,13 +1547,13 @@
             ]
           }
         ],
-        "selection_expected_points": 4.407,
+        "selection_expected_points": 4.493,
         "selection_risk_penalty": 0.109,
         "minutes_risk_penalty": 0.0,
         "availability_risk_penalty": 0.0,
         "model_disagreement_penalty": 0.109,
         "observed_usage_rate": 1.0,
-        "captain_score": 5.208,
+        "captain_score": 5.2811,
         "selection_risk_reasons": [
           "control/component disagreement 0.43 points"
         ]
@@ -1565,16 +1565,16 @@
         "team_name": "Brentford",
         "position": "Forward",
         "price": 8.0,
-        "ownership_percent": 14.3,
+        "ownership_percent": 14.2,
         "expected_points_next_3": 12.617,
         "points_p90_next_1": 8.4,
         "probability_10_plus_next_1": 0.0433,
         "probability_15_plus_next_1": 0.005,
         "model_expected_points": 4.589,
-        "context_multiplier": 0.9891,
-        "decision_expected_points": 4.539,
-        "market_adjustment_points": -0.05,
-        "external_upside_score": 0.3343,
+        "context_multiplier": 0.9914,
+        "decision_expected_points": 4.55,
+        "market_adjustment_points": -0.039,
+        "external_upside_score": 0.2633,
         "context_signal_count": 4,
         "context_signal_ids": [
           "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -1595,17 +1595,17 @@
           {
             "fixture_id": 22,
             "model_expected_points": 4.5887,
-            "decision_expected_points": 4.5388,
-            "context_multiplier": 0.9891,
-            "market_adjustment_points": -0.0499,
+            "decision_expected_points": 4.5494,
+            "context_multiplier": 0.9914,
+            "market_adjustment_points": -0.0393,
             "market_adjustment_components": {
-              "team_attack_market": -0.0499
+              "team_attack_market": -0.0393
             },
             "model_team_expected_goals": 1.8624,
             "market_team_expected_goals": 1.8117,
             "model_clean_sheet_probability": 0.3572,
-            "decision_clean_sheet_probability": 0.3811,
-            "external_upside_score": 0.3343,
+            "decision_clean_sheet_probability": 0.376,
+            "external_upside_score": 0.2633,
             "context_signal_count": 4,
             "context_signal_ids": [
               "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -1624,13 +1624,13 @@
             ]
           }
         ],
-        "selection_expected_points": 4.131,
+        "selection_expected_points": 4.142,
         "selection_risk_penalty": 0.408,
         "minutes_risk_penalty": 0.0,
         "availability_risk_penalty": 0.0,
         "model_disagreement_penalty": 0.408,
         "observed_usage_rate": 0.9844,
-        "captain_score": 4.7473,
+        "captain_score": 4.7566,
         "selection_risk_reasons": [
           "control/component disagreement 1.63 points"
         ]
@@ -1648,10 +1648,10 @@
         "probability_10_plus_next_1": 0.015,
         "probability_15_plus_next_1": 0.0017,
         "model_expected_points": 3.885,
-        "context_multiplier": 1.0779,
-        "decision_expected_points": 4.188,
-        "market_adjustment_points": 0.302,
-        "external_upside_score": 0.3933,
+        "context_multiplier": 1.0613,
+        "decision_expected_points": 4.123,
+        "market_adjustment_points": 0.238,
+        "external_upside_score": 0.3098,
         "context_signal_count": 4,
         "context_signal_ids": [
           "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -1672,18 +1672,18 @@
           {
             "fixture_id": 26,
             "model_expected_points": 3.885,
-            "decision_expected_points": 4.1875,
-            "context_multiplier": 1.0779,
-            "market_adjustment_points": 0.3025,
+            "decision_expected_points": 4.1233,
+            "context_multiplier": 1.0613,
+            "market_adjustment_points": 0.2383,
             "market_adjustment_components": {
-              "team_attack_market": 0.3033,
-              "clean_sheet_market": -0.0008
+              "team_attack_market": 0.2389,
+              "clean_sheet_market": -0.0006
             },
             "model_team_expected_goals": 1.9393,
             "market_team_expected_goals": 2.953,
             "model_clean_sheet_probability": 0.4797,
-            "decision_clean_sheet_probability": 0.4785,
-            "external_upside_score": 0.3933,
+            "decision_clean_sheet_probability": 0.4788,
+            "external_upside_score": 0.3098,
             "context_signal_count": 4,
             "context_signal_ids": [
               "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -1702,13 +1702,13 @@
             ]
           }
         ],
-        "selection_expected_points": 3.786,
+        "selection_expected_points": 3.721,
         "selection_risk_penalty": 0.402,
         "minutes_risk_penalty": 0.0,
         "availability_risk_penalty": 0.0,
         "model_disagreement_penalty": 0.402,
         "observed_usage_rate": 0.9281,
-        "captain_score": 4.1304,
+        "captain_score": 4.0751,
         "selection_risk_reasons": [
           "control/component disagreement 1.61 points"
         ]
@@ -1720,16 +1720,16 @@
         "team_name": "Leeds",
         "position": "Forward",
         "price": 6.0,
-        "ownership_percent": 26.0,
+        "ownership_percent": 25.8,
         "expected_points_next_3": 11.635,
         "points_p90_next_1": 7.000000000000001,
         "probability_10_plus_next_1": 0.03,
         "probability_15_plus_next_1": 0.0,
         "model_expected_points": 3.731,
-        "context_multiplier": 1.0059,
-        "decision_expected_points": 3.753,
-        "market_adjustment_points": 0.022,
-        "external_upside_score": 0.2331,
+        "context_multiplier": 1.0046,
+        "decision_expected_points": 3.748,
+        "market_adjustment_points": 0.017,
+        "external_upside_score": 0.1836,
         "context_signal_count": 4,
         "context_signal_ids": [
           "odds-api-match_win_probability-3b81531990da7ea3e461c43e8827672b-13-20260904T044238Z",
@@ -1750,17 +1750,17 @@
           {
             "fixture_id": 23,
             "model_expected_points": 3.731,
-            "decision_expected_points": 3.7529,
-            "context_multiplier": 1.0059,
-            "market_adjustment_points": 0.0219,
+            "decision_expected_points": 3.7483,
+            "context_multiplier": 1.0046,
+            "market_adjustment_points": 0.0173,
             "market_adjustment_components": {
-              "team_attack_market": 0.0219
+              "team_attack_market": 0.0173
             },
             "model_team_expected_goals": 1.0942,
             "market_team_expected_goals": 1.1163,
             "model_clean_sheet_probability": 0.1771,
-            "decision_clean_sheet_probability": 0.1909,
-            "external_upside_score": 0.2331,
+            "decision_clean_sheet_probability": 0.188,
+            "external_upside_score": 0.1836,
             "context_signal_count": 4,
             "context_signal_ids": [
               "odds-api-match_win_probability-3b81531990da7ea3e461c43e8827672b-13-20260904T044238Z",
@@ -1779,13 +1779,13 @@
             ]
           }
         ],
-        "selection_expected_points": 3.469,
+        "selection_expected_points": 3.464,
         "selection_risk_penalty": 0.284,
         "minutes_risk_penalty": 0.0,
         "availability_risk_penalty": 0.0,
         "model_disagreement_penalty": 0.284,
         "observed_usage_rate": 1.0,
-        "captain_score": 3.9801,
+        "captain_score": 3.9758,
         "selection_risk_reasons": [
           "control/component disagreement 1.14 points"
         ]
@@ -2331,16 +2331,16 @@
     "robustness": {
       "passed": true,
       "selected_action": "hold",
-      "best_transfer_decision_adjusted_gain": 10.499,
+      "best_transfer_decision_adjusted_gain": 9.938,
       "minimum_route_edge_points": 4.0,
-      "runner_up_route_gap": 0.004,
+      "runner_up_route_gap": 0.095,
       "minimum_route_separation_points": 1.5,
       "rejected_transfer_reason": "ambiguous_best_route"
     },
-    "hold_current_squad_expected_points": 296.627,
+    "hold_current_squad_expected_points": 296.639,
     "recommended_route": {
-      "projected_net_points": 296.627,
-      "discounted_objective": 268.069,
+      "projected_net_points": 296.639,
+      "discounted_objective": 268.081,
       "net_gain_vs_hold": 0.0,
       "decision_adjusted_gain_vs_hold": 0.0,
       "transfer_decision_cost": 0.0,
@@ -2355,8 +2355,8 @@
           "free_transfers_before": 2,
           "hit_cost": 0,
           "bank_after": 0.0,
-          "lineup_expected_points": 45.855,
-          "net_expected_points": 45.855,
+          "lineup_expected_points": 45.867,
+          "net_expected_points": 45.867,
           "captain_player_id": 426,
           "captain": "B.Fernandes",
           "starter_player_ids": [
@@ -2514,10 +2514,10 @@
     },
     "alternative_routes": [
       {
-        "projected_net_points": 313.377,
-        "discounted_objective": 277.17,
-        "net_gain_vs_hold": 16.749,
-        "decision_adjusted_gain_vs_hold": 10.499,
+        "projected_net_points": 312.827,
+        "discounted_objective": 276.62,
+        "net_gain_vs_hold": 16.188,
+        "decision_adjusted_gain_vs_hold": 9.938,
         "transfer_decision_cost": 6.25,
         "round_trip_reversals": 0,
         "total_hit_cost": 0,
@@ -2547,10 +2547,10 @@
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.8,
-            "lineup_expected_points": 49.443,
-            "net_expected_points": 49.443,
-            "captain_player_id": 388,
-            "captain": "Gu\u00e9hi",
+            "lineup_expected_points": 48.893,
+            "net_expected_points": 48.893,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
               82,
               388,
@@ -2732,10 +2732,10 @@
         ]
       },
       {
-        "projected_net_points": 312.069,
-        "discounted_objective": 277.166,
-        "net_gain_vs_hold": 15.442,
-        "decision_adjusted_gain_vs_hold": 10.442,
+        "projected_net_points": 311.428,
+        "discounted_objective": 276.525,
+        "net_gain_vs_hold": 14.789,
+        "decision_adjusted_gain_vs_hold": 9.789,
         "transfer_decision_cost": 5.0,
         "round_trip_reversals": 0,
         "total_hit_cost": 0,
@@ -2765,10 +2765,10 @@
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.4,
-            "lineup_expected_points": 49.729,
-            "net_expected_points": 49.729,
-            "captain_player_id": 388,
-            "captain": "Gu\u00e9hi",
+            "lineup_expected_points": 49.088,
+            "net_expected_points": 49.088,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
               82,
               388,
@@ -2940,10 +2940,210 @@
         ]
       },
       {
-        "projected_net_points": 311.739,
-        "discounted_objective": 276.924,
-        "net_gain_vs_hold": 15.112,
-        "decision_adjusted_gain_vs_hold": 10.112,
+        "projected_net_points": 309.841,
+        "discounted_objective": 276.298,
+        "net_gain_vs_hold": 13.201,
+        "decision_adjusted_gain_vs_hold": 9.451,
+        "transfer_decision_cost": 3.75,
+        "round_trip_reversals": 0,
+        "total_hit_cost": 0,
+        "final_bank": 0.4,
+        "free_transfers_after_horizon": 5,
+        "gameweek_plan": [
+          {
+            "gameweek": 3,
+            "transfers": [
+              {
+                "sell_player_id": 155,
+                "buy_player_id": 94,
+                "sell_price": 6.9,
+                "buy_price": 6.0,
+                "sell": "Enzo",
+                "buy": "Schade"
+              },
+              {
+                "sell_player_id": 498,
+                "buy_player_id": 388,
+                "sell_price": 5.9,
+                "buy_price": 6.0,
+                "sell": "Senesi",
+                "buy": "Gu\u00e9hi"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.8,
+            "lineup_expected_points": 48.893,
+            "net_expected_points": 48.893,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              356,
+              445,
+              426,
+              427,
+              106,
+              481,
+              94,
+              346,
+              13
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [
+              {
+                "sell_player_id": 13,
+                "buy_player_id": 480,
+                "sell_price": 7.5,
+                "buy_price": 7.9,
+                "sell": "Rice",
+                "buy": "Gibbs-White"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 51.056,
+            "net_expected_points": 51.056,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              200,
+              229,
+              356,
+              426,
+              427,
+              346,
+              480,
+              106,
+              94,
+              445
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 52.41,
+            "net_expected_points": 52.41,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              229,
+              445,
+              426,
+              427,
+              106,
+              480,
+              481,
+              346,
+              356
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 52.202,
+            "net_expected_points": 52.202,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              229,
+              388,
+              200,
+              426,
+              427,
+              106,
+              480,
+              94,
+              445,
+              481
+            ]
+          },
+          {
+            "gameweek": 7,
+            "transfers": [],
+            "free_transfers_before": 3,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 51.892,
+            "net_expected_points": 51.892,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              445,
+              200,
+              426,
+              427,
+              106,
+              480,
+              481,
+              94,
+              346
+            ]
+          },
+          {
+            "gameweek": 8,
+            "transfers": [],
+            "free_transfers_before": 4,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 53.387,
+            "net_expected_points": 53.387,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              200,
+              356,
+              426,
+              427,
+              106,
+              480,
+              94,
+              481,
+              346
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          82,
+          94,
+          106,
+          200,
+          229,
+          249,
+          346,
+          356,
+          388,
+          426,
+          427,
+          445,
+          480,
+          481,
+          529
+        ]
+      },
+      {
+        "projected_net_points": 311.098,
+        "discounted_objective": 276.283,
+        "net_gain_vs_hold": 14.459,
+        "decision_adjusted_gain_vs_hold": 9.459,
         "transfer_decision_cost": 5.0,
         "round_trip_reversals": 0,
         "total_hit_cost": 0,
@@ -2973,10 +3173,10 @@
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.4,
-            "lineup_expected_points": 49.729,
-            "net_expected_points": 49.729,
-            "captain_player_id": 388,
-            "captain": "Gu\u00e9hi",
+            "lineup_expected_points": 49.088,
+            "net_expected_points": 49.088,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
               82,
               388,
@@ -3146,220 +3346,12 @@
           481,
           529
         ]
-      },
-      {
-        "projected_net_points": 311.774,
-        "discounted_objective": 276.919,
-        "net_gain_vs_hold": 15.147,
-        "decision_adjusted_gain_vs_hold": 10.147,
-        "transfer_decision_cost": 5.0,
-        "round_trip_reversals": 0,
-        "total_hit_cost": 0,
-        "final_bank": 1.3,
-        "free_transfers_after_horizon": 4,
-        "gameweek_plan": [
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 13,
-                "buy_player_id": 368,
-                "sell_price": 7.5,
-                "buy_price": 7.0,
-                "sell": "Rice",
-                "buy": "Szoboszlai"
-              },
-              {
-                "sell_player_id": 498,
-                "buy_player_id": 388,
-                "sell_price": 5.9,
-                "buy_price": 6.0,
-                "sell": "Senesi",
-                "buy": "Gu\u00e9hi"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.4,
-            "lineup_expected_points": 49.729,
-            "net_expected_points": 49.729,
-            "captain_player_id": 388,
-            "captain": "Gu\u00e9hi",
-            "starter_player_ids": [
-              82,
-              388,
-              356,
-              445,
-              426,
-              427,
-              106,
-              368,
-              481,
-              346,
-              229
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.4,
-            "lineup_expected_points": 50.673,
-            "net_expected_points": 50.673,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              200,
-              229,
-              356,
-              426,
-              427,
-              346,
-              368,
-              106,
-              445,
-              481
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 356,
-                "buy_player_id": 88,
-                "sell_price": 6.5,
-                "buy_price": 4.6,
-                "sell": "Virgil",
-                "buy": "Kayode"
-              },
-              {
-                "sell_player_id": 155,
-                "buy_player_id": 480,
-                "sell_price": 6.9,
-                "buy_price": 7.9,
-                "sell": "Enzo",
-                "buy": "Gibbs-White"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 1.3,
-            "lineup_expected_points": 52.814,
-            "net_expected_points": 52.814,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              229,
-              445,
-              426,
-              427,
-              106,
-              480,
-              481,
-              368,
-              346
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 1.3,
-            "lineup_expected_points": 52.209,
-            "net_expected_points": 52.209,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              229,
-              388,
-              200,
-              426,
-              427,
-              106,
-              480,
-              88,
-              445,
-              368
-            ]
-          },
-          {
-            "gameweek": 7,
-            "transfers": [],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 1.3,
-            "lineup_expected_points": 52.072,
-            "net_expected_points": 52.072,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              445,
-              200,
-              426,
-              427,
-              106,
-              480,
-              481,
-              368,
-              346
-            ]
-          },
-          {
-            "gameweek": 8,
-            "transfers": [],
-            "free_transfers_before": 3,
-            "hit_cost": 0,
-            "bank_after": 1.3,
-            "lineup_expected_points": 54.276,
-            "net_expected_points": 54.276,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              200,
-              88,
-              426,
-              427,
-              106,
-              368,
-              480,
-              481,
-              346
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          82,
-          88,
-          106,
-          200,
-          229,
-          249,
-          346,
-          368,
-          388,
-          426,
-          427,
-          445,
-          480,
-          481,
-          529
-        ]
       }
     ],
     "routes": [
       {
-        "projected_net_points": 296.627,
-        "discounted_objective": 268.069,
+        "projected_net_points": 296.639,
+        "discounted_objective": 268.081,
         "net_gain_vs_hold": 0.0,
         "decision_adjusted_gain_vs_hold": 0.0,
         "transfer_decision_cost": 0.0,
@@ -3374,8 +3366,8 @@
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.0,
-            "lineup_expected_points": 45.855,
-            "net_expected_points": 45.855,
+            "lineup_expected_points": 45.867,
+            "net_expected_points": 45.867,
             "captain_player_id": 426,
             "captain": "B.Fernandes",
             "starter_player_ids": [
@@ -3532,10 +3524,10 @@
         ]
       },
       {
-        "projected_net_points": 313.377,
-        "discounted_objective": 277.17,
-        "net_gain_vs_hold": 16.749,
-        "decision_adjusted_gain_vs_hold": 10.499,
+        "projected_net_points": 312.827,
+        "discounted_objective": 276.62,
+        "net_gain_vs_hold": 16.188,
+        "decision_adjusted_gain_vs_hold": 9.938,
         "transfer_decision_cost": 6.25,
         "round_trip_reversals": 0,
         "total_hit_cost": 0,
@@ -3565,10 +3557,10 @@
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.8,
-            "lineup_expected_points": 49.443,
-            "net_expected_points": 49.443,
-            "captain_player_id": 388,
-            "captain": "Gu\u00e9hi",
+            "lineup_expected_points": 48.893,
+            "net_expected_points": 48.893,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
               82,
               388,
@@ -3750,10 +3742,10 @@
         ]
       },
       {
-        "projected_net_points": 312.069,
-        "discounted_objective": 277.166,
-        "net_gain_vs_hold": 15.442,
-        "decision_adjusted_gain_vs_hold": 10.442,
+        "projected_net_points": 311.428,
+        "discounted_objective": 276.525,
+        "net_gain_vs_hold": 14.789,
+        "decision_adjusted_gain_vs_hold": 9.789,
         "transfer_decision_cost": 5.0,
         "round_trip_reversals": 0,
         "total_hit_cost": 0,
@@ -3783,10 +3775,10 @@
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.4,
-            "lineup_expected_points": 49.729,
-            "net_expected_points": 49.729,
-            "captain_player_id": 388,
-            "captain": "Gu\u00e9hi",
+            "lineup_expected_points": 49.088,
+            "net_expected_points": 49.088,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
               82,
               388,
@@ -3958,10 +3950,210 @@
         ]
       },
       {
-        "projected_net_points": 311.739,
-        "discounted_objective": 276.924,
-        "net_gain_vs_hold": 15.112,
-        "decision_adjusted_gain_vs_hold": 10.112,
+        "projected_net_points": 309.841,
+        "discounted_objective": 276.298,
+        "net_gain_vs_hold": 13.201,
+        "decision_adjusted_gain_vs_hold": 9.451,
+        "transfer_decision_cost": 3.75,
+        "round_trip_reversals": 0,
+        "total_hit_cost": 0,
+        "final_bank": 0.4,
+        "free_transfers_after_horizon": 5,
+        "gameweek_plan": [
+          {
+            "gameweek": 3,
+            "transfers": [
+              {
+                "sell_player_id": 155,
+                "buy_player_id": 94,
+                "sell_price": 6.9,
+                "buy_price": 6.0,
+                "sell": "Enzo",
+                "buy": "Schade"
+              },
+              {
+                "sell_player_id": 498,
+                "buy_player_id": 388,
+                "sell_price": 5.9,
+                "buy_price": 6.0,
+                "sell": "Senesi",
+                "buy": "Gu\u00e9hi"
+              }
+            ],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.8,
+            "lineup_expected_points": 48.893,
+            "net_expected_points": 48.893,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              356,
+              445,
+              426,
+              427,
+              106,
+              481,
+              94,
+              346,
+              13
+            ]
+          },
+          {
+            "gameweek": 4,
+            "transfers": [
+              {
+                "sell_player_id": 13,
+                "buy_player_id": 480,
+                "sell_price": 7.5,
+                "buy_price": 7.9,
+                "sell": "Rice",
+                "buy": "Gibbs-White"
+              }
+            ],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 51.056,
+            "net_expected_points": 51.056,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              200,
+              229,
+              356,
+              426,
+              427,
+              346,
+              480,
+              106,
+              94,
+              445
+            ]
+          },
+          {
+            "gameweek": 5,
+            "transfers": [],
+            "free_transfers_before": 1,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 52.41,
+            "net_expected_points": 52.41,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              229,
+              445,
+              426,
+              427,
+              106,
+              480,
+              481,
+              346,
+              356
+            ]
+          },
+          {
+            "gameweek": 6,
+            "transfers": [],
+            "free_transfers_before": 2,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 52.202,
+            "net_expected_points": 52.202,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              229,
+              388,
+              200,
+              426,
+              427,
+              106,
+              480,
+              94,
+              445,
+              481
+            ]
+          },
+          {
+            "gameweek": 7,
+            "transfers": [],
+            "free_transfers_before": 3,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 51.892,
+            "net_expected_points": 51.892,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              445,
+              200,
+              426,
+              427,
+              106,
+              480,
+              481,
+              94,
+              346
+            ]
+          },
+          {
+            "gameweek": 8,
+            "transfers": [],
+            "free_transfers_before": 4,
+            "hit_cost": 0,
+            "bank_after": 0.4,
+            "lineup_expected_points": 53.387,
+            "net_expected_points": 53.387,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
+            "starter_player_ids": [
+              82,
+              388,
+              200,
+              356,
+              426,
+              427,
+              106,
+              480,
+              94,
+              481,
+              346
+            ]
+          }
+        ],
+        "final_squad_player_ids": [
+          82,
+          94,
+          106,
+          200,
+          229,
+          249,
+          346,
+          356,
+          388,
+          426,
+          427,
+          445,
+          480,
+          481,
+          529
+        ]
+      },
+      {
+        "projected_net_points": 311.098,
+        "discounted_objective": 276.283,
+        "net_gain_vs_hold": 14.459,
+        "decision_adjusted_gain_vs_hold": 9.459,
         "transfer_decision_cost": 5.0,
         "round_trip_reversals": 0,
         "total_hit_cost": 0,
@@ -3991,10 +4183,10 @@
             "free_transfers_before": 2,
             "hit_cost": 0,
             "bank_after": 0.4,
-            "lineup_expected_points": 49.729,
-            "net_expected_points": 49.729,
-            "captain_player_id": 388,
-            "captain": "Gu\u00e9hi",
+            "lineup_expected_points": 49.088,
+            "net_expected_points": 49.088,
+            "captain_player_id": 426,
+            "captain": "B.Fernandes",
             "starter_player_ids": [
               82,
               388,
@@ -4164,214 +4356,6 @@
           481,
           529
         ]
-      },
-      {
-        "projected_net_points": 311.774,
-        "discounted_objective": 276.919,
-        "net_gain_vs_hold": 15.147,
-        "decision_adjusted_gain_vs_hold": 10.147,
-        "transfer_decision_cost": 5.0,
-        "round_trip_reversals": 0,
-        "total_hit_cost": 0,
-        "final_bank": 1.3,
-        "free_transfers_after_horizon": 4,
-        "gameweek_plan": [
-          {
-            "gameweek": 3,
-            "transfers": [
-              {
-                "sell_player_id": 13,
-                "buy_player_id": 368,
-                "sell_price": 7.5,
-                "buy_price": 7.0,
-                "sell": "Rice",
-                "buy": "Szoboszlai"
-              },
-              {
-                "sell_player_id": 498,
-                "buy_player_id": 388,
-                "sell_price": 5.9,
-                "buy_price": 6.0,
-                "sell": "Senesi",
-                "buy": "Gu\u00e9hi"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 0.4,
-            "lineup_expected_points": 49.729,
-            "net_expected_points": 49.729,
-            "captain_player_id": 388,
-            "captain": "Gu\u00e9hi",
-            "starter_player_ids": [
-              82,
-              388,
-              356,
-              445,
-              426,
-              427,
-              106,
-              368,
-              481,
-              346,
-              229
-            ]
-          },
-          {
-            "gameweek": 4,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 0.4,
-            "lineup_expected_points": 50.673,
-            "net_expected_points": 50.673,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              200,
-              229,
-              356,
-              426,
-              427,
-              346,
-              368,
-              106,
-              445,
-              481
-            ]
-          },
-          {
-            "gameweek": 5,
-            "transfers": [
-              {
-                "sell_player_id": 356,
-                "buy_player_id": 88,
-                "sell_price": 6.5,
-                "buy_price": 4.6,
-                "sell": "Virgil",
-                "buy": "Kayode"
-              },
-              {
-                "sell_player_id": 155,
-                "buy_player_id": 480,
-                "sell_price": 6.9,
-                "buy_price": 7.9,
-                "sell": "Enzo",
-                "buy": "Gibbs-White"
-              }
-            ],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 1.3,
-            "lineup_expected_points": 52.814,
-            "net_expected_points": 52.814,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              229,
-              445,
-              426,
-              427,
-              106,
-              480,
-              481,
-              368,
-              346
-            ]
-          },
-          {
-            "gameweek": 6,
-            "transfers": [],
-            "free_transfers_before": 1,
-            "hit_cost": 0,
-            "bank_after": 1.3,
-            "lineup_expected_points": 52.209,
-            "net_expected_points": 52.209,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              229,
-              388,
-              200,
-              426,
-              427,
-              106,
-              480,
-              88,
-              445,
-              368
-            ]
-          },
-          {
-            "gameweek": 7,
-            "transfers": [],
-            "free_transfers_before": 2,
-            "hit_cost": 0,
-            "bank_after": 1.3,
-            "lineup_expected_points": 52.072,
-            "net_expected_points": 52.072,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              445,
-              200,
-              426,
-              427,
-              106,
-              480,
-              481,
-              368,
-              346
-            ]
-          },
-          {
-            "gameweek": 8,
-            "transfers": [],
-            "free_transfers_before": 3,
-            "hit_cost": 0,
-            "bank_after": 1.3,
-            "lineup_expected_points": 54.276,
-            "net_expected_points": 54.276,
-            "captain_player_id": 426,
-            "captain": "B.Fernandes",
-            "starter_player_ids": [
-              82,
-              388,
-              200,
-              88,
-              426,
-              427,
-              106,
-              368,
-              480,
-              481,
-              346
-            ]
-          }
-        ],
-        "final_squad_player_ids": [
-          82,
-          88,
-          106,
-          200,
-          229,
-          249,
-          346,
-          368,
-          388,
-          426,
-          427,
-          445,
-          480,
-          481,
-          529
-        ]
       }
     ],
     "search": {
@@ -4467,8 +4451,8 @@
         "blank_team_count": 0,
         "double_team_count": 0
       },
-      "incremental_expected_points": 21.13,
-      "discounted_incremental_points": 21.13,
+      "incremental_expected_points": 21.118,
+      "discounted_incremental_points": 21.118,
       "status": "play",
       "reason": "The projected gain clears the save threshold within the known horizon.",
       "replacement_squad_player_ids": [
@@ -4491,7 +4475,7 @@
       "transfers_in_rebuild": 8,
       "squad_cost": 99.5,
       "permanent_squad_change": true,
-      "timing_edge_over_next_best": 10.463
+      "timing_edge_over_next_best": 10.451
     },
     "schedule": [
       {
@@ -4506,8 +4490,8 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 21.13,
-        "discounted_incremental_points": 21.13,
+        "incremental_expected_points": 21.118,
+        "discounted_incremental_points": 21.118,
         "status": "play",
         "reason": "The projected gain clears the save threshold within the known horizon.",
         "replacement_squad_player_ids": [
@@ -4530,7 +4514,7 @@
         "transfers_in_rebuild": 8,
         "squad_cost": 99.5,
         "permanent_squad_change": true,
-        "timing_edge_over_next_best": 10.463
+        "timing_edge_over_next_best": 10.451
       }
     ],
     "best_by_chip": {
@@ -4589,8 +4573,8 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 9.112,
-        "discounted_incremental_points": 9.112,
+        "incremental_expected_points": 9.1,
+        "discounted_incremental_points": 9.1,
         "status": "hold",
         "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
         "temporary_squad_player_ids": [
@@ -4626,7 +4610,7 @@
         "captain_player_id": 426,
         "squad_cost": 99.0,
         "squad_reverts_after_gameweek": true,
-        "timing_edge_over_next_best": 4.781
+        "timing_edge_over_next_best": 4.769
       },
       "wildcard": {
         "chip": "wildcard",
@@ -4640,8 +4624,8 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 21.13,
-        "discounted_incremental_points": 21.13,
+        "incremental_expected_points": 21.118,
+        "discounted_incremental_points": 21.118,
         "status": "play",
         "reason": "The projected gain clears the save threshold within the known horizon.",
         "replacement_squad_player_ids": [
@@ -4664,7 +4648,7 @@
         "transfers_in_rebuild": 8,
         "squad_cost": 99.5,
         "permanent_squad_change": true,
-        "timing_edge_over_next_best": 10.463
+        "timing_edge_over_next_best": 10.451
       }
     },
     "candidates": [
@@ -4680,8 +4664,8 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 21.13,
-        "discounted_incremental_points": 21.13,
+        "incremental_expected_points": 21.118,
+        "discounted_incremental_points": 21.118,
         "status": "play",
         "reason": "The projected gain clears the save threshold within the known horizon.",
         "replacement_squad_player_ids": [
@@ -4704,7 +4688,7 @@
         "transfers_in_rebuild": 8,
         "squad_cost": 99.5,
         "permanent_squad_change": true,
-        "timing_edge_over_next_best": 10.463
+        "timing_edge_over_next_best": 10.451
       },
       {
         "chip": "bboost",
@@ -4733,6 +4717,29 @@
       {
         "chip": "bboost",
         "chip_name": "Bench Boost",
+        "gameweek": 4,
+        "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 12.935,
+        "discounted_incremental_points": 12.418,
+        "status": "hold",
+        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
+        "bench_player_ids": [
+          249,
+          388,
+          481,
+          529
+        ]
+      },
+      {
+        "chip": "bboost",
+        "chip_name": "Bench Boost",
         "gameweek": 3,
         "route_index": 1,
         "event_structure": {
@@ -4757,7 +4764,7 @@
         "chip": "bboost",
         "chip_name": "Bench Boost",
         "gameweek": 3,
-        "route_index": 2,
+        "route_index": 3,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -4765,12 +4772,12 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 11.951,
-        "discounted_incremental_points": 11.951,
+        "incremental_expected_points": 12.137,
+        "discounted_incremental_points": 12.137,
         "status": "hold",
         "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
         "bench_player_ids": [
-          155,
+          200,
           229,
           249,
           529
@@ -4780,7 +4787,7 @@
         "chip": "bboost",
         "chip_name": "Bench Boost",
         "gameweek": 3,
-        "route_index": 3,
+        "route_index": 2,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -4849,7 +4856,7 @@
         "chip": "bboost",
         "chip_name": "Bench Boost",
         "gameweek": 5,
-        "route_index": 3,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -4917,29 +4924,6 @@
       {
         "chip": "bboost",
         "chip_name": "Bench Boost",
-        "gameweek": 6,
-        "route_index": 4,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 13.212,
-        "discounted_incremental_points": 11.689,
-        "status": "hold",
-        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
-        "bench_player_ids": [
-          249,
-          346,
-          481,
-          529
-        ]
-      },
-      {
-        "chip": "bboost",
-        "chip_name": "Bench Boost",
         "gameweek": 5,
         "route_index": 1,
         "event_structure": {
@@ -4963,8 +4947,31 @@
       {
         "chip": "bboost",
         "chip_name": "Bench Boost",
-        "gameweek": 6,
+        "gameweek": 5,
         "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 12.565,
+        "discounted_incremental_points": 11.58,
+        "status": "hold",
+        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
+        "bench_player_ids": [
+          94,
+          200,
+          249,
+          529
+        ]
+      },
+      {
+        "chip": "bboost",
+        "chip_name": "Bench Boost",
+        "gameweek": 6,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -4986,8 +4993,8 @@
       {
         "chip": "bboost",
         "chip_name": "Bench Boost",
-        "gameweek": 4,
-        "route_index": 2,
+        "gameweek": 6,
+        "route_index": 3,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -4995,14 +5002,14 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 11.817,
-        "discounted_incremental_points": 11.344,
+        "incremental_expected_points": 12.881,
+        "discounted_incremental_points": 11.397,
         "status": "hold",
         "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
         "bench_player_ids": [
-          155,
           249,
-          388,
+          346,
+          356,
           529
         ]
       },
@@ -5010,7 +5017,7 @@
         "chip": "bboost",
         "chip_name": "Bench Boost",
         "gameweek": 4,
-        "route_index": 3,
+        "route_index": 2,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -5102,7 +5109,7 @@
         "chip": "bboost",
         "chip_name": "Bench Boost",
         "gameweek": 7,
-        "route_index": 3,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -5141,29 +5148,6 @@
           155,
           249,
           498,
-          529
-        ]
-      },
-      {
-        "chip": "bboost",
-        "chip_name": "Bench Boost",
-        "gameweek": 5,
-        "route_index": 4,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 11.973,
-        "discounted_incremental_points": 11.035,
-        "status": "hold",
-        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
-        "bench_player_ids": [
-          88,
-          200,
-          249,
           529
         ]
       },
@@ -5217,7 +5201,7 @@
         "chip": "bboost",
         "chip_name": "Bench Boost",
         "gameweek": 7,
-        "route_index": 4,
+        "route_index": 3,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -5225,14 +5209,14 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 12.717,
-        "discounted_incremental_points": 10.801,
+        "incremental_expected_points": 12.593,
+        "discounted_incremental_points": 10.696,
         "status": "hold",
         "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
         "bench_player_ids": [
-          88,
           229,
           249,
+          356,
           529
         ]
       },
@@ -5472,6 +5456,43 @@
         ]
       },
       {
+        "chip": "wildcard",
+        "chip_name": "Wildcard",
+        "gameweek": 3,
+        "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 9.202,
+        "discounted_incremental_points": 9.202,
+        "status": "hold",
+        "reason": "The 9.2-point edge is below the 12.0-point save threshold.",
+        "replacement_squad_player_ids": [
+          4,
+          82,
+          106,
+          109,
+          165,
+          200,
+          388,
+          426,
+          427,
+          445,
+          469,
+          480,
+          481,
+          544,
+          651
+        ],
+        "transfers_in_rebuild": 7,
+        "squad_cost": 99.5,
+        "permanent_squad_change": true
+      },
+      {
         "chip": "freehit",
         "chip_name": "Free Hit",
         "gameweek": 3,
@@ -5483,8 +5504,8 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 9.112,
-        "discounted_incremental_points": 9.112,
+        "incremental_expected_points": 9.1,
+        "discounted_incremental_points": 9.1,
         "status": "hold",
         "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
         "temporary_squad_player_ids": [
@@ -5520,7 +5541,81 @@
         "captain_player_id": 426,
         "squad_cost": 99.0,
         "squad_reverts_after_gameweek": true,
-        "timing_edge_over_next_best": 4.781
+        "timing_edge_over_next_best": 4.769
+      },
+      {
+        "chip": "wildcard",
+        "chip_name": "Wildcard",
+        "gameweek": 3,
+        "route_index": 4,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 8.113,
+        "discounted_incremental_points": 8.113,
+        "status": "hold",
+        "reason": "The 8.1-point edge is below the 12.0-point save threshold.",
+        "replacement_squad_player_ids": [
+          4,
+          82,
+          106,
+          109,
+          165,
+          200,
+          388,
+          426,
+          427,
+          445,
+          469,
+          480,
+          481,
+          544,
+          651
+        ],
+        "transfers_in_rebuild": 7,
+        "squad_cost": 99.5,
+        "permanent_squad_change": true
+      },
+      {
+        "chip": "wildcard",
+        "chip_name": "Wildcard",
+        "gameweek": 3,
+        "route_index": 2,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 7.872,
+        "discounted_incremental_points": 7.872,
+        "status": "hold",
+        "reason": "The 7.9-point edge is below the 12.0-point save threshold.",
+        "replacement_squad_player_ids": [
+          4,
+          82,
+          106,
+          109,
+          165,
+          200,
+          388,
+          426,
+          427,
+          445,
+          469,
+          480,
+          481,
+          544,
+          651
+        ],
+        "transfers_in_rebuild": 7,
+        "squad_cost": 99.5,
+        "permanent_squad_change": true
       },
       {
         "chip": "wildcard",
@@ -5563,7 +5658,7 @@
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 3,
-        "route_index": 4,
+        "route_index": 1,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -5571,84 +5666,10 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 7.478,
-        "discounted_incremental_points": 7.478,
+        "incremental_expected_points": 6.622,
+        "discounted_incremental_points": 6.622,
         "status": "hold",
-        "reason": "The 7.5-point edge is below the 12.0-point save threshold.",
-        "replacement_squad_player_ids": [
-          4,
-          82,
-          106,
-          109,
-          165,
-          200,
-          388,
-          426,
-          427,
-          445,
-          469,
-          480,
-          481,
-          544,
-          651
-        ],
-        "transfers_in_rebuild": 7,
-        "squad_cost": 99.5,
-        "permanent_squad_change": true
-      },
-      {
-        "chip": "wildcard",
-        "chip_name": "Wildcard",
-        "gameweek": 3,
-        "route_index": 3,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 7.472,
-        "discounted_incremental_points": 7.472,
-        "status": "hold",
-        "reason": "The 7.5-point edge is below the 12.0-point save threshold.",
-        "replacement_squad_player_ids": [
-          4,
-          82,
-          106,
-          109,
-          165,
-          200,
-          388,
-          426,
-          427,
-          445,
-          469,
-          480,
-          481,
-          544,
-          651
-        ],
-        "transfers_in_rebuild": 7,
-        "squad_cost": 99.5,
-        "permanent_squad_change": true
-      },
-      {
-        "chip": "wildcard",
-        "chip_name": "Wildcard",
-        "gameweek": 3,
-        "route_index": 2,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 7.231,
-        "discounted_incremental_points": 7.231,
-        "status": "hold",
-        "reason": "The 7.2-point edge is below the 12.0-point save threshold.",
+        "reason": "The 6.6-point edge is below the 12.0-point save threshold.",
         "replacement_squad_player_ids": [
           4,
           82,
@@ -5708,8 +5729,8 @@
         "permanent_squad_change": true
       },
       {
-        "chip": "wildcard",
-        "chip_name": "Wildcard",
+        "chip": "freehit",
+        "chip_name": "Free Hit",
         "gameweek": 3,
         "route_index": 1,
         "event_structure": {
@@ -5719,17 +5740,18 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 6.072,
-        "discounted_incremental_points": 6.072,
+        "incremental_expected_points": 6.074,
+        "discounted_incremental_points": 6.074,
         "status": "hold",
-        "reason": "The 6.1-point edge is below the 12.0-point save threshold.",
-        "replacement_squad_player_ids": [
-          4,
+        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
+        "temporary_squad_player_ids": [
           82,
+          84,
           106,
           109,
           165,
-          200,
+          346,
+          387,
           388,
           426,
           427,
@@ -5737,12 +5759,174 @@
           469,
           480,
           481,
-          544,
-          651
+          544
         ],
-        "transfers_in_rebuild": 7,
-        "squad_cost": 99.5,
-        "permanent_squad_change": true
+        "starter_player_ids": [
+          82,
+          388,
+          387,
+          469,
+          426,
+          427,
+          106,
+          480,
+          84,
+          481,
+          165
+        ],
+        "captain_player_id": 426,
+        "squad_cost": 99.0,
+        "squad_reverts_after_gameweek": true
+      },
+      {
+        "chip": "freehit",
+        "chip_name": "Free Hit",
+        "gameweek": 3,
+        "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 6.074,
+        "discounted_incremental_points": 6.074,
+        "status": "hold",
+        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
+        "temporary_squad_player_ids": [
+          82,
+          84,
+          106,
+          109,
+          165,
+          346,
+          387,
+          388,
+          426,
+          427,
+          445,
+          469,
+          480,
+          481,
+          544
+        ],
+        "starter_player_ids": [
+          82,
+          388,
+          387,
+          469,
+          426,
+          427,
+          106,
+          480,
+          84,
+          481,
+          165
+        ],
+        "captain_player_id": 426,
+        "squad_cost": 99.0,
+        "squad_reverts_after_gameweek": true
+      },
+      {
+        "chip": "freehit",
+        "chip_name": "Free Hit",
+        "gameweek": 3,
+        "route_index": 2,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 5.879,
+        "discounted_incremental_points": 5.879,
+        "status": "hold",
+        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
+        "temporary_squad_player_ids": [
+          82,
+          84,
+          106,
+          109,
+          165,
+          346,
+          387,
+          388,
+          426,
+          427,
+          445,
+          469,
+          480,
+          481,
+          544
+        ],
+        "starter_player_ids": [
+          82,
+          388,
+          387,
+          469,
+          426,
+          427,
+          106,
+          480,
+          84,
+          481,
+          165
+        ],
+        "captain_player_id": 426,
+        "squad_cost": 99.0,
+        "squad_reverts_after_gameweek": true
+      },
+      {
+        "chip": "freehit",
+        "chip_name": "Free Hit",
+        "gameweek": 3,
+        "route_index": 4,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 5.879,
+        "discounted_incremental_points": 5.879,
+        "status": "hold",
+        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
+        "temporary_squad_player_ids": [
+          82,
+          84,
+          106,
+          109,
+          165,
+          346,
+          387,
+          388,
+          426,
+          427,
+          445,
+          469,
+          480,
+          481,
+          544
+        ],
+        "starter_player_ids": [
+          82,
+          388,
+          387,
+          469,
+          426,
+          427,
+          106,
+          480,
+          84,
+          481,
+          165
+        ],
+        "captain_player_id": 426,
+        "squad_cost": 99.0,
+        "squad_reverts_after_gameweek": true
       },
       {
         "chip": "3xc",
@@ -5836,56 +6020,6 @@
         "captain_player_id": 426
       },
       {
-        "chip": "freehit",
-        "chip_name": "Free Hit",
-        "gameweek": 3,
-        "route_index": 1,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 5.524,
-        "discounted_incremental_points": 5.524,
-        "status": "hold",
-        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
-        "temporary_squad_player_ids": [
-          82,
-          84,
-          106,
-          109,
-          165,
-          346,
-          387,
-          388,
-          426,
-          427,
-          445,
-          469,
-          480,
-          481,
-          544
-        ],
-        "starter_player_ids": [
-          82,
-          388,
-          387,
-          469,
-          426,
-          427,
-          106,
-          480,
-          84,
-          481,
-          165
-        ],
-        "captain_player_id": 426,
-        "squad_cost": 99.0,
-        "squad_reverts_after_gameweek": true
-      },
-      {
         "chip": "3xc",
         "chip_name": "Triple Captain",
         "gameweek": 5,
@@ -5974,156 +6108,6 @@
         "status": "hold",
         "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
         "captain_player_id": 426
-      },
-      {
-        "chip": "freehit",
-        "chip_name": "Free Hit",
-        "gameweek": 3,
-        "route_index": 2,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 5.238,
-        "discounted_incremental_points": 5.238,
-        "status": "hold",
-        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
-        "temporary_squad_player_ids": [
-          82,
-          84,
-          106,
-          109,
-          165,
-          346,
-          387,
-          388,
-          426,
-          427,
-          445,
-          469,
-          480,
-          481,
-          544
-        ],
-        "starter_player_ids": [
-          82,
-          388,
-          387,
-          469,
-          426,
-          427,
-          106,
-          480,
-          84,
-          481,
-          165
-        ],
-        "captain_player_id": 426,
-        "squad_cost": 99.0,
-        "squad_reverts_after_gameweek": true
-      },
-      {
-        "chip": "freehit",
-        "chip_name": "Free Hit",
-        "gameweek": 3,
-        "route_index": 3,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 5.238,
-        "discounted_incremental_points": 5.238,
-        "status": "hold",
-        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
-        "temporary_squad_player_ids": [
-          82,
-          84,
-          106,
-          109,
-          165,
-          346,
-          387,
-          388,
-          426,
-          427,
-          445,
-          469,
-          480,
-          481,
-          544
-        ],
-        "starter_player_ids": [
-          82,
-          388,
-          387,
-          469,
-          426,
-          427,
-          106,
-          480,
-          84,
-          481,
-          165
-        ],
-        "captain_player_id": 426,
-        "squad_cost": 99.0,
-        "squad_reverts_after_gameweek": true
-      },
-      {
-        "chip": "freehit",
-        "chip_name": "Free Hit",
-        "gameweek": 3,
-        "route_index": 4,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 5.238,
-        "discounted_incremental_points": 5.238,
-        "status": "hold",
-        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
-        "temporary_squad_player_ids": [
-          82,
-          84,
-          106,
-          109,
-          165,
-          346,
-          387,
-          388,
-          426,
-          427,
-          445,
-          469,
-          480,
-          481,
-          544
-        ],
-        "starter_player_ids": [
-          82,
-          388,
-          387,
-          469,
-          426,
-          427,
-          106,
-          480,
-          84,
-          481,
-          165
-        ],
-        "captain_player_id": 426,
-        "squad_cost": 99.0,
-        "squad_reverts_after_gameweek": true
       },
       {
         "chip": "3xc",
@@ -6673,6 +6657,43 @@
         "squad_reverts_after_gameweek": true
       },
       {
+        "chip": "wildcard",
+        "chip_name": "Wildcard",
+        "gameweek": 5,
+        "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 2.671,
+        "discounted_incremental_points": 2.461,
+        "status": "hold",
+        "reason": "The 2.7-point edge is below the 12.0-point save threshold.",
+        "replacement_squad_player_ids": [
+          4,
+          82,
+          165,
+          200,
+          249,
+          346,
+          388,
+          426,
+          427,
+          445,
+          467,
+          469,
+          480,
+          481,
+          542
+        ],
+        "transfers_in_rebuild": 5,
+        "squad_cost": 99.4,
+        "permanent_squad_change": true
+      },
+      {
         "chip": "freehit",
         "chip_name": "Free Hit",
         "gameweek": 6,
@@ -6773,10 +6794,10 @@
         "squad_reverts_after_gameweek": true
       },
       {
-        "chip": "freehit",
-        "chip_name": "Free Hit",
-        "gameweek": 4,
-        "route_index": 2,
+        "chip": "wildcard",
+        "chip_name": "Wildcard",
+        "gameweek": 7,
+        "route_index": 3,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -6784,49 +6805,73 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 2.136,
-        "discounted_incremental_points": 2.051,
+        "incremental_expected_points": 2.62,
+        "discounted_incremental_points": 2.226,
         "status": "hold",
-        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
-        "temporary_squad_player_ids": [
-          1,
+        "reason": "The 2.6-point edge is below the 12.0-point save threshold.",
+        "replacement_squad_player_ids": [
           4,
-          109,
+          82,
+          106,
           165,
           200,
-          229,
-          346,
-          356,
+          250,
+          388,
           426,
           427,
+          445,
           469,
           480,
-          542,
+          481,
           544,
           651
         ],
-        "starter_player_ids": [
-          1,
-          200,
+        "transfers_in_rebuild": 6,
+        "squad_cost": 99.5,
+        "permanent_squad_change": true
+      },
+      {
+        "chip": "wildcard",
+        "chip_name": "Wildcard",
+        "gameweek": 6,
+        "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 2.371,
+        "discounted_incremental_points": 2.098,
+        "status": "hold",
+        "reason": "The 2.4-point edge is below the 12.0-point save threshold.",
+        "replacement_squad_player_ids": [
           4,
-          229,
+          82,
+          84,
+          165,
+          200,
+          249,
+          346,
+          388,
+          412,
           426,
           427,
-          165,
+          445,
           480,
-          346,
-          356,
-          469
+          481,
+          544
         ],
-        "captain_player_id": 426,
+        "transfers_in_rebuild": 5,
         "squad_cost": 99.5,
-        "squad_reverts_after_gameweek": true
+        "permanent_squad_change": true
       },
       {
         "chip": "freehit",
         "chip_name": "Free Hit",
         "gameweek": 4,
-        "route_index": 3,
+        "route_index": 2,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -6921,6 +6966,43 @@
         "captain_player_id": 426,
         "squad_cost": 99.5,
         "squad_reverts_after_gameweek": true
+      },
+      {
+        "chip": "wildcard",
+        "chip_name": "Wildcard",
+        "gameweek": 4,
+        "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 1.851,
+        "discounted_incremental_points": 1.777,
+        "status": "hold",
+        "reason": "The 1.9-point edge is below the 12.0-point save threshold.",
+        "replacement_squad_player_ids": [
+          4,
+          82,
+          165,
+          200,
+          229,
+          249,
+          388,
+          426,
+          427,
+          467,
+          469,
+          480,
+          481,
+          544,
+          640
+        ],
+        "transfers_in_rebuild": 6,
+        "squad_cost": 99.5,
+        "permanent_squad_change": true
       },
       {
         "chip": "freehit",
@@ -6973,10 +7055,110 @@
         "squad_reverts_after_gameweek": true
       },
       {
+        "chip": "freehit",
+        "chip_name": "Free Hit",
+        "gameweek": 4,
+        "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 1.754,
+        "discounted_incremental_points": 1.683,
+        "status": "hold",
+        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
+        "temporary_squad_player_ids": [
+          1,
+          4,
+          109,
+          165,
+          200,
+          229,
+          346,
+          356,
+          426,
+          427,
+          469,
+          480,
+          542,
+          544,
+          651
+        ],
+        "starter_player_ids": [
+          1,
+          200,
+          4,
+          229,
+          426,
+          427,
+          165,
+          480,
+          346,
+          356,
+          469
+        ],
+        "captain_player_id": 426,
+        "squad_cost": 99.5,
+        "squad_reverts_after_gameweek": true
+      },
+      {
+        "chip": "freehit",
+        "chip_name": "Free Hit",
+        "gameweek": 5,
+        "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 1.767,
+        "discounted_incremental_points": 1.629,
+        "status": "hold",
+        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
+        "temporary_squad_player_ids": [
+          106,
+          165,
+          198,
+          346,
+          387,
+          388,
+          426,
+          427,
+          445,
+          449,
+          467,
+          469,
+          480,
+          481,
+          544
+        ],
+        "starter_player_ids": [
+          467,
+          388,
+          469,
+          387,
+          426,
+          427,
+          165,
+          480,
+          106,
+          481,
+          445
+        ],
+        "captain_player_id": 426,
+        "squad_cost": 99.1,
+        "squad_reverts_after_gameweek": true
+      },
+      {
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 7,
-        "route_index": 3,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7013,7 +7195,7 @@
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 6,
-        "route_index": 3,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7047,10 +7229,10 @@
         "permanent_squad_change": true
       },
       {
-        "chip": "wildcard",
-        "chip_name": "Wildcard",
-        "gameweek": 7,
-        "route_index": 4,
+        "chip": "freehit",
+        "chip_name": "Free Hit",
+        "gameweek": 8,
+        "route_index": 3,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7058,28 +7240,78 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 1.587,
-        "discounted_incremental_points": 1.348,
+        "incremental_expected_points": 1.753,
+        "discounted_incremental_points": 1.429,
         "status": "hold",
-        "reason": "The 1.6-point edge is below the 12.0-point save threshold.",
-        "replacement_squad_player_ids": [
+        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
+        "temporary_squad_player_ids": [
           4,
           82,
+          84,
           106,
           165,
           200,
-          250,
+          204,
+          321,
           388,
           426,
           427,
-          445,
-          469,
           480,
-          481,
-          544,
-          651
+          529,
+          542,
+          544
         ],
-        "transfers_in_rebuild": 6,
+        "starter_player_ids": [
+          82,
+          388,
+          4,
+          200,
+          426,
+          427,
+          106,
+          165,
+          480,
+          84,
+          544
+        ],
+        "captain_player_id": 426,
+        "squad_cost": 99.5,
+        "squad_reverts_after_gameweek": true
+      },
+      {
+        "chip": "wildcard",
+        "chip_name": "Wildcard",
+        "gameweek": 8,
+        "route_index": 3,
+        "event_structure": {
+          "type": "normal",
+          "blank_team_ids": [],
+          "double_team_ids": [],
+          "blank_team_count": 0,
+          "double_team_count": 0
+        },
+        "incremental_expected_points": 1.753,
+        "discounted_incremental_points": 1.429,
+        "status": "hold",
+        "reason": "The 1.8-point edge is below the 12.0-point save threshold.",
+        "replacement_squad_player_ids": [
+          4,
+          82,
+          84,
+          106,
+          165,
+          200,
+          204,
+          321,
+          388,
+          426,
+          427,
+          480,
+          529,
+          542,
+          544
+        ],
+        "transfers_in_rebuild": 7,
         "squad_cost": 99.5,
         "permanent_squad_change": true
       },
@@ -7134,134 +7366,10 @@
         "squad_reverts_after_gameweek": true
       },
       {
-        "chip": "freehit",
-        "chip_name": "Free Hit",
-        "gameweek": 5,
-        "route_index": 4,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 1.363,
-        "discounted_incremental_points": 1.257,
-        "status": "hold",
-        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
-        "temporary_squad_player_ids": [
-          106,
-          165,
-          198,
-          346,
-          387,
-          388,
-          426,
-          427,
-          445,
-          449,
-          467,
-          469,
-          480,
-          481,
-          544
-        ],
-        "starter_player_ids": [
-          467,
-          388,
-          469,
-          387,
-          426,
-          427,
-          165,
-          480,
-          106,
-          481,
-          445
-        ],
-        "captain_player_id": 426,
-        "squad_cost": 99.1,
-        "squad_reverts_after_gameweek": true
-      },
-      {
-        "chip": "wildcard",
-        "chip_name": "Wildcard",
-        "gameweek": 6,
-        "route_index": 4,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 1.372,
-        "discounted_incremental_points": 1.214,
-        "status": "hold",
-        "reason": "The 1.4-point edge is below the 12.0-point save threshold.",
-        "replacement_squad_player_ids": [
-          4,
-          82,
-          84,
-          165,
-          200,
-          249,
-          346,
-          388,
-          412,
-          426,
-          427,
-          445,
-          480,
-          481,
-          544
-        ],
-        "transfers_in_rebuild": 5,
-        "squad_cost": 99.5,
-        "permanent_squad_change": true
-      },
-      {
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 5,
         "route_index": 4,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 1.307,
-        "discounted_incremental_points": 1.205,
-        "status": "hold",
-        "reason": "The 1.3-point edge is below the 12.0-point save threshold.",
-        "replacement_squad_player_ids": [
-          4,
-          82,
-          165,
-          200,
-          249,
-          346,
-          388,
-          426,
-          427,
-          445,
-          467,
-          469,
-          480,
-          481,
-          542
-        ],
-        "transfers_in_rebuild": 5,
-        "squad_cost": 99.4,
-        "permanent_squad_change": true
-      },
-      {
-        "chip": "wildcard",
-        "chip_name": "Wildcard",
-        "gameweek": 5,
-        "route_index": 3,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7335,7 +7443,7 @@
         "chip": "freehit",
         "chip_name": "Free Hit",
         "gameweek": 6,
-        "route_index": 3,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7385,7 +7493,7 @@
         "chip": "freehit",
         "chip_name": "Free Hit",
         "gameweek": 6,
-        "route_index": 4,
+        "route_index": 3,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7393,8 +7501,8 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 1.195,
-        "discounted_incremental_points": 1.057,
+        "incremental_expected_points": 1.202,
+        "discounted_incremental_points": 1.063,
         "status": "hold",
         "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
         "temporary_squad_player_ids": [
@@ -7609,7 +7717,7 @@
         "chip": "freehit",
         "chip_name": "Free Hit",
         "gameweek": 8,
-        "route_index": 3,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7659,7 +7767,7 @@
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 8,
-        "route_index": 3,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7693,47 +7801,10 @@
         "permanent_squad_change": true
       },
       {
-        "chip": "wildcard",
-        "chip_name": "Wildcard",
-        "gameweek": 4,
-        "route_index": 4,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 0.926,
-        "discounted_incremental_points": 0.889,
-        "status": "hold",
-        "reason": "The 0.9-point edge is below the 12.0-point save threshold.",
-        "replacement_squad_player_ids": [
-          4,
-          82,
-          165,
-          200,
-          229,
-          249,
-          388,
-          426,
-          427,
-          467,
-          469,
-          480,
-          481,
-          544,
-          640
-        ],
-        "transfers_in_rebuild": 7,
-        "squad_cost": 99.5,
-        "permanent_squad_change": true
-      },
-      {
         "chip": "freehit",
         "chip_name": "Free Hit",
         "gameweek": 5,
-        "route_index": 3,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7783,7 +7854,7 @@
         "chip": "wildcard",
         "chip_name": "Wildcard",
         "gameweek": 4,
-        "route_index": 3,
+        "route_index": 4,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7943,8 +8014,8 @@
       {
         "chip": "freehit",
         "chip_name": "Free Hit",
-        "gameweek": 8,
-        "route_index": 4,
+        "gameweek": 7,
+        "route_index": 3,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -7952,80 +8023,43 @@
           "blank_team_count": 0,
           "double_team_count": 0
         },
-        "incremental_expected_points": 0.864,
-        "discounted_incremental_points": 0.704,
+        "incremental_expected_points": 0.817,
+        "discounted_incremental_points": 0.694,
         "status": "hold",
         "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
         "temporary_squad_player_ids": [
+          1,
           4,
           82,
-          84,
-          106,
+          112,
           165,
-          200,
-          204,
-          321,
+          249,
           388,
           426,
           427,
+          445,
           480,
-          529,
-          542,
+          481,
+          491,
+          498,
           544
         ],
         "starter_player_ids": [
-          82,
+          1,
           388,
           4,
-          200,
+          445,
           426,
           427,
-          106,
           165,
           480,
-          84,
-          544
+          481,
+          112,
+          498
         ],
         "captain_player_id": 426,
-        "squad_cost": 99.5,
+        "squad_cost": 99.7,
         "squad_reverts_after_gameweek": true
-      },
-      {
-        "chip": "wildcard",
-        "chip_name": "Wildcard",
-        "gameweek": 8,
-        "route_index": 4,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 0.864,
-        "discounted_incremental_points": 0.704,
-        "status": "hold",
-        "reason": "The 0.9-point edge is below the 12.0-point save threshold.",
-        "replacement_squad_player_ids": [
-          4,
-          82,
-          84,
-          106,
-          165,
-          200,
-          204,
-          321,
-          388,
-          426,
-          427,
-          480,
-          529,
-          542,
-          544
-        ],
-        "transfers_in_rebuild": 7,
-        "squad_cost": 99.5,
-        "permanent_squad_change": true
       },
       {
         "chip": "wildcard",
@@ -8069,56 +8103,6 @@
         "chip_name": "Free Hit",
         "gameweek": 7,
         "route_index": 2,
-        "event_structure": {
-          "type": "normal",
-          "blank_team_ids": [],
-          "double_team_ids": [],
-          "blank_team_count": 0,
-          "double_team_count": 0
-        },
-        "incremental_expected_points": 0.637,
-        "discounted_incremental_points": 0.541,
-        "status": "hold",
-        "reason": "No confirmed Blank or Double Gameweek structure supports using this chip.",
-        "temporary_squad_player_ids": [
-          1,
-          4,
-          82,
-          112,
-          165,
-          249,
-          388,
-          426,
-          427,
-          445,
-          480,
-          481,
-          491,
-          498,
-          544
-        ],
-        "starter_player_ids": [
-          1,
-          388,
-          4,
-          445,
-          426,
-          427,
-          165,
-          480,
-          481,
-          112,
-          498
-        ],
-        "captain_player_id": 426,
-        "squad_cost": 99.7,
-        "squad_reverts_after_gameweek": true
-      },
-      {
-        "chip": "freehit",
-        "chip_name": "Free Hit",
-        "gameweek": 7,
-        "route_index": 3,
         "event_structure": {
           "type": "normal",
           "blank_team_ids": [],
@@ -8600,16 +8584,16 @@
       "team_name": "Man City",
       "position": "Midfielder",
       "price": 7.0,
-      "ownership_percent": 5.5,
+      "ownership_percent": 5.8,
       "expected_points_next_3": 10.953,
       "points_p90_next_1": 7.800000000000001,
       "probability_10_plus_next_1": 0.0417,
       "probability_15_plus_next_1": 0.005,
       "model_expected_points": 3.939,
-      "context_multiplier": 1.1464,
-      "decision_expected_points": 4.516,
-      "market_adjustment_points": 0.577,
-      "external_upside_score": 0.3933,
+      "context_multiplier": 1.1153,
+      "decision_expected_points": 4.393,
+      "market_adjustment_points": 0.454,
+      "external_upside_score": 0.3098,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -8630,18 +8614,18 @@
         {
           "fixture_id": 26,
           "model_expected_points": 3.9393,
-          "decision_expected_points": 4.5161,
-          "context_multiplier": 1.1464,
-          "market_adjustment_points": 0.5768,
+          "decision_expected_points": 4.3936,
+          "context_multiplier": 1.1153,
+          "market_adjustment_points": 0.4543,
           "market_adjustment_components": {
-            "team_attack_market": 0.5776,
-            "clean_sheet_market": -0.0008
+            "team_attack_market": 0.4549,
+            "clean_sheet_market": -0.0006
           },
           "model_team_expected_goals": 1.9393,
           "market_team_expected_goals": 2.953,
           "model_clean_sheet_probability": 0.4797,
-          "decision_clean_sheet_probability": 0.4785,
-          "external_upside_score": 0.3933,
+          "decision_clean_sheet_probability": 0.4788,
+          "external_upside_score": 0.3098,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -8660,13 +8644,13 @@
           ]
         }
       ],
-      "selection_expected_points": 4.361,
+      "selection_expected_points": 4.238,
       "selection_risk_penalty": 0.155,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.155,
       "observed_usage_rate": 0.9825,
-      "captain_score": 4.8895,
+      "captain_score": 4.7849,
       "selection_risk_reasons": [
         "control/component disagreement 0.62 points"
       ]
@@ -8678,16 +8662,16 @@
       "team_name": "Nott'm Forest",
       "position": "Midfielder",
       "price": 7.9,
-      "ownership_percent": 9.7,
+      "ownership_percent": 9.8,
       "expected_points_next_3": 13.427,
       "points_p90_next_1": 8.0,
       "probability_10_plus_next_1": 0.06,
       "probability_15_plus_next_1": 0.0033,
       "model_expected_points": 4.526,
-      "context_multiplier": 0.9415,
-      "decision_expected_points": 4.261,
-      "market_adjustment_points": -0.265,
-      "external_upside_score": 0.2797,
+      "context_multiplier": 0.9539,
+      "decision_expected_points": 4.317,
+      "market_adjustment_points": -0.209,
+      "external_upside_score": 0.2203,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-a6f2622727548c33369cc15c88b2aabd-18-20260904T044238Z",
@@ -8708,18 +8692,18 @@
         {
           "fixture_id": 28,
           "model_expected_points": 4.5257,
-          "decision_expected_points": 4.2608,
-          "context_multiplier": 0.9415,
-          "market_adjustment_points": -0.2649,
+          "decision_expected_points": 4.317,
+          "context_multiplier": 0.9539,
+          "market_adjustment_points": -0.2087,
           "market_adjustment_components": {
-            "team_attack_market": -0.2301,
-            "clean_sheet_market": -0.0348
+            "team_attack_market": -0.1812,
+            "clean_sheet_market": -0.0274
           },
           "model_team_expected_goals": 1.7277,
           "market_team_expected_goals": 1.3839,
           "model_clean_sheet_probability": 0.3664,
-          "decision_clean_sheet_probability": 0.314,
-          "external_upside_score": 0.2797,
+          "decision_clean_sheet_probability": 0.3251,
+          "external_upside_score": 0.2203,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-a6f2622727548c33369cc15c88b2aabd-18-20260904T044238Z",
@@ -8738,13 +8722,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.853,
+      "selection_expected_points": 3.909,
       "selection_risk_penalty": 0.408,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.408,
       "observed_usage_rate": 1.0,
-      "captain_score": 4.464,
+      "captain_score": 4.5116,
       "selection_risk_reasons": [
         "control/component disagreement 1.63 points"
       ]
@@ -8756,16 +8740,16 @@
       "team_name": "Brentford",
       "position": "Defender",
       "price": 5.5,
-      "ownership_percent": 2.3,
+      "ownership_percent": 2.4,
       "expected_points_next_3": 10.809,
       "points_p90_next_1": 7.4,
       "probability_10_plus_next_1": 0.0333,
       "probability_15_plus_next_1": 0.0017,
       "model_expected_points": 3.969,
-      "context_multiplier": 1.019,
-      "decision_expected_points": 4.045,
-      "market_adjustment_points": 0.076,
-      "external_upside_score": 0.3343,
+      "context_multiplier": 1.015,
+      "decision_expected_points": 4.029,
+      "market_adjustment_points": 0.06,
+      "external_upside_score": 0.2633,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -8786,19 +8770,19 @@
         {
           "fixture_id": 22,
           "model_expected_points": 3.9693,
-          "decision_expected_points": 4.0449,
-          "context_multiplier": 1.019,
-          "market_adjustment_points": 0.0756,
+          "decision_expected_points": 4.029,
+          "context_multiplier": 1.015,
+          "market_adjustment_points": 0.0597,
           "market_adjustment_components": {
-            "team_attack_market": -0.0135,
-            "clean_sheet_market": 0.0611,
-            "goals_conceded_market": 0.028
+            "team_attack_market": -0.0107,
+            "clean_sheet_market": 0.0481,
+            "goals_conceded_market": 0.0222
           },
           "model_team_expected_goals": 1.8624,
           "market_team_expected_goals": 1.8117,
           "model_clean_sheet_probability": 0.3572,
-          "decision_clean_sheet_probability": 0.3811,
-          "external_upside_score": 0.3343,
+          "decision_clean_sheet_probability": 0.376,
+          "external_upside_score": 0.2633,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -8817,13 +8801,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.79,
+      "selection_expected_points": 3.774,
       "selection_risk_penalty": 0.255,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.255,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.9707,
+      "captain_score": 3.9571,
       "selection_risk_reasons": [
         "control/component disagreement 1.02 points"
       ]
@@ -8835,16 +8819,16 @@
       "team_name": "Brentford",
       "position": "Defender",
       "price": 4.6,
-      "ownership_percent": 9.6,
+      "ownership_percent": 9.7,
       "expected_points_next_3": 10.314,
       "points_p90_next_1": 7.200000000000001,
       "probability_10_plus_next_1": 0.0283,
       "probability_15_plus_next_1": 0.0033,
       "model_expected_points": 3.959,
-      "context_multiplier": 1.0218,
-      "decision_expected_points": 4.045,
-      "market_adjustment_points": 0.086,
-      "external_upside_score": 0.3343,
+      "context_multiplier": 1.0172,
+      "decision_expected_points": 4.027,
+      "market_adjustment_points": 0.068,
+      "external_upside_score": 0.2633,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -8865,19 +8849,19 @@
         {
           "fixture_id": 22,
           "model_expected_points": 3.9593,
-          "decision_expected_points": 4.0455,
-          "context_multiplier": 1.0218,
-          "market_adjustment_points": 0.0862,
+          "decision_expected_points": 4.0274,
+          "context_multiplier": 1.0172,
+          "market_adjustment_points": 0.0681,
           "market_adjustment_components": {
-            "team_attack_market": -0.0141,
-            "clean_sheet_market": 0.0723,
-            "goals_conceded_market": 0.028
+            "team_attack_market": -0.0111,
+            "clean_sheet_market": 0.0569,
+            "goals_conceded_market": 0.0222
           },
           "model_team_expected_goals": 1.8624,
           "market_team_expected_goals": 1.8117,
           "model_clean_sheet_probability": 0.3572,
-          "decision_clean_sheet_probability": 0.3811,
-          "external_upside_score": 0.3343,
+          "decision_clean_sheet_probability": 0.376,
+          "external_upside_score": 0.2633,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -8896,13 +8880,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.744,
+      "selection_expected_points": 3.726,
       "selection_risk_penalty": 0.301,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.301,
       "observed_usage_rate": 0.965,
-      "captain_score": 3.8918,
+      "captain_score": 3.8765,
       "selection_risk_reasons": [
         "control/component disagreement 1.20 points"
       ]
@@ -8914,16 +8898,16 @@
       "team_name": "Brentford",
       "position": "Midfielder",
       "price": 6.0,
-      "ownership_percent": 4.2,
+      "ownership_percent": 4.3,
       "expected_points_next_3": 11.124,
       "points_p90_next_1": 7.6000000000000005,
       "probability_10_plus_next_1": 0.0383,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.955,
-      "context_multiplier": 0.9955,
-      "decision_expected_points": 3.937,
-      "market_adjustment_points": -0.018,
-      "external_upside_score": 0.3343,
+      "context_multiplier": 0.9965,
+      "decision_expected_points": 3.941,
+      "market_adjustment_points": -0.014,
+      "external_upside_score": 0.2633,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -8944,18 +8928,18 @@
         {
           "fixture_id": 22,
           "model_expected_points": 3.9547,
-          "decision_expected_points": 3.9371,
-          "context_multiplier": 0.9955,
-          "market_adjustment_points": -0.0176,
+          "decision_expected_points": 3.9408,
+          "context_multiplier": 0.9965,
+          "market_adjustment_points": -0.0139,
           "market_adjustment_components": {
-            "team_attack_market": -0.0341,
-            "clean_sheet_market": 0.0165
+            "team_attack_market": -0.0269,
+            "clean_sheet_market": 0.013
           },
           "model_team_expected_goals": 1.8624,
           "market_team_expected_goals": 1.8117,
           "model_clean_sheet_probability": 0.3572,
-          "decision_clean_sheet_probability": 0.3811,
-          "external_upside_score": 0.3343,
+          "decision_clean_sheet_probability": 0.376,
+          "external_upside_score": 0.2633,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-29f81160baf6a97d6391d7172fad2425-4-20260904T044238Z",
@@ -8974,13 +8958,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.691,
+      "selection_expected_points": 3.695,
       "selection_risk_penalty": 0.246,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.246,
       "observed_usage_rate": 0.9942,
-      "captain_score": 4.2708,
+      "captain_score": 4.2742,
       "selection_risk_reasons": [
         "control/component disagreement 0.99 points"
       ]
@@ -8992,16 +8976,16 @@
       "team_name": "Liverpool",
       "position": "Midfielder",
       "price": 7.1,
-      "ownership_percent": 8.5,
+      "ownership_percent": 8.6,
       "expected_points_next_3": 10.952,
       "points_p90_next_1": 6.800000000000001,
       "probability_10_plus_next_1": 0.02,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.687,
-      "context_multiplier": 1.0555,
-      "decision_expected_points": 3.891,
-      "market_adjustment_points": 0.204,
-      "external_upside_score": 0.3417,
+      "context_multiplier": 1.0437,
+      "decision_expected_points": 3.848,
+      "market_adjustment_points": 0.161,
+      "external_upside_score": 0.2691,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-625c096fabb6047cbeb082dab9affce4-14-20260904T044238Z",
@@ -9022,18 +9006,18 @@
         {
           "fixture_id": 21,
           "model_expected_points": 3.6873,
-          "decision_expected_points": 3.8918,
-          "context_multiplier": 1.0555,
-          "market_adjustment_points": 0.2045,
+          "decision_expected_points": 3.8483,
+          "context_multiplier": 1.0437,
+          "market_adjustment_points": 0.161,
           "market_adjustment_components": {
-            "team_attack_market": 0.1368,
-            "clean_sheet_market": 0.0677
+            "team_attack_market": 0.1077,
+            "clean_sheet_market": 0.0533
           },
           "model_team_expected_goals": 2.0867,
           "market_team_expected_goals": 2.3627,
           "model_clean_sheet_probability": 0.1921,
-          "decision_clean_sheet_probability": 0.2828,
-          "external_upside_score": 0.3417,
+          "decision_clean_sheet_probability": 0.2636,
+          "external_upside_score": 0.2691,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-625c096fabb6047cbeb082dab9affce4-14-20260904T044238Z",
@@ -9052,13 +9036,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.602,
+      "selection_expected_points": 3.559,
       "selection_risk_penalty": 0.289,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.289,
       "observed_usage_rate": 0.9611,
-      "captain_score": 4.0546,
+      "captain_score": 4.018,
       "selection_risk_reasons": [
         "control/component disagreement 1.16 points"
       ]
@@ -9076,10 +9060,10 @@
       "probability_10_plus_next_1": 0.0267,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 4.065,
-      "context_multiplier": 0.9295,
-      "decision_expected_points": 3.779,
-      "market_adjustment_points": -0.286,
-      "external_upside_score": 0.2797,
+      "context_multiplier": 0.9448,
+      "decision_expected_points": 3.841,
+      "market_adjustment_points": -0.225,
+      "external_upside_score": 0.2203,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-a6f2622727548c33369cc15c88b2aabd-18-20260904T044238Z",
@@ -9100,19 +9084,19 @@
         {
           "fixture_id": 28,
           "model_expected_points": 4.0653,
-          "decision_expected_points": 3.7789,
-          "context_multiplier": 0.9295,
-          "market_adjustment_points": -0.2864,
+          "decision_expected_points": 3.8408,
+          "context_multiplier": 0.9448,
+          "market_adjustment_points": -0.2245,
           "market_adjustment_components": {
-            "team_attack_market": -0.0789,
-            "clean_sheet_market": -0.1392,
-            "goals_conceded_market": -0.0683
+            "team_attack_market": -0.0621,
+            "clean_sheet_market": -0.1097,
+            "goals_conceded_market": -0.0526
           },
           "model_team_expected_goals": 1.7277,
           "market_team_expected_goals": 1.3839,
           "model_clean_sheet_probability": 0.3664,
-          "decision_clean_sheet_probability": 0.314,
-          "external_upside_score": 0.2797,
+          "decision_clean_sheet_probability": 0.3251,
+          "external_upside_score": 0.2203,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-a6f2622727548c33369cc15c88b2aabd-18-20260904T044238Z",
@@ -9131,13 +9115,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.411,
+      "selection_expected_points": 3.473,
       "selection_risk_penalty": 0.368,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.368,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.5653,
+      "captain_score": 3.618,
       "selection_risk_reasons": [
         "control/component disagreement 1.47 points"
       ]
@@ -9155,10 +9139,10 @@
       "probability_10_plus_next_1": 0.03,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.83,
-      "context_multiplier": 0.9806,
-      "decision_expected_points": 3.756,
-      "market_adjustment_points": -0.074,
-      "external_upside_score": 0.2509,
+      "context_multiplier": 0.9847,
+      "decision_expected_points": 3.772,
+      "market_adjustment_points": -0.059,
+      "external_upside_score": 0.1977,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-686358c484cc44fe8e617674c335d531-3-20260904T044238Z",
@@ -9179,18 +9163,18 @@
         {
           "fixture_id": 27,
           "model_expected_points": 3.8303,
-          "decision_expected_points": 3.7561,
-          "context_multiplier": 0.9806,
-          "market_adjustment_points": -0.0742,
+          "decision_expected_points": 3.7718,
+          "context_multiplier": 0.9847,
+          "market_adjustment_points": -0.0585,
           "market_adjustment_components": {
-            "team_attack_market": -0.0538,
-            "clean_sheet_market": -0.0204
+            "team_attack_market": -0.0424,
+            "clean_sheet_market": -0.016
           },
           "model_team_expected_goals": 1.4705,
           "market_team_expected_goals": 1.3872,
           "model_clean_sheet_probability": 0.2163,
-          "decision_clean_sheet_probability": 0.1896,
-          "external_upside_score": 0.2509,
+          "decision_clean_sheet_probability": 0.1953,
+          "external_upside_score": 0.1977,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-686358c484cc44fe8e617674c335d531-3-20260904T044238Z",
@@ -9209,94 +9193,15 @@
           ]
         }
       ],
-      "selection_expected_points": 3.4,
+      "selection_expected_points": 3.416,
       "selection_risk_penalty": 0.356,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.356,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.9408,
+      "captain_score": 3.9544,
       "selection_risk_reasons": [
         "control/component disagreement 1.42 points"
-      ]
-    },
-    {
-      "player_id": 390,
-      "web_name": "R\u00faben",
-      "team_id": 15,
-      "team_name": "Man City",
-      "position": "Defender",
-      "price": 5.5,
-      "ownership_percent": 1.8,
-      "expected_points_next_3": 8.875,
-      "points_p90_next_1": 6.800000000000001,
-      "probability_10_plus_next_1": 0.01,
-      "probability_15_plus_next_1": 0.0017,
-      "model_expected_points": 3.584,
-      "context_multiplier": 1.0374,
-      "decision_expected_points": 3.718,
-      "market_adjustment_points": 0.134,
-      "external_upside_score": 0.3933,
-      "context_signal_count": 4,
-      "context_signal_ids": [
-        "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
-        "odds-api-team_score_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
-        "odds-api-clean_sheet_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
-        "odds-api-team_expected_goals-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z"
-      ],
-      "context_source_ids": [
-        "odds_api_market"
-      ],
-      "context_reasons": [
-        "team expected goals 2.95 versus model 1.94",
-        "clean sheet probability 48% versus model 48%",
-        "team score probability 95%",
-        "match win probability 82%"
-      ],
-      "fixture_decisions": [
-        {
-          "fixture_id": 26,
-          "model_expected_points": 3.5843,
-          "decision_expected_points": 3.7182,
-          "context_multiplier": 1.0373,
-          "market_adjustment_points": 0.1339,
-          "market_adjustment_components": {
-            "team_attack_market": 0.1381,
-            "clean_sheet_market": -0.0033,
-            "goals_conceded_market": -0.0009
-          },
-          "model_team_expected_goals": 1.9393,
-          "market_team_expected_goals": 2.953,
-          "model_clean_sheet_probability": 0.4797,
-          "decision_clean_sheet_probability": 0.4785,
-          "external_upside_score": 0.3933,
-          "context_signal_count": 4,
-          "context_signal_ids": [
-            "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
-            "odds-api-team_score_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
-            "odds-api-clean_sheet_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
-            "odds-api-team_expected_goals-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z"
-          ],
-          "context_source_ids": [
-            "odds_api_market"
-          ],
-          "context_reasons": [
-            "team expected goals 2.95 versus model 1.94",
-            "clean sheet probability 48% versus model 48%",
-            "team score probability 95%",
-            "match win probability 82%"
-          ]
-        }
-      ],
-      "selection_expected_points": 3.644,
-      "selection_risk_penalty": 0.074,
-      "minutes_risk_penalty": 0.0,
-      "availability_risk_penalty": 0.0,
-      "model_disagreement_penalty": 0.074,
-      "observed_usage_rate": 1.0,
-      "captain_score": 3.7654,
-      "selection_risk_reasons": [
-        "control/component disagreement 0.29 points"
       ]
     },
     {
@@ -9306,16 +9211,16 @@
       "team_name": "Bournemouth",
       "position": "Midfielder",
       "price": 6.0,
-      "ownership_percent": 1.9,
+      "ownership_percent": 2.0,
       "expected_points_next_3": 10.933,
       "points_p90_next_1": 6.4,
       "probability_10_plus_next_1": 0.01,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.738,
-      "context_multiplier": 0.9875,
-      "decision_expected_points": 3.691,
-      "market_adjustment_points": -0.047,
-      "external_upside_score": 0.2509,
+      "context_multiplier": 0.9901,
+      "decision_expected_points": 3.701,
+      "market_adjustment_points": -0.037,
+      "external_upside_score": 0.1977,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-686358c484cc44fe8e617674c335d531-3-20260904T044238Z",
@@ -9336,18 +9241,18 @@
         {
           "fixture_id": 27,
           "model_expected_points": 3.7383,
-          "decision_expected_points": 3.6914,
-          "context_multiplier": 0.9875,
-          "market_adjustment_points": -0.0469,
+          "decision_expected_points": 3.7014,
+          "context_multiplier": 0.9901,
+          "market_adjustment_points": -0.0369,
           "market_adjustment_components": {
-            "team_attack_market": -0.0288,
-            "clean_sheet_market": -0.0181
+            "team_attack_market": -0.0227,
+            "clean_sheet_market": -0.0143
           },
           "model_team_expected_goals": 1.4705,
           "market_team_expected_goals": 1.3872,
           "model_clean_sheet_probability": 0.2163,
-          "decision_clean_sheet_probability": 0.1896,
-          "external_upside_score": 0.2509,
+          "decision_clean_sheet_probability": 0.1953,
+          "external_upside_score": 0.1977,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-686358c484cc44fe8e617674c335d531-3-20260904T044238Z",
@@ -9366,15 +9271,94 @@
           ]
         }
       ],
-      "selection_expected_points": 3.372,
+      "selection_expected_points": 3.382,
       "selection_risk_penalty": 0.319,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.319,
       "observed_usage_rate": 0.9922,
-      "captain_score": 3.7866,
+      "captain_score": 3.7951,
       "selection_risk_reasons": [
         "control/component disagreement 1.27 points"
+      ]
+    },
+    {
+      "player_id": 390,
+      "web_name": "R\u00faben",
+      "team_id": 15,
+      "team_name": "Man City",
+      "position": "Defender",
+      "price": 5.5,
+      "ownership_percent": 1.8,
+      "expected_points_next_3": 8.875,
+      "points_p90_next_1": 6.800000000000001,
+      "probability_10_plus_next_1": 0.01,
+      "probability_15_plus_next_1": 0.0017,
+      "model_expected_points": 3.584,
+      "context_multiplier": 1.0294,
+      "decision_expected_points": 3.689,
+      "market_adjustment_points": 0.105,
+      "external_upside_score": 0.3098,
+      "context_signal_count": 4,
+      "context_signal_ids": [
+        "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
+        "odds-api-team_score_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
+        "odds-api-clean_sheet_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
+        "odds-api-team_expected_goals-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z"
+      ],
+      "context_source_ids": [
+        "odds_api_market"
+      ],
+      "context_reasons": [
+        "team expected goals 2.95 versus model 1.94",
+        "clean sheet probability 48% versus model 48%",
+        "team score probability 95%",
+        "match win probability 82%"
+      ],
+      "fixture_decisions": [
+        {
+          "fixture_id": 26,
+          "model_expected_points": 3.5843,
+          "decision_expected_points": 3.6897,
+          "context_multiplier": 1.0294,
+          "market_adjustment_points": 0.1054,
+          "market_adjustment_components": {
+            "team_attack_market": 0.1088,
+            "clean_sheet_market": -0.0026,
+            "goals_conceded_market": -0.0007
+          },
+          "model_team_expected_goals": 1.9393,
+          "market_team_expected_goals": 2.953,
+          "model_clean_sheet_probability": 0.4797,
+          "decision_clean_sheet_probability": 0.4788,
+          "external_upside_score": 0.3098,
+          "context_signal_count": 4,
+          "context_signal_ids": [
+            "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
+            "odds-api-team_score_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
+            "odds-api-clean_sheet_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
+            "odds-api-team_expected_goals-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z"
+          ],
+          "context_source_ids": [
+            "odds_api_market"
+          ],
+          "context_reasons": [
+            "team expected goals 2.95 versus model 1.94",
+            "clean sheet probability 48% versus model 48%",
+            "team score probability 95%",
+            "match win probability 82%"
+          ]
+        }
+      ],
+      "selection_expected_points": 3.615,
+      "selection_risk_penalty": 0.074,
+      "minutes_risk_penalty": 0.0,
+      "availability_risk_penalty": 0.0,
+      "model_disagreement_penalty": 0.074,
+      "observed_usage_rate": 1.0,
+      "captain_score": 3.7407,
+      "selection_risk_reasons": [
+        "control/component disagreement 0.29 points"
       ]
     },
     {
@@ -9390,10 +9374,10 @@
       "probability_10_plus_next_1": 0.0167,
       "probability_15_plus_next_1": 0.0017,
       "model_expected_points": 3.428,
-      "context_multiplier": 1.0551,
-      "decision_expected_points": 3.617,
-      "market_adjustment_points": 0.189,
-      "external_upside_score": 0.3417,
+      "context_multiplier": 1.0434,
+      "decision_expected_points": 3.577,
+      "market_adjustment_points": 0.149,
+      "external_upside_score": 0.2691,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-625c096fabb6047cbeb082dab9affce4-14-20260904T044238Z",
@@ -9414,18 +9398,18 @@
         {
           "fixture_id": 21,
           "model_expected_points": 3.4277,
-          "decision_expected_points": 3.6166,
-          "context_multiplier": 1.0551,
-          "market_adjustment_points": 0.1889,
+          "decision_expected_points": 3.5765,
+          "context_multiplier": 1.0434,
+          "market_adjustment_points": 0.1488,
           "market_adjustment_components": {
-            "team_attack_market": 0.1149,
-            "clean_sheet_market": 0.074
+            "team_attack_market": 0.0905,
+            "clean_sheet_market": 0.0583
           },
           "model_team_expected_goals": 2.0867,
           "market_team_expected_goals": 2.3627,
           "model_clean_sheet_probability": 0.1921,
-          "decision_clean_sheet_probability": 0.2828,
-          "external_upside_score": 0.3417,
+          "decision_clean_sheet_probability": 0.2636,
+          "external_upside_score": 0.2691,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-625c096fabb6047cbeb082dab9affce4-14-20260904T044238Z",
@@ -9444,13 +9428,13 @@
           ]
         }
       ],
-      "selection_expected_points": 3.356,
+      "selection_expected_points": 3.316,
       "selection_risk_penalty": 0.261,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.261,
       "observed_usage_rate": 0.9456,
-      "captain_score": 3.8474,
+      "captain_score": 3.8134,
       "selection_risk_reasons": [
         "control/component disagreement 1.04 points"
       ]
@@ -9468,10 +9452,10 @@
       "probability_10_plus_next_1": 0.0033,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.539,
-      "context_multiplier": 0.9998,
-      "decision_expected_points": 3.538,
+      "context_multiplier": 0.9999,
+      "decision_expected_points": 3.539,
       "market_adjustment_points": -0.001,
-      "external_upside_score": 0.3933,
+      "external_upside_score": 0.3098,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -9492,19 +9476,19 @@
         {
           "fixture_id": 26,
           "model_expected_points": 3.5393,
-          "decision_expected_points": 3.5386,
-          "context_multiplier": 0.9998,
-          "market_adjustment_points": -0.0007,
+          "decision_expected_points": 3.5388,
+          "context_multiplier": 0.9999,
+          "market_adjustment_points": -0.0005,
           "market_adjustment_components": {
-            "team_attack_market": 0.0029,
-            "clean_sheet_market": -0.0026,
-            "goals_conceded_market": -0.0009
+            "team_attack_market": 0.0023,
+            "clean_sheet_market": -0.0021,
+            "goals_conceded_market": -0.0007
           },
           "model_team_expected_goals": 1.9393,
           "market_team_expected_goals": 2.953,
           "model_clean_sheet_probability": 0.4797,
-          "decision_clean_sheet_probability": 0.4785,
-          "external_upside_score": 0.3933,
+          "decision_clean_sheet_probability": 0.4788,
+          "external_upside_score": 0.3098,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-3db5f919507eb8ab0c8c72bddaca8f08-15-20260904T044238Z",
@@ -9523,172 +9507,16 @@
           ]
         }
       ],
-      "selection_expected_points": 3.15,
+      "selection_expected_points": 3.151,
       "selection_risk_penalty": 0.388,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.388,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.2017,
+      "captain_score": 3.2025,
       "selection_risk_reasons": [
         "control/component disagreement 1.55 points"
       ]
-    },
-    {
-      "player_id": 202,
-      "web_name": "Richards",
-      "team_id": 8,
-      "team_name": "Crystal Palace",
-      "position": "Defender",
-      "price": 5.0,
-      "ownership_percent": 0.7,
-      "expected_points_next_3": 10.664,
-      "points_p90_next_1": 6.6000000000000005,
-      "probability_10_plus_next_1": 0.01,
-      "probability_15_plus_next_1": 0.0017,
-      "model_expected_points": 3.489,
-      "context_multiplier": 0.9769,
-      "decision_expected_points": 3.408,
-      "market_adjustment_points": -0.081,
-      "external_upside_score": 0.2537,
-      "context_signal_count": 4,
-      "context_signal_ids": [
-        "odds-api-match_win_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
-        "odds-api-team_score_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
-        "odds-api-clean_sheet_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
-        "odds-api-team_expected_goals-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z"
-      ],
-      "context_source_ids": [
-        "odds_api_market"
-      ],
-      "context_reasons": [
-        "team expected goals 1.25 versus model 1.47",
-        "clean sheet probability 23% versus model 25%",
-        "team score probability 71%",
-        "match win probability 31%"
-      ],
-      "fixture_decisions": [
-        {
-          "fixture_id": 24,
-          "model_expected_points": 3.4893,
-          "decision_expected_points": 3.4087,
-          "context_multiplier": 0.9769,
-          "market_adjustment_points": -0.0806,
-          "market_adjustment_components": {
-            "team_attack_market": -0.0392,
-            "clean_sheet_market": -0.0239,
-            "goals_conceded_market": -0.0175
-          },
-          "model_team_expected_goals": 1.4658,
-          "market_team_expected_goals": 1.245,
-          "model_clean_sheet_probability": 0.2454,
-          "decision_clean_sheet_probability": 0.2364,
-          "external_upside_score": 0.2537,
-          "context_signal_count": 4,
-          "context_signal_ids": [
-            "odds-api-match_win_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
-            "odds-api-team_score_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
-            "odds-api-clean_sheet_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
-            "odds-api-team_expected_goals-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z"
-          ],
-          "context_source_ids": [
-            "odds_api_market"
-          ],
-          "context_reasons": [
-            "team expected goals 1.25 versus model 1.47",
-            "clean sheet probability 23% versus model 25%",
-            "team score probability 71%",
-            "match win probability 31%"
-          ]
-        }
-      ],
-      "selection_expected_points": 3.114,
-      "selection_risk_penalty": 0.294,
-      "minutes_risk_penalty": 0.0,
-      "availability_risk_penalty": 0.0,
-      "model_disagreement_penalty": 0.294,
-      "observed_usage_rate": 1.0,
-      "captain_score": 3.2511,
-      "selection_risk_reasons": [
-        "control/component disagreement 1.18 points"
-      ]
-    },
-    {
-      "player_id": 130,
-      "web_name": "Wieffer",
-      "team_id": 5,
-      "team_name": "Brighton",
-      "position": "Defender",
-      "price": 5.0,
-      "ownership_percent": 0.5,
-      "expected_points_next_3": 9.856,
-      "points_p90_next_1": 7.2,
-      "probability_10_plus_next_1": 0.0217,
-      "probability_15_plus_next_1": 0.0017,
-      "model_expected_points": 3.441,
-      "context_multiplier": 0.9879,
-      "decision_expected_points": 3.399,
-      "market_adjustment_points": -0.042,
-      "external_upside_score": 0.3065,
-      "context_signal_count": 4,
-      "context_signal_ids": [
-        "odds-api-match_win_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
-        "odds-api-team_score_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
-        "odds-api-clean_sheet_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
-        "odds-api-team_expected_goals-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z"
-      ],
-      "context_source_ids": [
-        "odds_api_market"
-      ],
-      "context_reasons": [
-        "team expected goals 1.62 versus model 1.73",
-        "clean sheet probability 33% versus model 33%",
-        "team score probability 80%",
-        "match win probability 48%"
-      ],
-      "fixture_decisions": [
-        {
-          "fixture_id": 23,
-          "model_expected_points": 3.4407,
-          "decision_expected_points": 3.3991,
-          "context_multiplier": 0.9879,
-          "market_adjustment_points": -0.0416,
-          "market_adjustment_components": {
-            "team_attack_market": -0.0211,
-            "clean_sheet_market": -0.0148,
-            "goals_conceded_market": -0.0058
-          },
-          "model_team_expected_goals": 1.731,
-          "market_team_expected_goals": 1.6197,
-          "model_clean_sheet_probability": 0.3348,
-          "decision_clean_sheet_probability": 0.33,
-          "external_upside_score": 0.3065,
-          "context_signal_count": 4,
-          "context_signal_ids": [
-            "odds-api-match_win_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
-            "odds-api-team_score_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
-            "odds-api-clean_sheet_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
-            "odds-api-team_expected_goals-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z"
-          ],
-          "context_source_ids": [
-            "odds_api_market"
-          ],
-          "context_reasons": [
-            "team expected goals 1.62 versus model 1.73",
-            "clean sheet probability 33% versus model 33%",
-            "team score probability 80%",
-            "match win probability 48%"
-          ]
-        }
-      ],
-      "selection_expected_points": 3.369,
-      "selection_risk_penalty": 0.03,
-      "minutes_risk_penalty": 0.0,
-      "availability_risk_penalty": 0.0,
-      "model_disagreement_penalty": 0.03,
-      "observed_usage_rate": 0.9533,
-      "captain_score": 3.6069,
-      "selection_risk_reasons": []
     },
     {
       "player_id": 471,
@@ -9703,10 +9531,10 @@
       "probability_10_plus_next_1": 0.0067,
       "probability_15_plus_next_1": 0.0,
       "model_expected_points": 3.634,
-      "context_multiplier": 0.9315,
-      "decision_expected_points": 3.385,
-      "market_adjustment_points": -0.249,
-      "external_upside_score": 0.2797,
+      "context_multiplier": 0.9464,
+      "decision_expected_points": 3.439,
+      "market_adjustment_points": -0.195,
+      "external_upside_score": 0.2203,
       "context_signal_count": 4,
       "context_signal_ids": [
         "odds-api-match_win_probability-a6f2622727548c33369cc15c88b2aabd-18-20260904T044238Z",
@@ -9727,19 +9555,19 @@
         {
           "fixture_id": 28,
           "model_expected_points": 3.6337,
-          "decision_expected_points": 3.3849,
-          "context_multiplier": 0.9315,
-          "market_adjustment_points": -0.2488,
+          "decision_expected_points": 3.4389,
+          "context_multiplier": 0.9464,
+          "market_adjustment_points": -0.1948,
           "market_adjustment_components": {
-            "team_attack_market": -0.0308,
-            "clean_sheet_market": -0.1497,
-            "goals_conceded_market": -0.0683
+            "team_attack_market": -0.0242,
+            "clean_sheet_market": -0.1179,
+            "goals_conceded_market": -0.0526
           },
           "model_team_expected_goals": 1.7277,
           "market_team_expected_goals": 1.3839,
           "model_clean_sheet_probability": 0.3664,
-          "decision_clean_sheet_probability": 0.314,
-          "external_upside_score": 0.2797,
+          "decision_clean_sheet_probability": 0.3251,
+          "external_upside_score": 0.2203,
           "context_signal_count": 4,
           "context_signal_ids": [
             "odds-api-match_win_probability-a6f2622727548c33369cc15c88b2aabd-18-20260904T044238Z",
@@ -9758,15 +9586,172 @@
           ]
         }
       ],
-      "selection_expected_points": 3.085,
+      "selection_expected_points": 3.139,
       "selection_risk_penalty": 0.3,
       "minutes_risk_penalty": 0.0,
       "availability_risk_penalty": 0.0,
       "model_disagreement_penalty": 0.3,
       "observed_usage_rate": 1.0,
-      "captain_score": 3.2231,
+      "captain_score": 3.269,
       "selection_risk_reasons": [
         "control/component disagreement 1.20 points"
+      ]
+    },
+    {
+      "player_id": 202,
+      "web_name": "Richards",
+      "team_id": 8,
+      "team_name": "Crystal Palace",
+      "position": "Defender",
+      "price": 5.0,
+      "ownership_percent": 0.7,
+      "expected_points_next_3": 10.664,
+      "points_p90_next_1": 6.6000000000000005,
+      "probability_10_plus_next_1": 0.01,
+      "probability_15_plus_next_1": 0.0017,
+      "model_expected_points": 3.489,
+      "context_multiplier": 0.9818,
+      "decision_expected_points": 3.426,
+      "market_adjustment_points": -0.063,
+      "external_upside_score": 0.1998,
+      "context_signal_count": 4,
+      "context_signal_ids": [
+        "odds-api-match_win_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
+        "odds-api-team_score_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
+        "odds-api-clean_sheet_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
+        "odds-api-team_expected_goals-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z"
+      ],
+      "context_source_ids": [
+        "odds_api_market"
+      ],
+      "context_reasons": [
+        "team expected goals 1.25 versus model 1.47",
+        "clean sheet probability 23% versus model 25%",
+        "team score probability 71%",
+        "match win probability 31%"
+      ],
+      "fixture_decisions": [
+        {
+          "fixture_id": 24,
+          "model_expected_points": 3.4893,
+          "decision_expected_points": 3.4259,
+          "context_multiplier": 0.9818,
+          "market_adjustment_points": -0.0634,
+          "market_adjustment_components": {
+            "team_attack_market": -0.0308,
+            "clean_sheet_market": -0.0188,
+            "goals_conceded_market": -0.0137
+          },
+          "model_team_expected_goals": 1.4658,
+          "market_team_expected_goals": 1.245,
+          "model_clean_sheet_probability": 0.2454,
+          "decision_clean_sheet_probability": 0.2383,
+          "external_upside_score": 0.1998,
+          "context_signal_count": 4,
+          "context_signal_ids": [
+            "odds-api-match_win_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
+            "odds-api-team_score_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
+            "odds-api-clean_sheet_probability-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z",
+            "odds-api-team_expected_goals-8f68612bf47c3193e7fa2d8783e79373-8-20260904T044238Z"
+          ],
+          "context_source_ids": [
+            "odds_api_market"
+          ],
+          "context_reasons": [
+            "team expected goals 1.25 versus model 1.47",
+            "clean sheet probability 23% versus model 25%",
+            "team score probability 71%",
+            "match win probability 31%"
+          ]
+        }
+      ],
+      "selection_expected_points": 3.131,
+      "selection_risk_penalty": 0.294,
+      "minutes_risk_penalty": 0.0,
+      "availability_risk_penalty": 0.0,
+      "model_disagreement_penalty": 0.294,
+      "observed_usage_rate": 1.0,
+      "captain_score": 3.2664,
+      "selection_risk_reasons": [
+        "control/component disagreement 1.18 points"
+      ]
+    },
+    {
+      "player_id": 127,
+      "web_name": "Gomez",
+      "team_id": 5,
+      "team_name": "Brighton",
+      "position": "Midfielder",
+      "price": 5.0,
+      "ownership_percent": 4.8,
+      "expected_points_next_3": 9.822,
+      "points_p90_next_1": 6.800000000000001,
+      "probability_10_plus_next_1": 0.0233,
+      "probability_15_plus_next_1": 0.005,
+      "model_expected_points": 3.426,
+      "context_multiplier": 0.9866,
+      "decision_expected_points": 3.38,
+      "market_adjustment_points": -0.046,
+      "external_upside_score": 0.2414,
+      "context_signal_count": 4,
+      "context_signal_ids": [
+        "odds-api-match_win_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
+        "odds-api-team_score_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
+        "odds-api-clean_sheet_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
+        "odds-api-team_expected_goals-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z"
+      ],
+      "context_source_ids": [
+        "odds_api_market"
+      ],
+      "context_reasons": [
+        "team expected goals 1.62 versus model 1.73",
+        "clean sheet probability 33% versus model 33%",
+        "team score probability 80%",
+        "match win probability 48%"
+      ],
+      "fixture_decisions": [
+        {
+          "fixture_id": 23,
+          "model_expected_points": 3.4263,
+          "decision_expected_points": 3.3804,
+          "context_multiplier": 0.9866,
+          "market_adjustment_points": -0.0459,
+          "market_adjustment_components": {
+            "team_attack_market": -0.043,
+            "clean_sheet_market": -0.0029
+          },
+          "model_team_expected_goals": 1.731,
+          "market_team_expected_goals": 1.6197,
+          "model_clean_sheet_probability": 0.3348,
+          "decision_clean_sheet_probability": 0.331,
+          "external_upside_score": 0.2414,
+          "context_signal_count": 4,
+          "context_signal_ids": [
+            "odds-api-match_win_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
+            "odds-api-team_score_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
+            "odds-api-clean_sheet_probability-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z",
+            "odds-api-team_expected_goals-3b81531990da7ea3e461c43e8827672b-5-20260904T044238Z"
+          ],
+          "context_source_ids": [
+            "odds_api_market"
+          ],
+          "context_reasons": [
+            "team expected goals 1.62 versus model 1.73",
+            "clean sheet probability 33% versus model 33%",
+            "team score probability 80%",
+            "match win probability 48%"
+          ]
+        }
+      ],
+      "selection_expected_points": 3.292,
+      "selection_risk_penalty": 0.088,
+      "minutes_risk_penalty": 0.0,
+      "availability_risk_penalty": 0.0,
+      "model_disagreement_penalty": 0.088,
+      "observed_usage_rate": 0.9903,
+      "captain_score": 3.8261,
+      "selection_risk_reasons": [
+        "control/component disagreement 0.35 points"
       ]
     }
   ],
@@ -9867,8 +9852,8 @@
       ],
       "first_set_expiry_gameweek": 19
     },
-    "bench_boost_expected_bench_points": 10.148,
-    "triple_captain_expected_extra_points": 5.223,
+    "bench_boost_expected_bench_points": 10.032,
+    "triple_captain_expected_extra_points": 5.322,
     "wildcard_candidate_transfer_count": 18,
     "advisory_only": false,
     "optimisation_status": "ready",
@@ -9885,8 +9870,8 @@
         "blank_team_count": 0,
         "double_team_count": 0
       },
-      "incremental_expected_points": 21.13,
-      "discounted_incremental_points": 21.13,
+      "incremental_expected_points": 21.118,
+      "discounted_incremental_points": 21.118,
       "status": "play",
       "reason": "The projected gain clears the save threshold within the known horizon.",
       "replacement_squad_player_ids": [
@@ -9909,14 +9894,14 @@
       "transfers_in_rebuild": 8,
       "squad_cost": 99.5,
       "permanent_squad_change": true,
-      "timing_edge_over_next_best": 10.463
+      "timing_edge_over_next_best": 10.451
     },
     "reason": "Phase 18 compares each available chip with the no-chip transfer routes, accounts for half-season expiry and enforces one chip per Gameweek."
   },
   "audit": {
     "players_evaluated": 652,
     "context_adjusted_players": 652,
-    "market_adjusted_players": 500,
+    "market_adjusted_players": 498,
     "selection_risk_adjusted_players": 429,
     "unmodified_model_forecast_retained": true,
     "decision_layer_market_adjustment": true
@@ -9924,7 +9909,7 @@
   "prospective_evaluation": {
     "status": "ready",
     "evaluated_gameweeks": 1,
-    "snapshot_created_this_run": null,
+    "snapshot_created_this_run": "prospective/gw03/20260904T112217Z.json",
     "minimum_gameweeks_for_evidence": 10
   },
   "gameweek_operations": {
@@ -9934,9 +9919,10 @@
     "material_change": true,
     "change_summary": "Chip recommendation changed",
     "deadline_freeze": {
-      "status": "waiting_for_freeze_window",
+      "status": "frozen",
       "window_hours": 8,
-      "immutable_snapshot": null
+      "immutable_snapshot": "prospective/gw03/20260904T112217Z.json",
+      "snapshot_created_this_run": "prospective/gw03/20260904T112217Z.json"
     },
     "warning_count": 3,
     "report_json": "data/chatgpt/gameweek_report.json",
