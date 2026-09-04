@@ -23,7 +23,7 @@ MINIMUM_EDGE = {"wildcard": 12.0, "freehit": 10.0, "bboost": 8.0, "3xc": 7.5}
 # Wildcard selection is intentionally not a pure mean-EV exercise. FPL captaincy
 # doubles one player's return, so access to elite captaincy, haul probability and
 # bounded rank exposure have strategic value beyond raw squad efficiency.
-WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.1"
+WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.2"
 STARTER_CEILING_WEIGHT = 0.08
 CAPTAIN_CEILING_WEIGHT = 0.70
 CAPTAIN_RANK_WEIGHT = 0.45
@@ -164,7 +164,8 @@ def optimise_budget_squad(
     states: list[tuple[tuple[int, ...], float, float, dict[int, int], dict[str, int]]] = [
         ((), 0.0, 0.0, {}, {})
     ]
-    for position in slots:
+    for slot_index, position in enumerate(slots):
+        remaining_slots = slots[slot_index + 1 :]
         expanded = []
         for selected, cost, raw_score, clubs, last_by_position in states:
             last_id = last_by_position.get(position, 0)
@@ -177,13 +178,42 @@ def optimise_budget_squad(
                 new_cost = cost + number(player_by_id[player_id].get("price"))
                 if new_cost > budget + 1e-9:
                     continue
+
+                # Reserve enough budget to complete every remaining positional slot.
+                # This is deliberately a lower bound: it ignores club limits, so it can
+                # keep an infeasible state but can never prune a genuinely feasible one.
+                new_selected = selected + (player_id,)
+                remaining_counts: dict[str, int] = {}
+                for remaining_position in remaining_slots:
+                    remaining_counts[remaining_position] = (
+                        remaining_counts.get(remaining_position, 0) + 1
+                    )
+                minimum_remaining_cost = 0.0
+                completion_possible = True
+                selected_set = set(new_selected)
+                for remaining_position, required_count in remaining_counts.items():
+                    available_prices = sorted(
+                        number(player_by_id[candidate_id].get("price"))
+                        for candidate_id in candidates[remaining_position]
+                        if candidate_id not in selected_set
+                    )
+                    if len(available_prices) < required_count:
+                        completion_possible = False
+                        break
+                    minimum_remaining_cost += sum(available_prices[:required_count])
+                if (
+                    not completion_possible
+                    or new_cost + minimum_remaining_cost > budget + 1e-9
+                ):
+                    continue
+
                 new_clubs = dict(clubs)
                 new_clubs[team_id] = new_clubs.get(team_id, 0) + 1
                 new_last = dict(last_by_position)
                 new_last[position] = player_id
                 expanded.append(
                     (
-                        selected + (player_id,),
+                        new_selected,
                         new_cost,
                         raw_score + points_by_player.get(player_id, 0),
                         new_clubs,

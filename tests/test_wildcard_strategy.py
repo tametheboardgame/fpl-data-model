@@ -8,6 +8,7 @@ from src.fpl_chip_optimizer import (
     _ownership_pressure,
     _strategic_gameweek_score,
     _wildcard_search_heuristic,
+    optimise_budget_squad,
 )
 
 
@@ -17,13 +18,14 @@ def player(
     *,
     ownership: float = 0.0,
     team_id: int | None = None,
+    price: float = 5.0,
 ) -> dict:
     return {
         "player_id": player_id,
         "web_name": f"Player {player_id}",
         "position": position,
         "team_id": team_id or player_id,
-        "price": 5.0,
+        "price": price,
         "selected_by_percent": ownership,
     }
 
@@ -151,8 +153,37 @@ class WildcardStrategyTests(unittest.TestCase):
         self.assertGreater(strategic, mean_score)
         self.assertGreater(components["strategic_bonus"], 0.0)
 
+    def test_beam_reserves_budget_for_a_legal_completion(self) -> None:
+        players = {}
+        points = {}
+        player_id = 1
+        for position, required in (("Goalkeeper", 2), ("Defender", 5), ("Midfielder", 5), ("Forward", 3)):
+            # Enough expensive, high-heuristic choices to strand the old beam, plus
+            # cheap alternatives that make a legal squad possible under the budget.
+            for _ in range(required):
+                players[player_id] = player(
+                    player_id, position, team_id=player_id, price=10.0
+                )
+                points[player_id] = 10.0
+                player_id += 1
+            for _ in range(required):
+                players[player_id] = player(
+                    player_id, position, team_id=player_id, price=4.0
+                )
+                points[player_id] = 1.0
+                player_id += 1
+
+        result = optimise_budget_squad(
+            players, points, budget=100.0, beam_width=1
+        )
+
+        self.assertIsNotNone(result)
+        squad_ids, cost, _, _, _ = result
+        self.assertEqual(len(squad_ids), 15)
+        self.assertLessEqual(cost, 100.0)
+
     def test_objective_version_records_beam_search_fix(self) -> None:
-        self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.1")
+        self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.2")
 
 
 if __name__ == "__main__":
