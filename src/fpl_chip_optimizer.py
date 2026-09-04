@@ -1005,6 +1005,12 @@ def optimise_chip_plan(
                         "replacement_squad_player_ids": list(wc_ids),
                         "starter_player_ids": wc_starters,
                         "captain_player_id": wc_captain,
+                        "gameweek_expected_points_by_player": {
+                            str(player_id): round(
+                                matrix.get(gameweek, {}).get(player_id, 0.0), 6
+                            )
+                            for player_id in wc_ids
+                        },
                         "transfers_in_rebuild": transfers,
                         "squad_cost": round(wc_cost, 1),
                         "permanent_squad_change": True,

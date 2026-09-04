@@ -121,6 +121,12 @@ class WildcardOperationsTests(unittest.TestCase):
                     "replacement_squad_player_ids": self.wildcard_squad,
                     "starter_player_ids": [1, 3, 4, 5, 8, 9, 10, 11, 13, 14, 19],
                     "captain_player_id": 8,
+                    "gameweek_expected_points_by_player": {
+                        str(player_id): (
+                            7.0 if player_id == 8 else 2.0
+                        )
+                        for player_id in self.wildcard_squad
+                    },
                     "transfers_in_rebuild": 4,
                     "squad_cost": 99.5,
                     "wildcard_objective_version": "captaincy-ceiling-test",
@@ -214,6 +220,32 @@ class WildcardOperationsTests(unittest.TestCase):
         self.assertEqual(chip["strategic_objective_edge"], 12.3)
         self.assertEqual(chip["strategic_audit"][0]["captain_player_id"], 8)
         self.assertTrue(chip["wildcard_search_audit"][0]["selected"])
+
+    def test_wildcard_report_uses_optimiser_gameweek_mean_basis(self) -> None:
+        report = self.build()
+        selection = report["recommendation"]
+        starter_points = {
+            row["player_id"]: row["expected_points"]
+            for row in selection["starting_xi"]
+        }
+
+        self.assertEqual(selection["wildcard_points_source"], "chip_optimisation_target_gameweek")
+        self.assertEqual(starter_points[8], 7.0)
+        # Ten other starters at 2.0, captain 8 at 7.0, then captain doubled.
+        self.assertEqual(selection["expected_points"], 34.0)
+        self.assertEqual(selection["net_expected_points"], 34.0)
+
+    def test_wildcard_report_falls_back_to_horizon_points_without_scoring_map(self) -> None:
+        self.decision["chip_optimisation"]["recommendation"].pop(
+            "gameweek_expected_points_by_player"
+        )
+
+        report = self.build()
+
+        self.assertEqual(
+            report["recommendation"]["wildcard_points_source"],
+            "horizon_fallback",
+        )
 
     def test_wildcard_lineup_falls_back_when_optimiser_metadata_is_missing(self) -> None:
         recommendation = self.decision["chip_optimisation"]["recommendation"]

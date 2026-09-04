@@ -336,6 +336,20 @@ def _apply_wildcard_selection(
         for row in horizons
         if integer(row.get("player_id"))
     }
+    recommendation_points = {
+        integer(player_id): number(value)
+        for player_id, value in (
+            recommendation.get("gameweek_expected_points_by_player") or {}
+        ).items()
+        if integer(player_id)
+    }
+    if replacement_ids and replacement_ids.issubset(recommendation_points):
+        wildcard_points.update(
+            {player_id: recommendation_points[player_id] for player_id in replacement_ids}
+        )
+        wildcard_points_source = "chip_optimisation_target_gameweek"
+    else:
+        wildcard_points_source = "horizon_fallback"
     recommended_starter_ids = [
         integer(value)
         for value in recommendation.get("starter_player_ids", [])
@@ -434,6 +448,7 @@ def _apply_wildcard_selection(
                 "incremental_expected_points"
             ),
             "wildcard_lineup_source": wildcard_lineup_source,
+            "wildcard_points_source": wildcard_points_source,
             "wildcard_objective_version": recommendation.get(
                 "wildcard_objective_version"
             ),
