@@ -20,7 +20,7 @@ from src.fpl_multiweek import (
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-2.1"
+DECISION_VERSION = "fpl-decisions-2.2"
 MARKET_BLEND_WEIGHT = 0.75
 MINUTES_RISK_WEIGHT = 0.30
 MODEL_DISAGREEMENT_WEIGHT = 0.25
@@ -723,6 +723,15 @@ def build_decision_support(
         number(row.get("selection_expected_points")) for row in bench
     )
     captain = captain_pool[0] if captain_pool else None
+    first_gameweek_multiplier = {
+        integer(row.get("player_id")): (
+            number(row.get("selection_expected_points"))
+            / number(row.get("model_expected_points"))
+            if number(row.get("model_expected_points")) > 0
+            else 1.0
+        )
+        for row in evaluated
+    }
     multi_gameweek_plan = optimise_multi_gameweek_route(
         fixture_projections or [],
         [
@@ -742,15 +751,7 @@ def build_decision_support(
         integer(transfer_state.get("maximum")) or 5,
         integer(transfer_state.get("hit_cost")) or 4,
         target_gameweek,
-        first_gameweek_multiplier={
-            integer(row.get("player_id")): (
-                number(row.get("selection_expected_points"))
-                / number(row.get("model_expected_points"))
-                if number(row.get("model_expected_points")) > 0
-                else 1.0
-            )
-            for row in evaluated
-        },
+        first_gameweek_multiplier=first_gameweek_multiplier,
     )
     status = "ready" if target_gameweek and any(
         number(row.get("decision_expected_points")) > 0 for row in evaluated
@@ -776,16 +777,8 @@ def build_decision_support(
         chip_state,
         multi_gameweek_plan,
         target_gameweek,
+        first_gameweek_multiplier=first_gameweek_multiplier,
     )
-    first_gameweek_multiplier = {
-        integer(row.get("player_id")): (
-            number(row.get("selection_expected_points"))
-            / number(row.get("model_expected_points"))
-            if number(row.get("model_expected_points")) > 0
-            else 1.0
-        )
-        for row in evaluated
-    }
     initial_squad_plan = build_initial_squad_plan(
         players,
         horizons,
