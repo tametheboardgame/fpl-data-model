@@ -1,0 +1,111 @@
+name: Diagnose GW3 premium projection
+
+on:
+  push:
+    branches:
+      - diagnose/gw3-premium-projection
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --requirement requirements.txt
+      - name: Rebuild current model outputs
+        run: python -m src.build_fpl_model --data-dir data
+      - name: Print premium projection diagnostics
+        run: |
+          python - <<'PY'
+          import csv
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          from src.external_context import load_source_registry, read_context_signals, resolved_context
+          from src.fpl_decisions import (
+              aggregate_fixture_decisions,
+              fixture_decision_projection,
+              fixture_rows_with_model_team_xg,
+              selection_risk_adjustment,
+          )
+
+          root = Path("data")
+          chat = root / "chatgpt"
+
+          def read_csv(path):
+              with path.open(encoding="utf-8", newline="") as handle:
+                  return list(csv.DictReader(handle))
+
+          players = read_csv(chat / "players.csv")
+          projections = read_csv(chat / "player_projections.csv")
+          horizons = read_csv(chat / "player_projection_horizons.csv")
+          by_player = {int(row["player_id"]): row for row in players}
+          by_horizon = {int(row["player_id"]): row for row in horizons}
+          target_rows = fixture_rows_with_model_team_xg(projections, 3)
+          by_projection = {}
+          for row in target_rows:
+              by_projection.setdefault(int(row["player_id"]), []).append(row)
+
+          registry = load_source_registry(root / "context" / "sources.json")
+          signals = read_context_signals(root / "context" / "signals.jsonl", registry)
+          generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+          output = {}
+          for player_id, label in ((411, "Haaland"), (426, "B.Fernandes")):
+              player = by_player[player_id]
+              fixture_rows = by_projection[player_id]
+              decisions = []
+              raw = []
+              for projection in fixture_rows:
+                  fixture_id = int(float(projection["fixture_id"]))
+                  context = resolved_context(
+                      signals,
+                      registry,
+                      player,
+                      {"fixture_id": fixture_id, "gameweek": 3},
+                      generated_at,
+                  )
+                  decision = fixture_decision_projection(projection, context)
+                  decisions.append(decision)
+                  raw.append({
+                      key: projection.get(key)
+                      for key in (
+                          "fixture_id", "opponent_team_id", "opponent_name", "was_home",
+                          "expected_points", "expected_minutes", "expected_goals", "expected_assists",
+                          "points_p90", "probability_10_plus", "probability_15_plus",
+                          "clean_sheet_probability", "model_team_expected_goals",
+                          "control_expected_points", "component_expected_points",
+                      )
+                  })
+              aggregate = aggregate_fixture_decisions(by_horizon[player_id], decisions)
+              risk = selection_risk_adjustment(
+                  player, by_horizon[player_id], aggregate, 3
+              )
+              output[label] = {
+                  "player_id": player_id,
+                  "ownership_percent": player.get("selected_by_percent"),
+                  "current_minutes": player.get("minutes"),
+                  "current_starts": player.get("starts"),
+                  "current_goals": player.get("goals_scored"),
+                  "current_assists": player.get("assists"),
+                  "raw_fixture_projection": raw,
+                  "fixture_decision": decisions,
+                  "aggregate_decision": aggregate,
+                  "selection_risk": risk,
+                  "first_gameweek_multiplier": (
+                      float(risk["selection_expected_points"]) / float(aggregate["model_expected_points"])
+                      if float(aggregate["model_expected_points"]) else 1.0
+                  ),
+              }
+
+          print("GW3_PREMIUM_PROJECTION_DIAGNOSTIC")
+          print(json.dumps(output, indent=2, ensure_ascii=False))
+          PY
