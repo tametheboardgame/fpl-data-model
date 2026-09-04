@@ -24,7 +24,7 @@ MINIMUM_EDGE = {"wildcard": 12.0, "freehit": 10.0, "bboost": 8.0, "3xc": 7.5}
 # Wildcard selection is intentionally not a pure mean-EV exercise. FPL captaincy
 # doubles one player's return, so access to elite captaincy, haul probability and
 # bounded rank exposure have strategic value beyond raw squad efficiency.
-WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.3"
+WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.4"
 STARTER_CEILING_WEIGHT = 0.08
 CAPTAIN_CEILING_WEIGHT = 0.70
 CAPTAIN_RANK_WEIGHT = 0.45
@@ -320,6 +320,7 @@ def _fixture_metric_matrix(
     fixture_projections: list[dict[str, Any]],
     gameweeks: list[int],
     fields: tuple[str, ...],
+    first_gameweek_multiplier: dict[int, float] | None = None,
 ) -> dict[int, dict[int, float]]:
     selected = set(gameweeks)
     result: dict[int, dict[int, float]] = {}
@@ -336,6 +337,8 @@ def _fixture_metric_matrix(
             if raw not in {None, ""}:
                 value = number(raw)
                 break
+        if gameweeks and gameweek == gameweeks[0]:
+            value *= number((first_gameweek_multiplier or {}).get(player_id, 1.0))
         result.setdefault(gameweek, {})[player_id] = (
             result.setdefault(gameweek, {}).get(player_id, 0.0) + value
         )
@@ -433,6 +436,41 @@ def _best_attacking_captain_utility(
         probability_15_plus,
     )[0]
     return player_id, utility
+
+
+def _select_strategic_captain(
+    starter_ids: list[int] | tuple[int, ...] | set[int],
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> int | None:
+    starters = tuple(starter_ids)
+    if not starters:
+        return None
+    overall = max(
+        starters,
+        key=lambda player_id: _captain_utility(
+            player_id, player_by_id, expected_points, p90,
+            probability_10_plus, probability_15_plus
+        )[0],
+    )
+    if str(player_by_id.get(overall, {}).get("position")) not in {"Goalkeeper", "Defender"}:
+        return overall
+    attacker, attacker_utility = _best_attacking_captain_utility(
+        starters, player_by_id, expected_points, p90,
+        probability_10_plus, probability_15_plus
+    )
+    if attacker is None:
+        return overall
+    overall_utility = _captain_utility(
+        overall, player_by_id, expected_points, p90,
+        probability_10_plus, probability_15_plus
+    )[0]
+    if overall_utility - attacker_utility <= MINIMUM_ROUTE_SEPARATION_POINTS + 1e-9:
+        return attacker
+    return overall
 
 
 def _missing_elite_attacking_captain_seed(
@@ -545,17 +583,13 @@ def _strategic_gameweek_score(
         squad_ids, player_by_id, expected_points
     )
     starter_set = set(starters)
-    captain = max(
+    captain = _select_strategic_captain(
         starter_set,
-        key=lambda player_id: _captain_utility(
-            player_id,
-            player_by_id,
-            expected_points,
-            p90,
-            probability_10_plus,
-            probability_15_plus,
-        )[0],
-        default=None,
+        player_by_id,
+        expected_points,
+        p90,
+        probability_10_plus,
+        probability_15_plus,
     )
     mean_score = sum(expected_points.get(player_id, 0.0) for player_id in starters)
     if captain is not None:
@@ -726,6 +760,7 @@ def optimise_chip_plan(
         fixture_projections,
         gameweeks,
         ("points_p90", "component_points_p90"),
+        first_gameweek_multiplier,
     )
     p10_matrix = _fixture_metric_matrix(
         fixture_projections,
@@ -1066,14 +1101,16 @@ def optimise_chip_plan(
         ),
         "context_wiring": {
             "first_gameweek_multiplier_applied": bool(first_gameweek_multiplier),
+            "target_gameweek_p90_multiplier_applied": bool(first_gameweek_multiplier),
+            "raw_tail_probabilities_retained": True,
             "adjusted_player_count": sum(
                 abs(number(value) - 1.0) > 1e-9
                 for value in (first_gameweek_multiplier or {}).values()
             ),
             "principle": (
-                "The target-Gameweek mean follows the same decision-layer market and "
-                "selection-risk adjustment as the transfer optimiser; raw tail "
-                "probabilities remain unchanged."
+                "The target-Gameweek mean and p90 quantile follow the same decision-layer "
+                "multiplier; raw 10+/15+ probabilities remain unchanged pending prospective "
+                "distribution-calibration evidence."
             ),
         },
         "wildcard_objective": {
@@ -1085,6 +1122,7 @@ def optimise_chip_plan(
             "search_player_ceiling_weight": SEARCH_PLAYER_CEILING_WEIGHT,
             "search_captain_access_weight": SEARCH_CAPTAIN_ACCESS_WEIGHT,
             "archetype_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,
+            "defensive_captain_exception_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,
             "target_gameweek_missing_elite_captain_seed_count": 1,
             "hard_coded_players": False,
         },

@@ -5,7 +5,9 @@ import unittest
 from src.fpl_chip_optimizer import (
     WILDCARD_OBJECTIVE_VERSION,
     _captain_utility,
+    _fixture_metric_matrix,
     _ownership_pressure,
+    _select_strategic_captain,
     _select_near_optimal_wildcard_variant,
     _strategic_gameweek_score,
     _wildcard_search_heuristic,
@@ -255,8 +257,57 @@ class WildcardStrategyTests(unittest.TestCase):
 
         self.assertEqual(selected["result"][0], (2,))
 
+    def test_target_gameweek_p90_scales_with_decision_mean(self) -> None:
+        rows = [
+            {"player_id": 1, "gameweek": 3, "points_p90": 10.0},
+            {"player_id": 1, "gameweek": 4, "points_p90": 9.0},
+        ]
+        matrix = _fixture_metric_matrix(
+            rows, [3, 4], ("points_p90",), {1: 1.2}
+        )
+
+        self.assertAlmostEqual(matrix[3][1], 12.0)
+        self.assertAlmostEqual(matrix[4][1], 9.0)
+
+    def test_strategic_captain_prefers_attacker_inside_uncertainty_band(self) -> None:
+        players = {
+            1: player(1, "Defender", ownership=75.0),
+            2: player(2, "Forward", ownership=50.0),
+        }
+        expected = {1: 6.0, 2: 5.8}
+        p90 = {1: 8.0, 2: 8.5}
+        p10 = {1: 0.10, 2: 0.10}
+        p15 = {1: 0.0, 2: 0.01}
+
+        defender_utility = _captain_utility(1, players, expected, p90, p10, p15)[0]
+        attacker_utility = _captain_utility(2, players, expected, p90, p10, p15)[0]
+        self.assertGreater(defender_utility, attacker_utility)
+        self.assertLessEqual(defender_utility - attacker_utility, 1.5)
+        self.assertEqual(
+            _select_strategic_captain({1, 2}, players, expected, p90, p10, p15),
+            2,
+        )
+
+    def test_exceptional_defender_can_still_be_strategic_captain(self) -> None:
+        players = {
+            1: player(1, "Defender", ownership=75.0),
+            2: player(2, "Forward", ownership=5.0),
+        }
+        expected = {1: 9.0, 2: 5.0}
+        p90 = {1: 14.0, 2: 8.0}
+        p10 = {1: 0.40, 2: 0.08}
+        p15 = {1: 0.10, 2: 0.01}
+
+        defender_utility = _captain_utility(1, players, expected, p90, p10, p15)[0]
+        attacker_utility = _captain_utility(2, players, expected, p90, p10, p15)[0]
+        self.assertGreater(defender_utility - attacker_utility, 1.5)
+        self.assertEqual(
+            _select_strategic_captain({1, 2}, players, expected, p90, p10, p15),
+            1,
+        )
+
     def test_objective_version_records_beam_search_fix(self) -> None:
-        self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.3")
+        self.assertEqual(WILDCARD_OBJECTIVE_VERSION, "captaincy-ceiling-1.4")
 
 
 if __name__ == "__main__":
