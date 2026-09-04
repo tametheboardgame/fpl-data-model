@@ -1,0 +1,47 @@
+name: Validate component 3.2
+
+on:
+  push:
+    branches:
+      - fix/component-early-season-minutes-prior
+    paths:
+      - ".github/workflows/validate-component-early-season-prior-v4.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/component-early-season-minutes-prior
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --requirement requirements.txt
+      - name: Apply 3.2 patch
+        run: python tools/validate_component_prior_32.py
+      - name: Check source and tests
+        run: git diff --check -- src tests
+      - name: Run unit suite
+        run: python -m unittest discover -s tests -v
+      - name: Run leakage-safe backtest
+        run: python -m src.backtest_fpl_model --data-dir data
+      - name: Print backtest assessment
+        run: python -c "import json; e=json.load(open('data/model/ensemble_model_candidate.json')); a=e['assessment']; print(json.dumps({'component_model_version':a.get('component_model_version'),'status':e.get('status'),'selection':a.get('selection'),'promotion':a.get('recommended_for_live_promotion'),'criteria':a.get('promotion_criteria'),'hybrid':a.get('held_out_hybrid_metrics'),'control':a.get('held_out_control_metrics')},indent=2))"
+      - name: Build live shadow
+        run: python -m src.build_fpl_model --data-dir data
+      - name: Print Haaland shadow
+        run: python -c "import csv,json; rows=list(csv.DictReader(open('data/chatgpt/player_projections.csv'))); h=next((r for r in rows if r.get('web_name')=='Haaland'),{}); s=json.load(open('data/chatgpt/projection_summary.json')); print(json.dumps({'ensemble_status':s.get('ensemble_status'),'ensemble_point_weight':s.get('ensemble_point_weight'),'challenger':s.get('challenger_model_version'),'gw':h.get('gameweek'),'control_minutes':h.get('expected_minutes'),'component_minutes':h.get('component_expected_minutes'),'control_xpts':h.get('control_expected_points'),'component_xpts':h.get('component_expected_points'),'ensemble_xpts':h.get('expected_points'),'start_prior':h.get('component_start_rate_prior'),'prior_strength':h.get('component_usage_prior_strength')},indent=2))"
+      - name: Commit validated source and tests only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/component_player_simulator.py src/build_fpl_model.py src/backtest_fpl_model.py tests/test_component_early_season_prior.py tests/test_build_fpl_model.py
+          git diff --cached --check
+          git commit -m "Use fading player-specific early-season minutes priors"
+          git push origin fix/component-early-season-minutes-prior
