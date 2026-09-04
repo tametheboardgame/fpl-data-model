@@ -1,0 +1,83 @@
+name: Diagnose forced Haaland Wildcard
+
+on:
+  push:
+    branches:
+      - diagnose/haaland-forced-wc
+    paths:
+      - ".github/workflows/diagnose-forced-haaland-wc.yml"
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: diagnose/haaland-forced-wc
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --requirement requirements.txt
+      - name: Force Haaland into Wildcard search for counterfactual
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path("src/fpl_chip_optimizer.py")
+          text = p.read_text(encoding="utf-8")
+          text = text.replace(
+              '''    final_scorer: Callable[[tuple[int, ...]], tuple[float, list[int], int | None]] | None = None,\n) -> tuple[tuple[int, ...], float, float, list[int], int | None] | None:''',
+              '''    final_scorer: Callable[[tuple[int, ...]], tuple[float, list[int], int | None]] | None = None,\n    required_player_ids: tuple[int, ...] = (),\n) -> tuple[tuple[int, ...], float, float, list[int], int | None] | None:''',
+              1,
+          )
+          text = text.replace(
+              '''        candidates[position] = list(dict.fromkeys(rows[: limits[position]] + cheapest))''',
+              '''        required = [\n            player_id\n            for player_id in required_player_ids\n            if player_id in player_by_id\n            and str(player_by_id[player_id].get("position")) == position\n        ]\n        candidates[position] = list(\n            dict.fromkeys(rows[: limits[position]] + cheapest + required)\n        )''',
+              1,
+          )
+          text = text.replace(
+              '''    for selected, cost, _, _, _ in states:\n        squad_ids = tuple(sorted(selected))''',
+              '''    required_set = set(required_player_ids)\n    for selected, cost, _, _, _ in states:\n        if required_set and not required_set.issubset(selected):\n            continue\n        squad_ids = tuple(sorted(selected))''',
+              1,
+          )
+          old = '''                wildcard = optimise_budget_squad(\n                    player_by_id,\n                    remaining_points,\n                    total_budget,\n                    final_scorer=wildcard_final_scorer,\n                )'''
+          new = '''                wildcard = optimise_budget_squad(\n                    player_by_id,\n                    remaining_points,\n                    total_budget,\n                    final_scorer=wildcard_final_scorer,\n                    required_player_ids=(411,),\n                )'''
+          if old not in text:
+              raise SystemExit("Wildcard call anchor missing")
+          p.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
+      - name: Build forced counterfactual
+        run: python -m src.build_fpl_model --data-dir data
+      - name: Print counterfactual
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          decision = json.loads(Path("data/chatgpt/fpl_decisions.json").read_text(encoding="utf-8"))
+          chip = decision.get("chip_optimisation", {}).get("recommendation") or {}
+          report = json.loads(Path("data/chatgpt/gameweek_report.json").read_text(encoding="utf-8"))
+          rec = report.get("recommendation") or {}
+          print("FORCED_HAALAND_CHIP")
+          print(json.dumps({
+              "action": chip.get("action"),
+              "chip": chip.get("chip"),
+              "gameweek": chip.get("gameweek"),
+              "incremental_expected_points": chip.get("incremental_expected_points"),
+              "strategic_objective_edge": chip.get("strategic_objective_edge"),
+              "strategic_objective_score": chip.get("strategic_objective_score"),
+              "wildcard_discounted_mean_points": chip.get("wildcard_discounted_mean_points"),
+              "squad_cost": chip.get("squad_cost"),
+              "captain_player_id": chip.get("captain_player_id"),
+              "replacement_squad_player_ids": chip.get("replacement_squad_player_ids"),
+              "strategic_audit": chip.get("strategic_audit"),
+          }, indent=2))
+          print("FORCED_HAALAND_REPORT")
+          print(json.dumps({
+              "expected_points": rec.get("expected_points"),
+              "captain": (rec.get("captain") or {}).get("web_name"),
+              "vice_captain": (rec.get("vice_captain") or {}).get("web_name"),
+              "starting_xi": [row.get("web_name") for row in rec.get("starting_xi", [])],
+              "squad_player_ids": rec.get("squad_player_ids", []),
+          }, indent=2, ensure_ascii=False))
+          PY
