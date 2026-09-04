@@ -1,0 +1,119 @@
+name: Validate Wildcard operator handoff
+
+on:
+  push:
+    branches:
+      - fix/wildcard-captain-archetype-search
+    paths:
+      - ".github/workflows/validate-wildcard-operator-handoff.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/wildcard-captain-archetype-search
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --requirement requirements.txt
+
+      - name: Apply operator handoff patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: str, old: str, new: str) -> None:
+              target = Path(path)
+              text = target.read_text(encoding="utf-8")
+              if old not in text:
+                  raise SystemExit(f"Missing patch anchor in {path}: {old[:160]!r}")
+              target.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          replace_once(
+              "src/fpl_gameweek_operations.py",
+              'OPERATIONS_VERSION = "fpl-gameweek-operations-1.5"',
+              'OPERATIONS_VERSION = "fpl-gameweek-operations-1.6"',
+          )
+
+          replace_once(
+              "src/fpl_gameweek_operations.py",
+              '''    wildcard_score, starter_ids, captain_id = optimise_gameweek_lineup(\n        tuple(sorted(replacement_ids)),\n        players,\n        wildcard_points,\n        fixture_rows_by_player(fixture_projections, gameweek),\n    )\n    starter_ids = [integer(value) for value in starter_ids]\n    if len(starter_ids) != 11 or captain_id not in starter_ids:\n        return selection\n\n    vice_id = next(''',
+              '''    recommended_starter_ids = [\n        integer(value)\n        for value in recommendation.get("starter_player_ids", [])\n        if integer(value)\n    ]\n    recommended_captain_id = integer(recommendation.get("captain_player_id"))\n    optimiser_selection_valid = (\n        len(recommended_starter_ids) == 11\n        and len(set(recommended_starter_ids)) == 11\n        and set(recommended_starter_ids).issubset(replacement_ids)\n        and recommended_captain_id in recommended_starter_ids\n    )\n    if optimiser_selection_valid:\n        starter_ids = recommended_starter_ids\n        captain_id = recommended_captain_id\n        wildcard_score = sum(\n            wildcard_points.get(player_id, 0.0) for player_id in starter_ids\n        ) + wildcard_points.get(captain_id, 0.0)\n        wildcard_lineup_source = "chip_optimisation"\n    else:\n        wildcard_score, starter_ids, captain_id = optimise_gameweek_lineup(\n            tuple(sorted(replacement_ids)),\n            players,\n            wildcard_points,\n            fixture_rows_by_player(fixture_projections, gameweek),\n        )\n        starter_ids = [integer(value) for value in starter_ids]\n        if len(starter_ids) != 11 or captain_id not in starter_ids:\n            return selection\n        wildcard_lineup_source = "mean_lineup_fallback"\n\n    vice_id = next(''',
+          )
+
+          replace_once(
+              "src/fpl_gameweek_operations.py",
+              '''            "wildcard_incremental_expected_points": recommendation.get(\n                "incremental_expected_points"\n            ),\n        }''',
+              '''            "wildcard_incremental_expected_points": recommendation.get(\n                "incremental_expected_points"\n            ),\n            "wildcard_lineup_source": wildcard_lineup_source,\n            "wildcard_objective_version": recommendation.get(\n                "wildcard_objective_version"\n            ),\n            "wildcard_strategic_objective_edge": recommendation.get(\n                "strategic_objective_edge"\n            ),\n            "wildcard_search_audit": recommendation.get("wildcard_search_audit"),\n        }''',
+          )
+
+          replace_once(
+              "src/fpl_gameweek_operations.py",
+              '''    for key in (\n        "replacement_squad_player_ids",\n        "transfers_in_rebuild",\n        "squad_cost",\n    ):''',
+              '''    for key in (\n        "replacement_squad_player_ids",\n        "starter_player_ids",\n        "captain_player_id",\n        "transfers_in_rebuild",\n        "squad_cost",\n        "wildcard_objective_version",\n        "strategic_objective_edge",\n        "strategic_objective_score",\n        "wildcard_discounted_mean_points",\n        "baseline_discounted_mean_points_recomputed",\n        "strategic_audit",\n        "wildcard_search_audit",\n        "wildcard_archetype_separation_points",\n    ):''',
+          )
+
+          target = Path("tests/test_wildcard_operations.py")
+          text = target.read_text(encoding="utf-8")
+          text = text.replace(
+              '''                    "replacement_squad_player_ids": self.wildcard_squad,\n                    "transfers_in_rebuild": 4,\n                    "squad_cost": 99.5,''',
+              '''                    "replacement_squad_player_ids": self.wildcard_squad,\n                    "starter_player_ids": [1, 3, 4, 5, 8, 9, 10, 11, 13, 14, 19],\n                    "captain_player_id": 8,\n                    "transfers_in_rebuild": 4,\n                    "squad_cost": 99.5,\n                    "wildcard_objective_version": "captaincy-ceiling-test",\n                    "strategic_objective_edge": 12.3,\n                    "strategic_objective_score": 101.4,\n                    "strategic_audit": [{"gameweek": 3, "captain_player_id": 8}],\n                    "wildcard_search_audit": [{"selected": True, "seed_player_ids": [8]}],\n                    "wildcard_archetype_separation_points": 1.5,''',
+              1,
+          )
+          anchor = '''    def test_invalid_wildcard_rebuild_blocks_firm_advice(self) -> None:\n'''
+          tests = '''    def test_wildcard_preserves_optimiser_captain_and_strategy_audit(self) -> None:\n        report = self.build()\n        selection = report["recommendation"]\n        chip = report["chip_recommendation"]\n\n        # Player 19 has the highest raw mean in this synthetic Wildcard XI, so\n        # preserving player 8 proves the operator did not silently recalculate\n        # captaincy from mean expected points.\n        self.assertEqual(selection["captain"]["player_id"], 8)\n        self.assertEqual(selection["wildcard_lineup_source"], "chip_optimisation")\n        self.assertEqual(selection["wildcard_objective_version"], "captaincy-ceiling-test")\n        self.assertEqual(selection["wildcard_strategic_objective_edge"], 12.3)\n        self.assertEqual(chip["captain_player_id"], 8)\n        self.assertEqual(chip["wildcard_objective_version"], "captaincy-ceiling-test")\n        self.assertEqual(chip["strategic_objective_edge"], 12.3)\n        self.assertEqual(chip["strategic_audit"][0]["captain_player_id"], 8)\n        self.assertTrue(chip["wildcard_search_audit"][0]["selected"])\n\n    def test_wildcard_lineup_falls_back_when_optimiser_metadata_is_missing(self) -> None:\n        recommendation = self.decision["chip_optimisation"]["recommendation"]\n        recommendation.pop("starter_player_ids")\n        recommendation.pop("captain_player_id")\n\n        report = self.build()\n        selection = report["recommendation"]\n\n        self.assertEqual(selection["selection_source"], "wildcard_rebuild")\n        self.assertEqual(selection["wildcard_lineup_source"], "mean_lineup_fallback")\n        self.assertIn(\n            selection["captain"]["player_id"],\n            {row["player_id"] for row in selection["starting_xi"]},\n        )\n\n'''
+          if anchor not in text:
+              raise SystemExit("Wildcard operations test anchor missing")
+          target.write_text(text.replace(anchor, tests + anchor, 1), encoding="utf-8")
+          PY
+
+      - name: Run full unit suite
+        run: python -m unittest discover -s tests -v
+
+      - name: Build live integration shadow
+        run: python -m src.build_fpl_model --data-dir data
+
+      - name: Verify optimiser-to-operator captain handoff
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          decision = json.loads(Path("data/chatgpt/fpl_decisions.json").read_text(encoding="utf-8"))
+          report = json.loads(Path("data/chatgpt/gameweek_report.json").read_text(encoding="utf-8"))
+          chip = (decision.get("chip_optimisation") or {}).get("recommendation") or {}
+          selection = report.get("recommendation") or {}
+          public_chip = report.get("chip_recommendation") or {}
+          if chip.get("action") == "play" and chip.get("chip") == "wildcard":
+              expected_captain = int(chip.get("captain_player_id") or 0)
+              reported_captain = int((selection.get("captain") or {}).get("player_id") or 0)
+              if expected_captain and reported_captain != expected_captain:
+                  raise SystemExit(f"Wildcard captain handoff mismatch: {expected_captain=} {reported_captain=}")
+              if public_chip.get("wildcard_objective_version") != chip.get("wildcard_objective_version"):
+                  raise SystemExit("Wildcard objective metadata was dropped by the operator")
+          print(json.dumps({
+              "optimiser_captain_player_id": chip.get("captain_player_id"),
+              "reported_captain_player_id": (selection.get("captain") or {}).get("player_id"),
+              "reported_captain": (selection.get("captain") or {}).get("web_name"),
+              "vice_captain": (selection.get("vice_captain") or {}).get("web_name"),
+              "wildcard_lineup_source": selection.get("wildcard_lineup_source"),
+              "wildcard_objective_version": public_chip.get("wildcard_objective_version"),
+              "strategic_objective_edge": public_chip.get("strategic_objective_edge"),
+          }, indent=2, ensure_ascii=False))
+          PY
+
+      - name: Commit validated source and tests
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/fpl_gameweek_operations.py tests/test_wildcard_operations.py
+          git diff --cached --check
+          git commit -m "Preserve Wildcard strategic captain in operator report"
+          git push origin fix/wildcard-captain-archetype-search
