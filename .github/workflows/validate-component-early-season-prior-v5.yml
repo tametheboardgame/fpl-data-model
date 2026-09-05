@@ -1,0 +1,53 @@
+name: Validate component 3.3 early-season prior
+
+on:
+  push:
+    branches:
+      - fix/component-early-season-minutes-prior
+    paths:
+      - ".github/workflows/validate-component-early-season-prior-v5.yml"
+      - "tools/apply_component_prior_v33.py"
+      - "tools/evaluate_component_prior_v33.py"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/component-early-season-minutes-prior
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: python -m pip install --requirement requirements.txt
+
+      - name: Preserve current production backtest
+        run: cp data/backtests/backtest_player_predictions.csv.gz /tmp/production-backtest-player-predictions.csv.gz
+
+      - name: Apply component 3.3 patch
+        run: python tools/apply_component_prior_v33.py
+
+      - name: Check source and tests
+        run: git diff --check -- src tests
+
+      - name: Run unit suite
+        run: python -m unittest discover -s tests -v
+
+      - name: Run leakage-safe backtest
+        run: python -m src.backtest_fpl_model --data-dir data
+
+      - name: Compare fixed production blend and early-season slice
+        run: python tools/evaluate_component_prior_v33.py /tmp/production-backtest-player-predictions.csv.gz data/backtests/backtest_player_predictions.csv.gz
+
+      - name: Build live shadow
+        run: python -m src.build_fpl_model --data-dir data
+
+      - name: Report live Haaland effect and promotion status
+        run: python -c "import csv,json; from pathlib import Path; rows=list(csv.DictReader(Path('data/chatgpt/player_projections.csv').open())); h=next((r for r in rows if r.get('web_name')=='Haaland'),{}); e=json.loads(Path('data/model/ensemble_model_candidate.json').read_text()); s=json.loads(Path('data/chatgpt/projection_summary.json').read_text()); print(json.dumps({'candidate_status':e.get('status'),'candidate_promotion':e.get('assessment',{}).get('recommended_for_live_promotion'),'selected_point_weight':e.get('assessment',{}).get('selection',{}).get('selected_point_weight'),'ensemble_status':s.get('ensemble_status'),'ensemble_point_weight':s.get('ensemble_point_weight'),'haaland_expected_minutes':h.get('expected_minutes'),'haaland_component_expected_minutes':h.get('component_expected_minutes'),'haaland_control_xpts':h.get('control_expected_points'),'haaland_component_xpts':h.get('component_expected_points'),'haaland_ensemble_xpts':h.get('expected_points'),'haaland_usage_prior_weight':h.get('component_usage_prior_weight')}, indent=2))"
