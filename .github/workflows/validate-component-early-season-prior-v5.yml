@@ -44,7 +44,7 @@ jobs:
         run: python -m src.backtest_fpl_model --data-dir data
 
       - name: Compare fixed production blend and early-season slice
-        run: python tools/evaluate_component_prior_v33.py /tmp/production-backtest-player-predictions.csv.gz data/backtests/backtest_player_predictions.csv.gz
+        run: PYTHONPATH=. python tools/evaluate_component_prior_v33.py /tmp/production-backtest-player-predictions.csv.gz data/backtests/backtest_player_predictions.csv.gz
 
       - name: Build live shadow
         run: python -m src.build_fpl_model --data-dir data
