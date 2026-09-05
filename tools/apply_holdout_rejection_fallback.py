@@ -12,6 +12,7 @@ def replace_once(path: Path, old: str, new: str) -> None:
 
 build = Path("src/build_fpl_model.py")
 decisions = Path("src/fpl_decisions.py")
+decision_tests = Path("tests/test_external_context_and_decisions.py")
 
 replace_once(
     build,
@@ -35,4 +36,23 @@ replace_once(
     decisions,
     '        "component_expected_minutes_next_1": round(component_expected_minutes, 2),\n        "observed_usage_rate": (',
     '        "component_expected_minutes_next_1": round(component_expected_minutes, 2),\n        "observed_fixture_count": observed_fixture_count,\n        "observed_usage_rate": (',
+)
+
+# These pre-existing helper tests intentionally exercise disagreement handling.
+# Make their synthetic horizons explicit about the production ensemble being active;
+# missing metadata is now correctly treated as shadow/inactive in production logic.
+replace_once(
+    decision_tests,
+    '            {\n                "expected_minutes_next_1": 81,\n                "control_expected_points_next_1": 5.5,',
+    '            {\n                "ensemble_status": "recommended_for_live_promotion",\n                "ensemble_point_weight": 0.2,\n                "expected_minutes_next_1": 81,\n                "control_expected_points_next_1": 5.5,',
+)
+replace_once(
+    decision_tests,
+    '        horizon = {\n            "expected_minutes_next_1": 81,\n            "component_expected_minutes_next_1": 50,',
+    '        horizon = {\n            "ensemble_status": "recommended_for_live_promotion",\n            "ensemble_point_weight": 0.2,\n            "expected_minutes_next_1": 81,\n            "component_expected_minutes_next_1": 50,',
+)
+replace_once(
+    decision_tests,
+    '            {\n                "expected_minutes_next_1": 81,\n                "component_expected_minutes_next_1": 50,\n                "control_expected_points_next_1": 6.0,',
+    '            {\n                "ensemble_status": "recommended_for_live_promotion",\n                "ensemble_point_weight": 0.2,\n                "expected_minutes_next_1": 81,\n                "component_expected_minutes_next_1": 50,\n                "control_expected_points_next_1": 6.0,',
 )
