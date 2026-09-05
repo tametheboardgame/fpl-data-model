@@ -1,0 +1,68 @@
+name: Frozen 2025/26 final holdout
+
+on:
+  push:
+    branches:
+      - fix/live-faithful-early-season-validation
+    paths:
+      - ".github/workflows/final-2025-holdout.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  final-holdout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/live-faithful-early-season-validation
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Verify frozen source before exposure
+        run: |
+          git diff --check
+          python -m unittest discover -s tests -v
+
+      - name: Download only prior context and untouched holdout history
+        run: |
+          rm -rf /tmp/fpl-final-holdout
+          python -m src.sync_historical_fpl \
+            --output-dir /tmp/fpl-final-holdout \
+            --seasons 2024-25 2025-26
+
+      - name: Evaluate frozen architecture once on 2025/26
+        run: |
+          python tools/evaluate_frozen_2025_holdout.py \
+            --data-dir /tmp/fpl-final-holdout \
+            --output /tmp/final_holdout_2025_26.json
+
+      - name: Preserve holdout report
+        uses: actions/upload-artifact@v4
+        with:
+          name: frozen-2025-26-final-holdout
+          path: /tmp/final_holdout_2025_26.json
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Enforce predeclared promotion gates
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path('/tmp/final_holdout_2025_26.json').read_text())
+          gates = report['predeclared_promotion_gates']
+          failed = [name for name, passed in gates.items() if not passed]
+          print(json.dumps({'passes_all_predeclared_gates': not failed, 'failed_gates': failed}, indent=2))
+          if failed:
+              raise SystemExit(1)
+          PY
