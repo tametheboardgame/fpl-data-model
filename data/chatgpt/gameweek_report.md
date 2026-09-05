@@ -1,42 +1,42 @@
 # FPL Gameweek 4 Deadline Report
 
 Status: ready
-Generated: 2026-09-05T04:34:58+00:00
+Generated: 2026-09-05T04:39:44+00:00
 UK deadline: 2026-09-12T13:30:00+01:00
-Hours remaining: 175.917
+Hours remaining: 175.838
 Advice level: provisional
 Firm advice allowed: False
 
 ## Recommended action
 
-Transfers: Konsa to Thiaw, Cherki to Tavernier
+Transfers: Roll or hold the transfer
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 2.828 xPts)
-- Thiaw (Newcastle, 3.603 xPts)
-- Gvardiol (Man City, 2.088 xPts)
-- Dedić (Newcastle, 1.964 xPts)
-- B.Fernandes (Man Utd, 4.303 xPts)
-- Szoboszlai (Liverpool, 4.175 xPts)
-- João Pedro (Chelsea, 4.533 xPts)
-- Haaland (Man City, 4.139 xPts)
-- Tavernier (Bournemouth, 3.818 xPts)
-- Thiago (Brentford, 3.159 xPts)
-- M.Sangaré (Brentford, 2.083 xPts)
+- Verbruggen (Brighton, 2.837 xPts)
+- Gvardiol (Man City, 2.176 xPts)
+- Dedić (Newcastle, 1.972 xPts)
+- Thomas (Coventry City, 1.814 xPts)
+- Szoboszlai (Liverpool, 4.21 xPts)
+- B.Fernandes (Man Utd, 4.188 xPts)
+- João Pedro (Chelsea, 4.656 xPts)
+- Haaland (Man City, 4.168 xPts)
+- Thiago (Brentford, 3.08 xPts)
+- Cherki (Man City, 2.49 xPts)
+- M.Sangaré (Brentford, 2.059 xPts)
 
 Captain: João Pedro
 Vice-captain: B.Fernandes
 
 ## Bench order
 
-1. Thomas (1.857 xPts)
-2. Slater (1.647 xPts)
-3. Egan (0.888 xPts)
-4. Steele (0.558 xPts)
+1. Slater (1.629 xPts)
+2. Konsa (1.498 xPts)
+3. Egan (0.826 xPts)
+4. Steele (0.56 xPts)
 
 ## Changes since previous report
 
