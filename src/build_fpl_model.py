@@ -1025,6 +1025,9 @@ def build_projections(
             "previous_season_minutes": number(
                 rows[0].get("previous_season_minutes") if rows else 0
             ),
+            "current_season_fixture_count": integer(
+                feature_by_player.get(player_id, {}).get("history_fixture_count")
+            ),
             "bonus_transition_multiplier": (
                 rows[0].get("bonus_transition_multiplier") if rows else 1.0
             ),

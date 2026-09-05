@@ -322,14 +322,17 @@ def selection_risk_adjustment(
     decision_points = number(projection.get("decision_expected_points"))
     expected_minutes = horizon_value(horizon, 1, "expected_minutes")
     completed_gameweeks = max(0, integer(target_gameweek) - 1)
+    observed_fixture_count = integer(horizon.get("current_season_fixture_count"))
+    if observed_fixture_count <= 0:
+        observed_fixture_count = completed_gameweeks
     minutes_penalty = 0.0
     observed_usage = None
-    if completed_gameweeks and expected_minutes > 0:
+    if observed_fixture_count and expected_minutes > 0:
         start_rate = clamp(
-            number(player.get("starts")) / completed_gameweeks, 0.0, 1.0
+            number(player.get("starts")) / observed_fixture_count, 0.0, 1.0
         )
         minute_share = clamp(
-            number(player.get("minutes")) / (90 * completed_gameweeks),
+            number(player.get("minutes")) / (90 * observed_fixture_count),
             0.0,
             1.0,
         )
@@ -352,9 +355,14 @@ def selection_risk_adjustment(
     component_points = horizon_value(
         horizon, 1, "component_expected_points"
     )
+    component_mean_active = (
+        str(horizon.get("ensemble_status") or "")
+        == "recommended_for_live_promotion"
+        and number(horizon.get("ensemble_point_weight")) > 0
+    )
     model_disagreement = (
         abs(control_points - component_points)
-        if control_points > 0 and component_points > 0
+        if component_mean_active and control_points > 0 and component_points > 0
         else 0.0
     )
     component_expected_minutes = horizon_value(
@@ -429,6 +437,7 @@ def selection_risk_adjustment(
         "penalised_model_disagreement": round(penalised_model_disagreement, 3),
         "role_supported_disagreement": round(role_supported_disagreement, 3),
         "component_expected_minutes_next_1": round(component_expected_minutes, 2),
+        "observed_fixture_count": observed_fixture_count,
         "observed_usage_rate": (
             round(observed_usage, 4) if observed_usage is not None else None
         ),

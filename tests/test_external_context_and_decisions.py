@@ -328,6 +328,8 @@ class DecisionTests(unittest.TestCase):
                 "status": "a",
             },
             {
+                "ensemble_status": "recommended_for_live_promotion",
+                "ensemble_point_weight": 0.2,
                 "expected_minutes_next_1": 81,
                 "control_expected_points_next_1": 5.5,
                 "component_expected_points_next_1": 3.5,
@@ -345,6 +347,8 @@ class DecisionTests(unittest.TestCase):
 
     def test_role_supported_component_minutes_gap_is_not_double_penalised(self) -> None:
         horizon = {
+            "ensemble_status": "recommended_for_live_promotion",
+            "ensemble_point_weight": 0.2,
             "expected_minutes_next_1": 81,
             "component_expected_minutes_next_1": 50,
             "control_expected_points_next_1": 6.0,
@@ -376,6 +380,8 @@ class DecisionTests(unittest.TestCase):
         adjustment = selection_risk_adjustment(
             {"position": "Forward", "starts": 0, "minutes": 30, "status": "a"},
             {
+                "ensemble_status": "recommended_for_live_promotion",
+                "ensemble_point_weight": 0.2,
                 "expected_minutes_next_1": 81,
                 "component_expected_minutes_next_1": 50,
                 "control_expected_points_next_1": 6.0,
