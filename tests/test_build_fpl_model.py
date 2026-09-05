@@ -13,6 +13,7 @@ from src.build_fpl_model import (
     PROJECTION_FIELDS,
     build_model,
     build_player_features,
+    completed_fixture_history,
     build_projections,
     build_team_features,
     write_prediction_snapshot,
@@ -91,6 +92,40 @@ class ModelTests(unittest.TestCase):
                 "away_difficulty": 4,
             }
         ]
+
+    def test_unfinished_current_gameweek_history_is_excluded_from_live_features(self) -> None:
+        history = [
+            self.history[0],
+            self.history[1],
+            {
+                **self.history[2],
+                "fixture": 99,
+                "round": 3,
+                "kickoff_time": "2026-01-10T15:00:00Z",
+                "minutes": 0,
+                "starts": 0,
+                "total_points": 0,
+                "expected_goals": 0,
+                "expected_assists": 0,
+                "expected_goal_involvements": 0,
+            },
+        ]
+        fixtures = [
+            {"fixture_id": 1, "finished": True},
+            {"fixture_id": 2, "finished": True},
+            {"fixture_id": 99, "finished": False},
+        ]
+
+        completed = completed_fixture_history(history, fixtures)
+        player_features = build_player_features(self.players, completed)
+        team_features = build_team_features(self.teams, completed)
+
+        self.assertEqual([row["fixture"] for row in completed], [1, 2])
+        self.assertEqual(player_features[0]["history_fixture_count"], 2)
+        self.assertEqual(player_features[0]["appearance_rate_3"], 1.0)
+        self.assertEqual(player_features[0]["start_rate_3"], 1.0)
+        self.assertEqual(player_features[0]["average_minutes_3"], 90.0)
+        self.assertEqual(team_features[0]["matches_3"], 2)
 
     def test_builds_rolling_features_and_projection(self) -> None:
         self.assertIn("probability_15_plus", PROJECTION_FIELDS)

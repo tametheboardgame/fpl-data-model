@@ -311,6 +311,30 @@ def recent_metrics(rows: list[dict[str, Any]], window: int) -> dict[str, Any]:
     }
 
 
+def completed_fixture_history(
+    fixture_history: list[dict[str, Any]], fixtures: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Return only player-history rows whose official fixture is complete.
+
+    The live element-summary endpoint can expose a current-Gameweek history row
+    after the FPL deadline but before that player's match has finished. Treating
+    those zero/partial rows as completed appearances dilutes minutes, starts and
+    team-form rates. Production features therefore admit history only when the
+    matching fixture has `finished=true`.
+    """
+
+    finished_fixture_ids = {
+        integer(row.get("fixture_id"))
+        for row in fixtures
+        if truthy(row.get("finished"))
+    }
+    return [
+        row
+        for row in fixture_history
+        if integer(row.get("fixture")) in finished_fixture_ids
+    ]
+
+
 def build_player_features(
     players: list[dict[str, Any]], fixture_history: list[dict[str, Any]]
 ) -> list[dict[str, Any]]:
@@ -1487,8 +1511,9 @@ def build_model(data_dir: Path) -> dict[str, Any]:
     if not players or not teams or not fixtures:
         raise ValueError("Core FPL datasets are missing; run the collection workflow first")
 
-    player_features = build_player_features(players, fixture_history)
-    team_features = build_team_features(teams, fixture_history, fixtures)
+    completed_history = completed_fixture_history(fixture_history, fixtures)
+    player_features = build_player_features(players, completed_history)
+    team_features = build_team_features(teams, completed_history, fixtures)
     priors = load_priors(data_dir / "history" / "position_priors.csv")
     projections, horizons = build_projections(
         players,
@@ -1685,6 +1710,8 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "method": "Development-selected ensemble with player-specific early-season priors, separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
         "player_feature_rows": len(player_features),
         "team_feature_rows": len(team_features),
+        "raw_fixture_history_rows": len(fixture_history),
+        "completed_fixture_history_rows": len(completed_history),
         "fixture_projection_rows": len(projections),
         "player_horizon_rows": len(horizons),
         "scouting_observation_rows": len(observations),
