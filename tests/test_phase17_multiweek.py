@@ -190,6 +190,41 @@ class MultiGameweekOptimiserTests(unittest.TestCase):
             {"Midfielder", "Forward"},
         )
 
+    def test_strategic_captain_score_changes_captain_without_fabricating_mean_points(self) -> None:
+        points = {row["player_id"]: 4.0 for row in self.players}
+        points[8] = 5.0
+        points[13] = 4.5
+        player_by_id = {row["player_id"]: row for row in self.players}
+
+        score, starters, captain = optimise_gameweek_lineup(
+            tuple(player_by_id),
+            player_by_id,
+            points,
+            captain_scores_by_player={13: 10.0, 8: 5.0},
+        )
+
+        self.assertEqual(captain, 13)
+        self.assertAlmostEqual(
+            score,
+            sum(points[player_id] for player_id in starters) + points[13],
+        )
+
+    def test_route_uses_strategic_captain_scores_only_for_first_gameweek(self) -> None:
+        result = optimise_multi_gameweek_route(
+            self.projections(points=4.0),
+            self.players,
+            self.squad,
+            bank=0,
+            free_transfers=1,
+            target_gameweek=1,
+            horizon=2,
+            first_gameweek_captain_scores={13: 10.0, 8: 5.0},
+        )
+
+        plan = result["recommended_route"]["gameweek_plan"]
+        self.assertEqual(plan[0]["captain_player_id"], 13)
+        self.assertEqual(plan[0]["lineup_expected_points"], 48.0)
+
     def test_waits_without_fixture_projections(self) -> None:
         result = optimise_multi_gameweek_route(
             [], self.players, self.squad, bank=0, free_transfers=1

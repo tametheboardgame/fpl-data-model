@@ -777,6 +777,11 @@ def build_decision_support(
         )
         for row in evaluated
     }
+    first_gameweek_captain_scores = {
+        integer(row.get("player_id")): number(row.get("captain_score"))
+        for row in evaluated
+        if integer(row.get("player_id"))
+    }
     multi_gameweek_plan = optimise_multi_gameweek_route(
         fixture_projections or [],
         [
@@ -797,6 +802,7 @@ def build_decision_support(
         integer(transfer_state.get("hit_cost")) or 4,
         target_gameweek,
         first_gameweek_multiplier=first_gameweek_multiplier,
+        first_gameweek_captain_scores=first_gameweek_captain_scores,
     )
     status = "ready" if target_gameweek and any(
         number(row.get("decision_expected_points")) > 0 for row in evaluated
