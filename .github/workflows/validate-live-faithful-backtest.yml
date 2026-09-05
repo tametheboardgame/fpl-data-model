@@ -7,6 +7,7 @@ on:
       - fix/live-faithful-early-season-validation
     paths:
       - "tools/apply_live_faithful_backtest_v1.py"
+      - "tools/evaluate_role_aware_ensemble.py"
       - ".github/workflows/validate-live-faithful-backtest.yml"
 
 permissions:
@@ -101,3 +102,6 @@ jobs:
               "fixed_production_0_2_strong_role": metrics_or_none(production_strong),
           }, indent=2))
           PY
+
+      - name: Evaluate per-player role-aware attenuation
+        run: python tools/evaluate_role_aware_ensemble.py
