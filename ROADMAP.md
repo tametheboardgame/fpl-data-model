@@ -7,7 +7,7 @@ This is the executable roadmap for fresh ChatGPT project chats. Pair it with `PR
 Use one of these commands:
 
 - `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below.
-- `Start FPL-22A` — merge/validate the current captain-route consistency fix.
+- `Start FPL-22A` — land and validate the current captain-route consistency fix.
 - `Start FPL-22B` — implement the shared strategic captain utility, after prerequisites.
 - `Start FPL-22C` — historical validation of the shared captain objective.
 - `Start FPL-22D` — reporting and audit cleanup.
@@ -19,9 +19,11 @@ A requested phase must not bypass incomplete prerequisites. Always read `PROJECT
 
 ## FPL-22A — Captain/route consistency production landing
 
-**Status:** READY / ACTIVE
+**Status:** ACTIVE — validated implementation exists, but its PR branch is currently stale/diverged from latest `main`.
 
-**Current implementation:** PR #47, `Unify current-Gameweek captaincy with route scoring`.
+**Validated implementation:** PR #47, `Unify current-Gameweek captaincy with route scoring`, head `ec5c2be96b5222c4ba5619a3a341f05b64cc0149`.
+
+The validated head passed exact-head data validation, the full production build and 140 tests. Afterward `main` advanced with handoff/documentation work and refreshed datasets. At the latest recorded comparison the branch was 4 commits ahead / 8 behind its merge base and GitHub reported it not mergeable.
 
 ### Goal
 
@@ -29,10 +31,20 @@ Make the current actionable Gameweek have one coherent captain authority: the pl
 
 ### Required actions
 
-1. Re-check PR #47 state, head SHA and exact-head CI.
-2. Merge only if the PR is still mergeable and all required checks remain green.
-3. Run/observe a clean production build on `main` after merge.
-4. Inspect fresh production outputs rather than relying on PR-run generated files.
+1. Read `PROJECT_STATE.md` and re-check current `main`, PR #47 and its five intended changed files.
+2. Refresh the validated change onto latest `main`. Prefer either:
+   - a safe rebase/merge of latest `main` into the branch if the resulting diff remains exactly intended; or
+   - a clean superseding branch/PR from latest `main` carrying only the validated five source/test file changes.
+3. Confirm the refreshed diff contains only:
+   - `src/fpl_decisions.py`
+   - `src/fpl_gameweek_operations.py`
+   - `src/fpl_multiweek.py`
+   - `tests/test_phase17_multiweek.py`
+   - `tests/test_phase21_gameweek_operations.py`
+4. Run exact-head CI again on the refreshed implementation.
+5. Merge only when it is mergeable and all required checks are green.
+6. Run/observe a clean production build on `main` after merge.
+7. Inspect fresh production outputs rather than relying on the earlier PR-run generated files.
 
 ### Acceptance gates
 
@@ -53,11 +65,12 @@ The post-merge production build must prove all of the following simultaneously:
 
 - do not alter model coefficients merely to make the current captain a preferred named player;
 - do not re-enable the rejected component challenger;
-- do not treat strategic captain utility as extra expected points.
+- do not treat strategic captain utility as extra expected points;
+- do not merge a stale/diverged PR just because an older exact-head run was green.
 
 ### Completion
 
-Mark FPL-22A complete in this file and `PROJECT_STATE.md`, recording the merge commit and post-merge validation result.
+Mark FPL-22A complete in this file and `PROJECT_STATE.md`, recording the final PR/merge commit and post-merge validation result.
 
 ---
 
