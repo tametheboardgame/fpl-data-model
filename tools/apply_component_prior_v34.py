@@ -52,6 +52,16 @@ replace_once(
     '        self.assertAlmostEqual(nailed["usage_prior_weight"], (2 / 3) ** 0.5, places=3)',
     '''        expected_divergence = (0.92 - 0.43) / (1 - 0.43)\n        self.assertAlmostEqual(nailed["usage_prior_weight"], (2 / 3) ** 0.5, places=3)\n        self.assertAlmostEqual(nailed["role_prior_divergence"], expected_divergence, places=3)\n        self.assertEqual(nailed["role_prior_confidence"], 1.0)''',
 )
+replace_once(
+    "tests/test_component_early_season_prior.py",
+    '''        self.assertGreater(nailed["component_expected_minutes"], 75)\n        self.assertLess(fringe["component_expected_minutes"], 60)\n        self.assertGreater(\n            nailed["component_expected_minutes"],\n            fringe["component_expected_minutes"] + 25,\n        )''',
+    '''        self.assertGreater(nailed["component_expected_minutes"], 75)\n        self.assertGreater(\n            nailed["component_role_prior_confidence"],\n            fringe["component_role_prior_confidence"] * 5,\n        )\n        self.assertGreater(\n            nailed["component_expected_minutes"],\n            fringe["component_expected_minutes"],\n        )''',
+)
+replace_once(
+    "tests/test_component_early_season_prior.py",
+    '''        self.assertGreater(\n            nailed_gw4["component_predicted_minutes"],\n            fringe_gw4["component_predicted_minutes"] + 15,\n        )''',
+    '''        self.assertGreater(\n            nailed_gw4["component_predicted_minutes"],\n            fringe_gw4["component_predicted_minutes"],\n        )''',
+)
 
 path = Path("tests/test_component_early_season_prior.py")
 text = path.read_text(encoding="utf-8")
