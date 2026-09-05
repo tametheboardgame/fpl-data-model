@@ -7795,14 +7795,205 @@
     "finished_provisional": false,
     "id": 27,
     "kickoff_time": "2026-09-05T11:30:00Z",
-    "minutes": 0,
+    "minutes": 11,
     "provisional_start_time": false,
-    "started": false,
+    "started": true,
     "team_a": 3,
-    "team_a_score": null,
+    "team_a_score": 1,
     "team_h": 17,
-    "team_h_score": null,
-    "stats": [],
+    "team_h_score": 0,
+    "stats": [
+      {
+        "identifier": "goals_scored",
+        "a": [
+          {
+            "value": 1,
+            "element": 68
+          }
+        ],
+        "h": []
+      },
+      {
+        "identifier": "assists",
+        "a": [
+          {
+            "value": 1,
+            "element": 69
+          }
+        ],
+        "h": []
+      },
+      {
+        "identifier": "own_goals",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "penalties_saved",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "penalties_missed",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "yellow_cards",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "red_cards",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "saves",
+        "a": [],
+        "h": [
+          {
+            "value": 1,
+            "element": 567
+          }
+        ]
+      },
+      {
+        "identifier": "bonus",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "bps",
+        "a": [
+          {
+            "value": 28,
+            "element": 68
+          },
+          {
+            "value": 12,
+            "element": 69
+          },
+          {
+            "value": 6,
+            "element": 70
+          },
+          {
+            "value": 6,
+            "element": 73
+          },
+          {
+            "value": 4,
+            "element": 64
+          },
+          {
+            "value": 3,
+            "element": 57
+          },
+          {
+            "value": 3,
+            "element": 60
+          },
+          {
+            "value": 3,
+            "element": 61
+          },
+          {
+            "value": 3,
+            "element": 67
+          },
+          {
+            "value": 3,
+            "element": 79
+          },
+          {
+            "value": 3,
+            "element": 566
+          }
+        ],
+        "h": [
+          {
+            "value": 4,
+            "element": 454
+          },
+          {
+            "value": 3,
+            "element": 460
+          },
+          {
+            "value": 3,
+            "element": 464
+          },
+          {
+            "value": 2,
+            "element": 405
+          },
+          {
+            "value": 2,
+            "element": 453
+          },
+          {
+            "value": 2,
+            "element": 459
+          },
+          {
+            "value": 1,
+            "element": 567
+          },
+          {
+            "value": -1,
+            "element": 445
+          },
+          {
+            "value": -1,
+            "element": 447
+          },
+          {
+            "value": -1,
+            "element": 449
+          }
+        ]
+      },
+      {
+        "identifier": "defensive_contribution",
+        "a": [
+          {
+            "value": 3,
+            "element": 69
+          },
+          {
+            "value": 3,
+            "element": 73
+          },
+          {
+            "value": 2,
+            "element": 68
+          }
+        ],
+        "h": [
+          {
+            "value": 2,
+            "element": 405
+          },
+          {
+            "value": 1,
+            "element": 447
+          },
+          {
+            "value": 1,
+            "element": 449
+          },
+          {
+            "value": 1,
+            "element": 454
+          },
+          {
+            "value": 1,
+            "element": 593
+          }
+        ]
+      }
+    ],
     "team_h_difficulty": 3,
     "team_a_difficulty": 3,
     "pulse_id": 0
