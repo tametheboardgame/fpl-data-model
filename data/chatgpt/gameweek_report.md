@@ -1,9 +1,9 @@
 # FPL Gameweek 4 Deadline Report
 
 Status: ready
-Generated: 2026-09-05T20:25:04+00:00
+Generated: 2026-09-05T20:29:14+00:00
 UK deadline: 2026-09-12T13:30:00+01:00
-Hours remaining: 160.082
+Hours remaining: 160.013
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,27 +16,27 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.819 xPts)
-- Konsa (Arsenal, 2.165 xPts)
-- Gvardiol (Man City, 2.078 xPts)
-- Dedić (Newcastle, 1.976 xPts)
-- B.Fernandes (Man Utd, 5.379 xPts)
-- Szoboszlai (Liverpool, 4.375 xPts)
-- Haaland (Man City, 5.393 xPts)
-- João Pedro (Chelsea, 5.06 xPts)
-- Thiago (Brentford, 3.975 xPts)
-- Cherki (Man City, 2.794 xPts)
-- M.Sangaré (Brentford, 2.103 xPts)
+- Verbruggen (Brighton, 3.833 xPts)
+- Konsa (Arsenal, 2.205 xPts)
+- Gvardiol (Man City, 2.173 xPts)
+- Dedić (Newcastle, 1.959 xPts)
+- B.Fernandes (Man Utd, 5.24 xPts)
+- Szoboszlai (Liverpool, 4.432 xPts)
+- Haaland (Man City, 5.422 xPts)
+- João Pedro (Chelsea, 5.225 xPts)
+- Thiago (Brentford, 3.863 xPts)
+- Cherki (Man City, 2.816 xPts)
+- M.Sangaré (Brentford, 2.069 xPts)
 
 Captain: B.Fernandes
 Vice-captain: Haaland
 
 ## Bench order
 
-1. Thomas (1.886 xPts)
-2. Slater (1.665 xPts)
-3. Egan (0.924 xPts)
-4. Steele (0.619 xPts)
+1. Thomas (1.837 xPts)
+2. Slater (1.638 xPts)
+3. Egan (0.847 xPts)
+4. Steele (0.621 xPts)
 
 ## Changes since previous report
 
