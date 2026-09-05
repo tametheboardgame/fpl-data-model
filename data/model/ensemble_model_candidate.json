@@ -1,65 +1,384 @@
 {
-  "generated_at": "2026-09-05T10:27:03+00:00",
-  "status": "holdout_rejected",
+  "generated_at": "2026-09-05T11:48:22+00:00",
+  "status": "recommended_for_live_promotion",
   "assessment": {
-    "model": "player-ensemble-1.0",
+    "model": "development_selected_hybrid",
     "control_model_version": "player-sim-2.0",
     "component_model_version": "player-sim-3.0-candidate",
-    "previous_live_selection": {
-      "point_weight": 0.2,
-      "probability_weights": {
+    "selection": {
+      "selected_point_weight": 0.2,
+      "selected_probability_weights": {
         "6": 0.5,
         "10": 0.4,
         "15": 1.0
-      }
-    },
-    "independent_holdout": {
-      "season": "2025-26",
-      "evaluation": "one_shot_frozen_final_holdout",
-      "eligible_prediction_rows": 12781,
-      "gameweeks": 36,
-      "control_metrics": {
-        "mae": 1.9467,
-        "rmse": 2.8036,
-        "mean_gameweek_spearman": 0.4095,
-        "top_10_hit_rate": 0.1528,
-        "mean_captaincy_regret": 11.2778,
-        "brier_6_plus": 0.11473,
-        "brier_10_plus": 0.03539,
-        "brier_15_plus": 0.00644
       },
-      "ensemble_metrics": {
-        "mae": 1.9377,
-        "rmse": 2.8008,
-        "mean_gameweek_spearman": 0.4062,
-        "top_10_hit_rate": 0.1472,
-        "mean_captaincy_regret": 11.2222,
-        "brier_6_plus": 0.11453,
-        "brier_10_plus": 0.03535,
-        "brier_15_plus": 0.00643
+      "rank_tolerance": 0.002,
+      "point_weight_trials": [
+        {
+          "weight": 0.0,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.9103,
+          "rmse": 2.8078,
+          "bias": 0.0095,
+          "mean_gameweek_spearman": 0.445,
+          "top_10_hit_rate": 0.1478,
+          "top_25_hit_rate": 0.1994,
+          "mean_captaincy_regret": 11.087,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 0.1,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.9036,
+          "rmse": 2.8058,
+          "bias": -0.0048,
+          "mean_gameweek_spearman": 0.4443,
+          "top_10_hit_rate": 0.1493,
+          "top_25_hit_rate": 0.2017,
+          "mean_captaincy_regret": 11.1304,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 0.2,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.8974,
+          "rmse": 2.8044,
+          "bias": -0.0191,
+          "mean_gameweek_spearman": 0.4432,
+          "top_10_hit_rate": 0.1507,
+          "top_25_hit_rate": 0.2023,
+          "mean_captaincy_regret": 11.4783,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 0.3,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.8916,
+          "rmse": 2.8037,
+          "bias": -0.0333,
+          "mean_gameweek_spearman": 0.4418,
+          "top_10_hit_rate": 0.1493,
+          "top_25_hit_rate": 0.2029,
+          "mean_captaincy_regret": 11.4203,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 0.4,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.8862,
+          "rmse": 2.8036,
+          "bias": -0.0476,
+          "mean_gameweek_spearman": 0.4402,
+          "top_10_hit_rate": 0.1464,
+          "top_25_hit_rate": 0.2006,
+          "mean_captaincy_regret": 11.4348,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 0.5,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.8813,
+          "rmse": 2.8041,
+          "bias": -0.0619,
+          "mean_gameweek_spearman": 0.4383,
+          "top_10_hit_rate": 0.1507,
+          "top_25_hit_rate": 0.2035,
+          "mean_captaincy_regret": 11.4783,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 0.6,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.8769,
+          "rmse": 2.8053,
+          "bias": -0.0762,
+          "mean_gameweek_spearman": 0.4362,
+          "top_10_hit_rate": 0.1507,
+          "top_25_hit_rate": 0.2035,
+          "mean_captaincy_regret": 11.4783,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 0.7,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.8729,
+          "rmse": 2.8072,
+          "bias": -0.0905,
+          "mean_gameweek_spearman": 0.4333,
+          "top_10_hit_rate": 0.1551,
+          "top_25_hit_rate": 0.207,
+          "mean_captaincy_regret": 11.4348,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 0.8,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.8696,
+          "rmse": 2.8097,
+          "bias": -0.1047,
+          "mean_gameweek_spearman": 0.43,
+          "top_10_hit_rate": 0.1478,
+          "top_25_hit_rate": 0.207,
+          "mean_captaincy_regret": 11.3043,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 0.9,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.8667,
+          "rmse": 2.8128,
+          "bias": -0.119,
+          "mean_gameweek_spearman": 0.4263,
+          "top_10_hit_rate": 0.1493,
+          "top_25_hit_rate": 0.2058,
+          "mean_captaincy_regret": 11.2754,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        },
+        {
+          "weight": 1.0,
+          "model": "hybrid_sim",
+          "rows": 24696,
+          "gameweeks": 69,
+          "mae": 1.8644,
+          "rmse": 2.8166,
+          "bias": -0.1333,
+          "mean_gameweek_spearman": 0.4219,
+          "top_10_hit_rate": 0.1449,
+          "top_25_hit_rate": 0.207,
+          "mean_captaincy_regret": 11.1594,
+          "brier_6_plus": 0.11634,
+          "brier_10_plus": 0.03481,
+          "brier_15_plus": 0.00733
+        }
+      ],
+      "probability_weight_trials": {
+        "6": [
+          {
+            "weight": 0.0,
+            "brier": 0.1168395
+          },
+          {
+            "weight": 0.1,
+            "brier": 0.1166684
+          },
+          {
+            "weight": 0.2,
+            "brier": 0.1165326
+          },
+          {
+            "weight": 0.3,
+            "brier": 0.1164325
+          },
+          {
+            "weight": 0.4,
+            "brier": 0.116368
+          },
+          {
+            "weight": 0.5,
+            "brier": 0.1163387
+          },
+          {
+            "weight": 0.6,
+            "brier": 0.116345
+          },
+          {
+            "weight": 0.7,
+            "brier": 0.1163869
+          },
+          {
+            "weight": 0.8,
+            "brier": 0.1164642
+          },
+          {
+            "weight": 0.9,
+            "brier": 0.1165769
+          },
+          {
+            "weight": 1.0,
+            "brier": 0.1167252
+          }
+        ],
+        "10": [
+          {
+            "weight": 0.0,
+            "brier": 0.0348367
+          },
+          {
+            "weight": 0.1,
+            "brier": 0.0348229
+          },
+          {
+            "weight": 0.2,
+            "brier": 0.0348133
+          },
+          {
+            "weight": 0.3,
+            "brier": 0.0348075
+          },
+          {
+            "weight": 0.4,
+            "brier": 0.0348059
+          },
+          {
+            "weight": 0.5,
+            "brier": 0.0348084
+          },
+          {
+            "weight": 0.6,
+            "brier": 0.0348146
+          },
+          {
+            "weight": 0.7,
+            "brier": 0.0348251
+          },
+          {
+            "weight": 0.8,
+            "brier": 0.0348396
+          },
+          {
+            "weight": 0.9,
+            "brier": 0.0348582
+          },
+          {
+            "weight": 1.0,
+            "brier": 0.0348807
+          }
+        ],
+        "15": [
+          {
+            "weight": 0.0,
+            "brier": 0.0073575
+          },
+          {
+            "weight": 0.1,
+            "brier": 0.0073504
+          },
+          {
+            "weight": 0.2,
+            "brier": 0.0073439
+          },
+          {
+            "weight": 0.3,
+            "brier": 0.007338
+          },
+          {
+            "weight": 0.4,
+            "brier": 0.0073328
+          },
+          {
+            "weight": 0.5,
+            "brier": 0.0073281
+          },
+          {
+            "weight": 0.6,
+            "brier": 0.0073239
+          },
+          {
+            "weight": 0.7,
+            "brier": 0.0073204
+          },
+          {
+            "weight": 0.8,
+            "brier": 0.0073174
+          },
+          {
+            "weight": 0.9,
+            "brier": 0.0073151
+          },
+          {
+            "weight": 1.0,
+            "brier": 0.0073133
+          }
+        ]
       },
-      "failed_predeclared_gates": [
-        "mae_improves_by_at_least_half_percent",
-        "rank_correlation_within_tolerance",
-        "top_10_hit_rate_not_worse"
-      ]
+      "fitted_rows": 24696
     },
-    "secondary_internal_validation": {
-      "season": "2024-25",
-      "rank_safe_component_tails_passed": false,
-      "reason": "Component tail probabilities improved Brier calibration but reduced top-10 precision for both 10+ and 15+ hauls."
+    "held_out_hybrid_metrics": {
+      "model": "hybrid_sim",
+      "rows": 12937,
+      "gameweeks": 35,
+      "mae": 1.812,
+      "rmse": 2.662,
+      "bias": 0.0284,
+      "mean_gameweek_spearman": 0.4575,
+      "top_10_hit_rate": 0.1571,
+      "top_25_hit_rate": 0.2011,
+      "mean_captaincy_regret": 9.2,
+      "brier_6_plus": 0.10917,
+      "brier_10_plus": 0.02934,
+      "brier_15_plus": 0.00613
     },
-    "production_action": {
-      "use_control_expected_points": true,
-      "use_control_distributions": true,
-      "component_decision_weight": 0.0,
-      "component_status": "shadow_research_only",
-      "reason": "The challenger did not generalise on the independent holdout and its top-end ranking behaviour is inconsistent with the mini-league-winning objective."
+    "held_out_control_metrics": {
+      "model": "player_sim",
+      "rows": 12937,
+      "gameweeks": 35,
+      "mae": 1.825,
+      "rmse": 2.6666,
+      "bias": 0.054,
+      "mean_gameweek_spearman": 0.4582,
+      "top_10_hit_rate": 0.1543,
+      "top_25_hit_rate": 0.2034,
+      "mean_captaincy_regret": 9.2,
+      "brier_6_plus": 0.10971,
+      "brier_10_plus": 0.02938,
+      "brier_15_plus": 0.00614
     },
-    "governance": {
-      "holdout_2025_26_closed": true,
-      "retuning_against_2025_26_prohibited": true,
-      "future_component_promotion_requires_prospective_or_new_unseen_evidence": true
-    }
+    "rank_correlation_change": -0.0007,
+    "mae_change": -0.013,
+    "rmse_change": -0.0046,
+    "return_probability_brier_improvements": {
+      "6": true,
+      "10": true,
+      "15": true
+    },
+    "promotion_criteria": {
+      "rank_correlation_within_tolerance": true,
+      "mae_improves_by_at_least_half_percent": true,
+      "rmse_not_worse": true,
+      "top_10_hit_rate_not_worse": true,
+      "captaincy_regret_not_worse": true,
+      "at_least_two_probability_brier_scores_not_worse": true
+    },
+    "recommended_for_live_promotion": true
   }
 }
