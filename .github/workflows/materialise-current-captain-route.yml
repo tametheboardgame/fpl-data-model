@@ -25,69 +25,70 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
+          def replace_once(text: str, old: str, new: str, label: str) -> str:
+              count = text.count(old)
+              if count != 1:
+                  raise RuntimeError(f'{label}: expected one match, found {count}')
+              return text.replace(old, new, 1)
+
           multi = Path('src/fpl_multiweek.py')
           text = multi.read_text(encoding='utf-8')
           old = '''def optimise_gameweek_lineup(\n    squad_ids: tuple[int, ...],\n    player_by_id: dict[int, dict[str, Any]],\n    points_by_player: dict[int, float],\n    fixtures_by_player: dict[int, list[dict[str, Any]]] | None = None,\n    risk_profile: str = \"balanced\",\n) -> tuple[float, list[int], int | None]:\n    def captain_key(player_id: int) -> tuple[float, float]:\n        points = points_by_player.get(player_id, 0)\n        position = str(player_by_id.get(player_id, {}).get(\"position\"))\n        uncertainty_penalty = (\n            DEFENSIVE_CAPTAIN_UNCERTAINTY_PENALTY\n            if position in {\"Goalkeeper\", \"Defender\"}\n            else 0.0\n        )\n        return points - uncertainty_penalty, points\n'''
           new = '''def optimise_gameweek_lineup(\n    squad_ids: tuple[int, ...],\n    player_by_id: dict[int, dict[str, Any]],\n    points_by_player: dict[int, float],\n    fixtures_by_player: dict[int, list[dict[str, Any]]] | None = None,\n    risk_profile: str = \"balanced\",\n    captain_scores_by_player: dict[int, float] | None = None,\n) -> tuple[float, list[int], int | None]:\n    def captain_key(player_id: int) -> tuple[float, float]:\n        points = points_by_player.get(player_id, 0)\n        if captain_scores_by_player is not None:\n            # The caller's captain utility is authoritative when supplied. The\n            # returned lineup score still uses mean expected points, so strategic\n            # captain selection never fabricates xPts.\n            return captain_scores_by_player.get(player_id, points), points\n        position = str(player_by_id.get(player_id, {}).get(\"position\"))\n        uncertainty_penalty = (\n            DEFENSIVE_CAPTAIN_UNCERTAINTY_PENALTY\n            if position in {\"Goalkeeper\", \"Defender\"}\n            else 0.0\n        )\n        return points - uncertainty_penalty, points\n'''
-          assert text.count(old) == 1
-          text = text.replace(old, new, 1)
+          text = replace_once(text, old, new, 'lineup captain utility')
 
-          old = '''    first_gameweek_multiplier: dict[int, float] | None = None,\n) -> dict[str, Any]:\n'''
-          new = '''    first_gameweek_multiplier: dict[int, float] | None = None,\n    first_gameweek_captain_scores: dict[int, float] | None = None,\n) -> dict[str, Any]:\n'''
-          assert text.count(old) == 1
-          text = text.replace(old, new, 1)
+          old = '''    discount: float = 0.96,\n    first_gameweek_multiplier: dict[int, float] | None = None,\n) -> dict[str, Any]:\n'''
+          new = '''    discount: float = 0.96,\n    first_gameweek_multiplier: dict[int, float] | None = None,\n    first_gameweek_captain_scores: dict[int, float] | None = None,\n) -> dict[str, Any]:\n'''
+          text = replace_once(text, old, new, 'route signature')
 
           old = '''    hold_points = 0.0\n    for gameweek in future_gameweeks:\n        points, _, _ = optimise_gameweek_lineup(squad_ids, player_by_id, matrix.get(gameweek, {}))\n        hold_points += points\n'''
           new = '''    def captain_scores_for(gameweek: int) -> dict[int, float] | None:\n        if gameweek == future_gameweeks[0]:\n            return first_gameweek_captain_scores\n        return None\n\n    hold_points = 0.0\n    for gameweek in future_gameweeks:\n        points, _, _ = optimise_gameweek_lineup(\n            squad_ids,\n            player_by_id,\n            matrix.get(gameweek, {}),\n            captain_scores_by_player=captain_scores_for(gameweek),\n        )\n        hold_points += points\n'''
-          assert text.count(old) == 1
-          text = text.replace(old, new, 1)
+          text = replace_once(text, old, new, 'hold route captain')
 
           old = '''                points, starters, captain = optimise_gameweek_lineup(\n                    new_squad, player_by_id, matrix.get(gameweek, {})\n                )\n'''
           new = '''                points, starters, captain = optimise_gameweek_lineup(\n                    new_squad,\n                    player_by_id,\n                    matrix.get(gameweek, {}),\n                    captain_scores_by_player=captain_scores_for(gameweek),\n                )\n'''
-          assert text.count(old) == 1
-          text = text.replace(old, new, 1)
+          text = replace_once(text, old, new, 'candidate route captain')
 
           old = '''        points, starters, captain = optimise_gameweek_lineup(\n            squad_ids, player_by_id, matrix.get(gameweek, {})\n        )\n'''
           new = '''        points, starters, captain = optimise_gameweek_lineup(\n            squad_ids,\n            player_by_id,\n            matrix.get(gameweek, {}),\n            captain_scores_by_player=captain_scores_for(gameweek),\n        )\n'''
-          assert text.count(old) == 1
-          text = text.replace(old, new, 1)
+          text = replace_once(text, old, new, 'hold move captain')
           multi.write_text(text, encoding='utf-8')
 
           decisions = Path('src/fpl_decisions.py')
           text = decisions.read_text(encoding='utf-8')
           old = '''    first_gameweek_multiplier = {\n        integer(row.get(\"player_id\")): (\n            number(row.get(\"selection_expected_points\"))\n            / number(row.get(\"model_expected_points\"))\n            if number(row.get(\"model_expected_points\")) > 0\n            else 1.0\n        )\n        for row in evaluated\n    }\n    multi_gameweek_plan = optimise_multi_gameweek_route(\n'''
           new = '''    first_gameweek_multiplier = {\n        integer(row.get(\"player_id\")): (\n            number(row.get(\"selection_expected_points\"))\n            / number(row.get(\"model_expected_points\"))\n            if number(row.get(\"model_expected_points\")) > 0\n            else 1.0\n        )\n        for row in evaluated\n    }\n    first_gameweek_captain_scores = {\n        integer(row.get(\"player_id\")): number(row.get(\"captain_score\"))\n        for row in evaluated\n        if integer(row.get(\"player_id\"))\n    }\n    multi_gameweek_plan = optimise_multi_gameweek_route(\n'''
-          assert text.count(old) == 1
-          text = text.replace(old, new, 1)
-          old = '''        target_gameweek,\n        first_gameweek_multiplier=first_gameweek_multiplier,\n    )\n'''
-          new = '''        target_gameweek,\n        first_gameweek_multiplier=first_gameweek_multiplier,\n        first_gameweek_captain_scores=first_gameweek_captain_scores,\n    )\n'''
-          assert text.count(old) == 1
-          text = text.replace(old, new, 1)
+          text = replace_once(text, old, new, 'decision captain scores')
+          old = '''        target_gameweek,\n        first_gameweek_multiplier=first_gameweek_multiplier,\n    )\n    status = \"ready\"'''
+          new = '''        target_gameweek,\n        first_gameweek_multiplier=first_gameweek_multiplier,\n        first_gameweek_captain_scores=first_gameweek_captain_scores,\n    )\n    status = \"ready\"'''
+          text = replace_once(text, old, new, 'decision route handoff')
           decisions.write_text(text, encoding='utf-8')
 
           operations = Path('src/fpl_gameweek_operations.py')
           text = operations.read_text(encoding='utf-8')
-          text = text.replace('OPERATIONS_VERSION = \"fpl-gameweek-operations-1.6\"', 'OPERATIONS_VERSION = \"fpl-gameweek-operations-1.7\"', 1)
+          text = replace_once(
+              text,
+              'OPERATIONS_VERSION = \"fpl-gameweek-operations-1.6\"',
+              'OPERATIONS_VERSION = \"fpl-gameweek-operations-1.7\"',
+              'operations version',
+          )
           old = '''    captain_id = (\n        decision_captain_id\n        if decision_captain_id in starter_ids\n        else route_captain_id\n    )\n'''
           new = '''    # The route captain is authoritative because the route score is calculated\n    # with that doubled mean return. The first route Gameweek now uses the same\n    # strategic captain utility as decision support; the decision captain is only\n    # a fallback when no valid route captain exists. This prevents exposing one\n    # captain while retaining xPts calculated for another.\n    captain_id = (\n        route_captain_id\n        if route_captain_id in starter_ids\n        else decision_captain_id\n    )\n'''
-          assert text.count(old) == 1
-          text = text.replace(old, new, 1)
+          text = replace_once(text, old, new, 'operational captain authority')
           operations.write_text(text, encoding='utf-8')
 
           tests = Path('tests/test_phase17_multiweek.py')
           text = tests.read_text(encoding='utf-8')
           anchor = '''\n    def test_waits_without_fixture_projections(self) -> None:\n'''
           addition = '''\n    def test_strategic_captain_score_changes_captain_without_fabricating_mean_points(self) -> None:\n        points = {row[\"player_id\"]: 4.0 for row in self.players}\n        points[8] = 5.0\n        points[13] = 4.5\n        player_by_id = {row[\"player_id\"]: row for row in self.players}\n\n        score, starters, captain = optimise_gameweek_lineup(\n            tuple(player_by_id),\n            player_by_id,\n            points,\n            captain_scores_by_player={13: 10.0, 8: 5.0},\n        )\n\n        self.assertEqual(captain, 13)\n        self.assertAlmostEqual(\n            score,\n            sum(points[player_id] for player_id in starters) + points[13],\n        )\n\n    def test_route_uses_strategic_captain_scores_only_for_first_gameweek(self) -> None:\n        result = optimise_multi_gameweek_route(\n            self.projections(points=4.0),\n            self.players,\n            self.squad,\n            bank=0,\n            free_transfers=1,\n            target_gameweek=1,\n            horizon=2,\n            first_gameweek_captain_scores={13: 10.0, 8: 5.0},\n        )\n\n        plan = result[\"recommended_route\"][\"gameweek_plan\"]\n        self.assertEqual(plan[0][\"captain_player_id\"], 13)\n        self.assertEqual(plan[0][\"lineup_expected_points\"], 48.0)\n'''
-          assert text.count(anchor) == 1
-          text = text.replace(anchor, addition + anchor, 1)
+          text = replace_once(text, anchor, addition + anchor, 'multiweek tests')
           tests.write_text(text, encoding='utf-8')
 
           tests = Path('tests/test_phase21_gameweek_operations.py')
           text = tests.read_text(encoding='utf-8')
           anchor = '''\n    def test_waiting_state_contains_no_named_recommendation(self) -> None:\n'''
           addition = '''\n    def test_route_captain_and_route_score_remain_the_same_user_facing_authority(self) -> None:\n        # Simulate a stale disagreement between the separate decision captain and\n        # the route. Operations must never expose the former alongside the latter's\n        # doubled-score arithmetic.\n        self.decision[\"captaincy\"][\"captain\"] = {\"player_id\": 8}\n        route_move = self.decision[\"multi_gameweek_plan\"][\"recommended_route\"][\"gameweek_plan\"][0]\n        route_move[\"captain_player_id\"] = 13\n        route_move[\"captain\"] = \"Player 13\"\n        route_move[\"lineup_expected_points\"] = 62.5\n        route_move[\"net_expected_points\"] = 62.5\n\n        report = self.build()\n\n        self.assertEqual(report[\"recommendation\"][\"captain\"][\"player_id\"], 13)\n        self.assertEqual(report[\"recommendation\"][\"expected_points\"], 62.5)\n        first_route = report[\"six_gameweek_plan\"][\"gameweek_plan\"][0]\n        self.assertEqual(first_route[\"captain_player_id\"], 13)\n        self.assertEqual(first_route[\"lineup_expected_points\"], 62.5)\n'''
-          assert text.count(anchor) == 1
-          text = text.replace(anchor, addition + anchor, 1)
+          text = replace_once(text, anchor, addition + anchor, 'operations test')
           tests.write_text(text, encoding='utf-8')
           PY
       - name: Run focused tests
