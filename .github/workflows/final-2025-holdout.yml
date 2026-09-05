@@ -41,7 +41,7 @@ jobs:
 
       - name: Evaluate frozen architecture once on 2025/26
         run: |
-          python tools/evaluate_frozen_2025_holdout.py \
+          PYTHONPATH=. python tools/evaluate_frozen_2025_holdout.py \
             --data-dir /tmp/fpl-final-holdout \
             --output /tmp/final_holdout_2025_26.json
 
