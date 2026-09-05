@@ -1,0 +1,103 @@
+name: Validate live-faithful early-season backtest
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - fix/live-faithful-early-season-validation
+    paths:
+      - "tools/apply_live_faithful_backtest_v1.py"
+      - ".github/workflows/validate-live-faithful-backtest.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v7
+        with:
+          ref: fix/live-faithful-early-season-validation
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Apply live-faithful validation patch
+        run: python tools/apply_live_faithful_backtest_v1.py
+
+      - name: Check patched source
+        run: git diff --check -- src tests
+
+      - name: Run unit suite
+        run: python -m unittest discover -s tests -v
+
+      - name: Run internal 2024/25 validation
+        run: python -m src.backtest_fpl_model --data-dir data
+
+      - name: Compare corrected control and ensemble weights
+        run: |
+          python - <<'PY'
+          import csv
+          import gzip
+          import json
+          from pathlib import Path
+          from src.backtest_fpl_model import apply_hybrid, grouped_metrics
+
+          path = Path("data/backtests/backtest_player_predictions.csv.gz")
+          with gzip.open(path, "rt", encoding="utf-8", newline="") as handle:
+              rows = list(csv.DictReader(handle))
+          held = [row for row in rows if row.get("season") == "2024-25"]
+          summary = json.loads(Path("data/backtests/backtest_summary.json").read_text())
+          selection = summary["hybrid_model_assessment"]["selection"]
+
+          selected = [dict(row) for row in held]
+          apply_hybrid(
+              selected,
+              selection["selected_point_weight"],
+              selection["selected_probability_weights"],
+          )
+          production = [dict(row) for row in held]
+          apply_hybrid(
+              production,
+              0.2,
+              {"6": 0.5, "10": 0.4, "15": 1.0},
+          )
+          early = [row for row in held if 3 <= int(float(row.get("prior_fixture_rows") or 0)) <= 5]
+          strong_role = [
+              row for row in early
+              if float(row.get("previous_season_minutes") or 0) >= 1800
+          ]
+          selected_early = [dict(row) for row in early]
+          production_early = [dict(row) for row in early]
+          apply_hybrid(selected_early, selection["selected_point_weight"], selection["selected_probability_weights"])
+          apply_hybrid(production_early, 0.2, {"6": 0.5, "10": 0.4, "15": 1.0})
+          selected_strong = [dict(row) for row in strong_role]
+          production_strong = [dict(row) for row in strong_role]
+          apply_hybrid(selected_strong, selection["selected_point_weight"], selection["selected_probability_weights"])
+          apply_hybrid(production_strong, 0.2, {"6": 0.5, "10": 0.4, "15": 1.0})
+
+          def metrics_or_none(items):
+              return grouped_metrics(items, "hybrid_sim") if items else None
+
+          print(json.dumps({
+              "selected_weights": selection,
+              "corrected_control_full": grouped_metrics(held, "player_sim"),
+              "selected_hybrid_full": metrics_or_none(selected),
+              "fixed_production_0_2_full": metrics_or_none(production),
+              "early_rows": len(early),
+              "selected_hybrid_early": metrics_or_none(selected_early),
+              "fixed_production_0_2_early": metrics_or_none(production_early),
+              "strong_previous_role_rows": len(strong_role),
+              "selected_hybrid_strong_role": metrics_or_none(selected_strong),
+              "fixed_production_0_2_strong_role": metrics_or_none(production_strong),
+          }, indent=2))
+          PY
