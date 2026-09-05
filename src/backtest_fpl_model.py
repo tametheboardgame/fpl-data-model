@@ -182,6 +182,15 @@ def clamp(value: float, lower: float, upper: float) -> float:
     return max(lower, min(upper, value))
 
 
+def historical_defensive_contribution_rate(season: str, value: Any) -> float:
+    """DefCon points entered FPL scoring from 2025/26; older backtests must not score them."""
+    try:
+        start_year = int(str(season).split("-", 1)[0])
+    except (TypeError, ValueError):
+        return 0.0
+    return max(0.0, number(value)) if start_year >= 2025 else 0.0
+
+
 def fixture_opponents(rows: list[dict[str, Any]]) -> dict[tuple[int, str], str]:
     by_fixture: dict[int, set[str]] = defaultdict(set)
     for row in rows:
@@ -347,8 +356,9 @@ def fixture_prediction(
         "penalties_missed_per_90": rate("penalties_missed_per_90"),
         "penalties_saved_per_90": rate("penalties_saved_per_90"),
     }
-    # Defensive-contribution points did not exist in the seasons under test.
-    inputs["defensive_contribution_per_90"] = 0
+    inputs["defensive_contribution_per_90"] = historical_defensive_contribution_rate(
+        str(row.get("season") or ""), inputs["defensive_contribution_per_90"]
+    )
     seed = (row.get("season"), row.get("gameweek"), row.get("fixture"), player_key(row))
     legacy = simulate_player_fixture(
         inputs,
@@ -362,7 +372,10 @@ def fixture_prediction(
     )
     component_inputs["xg_per_90"] *= attack_factor
     component_inputs["xa_per_90"] *= attack_factor
-    component_inputs["defensive_contribution_per_90"] = 0
+    component_inputs["defensive_contribution_per_90"] = historical_defensive_contribution_rate(
+        str(row.get("season") or ""),
+        component_inputs["defensive_contribution_per_90"],
+    )
     component = simulate_component_player_fixture(
         component_inputs,
         simulations=simulations,

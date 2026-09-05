@@ -28,6 +28,7 @@ DEFAULT_SEASONS = [
     "2022-23",
     "2023-24",
     "2024-25",
+    "2025-26",
 ]
 
 HISTORICAL_FIELDS = [
@@ -59,6 +60,7 @@ HISTORICAL_FIELDS = [
     "yellow_cards",
     "red_cards",
     "saves",
+    "defensive_contribution",
     "bonus",
     "bps",
     "influence",
@@ -125,6 +127,7 @@ def normalise_history_row(row: dict[str, Any], season: str) -> dict[str, Any]:
         "yellow_cards": row.get("yellow_cards", ""),
         "red_cards": row.get("red_cards", ""),
         "saves": row.get("saves", ""),
+        "defensive_contribution": row.get("defensive_contribution", ""),
         "bonus": row.get("bonus", ""),
         "bps": row.get("bps", ""),
         "influence": row.get("influence", ""),
@@ -156,6 +159,7 @@ class PositionAccumulator:
         self.assists = 0.0
         self.clean_sheets = 0.0
         self.saves = 0.0
+        self.defensive_contribution = 0.0
         self.bonus = 0.0
         self.xg = 0.0
         self.xa = 0.0
@@ -173,6 +177,7 @@ class PositionAccumulator:
         self.assists += number(row.get("assists"))
         self.clean_sheets += number(row.get("clean_sheets"))
         self.saves += number(row.get("saves"))
+        self.defensive_contribution += number(row.get("defensive_contribution"))
         self.bonus += number(row.get("bonus"))
         self.xg += number(row.get("expected_goals"))
         self.xa += number(row.get("expected_assists"))
@@ -194,6 +199,7 @@ class PositionAccumulator:
             "assists_per_90": round(self.assists * per90, 4),
             "clean_sheets_per_90": round(self.clean_sheets * per90, 4),
             "saves_per_90": round(self.saves * per90, 4),
+            "defensive_contribution_per_90": round(self.defensive_contribution * per90, 4),
             "bonus_per_90": round(self.bonus * per90, 4),
             "xg_per_90": round(self.xg * per90, 4),
             "xa_per_90": round(self.xa * per90, 4),
