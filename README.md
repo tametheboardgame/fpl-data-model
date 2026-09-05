@@ -2,6 +2,15 @@
 
 Personal Fantasy Premier League data collection and analysis platform.
 
+## Fresh-chat project bootstrap
+
+For ongoing ChatGPT project work, the repository itself is the handoff source of truth:
+
+- [`PROJECT_STATE.md`](PROJECT_STATE.md) — current production/model state, completed safeguards and active PR/work.
+- [`ROADMAP.md`](ROADMAP.md) — executable next phases and acceptance gates.
+
+A fresh project chat can simply say **`Start FPL-NEXT`** to continue the first incomplete roadmap item, or **`Start FPL-22A`**, **`Start FPL-22B`**, etc. to request a specific phase. The assistant should read both files from `main`, check live GitHub/CI state, satisfy prerequisites and update the handoff docs after material progress.
+
 ## Purpose
 
 This repository collects current and historical Fantasy Premier League data and prepares analysis-ready datasets for use with ChatGPT.
@@ -59,7 +68,7 @@ Historical files under `data/history/` include one compact player market snapsho
 
 Pre-deadline projections are written under `data/predictions/gwNN/`. Each timestamped file is immutable, so later results cannot rewrite what the model genuinely predicted before a deadline.
 
-Walk-forward evidence under `data/backtests/` includes detailed compressed predictions, gameweek metrics, model comparisons, held-out probability calibration and a compact success summary. Candidate calibration and component-model assessments are stored under `data/model/` but are not applied to live predictions until they clear explicit held-out promotion gates.
+Walk-forward evidence under `data/backtests/` includes detailed compressed predictions, gameweek metrics, model comparisons, held-out probability calibration and a compact success summary. Candidate calibration and component-model assessments are stored under `data/model/`. Production activation is governed separately by `data/model/ensemble_production_policy.json`.
 
 Latest source responses are also retained under `data/raw/latest/` for troubleshooting and future transformations.
 
@@ -79,7 +88,7 @@ Pull requests perform the complete collection and validation process without com
 
 `.github/workflows/sync-detailed-fpl-history.yml` runs daily and builds match-level history from each player's official FPL element summary. This preserves opponent, home/away status, price, ownership, transfers, minutes, underlying statistics and points separately for each fixture.
 
-`.github/workflows/sync-historical-fpl.yml` runs weekly and imports completed seasons from the public [Vaastav FPL archive](https://github.com/vaastav/Fantasy-Premier-League). The import currently covers 2018/19 through 2024/25. The upstream `xP` field is deliberately excluded because it may contain post-match information and would create look-ahead bias.
+`.github/workflows/sync-historical-fpl.yml` runs weekly and imports completed seasons from the public [Vaastav FPL archive](https://github.com/vaastav/Fantasy-Premier-League). The upstream `xP` field is deliberately excluded because it may contain post-match information and would create look-ahead bias.
 
 `.github/workflows/build-fpl-model.yml` runs every six hours after refreshed inputs. It builds:
 
@@ -91,13 +100,11 @@ Pull requests perform the complete collection and validation process without com
 6. Freshness-weighted external context and squad-specific line-up, captaincy, transfer, differential and chip decision support.
 7. Immutable snapshots within eight hours of a deadline, followed by separate quantitative and qualitative accuracy evaluation when results arrive.
 
-The original control model remains `player-sim-2.0`. Phase 12 adds `player-sim-3.0-candidate` in shadow mode with explicit appearance, minutes, attacking and FPL scoring components. It uses position-aware shrinkage and wider, correlated attacking-return distributions, while preserving the live model as an unchanged benchmark. See [`docs/component_model.md`](docs/component_model.md).
+The production forecast currently uses the original `player-sim-2.0` control. `player-sim-3.0-candidate` remains available as an auditable shadow component model with explicit appearance, minutes, attacking and FPL scoring components. See [`docs/component_model.md`](docs/component_model.md).
 
-The initial held-out run improved MAE from 1.8250 to 1.7773 and marginally improved all three return-probability Brier scores. It reduced rank correlation from 0.4582 to 0.4422 and made RMSE 0.0021 worse, so the promotion gate correctly left it in shadow mode.
+A development-selected hybrid previously passed the 2024/25 gate and was temporarily exposed live. It was then tested on a frozen independent 2025/26 holdout and rejected because rank correlation and top-10 hit rate worsened despite a small MAE improvement. Production therefore returned to `player-sim-2.0`; point and probability component weights are zero and the challenger is shadow-only. PR #45 added a sticky production-policy gate so recurring backtests cannot silently reactivate it. See [`docs/ensemble_model.md`](docs/ensemble_model.md) and `data/model/ensemble_production_policy.json`.
 
-The development-selected hybrid passed every held-out gate and is now the live recommendation surface as `player-ensemble-1.0`. It uses 20% component weight for expected points, 50% for 6+, 40% for 10+ and 100% for 15+. The unchanged Version 2 control and Version 3 component outputs remain beside each recommendation for audit. See [`docs/ensemble_model.md`](docs/ensemble_model.md).
-
-Phase 14 adds a provider-independent external-context journal, explicit source reliability and freshness decay, plus squad-specific decision support. External signals remain separately attributable and do not silently overwrite the validated ensemble. See [`docs/external_context_and_decisions.md`](docs/external_context_and_decisions.md).
+Phase 14 adds a provider-independent external-context journal, explicit source reliability and freshness decay, plus squad-specific decision support. External signals remain separately attributable and do not silently overwrite the production forecast. See [`docs/external_context_and_decisions.md`](docs/external_context_and_decisions.md).
 
 Phase 15 adds an API-Football adapter for injuries and confirmed line-ups, a quota-bounded two-hourly sync, newest-snapshot resolution, leakage-safe prospective scoring and explicit season-aware chip state. See [`docs/phase15_automation.md`](docs/phase15_automation.md).
 
@@ -111,7 +118,11 @@ Phase 19 adds immutable pre-deadline strategy snapshots and prospective comparis
 
 Phase 20 adds a strict 2026/27 launch gate and budget-legal initial-squad optimisation across balanced, aggressive and ownership-protected structures. It emits no player recommendations while the official API still serves the closed season. See [`docs/phase20_initial_squad_readiness.md`](docs/phase20_initial_squad_readiness.md).
 
-`.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Expected-points and probability calibration are fitted on 2022/23–2023/24 and assessed once on the held-out 2024/25 season.
+Phase 21 adds live Gameweek operations and deadline reporting, with Phase 21.2 hardening deadline-specific refresh/recovery behaviour. See [`docs/phase21_gameweek_operations.md`](docs/phase21_gameweek_operations.md) and [`docs/phase21_2_operational_hardening.md`](docs/phase21_2_operational_hardening.md).
+
+The active post-launch engineering plan is maintained in [`ROADMAP.md`](ROADMAP.md), beginning with the FPL-22 captaincy-consistency and unified strategic-captain work.
+
+`.github/workflows/backtest-fpl-model.yml` runs monthly and whenever the historical archive or model changes. It performs a gameweek-by-gameweek reconstruction using only prior information. Development candidate evidence remains separate from explicit production approval.
 
 ## Local use
 
@@ -142,6 +153,8 @@ python -m src.backtest_fpl_model --data-dir data
 ```
 
 ## Planned extensions
+
+See [`ROADMAP.md`](ROADMAP.md) for the active sequence. Longer-term extensions include:
 
 - Parquet historical archive and DuckDB analytical views
 - Bookmaker-market normalisation and a second independent team-news source
