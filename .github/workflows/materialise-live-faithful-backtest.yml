@@ -1,0 +1,35 @@
+name: Materialise live-faithful backtest fix
+
+on:
+  push:
+    branches:
+      - fix/live-faithful-early-season-validation
+    paths:
+      - ".github/workflows/materialise-live-faithful-backtest.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  materialise:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/live-faithful-early-season-validation
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Apply validated patch
+        run: python tools/apply_live_faithful_backtest_v1.py
+      - name: Verify source
+        run: |
+          git diff --check -- src tests
+          python -m unittest discover -s tests -v
+      - name: Commit materialised source and tests
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/backtest_fpl_model.py tests/test_backtest_fpl_model.py
+          git commit -m "Make early-season backtest control live-faithful"
+          git push origin HEAD:fix/live-faithful-early-season-validation
