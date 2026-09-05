@@ -211,7 +211,9 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
-def load_ensemble_config(path: Path) -> dict[str, Any]:
+def load_ensemble_config(
+    path: Path, production_policy_path: Path | None = None
+) -> dict[str, Any]:
     disabled = {
         "enabled": False,
         "status": "candidate_not_available",
@@ -219,6 +221,17 @@ def load_ensemble_config(path: Path) -> dict[str, Any]:
         "point_weight": 0.0,
         "probability_weights": {"6": 0.0, "10": 0.0, "15": 0.0},
     }
+    policy_path = production_policy_path or path.with_name(
+        "ensemble_production_policy.json"
+    )
+    if policy_path.is_file():
+        try:
+            policy = json.loads(policy_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError, TypeError, AttributeError):
+            return {**disabled, "status": "production_policy_unreadable"}
+        policy_status = str(policy.get("status") or "production_policy_missing_status")
+        if policy_status != "approved_for_live":
+            return {**disabled, "status": policy_status}
     if not path.is_file():
         return disabled
     try:

@@ -37,6 +37,99 @@ class HoldoutRejectionFallbackTests(unittest.TestCase):
         self.assertEqual(config["point_weight"], 0.0)
         self.assertEqual(config["probability_weights"], {"6": 0.0, "10": 0.0, "15": 0.0})
 
+    def test_sticky_production_policy_blocks_repromoted_development_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            model_dir = Path(directory)
+            candidate = model_dir / "ensemble_model_candidate.json"
+            candidate.write_text(
+                json.dumps(
+                    {
+                        "status": "recommended_for_live_promotion",
+                        "assessment": {
+                            "selection": {
+                                "selected_point_weight": 0.2,
+                                "selected_probability_weights": {
+                                    "6": 0.5,
+                                    "10": 0.4,
+                                    "15": 1.0,
+                                },
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (model_dir / "ensemble_production_policy.json").write_text(
+                json.dumps({"status": "holdout_rejected"}),
+                encoding="utf-8",
+            )
+            config = load_ensemble_config(candidate)
+
+        self.assertFalse(config["enabled"])
+        self.assertEqual(config["status"], "holdout_rejected")
+        self.assertEqual(config["model_version"], "player-sim-2.0")
+        self.assertEqual(config["point_weight"], 0.0)
+        self.assertEqual(
+            config["probability_weights"],
+            {"6": 0.0, "10": 0.0, "15": 0.0},
+        )
+
+    def test_production_policy_requires_explicit_approval_before_candidate_can_go_live(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            model_dir = Path(directory)
+            candidate = model_dir / "ensemble_model_candidate.json"
+            candidate.write_text(
+                json.dumps(
+                    {
+                        "status": "recommended_for_live_promotion",
+                        "assessment": {
+                            "selection": {
+                                "selected_point_weight": 0.2,
+                                "selected_probability_weights": {
+                                    "6": 0.5,
+                                    "10": 0.4,
+                                    "15": 1.0,
+                                },
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            policy = model_dir / "ensemble_production_policy.json"
+            policy.write_text(
+                json.dumps({"status": "prospective_review_pending"}),
+                encoding="utf-8",
+            )
+            blocked = load_ensemble_config(candidate)
+            policy.write_text(
+                json.dumps({"status": "approved_for_live"}),
+                encoding="utf-8",
+            )
+            approved = load_ensemble_config(candidate)
+
+        self.assertFalse(blocked["enabled"])
+        self.assertEqual(blocked["status"], "prospective_review_pending")
+        self.assertTrue(approved["enabled"])
+        self.assertEqual(approved["status"], "recommended_for_live_promotion")
+        self.assertEqual(approved["point_weight"], 0.2)
+
+    def test_unreadable_production_policy_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            model_dir = Path(directory)
+            candidate = model_dir / "ensemble_model_candidate.json"
+            candidate.write_text(
+                json.dumps({"status": "recommended_for_live_promotion"}),
+                encoding="utf-8",
+            )
+            (model_dir / "ensemble_production_policy.json").write_text(
+                "{not-json", encoding="utf-8"
+            )
+            config = load_ensemble_config(candidate)
+
+        self.assertFalse(config["enabled"])
+        self.assertEqual(config["status"], "production_policy_unreadable")
+
     def test_rejected_shadow_challenger_cannot_penalise_control_selection(self) -> None:
         adjustment = selection_risk_adjustment(
             {
