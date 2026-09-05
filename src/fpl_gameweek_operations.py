@@ -16,7 +16,7 @@ from src.fpl_multiweek import (
 )
 
 
-OPERATIONS_VERSION = "fpl-gameweek-operations-1.6"
+OPERATIONS_VERSION = "fpl-gameweek-operations-1.7"
 FREEZE_WINDOW_HOURS = 8
 NORMAL_DATA_MAX_AGE_HOURS = 8
 DEADLINE_DATA_MAX_AGE_HOURS = 3
@@ -220,10 +220,15 @@ def _selection(
         ((decision.get("captaincy") or {}).get("captain") or {}).get("player_id")
     )
     route_captain_id = integer(move.get("captain_player_id"))
+    # The route captain is authoritative because the route score is calculated
+    # with that doubled mean return. The first route Gameweek now uses the same
+    # strategic captain utility as decision support; the decision captain is only
+    # a fallback when no valid route captain exists. This prevents exposing one
+    # captain while retaining xPts calculated for another.
     captain_id = (
-        decision_captain_id
-        if decision_captain_id in starter_ids
-        else route_captain_id
+        route_captain_id
+        if route_captain_id in starter_ids
+        else decision_captain_id
     )
     if captain_id not in starter_ids:
         captain_id = next(
