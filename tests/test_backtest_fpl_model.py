@@ -87,6 +87,49 @@ class BacktestTests(unittest.TestCase):
         )
         self.assertNotEqual(original_gw4["actual_points"], repeated_gw4["actual_points"])
 
+    def test_previous_season_usage_is_used_by_control_then_fades_by_fixture_six(self) -> None:
+        rows = synthetic_rows("2024-25")
+        nailed_prior = []
+        fringe_prior = []
+        for fixture in range(1, 39):
+            for player in ("Alpha", "Bravo", "Charlie", "Delta"):
+                base = {
+                    "player_name": player,
+                    "minutes": 90,
+                    "starts": 1,
+                }
+                nailed_prior.append(dict(base))
+                fringe_prior.append(
+                    {
+                        **base,
+                        "minutes": 90 if player != "Alpha" or fixture <= 2 else 0,
+                        "starts": 1 if player != "Alpha" or fixture <= 2 else 0,
+                    }
+                )
+        nailed = walk_forward_season(rows, nailed_prior, simulations=200)
+        fringe = walk_forward_season(rows, fringe_prior, simulations=200)
+        nailed_gw4 = next(
+            row for row in nailed if row["gameweek"] == 4 and row["player_name"] == "Alpha"
+        )
+        fringe_gw4 = next(
+            row for row in fringe if row["gameweek"] == 4 and row["player_name"] == "Alpha"
+        )
+        self.assertEqual(nailed_gw4["control_usage_prior_weight"], 0.5)
+        self.assertGreater(nailed_gw4["predicted_minutes"], fringe_gw4["predicted_minutes"] + 20)
+        self.assertEqual(
+            nailed_gw4["component_predicted_minutes"],
+            fringe_gw4["component_predicted_minutes"],
+        )
+
+        nailed_gw7 = next(
+            row for row in nailed if row["gameweek"] == 7 and row["player_name"] == "Alpha"
+        )
+        fringe_gw7 = next(
+            row for row in fringe if row["gameweek"] == 7 and row["player_name"] == "Alpha"
+        )
+        self.assertEqual(nailed_gw7["control_usage_prior_weight"], 0.0)
+        self.assertEqual(nailed_gw7["predicted_minutes"], fringe_gw7["predicted_minutes"])
+
     def test_end_to_end_backtest_writes_held_out_report(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             data_dir = Path(temporary)

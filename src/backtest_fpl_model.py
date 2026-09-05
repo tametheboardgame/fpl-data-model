@@ -42,6 +42,9 @@ PREDICTION_FIELDS = [
     "was_home",
     "eligible_reason",
     "prior_fixture_rows",
+    "previous_season_minutes",
+    "previous_season_start_rate",
+    "control_usage_prior_weight",
     "actual_minutes",
     "actual_points",
     "position_average_prediction",
@@ -120,6 +123,45 @@ def read_historical(path: Path, seasons: list[str]) -> list[dict[str, str]]:
 def player_key(row: dict[str, Any]) -> str:
     element = str(row.get("element") or "").strip()
     return element if element else str(row.get("player_name") or "").strip().lower()
+
+
+def cross_season_player_key(row: dict[str, Any]) -> str:
+    return str(row.get("player_name") or "").strip().casefold()
+
+
+def previous_season_name(season: str) -> str:
+    parts = str(season).split("-")
+    if len(parts) != 2:
+        return ""
+    try:
+        start = int(parts[0])
+    except ValueError:
+        return ""
+    return f"{start - 1}-{start % 100:02d}"
+
+
+def previous_season_usage(rows: list[dict[str, Any]]) -> dict[str, dict[str, float]]:
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        key = cross_season_player_key(row)
+        if key:
+            grouped[key].append(row)
+    output: dict[str, dict[str, float]] = {}
+    for key, player_rows in grouped.items():
+        minutes = sum(number(row.get("minutes")) for row in player_rows)
+        starts = sum(
+            number(row.get("starts")) > 0 or number(row.get("minutes")) >= 60
+            for row in player_rows
+        )
+        start_rate = clamp(starts / 38, 0, 1)
+        appearance_rate = clamp(max(start_rate, minutes / (38 * 60)), 0, 1)
+        output[key] = {
+            "previous_season_minutes": minutes,
+            "previous_season_average_minutes": min(90, minutes / 38),
+            "previous_season_start_rate": start_rate,
+            "previous_season_appearance_rate": appearance_rate,
+        }
+    return output
 
 
 def position_code(row: dict[str, Any]) -> str:
@@ -217,6 +259,7 @@ def fixture_prediction(
     history: list[dict[str, Any]],
     team_histories: dict[str, list[dict[str, Any]]],
     opponent: str,
+    usage_prior: dict[str, Any] | None = None,
     *,
     simulations: int,
 ) -> dict[str, Any]:
@@ -225,24 +268,56 @@ def fixture_prediction(
     metrics_3 = recent_metrics(history, 3)
     metrics_6 = recent_metrics(history, 6)
     metrics_10 = recent_metrics(history, 10)
-    average_minutes = 0.7 * number(metrics_6.get("average_minutes_6")) + 0.3 * number(
-        metrics_3.get("average_minutes_3")
+    current_average_minutes = (
+        0.7 * number(metrics_6.get("average_minutes_6"))
+        + 0.3 * number(metrics_3.get("average_minutes_3"))
     )
-    start_probability = clamp(
+    current_start_rate = clamp(
         0.7 * number(metrics_6.get("start_rate_6"))
         + 0.3 * number(metrics_3.get("start_rate_3")),
         0,
         1,
     )
-    appearance_probability = clamp(
+    current_appearance_rate = clamp(
         max(
-            start_probability,
+            current_start_rate,
             0.7 * number(metrics_6.get("appearance_rate_6"))
             + 0.3 * number(metrics_3.get("appearance_rate_3")),
         ),
         0,
         1,
     )
+    fixtures_6 = integer(metrics_6.get("fixtures_6"))
+    control_usage_prior_weight = 0.0
+    if usage_prior and number(usage_prior.get("previous_season_minutes")) > 0:
+        current_weight = min(1.0, fixtures_6 / 6)
+        control_usage_prior_weight = 1.0 - current_weight
+        average_minutes = (
+            current_weight * current_average_minutes
+            + control_usage_prior_weight
+            * number(usage_prior.get("previous_season_average_minutes"))
+        )
+        start_probability = clamp(
+            current_weight * current_start_rate
+            + control_usage_prior_weight
+            * number(usage_prior.get("previous_season_start_rate")),
+            0,
+            1,
+        )
+        appearance_probability = clamp(
+            max(
+                start_probability,
+                current_weight * current_appearance_rate
+                + control_usage_prior_weight
+                * number(usage_prior.get("previous_season_appearance_rate")),
+            ),
+            0,
+            1,
+        )
+    else:
+        average_minutes = current_average_minutes
+        start_probability = current_start_rate
+        appearance_probability = current_appearance_rate
     minutes_10 = number(metrics_10.get("minutes_10"))
     was_home = truthy(row.get("was_home"))
     attack_factor, clean_sheet_probability = team_context(
@@ -293,12 +368,22 @@ def fixture_prediction(
         simulations=simulations,
         seed_parts=(*seed, "component"),
     )
-    return {"legacy": legacy, "component": component}
+    return {
+        "legacy": legacy,
+        "component": component,
+        "previous_season_minutes": number((usage_prior or {}).get("previous_season_minutes")),
+        "previous_season_start_rate": number((usage_prior or {}).get("previous_season_start_rate")),
+        "control_usage_prior_weight": control_usage_prior_weight,
+    }
 
 
 def walk_forward_season(
-    season_rows: list[dict[str, Any]], *, simulations: int = BACKTEST_SIMULATIONS
+    season_rows: list[dict[str, Any]],
+    previous_season_rows: list[dict[str, Any]] | None = None,
+    *,
+    simulations: int = BACKTEST_SIMULATIONS,
 ) -> list[dict[str, Any]]:
+    usage_priors = previous_season_usage(previous_season_rows or [])
     by_gameweek: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for row in season_rows:
         by_gameweek[integer(row.get("gameweek"))].append(row)
@@ -334,6 +419,7 @@ def walk_forward_season(
                         history,
                         team_histories,
                         opponent,
+                        usage_priors.get(cross_season_player_key(sample)),
                         simulations=simulations,
                     )
                 )
@@ -372,6 +458,24 @@ def walk_forward_season(
                 "was_home": all(truthy(row.get("was_home")) for row in target_rows),
                 "eligible_reason": "appeared_in_last_3_and_at_least_3_prior_fixture_rows",
                 "prior_fixture_rows": len(history),
+                "previous_season_minutes": round(
+                    number(simulation_rows[0].get("previous_season_minutes"))
+                    if simulation_rows
+                    else 0,
+                    2,
+                ),
+                "previous_season_start_rate": round(
+                    number(simulation_rows[0].get("previous_season_start_rate"))
+                    if simulation_rows
+                    else 0,
+                    4,
+                ),
+                "control_usage_prior_weight": round(
+                    number(simulation_rows[0].get("control_usage_prior_weight"))
+                    if simulation_rows
+                    else 0,
+                    4,
+                ),
                 "actual_minutes": round(actual_minutes, 2),
                 "actual_points": round(actual_points, 2),
                 "position_average_prediction": round(position_average * len(target_rows), 4),
@@ -873,14 +977,24 @@ def run_backtest(
 ) -> dict[str, Any]:
     seasons = seasons or DEFAULT_SEASONS
     historical_path = data_dir / "history" / "historical_player_gameweeks.csv.gz"
-    rows = read_historical(historical_path, seasons)
+    prior_context_seasons = [
+        previous_season_name(season)
+        for season in seasons
+        if previous_season_name(season)
+    ]
+    source_seasons = list(dict.fromkeys([*prior_context_seasons, *seasons]))
+    rows = read_historical(historical_path, source_seasons)
     by_season: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in rows:
         by_season[str(row.get("season"))].append(row)
     predictions = []
     for season in seasons:
         predictions.extend(
-            walk_forward_season(by_season.get(season, []), simulations=simulations)
+            walk_forward_season(
+                by_season.get(season, []),
+                by_season.get(previous_season_name(season), []),
+                simulations=simulations,
+            )
         )
     development = [row for row in predictions if row.get("season") in DEVELOPMENT_SEASONS]
     held_out = [row for row in predictions if row.get("season") == HELD_OUT_SEASON]
@@ -1030,6 +1144,7 @@ def run_backtest(
         "seasons": seasons,
         "development_seasons": DEVELOPMENT_SEASONS,
         "held_out_season": HELD_OUT_SEASON,
+        "prior_context_seasons": prior_context_seasons,
         "historical_source_rows": len(rows),
         "eligible_prediction_rows": len(predictions),
         "backtested_gameweeks": len(
