@@ -34,6 +34,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/build_fpl_model.py src/fpl_decisions.py
+          git add src/build_fpl_model.py src/fpl_decisions.py tests/test_external_context_and_decisions.py
           git commit -m "Fallback to control after ensemble holdout rejection"
           git push origin HEAD:fix/control-production-after-holdout
