@@ -17,7 +17,7 @@ replace_once(
 replace_once(
     "src/component_player_simulator.py",
     '''    usage_prior_strength = max(0.0, 2.0 * (1.0 - fixtures_6 / 6.0))\n    if not fixtures_6:''',
-    '''    position_start_rate_prior = number(prior.get("start_rate"))\n    position_appearance_rate_prior = max(\n        position_start_rate_prior, number(prior.get("appearance_rate"))\n    )\n    usage_prior_weight = max(0.0, min(1.0, 1.0 - fixtures_6 / 6.0))\n    effective_start_rate_prior = (\n        position_start_rate_prior\n        + usage_prior_weight\n        * (player_start_rate_prior - position_start_rate_prior)\n    )\n    effective_appearance_rate_prior = (\n        position_appearance_rate_prior\n        + usage_prior_weight\n        * (\n            max(player_start_rate_prior, player_appearance_rate_prior)\n            - position_appearance_rate_prior\n        )\n    )\n    if not fixtures_6:''',
+    '''    position_start_rate_prior = number(prior.get("start_rate"))\n    position_appearance_rate_prior = max(\n        position_start_rate_prior, number(prior.get("appearance_rate"))\n    )\n    usage_prior_weight = math.sqrt(\n        max(0.0, min(1.0, 1.0 - fixtures_6 / 6.0))\n    )\n    effective_start_rate_prior = (\n        position_start_rate_prior\n        + usage_prior_weight\n        * (player_start_rate_prior - position_start_rate_prior)\n    )\n    effective_appearance_rate_prior = (\n        position_appearance_rate_prior\n        + usage_prior_weight\n        * (\n            max(player_start_rate_prior, player_appearance_rate_prior)\n            - position_appearance_rate_prior\n        )\n    )\n    if not fixtures_6:''',
 )
 replace_once(
     "src/component_player_simulator.py",
@@ -44,7 +44,7 @@ replace_once(
 replace_once(
     "tests/test_component_early_season_prior.py",
     '        self.assertAlmostEqual(nailed["usage_prior_strength"], 4 / 3, places=3)',
-    '        self.assertAlmostEqual(nailed["usage_prior_weight"], 2 / 3, places=3)',
+    '        self.assertAlmostEqual(nailed["usage_prior_weight"], (2 / 3) ** 0.5, places=3)',
 )
 replace_once(
     "tests/test_component_early_season_prior.py",
