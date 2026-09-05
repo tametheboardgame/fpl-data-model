@@ -1,0 +1,16 @@
+{
+  "status": "holdout_rejected",
+  "effective_from": "2026-09-05T11:43:58Z",
+  "source_pull_request": 43,
+  "source_merge_commit": "e8e38df92d4ca3a2f9b298ced0aa89ee588b25c7",
+  "live_model_version": "player-sim-2.0",
+  "live_point_weight": 0.0,
+  "live_probability_weights": {
+    "6": 0.0,
+    "10": 0.0,
+    "15": 0.0
+  },
+  "challenger_mode": "shadow_only",
+  "reason": "The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
+  "reconsideration_gate": "prospective_2026_27_evidence_and_explicit_production_approval"
+}
