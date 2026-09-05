@@ -2,7 +2,7 @@
 
 This file is the fresh-chat handoff for the repository. Read it before starting new model-development work.
 
-Last updated: 2026-09-05 15:42 Europe/London
+Last updated: 2026-09-05
 Repository: `tametheboardgame/fpl-data-model`
 FPL team ID: `39395`
 Season: `2026/27`
@@ -67,28 +67,38 @@ The following are already merged on `main` and should not be undone:
 
 The completed-history fix was verified on live data: 1,888 raw player-fixture history rows were reduced to 1,236 genuinely completed rows in the relevant build, preventing unfinished GW rows from diluting usage/form.
 
-## Active PR at handoff
+## Active captain-route work at handoff
 
 PR #47 — **Unify current-Gameweek captaincy with route scoring**
 
-Status at this handoff:
+Validated implementation head:
 
-- OPEN
-- mergeable
 - head: `ec5c2be96b5222c4ba5619a3a341f05b64cc0149`
 - exact-head `update-and-validate`: GREEN
 - exact-head full `build`: GREEN
-- 140 tests passed in the exact-head build
+- 140 tests passed in that exact-head build
 
-What #47 fixes:
+After those checks completed, `main` advanced with the persistent handoff/documentation work and an automated dataset refresh. Current comparison at this handoff shows PR #47 is **diverged** from `main`: 4 commits ahead and 8 commits behind its merge base, and GitHub currently reports it as not mergeable.
+
+Therefore **do not merge the stale PR #47 head directly**. FPL-22A must first refresh/rebase the validated change onto latest `main` (or create a clean superseding branch/PR carrying the same five intended source/test diffs), then rerun exact-head CI before merge.
+
+The intended #47 code diff is limited to:
+
+- `src/fpl_decisions.py`
+- `src/fpl_gameweek_operations.py`
+- `src/fpl_multiweek.py`
+- `tests/test_phase17_multiweek.py`
+- `tests/test_phase21_gameweek_operations.py`
+
+What the change fixes:
 
 - decision support had a strategic/tail-aware captain choice;
 - the multi-Gameweek route could independently choose a different mean-xPts captain;
 - operations could display the decision captain while copying xPts calculated with the route captain doubled.
 
-PR #47 makes the first actionable Gameweek route accept the same strategic captain-utility map while still calculating all route points from mean expected points, then makes the route captain the operational scoring authority.
+The validated implementation makes the first actionable Gameweek route accept the same strategic captain-utility map while still calculating all route points from mean expected points, then makes the route captain the operational scoring authority.
 
-Exact-head GW4 audit from #47:
+Exact-head GW4 audit from the validated branch:
 
 - transfer action: `roll_or_hold`
 - captain: `B.Fernandes`
@@ -116,7 +126,7 @@ Do not repeat these experiments unless there is new evidence or a materially dif
 
 The next work is deliberately about consistency and validation, not another Haaland-specific repair:
 
-1. merge and production-validate PR #47;
+1. refresh/rebase the validated #47 captain-route change onto latest `main`, rerun CI, merge and production-validate it;
 2. build one shared strategic captain utility for current-GW weekly, Wildcard, multiweek first-GW and applicable chip decisions;
 3. validate that captain objective historically without weakening gates;
 4. make reporting/model-description text policy-aware and expose captain audit cleanly;
