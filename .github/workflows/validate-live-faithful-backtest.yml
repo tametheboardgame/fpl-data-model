@@ -104,4 +104,4 @@ jobs:
           PY
 
       - name: Evaluate per-player role-aware attenuation
-        run: python tools/evaluate_role_aware_ensemble.py
+        run: PYTHONPATH=. python tools/evaluate_role_aware_ensemble.py
