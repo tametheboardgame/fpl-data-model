@@ -1,0 +1,235 @@
+name: Apply transfer robustness patch
+
+on:
+  push:
+    branches:
+      - fix/robust-transfer-action
+    paths:
+      - .github/workflows/apply-transfer-robustness-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/robust-transfer-action
+      - name: Apply source and regression-test patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          source_path = Path('src/fpl_multiweek.py')
+          source = source_path.read_text(encoding='utf-8')
+          old = '''    runner_up_gap = (
+        best_state.score - runner_up.score if runner_up is not None else None
+    )
+    recommendation_reason = "Highest robust decision-adjusted expected return."
+    rejected_transfer_reason = None
+    if best_has_transfers and best_adjusted_gain < MINIMUM_ROUTE_EDGE_POINTS:
+        rejected_transfer_reason = "insufficient_edge"
+        recommendation_reason = (
+            "Hold: no transfer route clears the minimum decision-adjusted edge "
+            "after uncertainty costs."
+        )
+    elif (
+        best_has_transfers
+        and runner_up_gap is not None
+        and runner_up_gap < MINIMUM_ROUTE_SEPARATION_POINTS
+    ):
+        rejected_transfer_reason = "ambiguous_best_route"
+        recommendation_reason = (
+            "Hold: competing transfer routes are too close to distinguish reliably."
+        )
+'''
+          new = '''    runner_up_gap = (
+        best_state.score - runner_up.score if runner_up is not None else None
+    )
+    runner_up_adjusted_gain = (
+        runner_up.undiscounted_points - hold_points - runner_up.decision_cost
+        if runner_up is not None
+        else None
+    )
+    target_ambiguity = bool(
+        best_has_transfers
+        and runner_up_gap is not None
+        and runner_up_gap < MINIMUM_ROUTE_SEPARATION_POINTS
+    )
+    transfer_action_robust = bool(
+        best_has_transfers
+        and best_adjusted_gain >= MINIMUM_ROUTE_EDGE_POINTS
+        and (
+            not target_ambiguity
+            or (
+                runner_up_adjusted_gain is not None
+                and runner_up_adjusted_gain >= MINIMUM_ROUTE_EDGE_POINTS
+            )
+        )
+    )
+    recommendation_reason = "Highest robust decision-adjusted expected return."
+    rejected_transfer_reason = None
+    if best_has_transfers and best_adjusted_gain < MINIMUM_ROUTE_EDGE_POINTS:
+        rejected_transfer_reason = "insufficient_edge"
+        recommendation_reason = (
+            "Hold: no transfer route clears the minimum decision-adjusted edge "
+            "after uncertainty costs."
+        )
+    elif target_ambiguity and not transfer_action_robust:
+        rejected_transfer_reason = "ambiguous_best_route"
+        recommendation_reason = (
+            "Hold: competing transfer routes are too close and the alternative "
+            "does not independently clear the actionability floor."
+        )
+    elif target_ambiguity:
+        recommendation_reason = (
+            "Transfer action is robust: multiple high-edge transfer routes clear "
+            "the actionability floor, with the leading route selected despite "
+            "target ambiguity."
+        )
+'''
+          if old not in source:
+              raise SystemExit('expected source block not found')
+          source = source.replace(old, new, 1)
+
+          old_robustness = '''            "runner_up_route_gap": (
+                round(runner_up_gap, 3)
+                if runner_up_gap is not None
+                else None
+            ),
+            "minimum_route_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,
+            "rejected_transfer_reason": rejected_transfer_reason,
+'''
+          new_robustness = '''            "runner_up_route_gap": (
+                round(runner_up_gap, 3)
+                if runner_up_gap is not None
+                else None
+            ),
+            "runner_up_transfer_decision_adjusted_gain": (
+                round(runner_up_adjusted_gain, 3)
+                if runner_up_adjusted_gain is not None
+                else None
+            ),
+            "minimum_route_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,
+            "target_ambiguity": target_ambiguity,
+            "transfer_action_robust": transfer_action_robust,
+            "rejected_transfer_reason": rejected_transfer_reason,
+'''
+          if old_robustness not in source:
+              raise SystemExit('expected robustness block not found')
+          source = source.replace(old_robustness, new_robustness, 1)
+          source_path.write_text(source, encoding='utf-8')
+
+          test_path = Path('tests/test_phase17_multiweek.py')
+          tests = test_path.read_text(encoding='utf-8')
+          old_test = '''    def test_holds_when_two_high_edge_transfer_targets_are_indistinguishable(self) -> None:
+        projections = self.projections()
+        self.players.extend(
+            [player(99, "Forward", 1), player(100, "Forward", 1)]
+        )
+        projections.extend(
+            [
+                {"player_id": 99, "gameweek": 1, "expected_points": 10.0},
+                {"player_id": 100, "gameweek": 1, "expected_points": 9.9},
+            ]
+        )
+
+        result = optimise_multi_gameweek_route(
+            projections,
+            self.players,
+            self.squad,
+            bank=0,
+            free_transfers=1,
+            target_gameweek=1,
+            horizon=1,
+        )
+
+        self.assertEqual(
+            result["recommended_route"]["gameweek_plan"][0]["transfers"], []
+        )
+        self.assertEqual(
+            result["robustness"]["rejected_transfer_reason"],
+            "ambiguous_best_route",
+        )
+'''
+          new_test = '''    def test_high_edge_target_ambiguity_preserves_transfer_action(self) -> None:
+        projections = self.projections()
+        self.players.extend(
+            [player(99, "Forward", 1), player(100, "Forward", 1)]
+        )
+        projections.extend(
+            [
+                {"player_id": 99, "gameweek": 1, "expected_points": 10.0},
+                {"player_id": 100, "gameweek": 1, "expected_points": 9.9},
+            ]
+        )
+
+        result = optimise_multi_gameweek_route(
+            projections,
+            self.players,
+            self.squad,
+            bank=0,
+            free_transfers=1,
+            target_gameweek=1,
+            horizon=1,
+        )
+
+        transfers = result["recommended_route"]["gameweek_plan"][0]["transfers"]
+        self.assertTrue(transfers)
+        self.assertTrue(result["robustness"]["target_ambiguity"])
+        self.assertTrue(result["robustness"]["transfer_action_robust"])
+        self.assertIsNone(result["robustness"]["rejected_transfer_reason"])
+        self.assertGreater(
+            result["robustness"]["runner_up_transfer_decision_adjusted_gain"],
+            result["robustness"]["minimum_route_edge_points"],
+        )
+
+    def test_holds_when_ambiguous_alternative_does_not_clear_actionability_floor(self) -> None:
+        projections = self.projections()
+        projections.append({"player_id": 8, "gameweek": 1, "expected_points": 7.0})
+        self.players.extend(
+            [player(99, "Forward", 1), player(100, "Forward", 1)]
+        )
+        projections.extend(
+            [
+                {"player_id": 99, "gameweek": 1, "expected_points": 8.5},
+                {"player_id": 100, "gameweek": 1, "expected_points": 8.2},
+            ]
+        )
+
+        result = optimise_multi_gameweek_route(
+            projections,
+            self.players,
+            self.squad,
+            bank=0,
+            free_transfers=1,
+            target_gameweek=1,
+            horizon=1,
+        )
+
+        self.assertEqual(
+            result["recommended_route"]["gameweek_plan"][0]["transfers"], []
+        )
+        self.assertTrue(result["robustness"]["target_ambiguity"])
+        self.assertFalse(result["robustness"]["transfer_action_robust"])
+        self.assertEqual(
+            result["robustness"]["rejected_transfer_reason"],
+            "ambiguous_best_route",
+        )
+'''
+          if old_test not in tests:
+              raise SystemExit('expected test block not found')
+          tests = tests.replace(old_test, new_test, 1)
+          test_path.write_text(tests, encoding='utf-8')
+          PY
+      - name: Run focused regression tests
+        run: python -m unittest tests.test_phase17_multiweek -v
+      - name: Commit patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/fpl_multiweek.py tests/test_phase17_multiweek.py
+          git commit -m "Preserve robust transfer action under target ambiguity"
+          git push origin HEAD:fix/robust-transfer-action
