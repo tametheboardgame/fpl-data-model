@@ -15,8 +15,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: fpl-external-context
-  cancel-in-progress: true
+  group: fpl-generated-output-writer-production
+  cancel-in-progress: false
 
 jobs:
   sync:
@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          ref: main
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
