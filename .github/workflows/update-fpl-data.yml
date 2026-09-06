@@ -18,8 +18,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: ${{ github.event_name == 'pull_request' && format('fpl-data-pr-{0}', github.event.pull_request.number) || 'fpl-generated-output-writer-production' }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: fpl-data-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   update-and-validate:
