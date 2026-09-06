@@ -16,7 +16,7 @@ from src.fpl_multiweek import (
 )
 
 
-OPERATIONS_VERSION = "fpl-gameweek-operations-1.7"
+OPERATIONS_VERSION = "fpl-gameweek-operations-1.8"
 FREEZE_WINDOW_HOURS = 8
 NORMAL_DATA_MAX_AGE_HOURS = 8
 DEADLINE_DATA_MAX_AGE_HOURS = 3
@@ -70,6 +70,76 @@ def _player(player_id: int, players: dict[int, dict[str, Any]], points: dict[int
         "chance_of_playing": integer(chance) if chance not in {None, ""} else None,
         "news": str(row.get("news") or "").strip(),
         "news_added": row.get("news_added"),
+    }
+
+
+def _compact_captain_audit(
+    audit: dict[str, Any] | None,
+    displayed_mean_xpts: Any,
+    selection_basis: str | None,
+) -> dict[str, Any] | None:
+    if not isinstance(audit, dict):
+        if displayed_mean_xpts in {None, ""}:
+            return None
+        return {
+            "displayed_mean_xpts": round(number(displayed_mean_xpts), 3),
+            "selection_basis": selection_basis or "mean_xpts_fallback",
+            "strategic_utility_available": False,
+            "strategic_bonus_is_expected_points": False,
+        }
+    return {
+        "utility_version": audit.get("version"),
+        "player_id": integer(audit.get("player_id")) or None,
+        "displayed_mean_xpts": round(number(displayed_mean_xpts), 3),
+        "risk_adjusted_mean_input": audit.get("mean_expected_points"),
+        "strategic_score": audit.get("captain_score"),
+        "selection_basis": selection_basis or "strategic_utility",
+        "components": {
+            "bounded_strategic_bonus": audit.get("bounded_strategic_bonus"),
+            "ceiling_contribution": audit.get("ceiling_contribution"),
+            "rank_pressure_contribution": audit.get("rank_pressure_contribution"),
+            "position_uncertainty_penalty": audit.get("position_uncertainty_penalty"),
+            "defensive_exception_margin": audit.get("defensive_exception_margin"),
+            "selection_risk_penalty": audit.get("selection_risk_penalty"),
+            "expected_minutes": audit.get("expected_minutes"),
+            "availability_confidence": audit.get("availability_confidence"),
+            "points_p90": audit.get("points_p90"),
+            "probability_10_plus": audit.get("probability_10_plus"),
+            "probability_15_plus": audit.get("probability_15_plus"),
+            "ownership_percent": audit.get("ownership_percent"),
+        },
+        "strategic_utility_available": True,
+        "strategic_bonus_is_expected_points": False,
+    }
+
+
+def _captaincy_audit(
+    decision: dict[str, Any], selection: dict[str, Any]
+) -> dict[str, Any]:
+    captaincy = decision.get("captaincy") or {}
+    audits = captaincy.get("player_audits") or {}
+    captain = selection.get("captain") or {}
+    vice = selection.get("vice_captain") or {}
+    captain_id = integer(captain.get("player_id"))
+    vice_id = integer(vice.get("player_id"))
+    return {
+        "utility_version": captaincy.get("utility_version"),
+        "captain": _compact_captain_audit(
+            audits.get(str(captain_id)),
+            captain.get("expected_points"),
+            selection.get("captain_selection_basis"),
+        ),
+        "vice_captain": _compact_captain_audit(
+            audits.get(str(vice_id)),
+            vice.get("expected_points"),
+            selection.get("vice_captain_selection_basis"),
+        ),
+        "reported_xpts_basis": "mean_expected_points_only",
+        "strategic_bonus_is_expected_points": False,
+        "principle": (
+            "Strategic captain utility selects who is doubled; ceiling, haul, ownership "
+            "and uncertainty terms are never added to displayed or route expected points."
+        ),
     }
 
 
@@ -161,6 +231,8 @@ def _selection(
             ],
             "captain": _player(captain_id, players, points) if captain_id else None,
             "vice_captain": _player(vice_id, players, points) if vice_id else None,
+            "captain_selection_basis": "initial_squad_plan",
+            "vice_captain_selection_basis": "initial_squad_plan",
             "transfers": [],
             "transfer_action": "select_initial_squad",
             "free_transfers_before": 0,
@@ -225,11 +297,12 @@ def _selection(
     # strategic captain utility as decision support; the decision captain is only
     # a fallback when no valid route captain exists. This prevents exposing one
     # captain while retaining xPts calculated for another.
-    captain_id = (
-        route_captain_id
-        if route_captain_id in starter_ids
-        else decision_captain_id
-    )
+    if route_captain_id in starter_ids:
+        captain_id = route_captain_id
+        captain_selection_basis = "route_strategic_utility"
+    else:
+        captain_id = decision_captain_id
+        captain_selection_basis = "decision_strategic_utility"
     if captain_id not in starter_ids:
         captain_id = next(
             (
@@ -240,9 +313,11 @@ def _selection(
             ),
             0,
         )
+        captain_selection_basis = "mean_xpts_fallback"
     vice_id = integer(
         ((decision.get("captaincy") or {}).get("vice_captain") or {}).get("player_id")
     )
+    vice_captain_selection_basis = "decision_strategic_utility"
     if vice_id not in starter_ids or vice_id == captain_id:
         vice_id = next(
             (
@@ -252,6 +327,7 @@ def _selection(
             ),
             0,
         )
+        vice_captain_selection_basis = "mean_xpts_fallback"
 
     if not squad_ids:
         squad_ids = set(starter_ids).union(
@@ -288,6 +364,8 @@ def _selection(
         "bench_order": [_player(player_id, players, points) for player_id in bench_ids],
         "captain": _player(captain_id, players, points) if captain_id else None,
         "vice_captain": _player(vice_id, players, points) if vice_id else None,
+        "captain_selection_basis": captain_selection_basis,
+        "vice_captain_selection_basis": vice_captain_selection_basis,
         "transfers": transfers_public,
         "transfer_action": "make_transfers" if transfers_public else "roll_or_hold",
         "free_transfers_before": move.get("free_transfers_before", (decision.get("free_transfer_state") or {}).get("available")),
@@ -431,6 +509,8 @@ def _apply_wildcard_selection(
             ],
             "captain": _player(captain_id, players, wildcard_points),
             "vice_captain": _player(vice_id, players, wildcard_points) if vice_id else None,
+            "captain_selection_basis": "chip_strategic_utility",
+            "vice_captain_selection_basis": "mean_xpts_fallback",
             "transfers": [],
             "transfer_action": "play_wildcard",
             "hit_cost": 0,
@@ -982,6 +1062,7 @@ def build_gameweek_report(
             "hours_remaining": hours_to_deadline,
         },
         "recommendation": selection,
+        "captaincy_audit": _captaincy_audit(decision, selection),
         "chip_recommendation": _chip(decision, gameweek) if decision.get("status") == "ready" else {"action": "unavailable", "chip": None, "reason": "Decision support is not ready."},
         "six_gameweek_plan": {
             "status": route_plan.get("status"),
@@ -1059,7 +1140,31 @@ def render_markdown(report: dict[str, Any]) -> str:
         lines.extend(f"- {row.get('web_name')} ({row.get('team_name')}, {row.get('expected_points')} xPts)" for row in recommendation.get("starting_xi", []))
         captain = recommendation.get("captain") or {}
         vice = recommendation.get("vice_captain") or {}
-        lines.extend(["", f"Captain: {captain.get('web_name') or 'Not available'}", f"Vice-captain: {vice.get('web_name') or 'Not available'}", "", "## Bench order", ""])
+        captain_audit = (report.get("captaincy_audit") or {}).get("captain") or {}
+        vice_audit = (report.get("captaincy_audit") or {}).get("vice_captain") or {}
+        captain_detail = (
+            f"{captain.get('web_name') or 'Not available'} "
+            f"({captain_audit.get('displayed_mean_xpts', captain.get('expected_points'))} mean xPts; "
+            f"strategic score {captain_audit.get('strategic_score')})"
+            if captain_audit.get("strategic_utility_available")
+            else f"{captain.get('web_name') or 'Not available'} ({captain.get('expected_points')} mean xPts)"
+        )
+        vice_detail = (
+            f"{vice.get('web_name') or 'Not available'} "
+            f"({vice_audit.get('displayed_mean_xpts', vice.get('expected_points'))} mean xPts; "
+            f"strategic score {vice_audit.get('strategic_score')})"
+            if vice_audit.get("strategic_utility_available")
+            else f"{vice.get('web_name') or 'Not available'} ({vice.get('expected_points')} mean xPts)"
+        )
+        lines.extend([
+            "",
+            f"Captain: {captain_detail}",
+            f"Vice-captain: {vice_detail}",
+            "Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.",
+            "",
+            "## Bench order",
+            "",
+        ])
         lines.extend(f"{index}. {row.get('web_name')} ({row.get('expected_points')} xPts)" for index, row in enumerate(recommendation.get("bench_order", []), start=1))
     lines.extend(["", "## Changes since previous report", ""])
     lines.extend(f"- {row.get('summary')}" for row in report.get("material_changes", []))

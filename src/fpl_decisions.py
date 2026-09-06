@@ -21,7 +21,7 @@ from src.fpl_multiweek import (
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-2.4"
+DECISION_VERSION = "fpl-decisions-2.5"
 MARKET_BLEND_WEIGHT = 0.75
 MINUTES_RISK_WEIGHT = 0.30
 MODEL_DISAGREEMENT_WEIGHT = 0.25
@@ -825,6 +825,27 @@ def build_decision_support(
         first_gameweek_multiplier=first_gameweek_multiplier,
         first_gameweek_captain_scores=first_gameweek_captain_scores,
     )
+    audit_player_ids = {integer(row.get("player_id")) for row in starters}
+    current_route_move = next(
+        (
+            move
+            for move in ((multi_gameweek_plan.get("recommended_route") or {}).get("gameweek_plan", []))
+            if integer(move.get("gameweek")) == integer(target_gameweek)
+        ),
+        {},
+    )
+    audit_player_ids.update(
+        integer(value)
+        for value in current_route_move.get("starter_player_ids", [])
+        if integer(value)
+    )
+    captain_audit_by_player = {
+        str(integer(row.get("player_id"))): row.get("captain_utility")
+        for row in evaluated
+        if integer(row.get("player_id")) in audit_player_ids
+        and isinstance(row.get("captain_utility"), dict)
+    }
+
     status = "ready" if target_gameweek and any(
         number(row.get("decision_expected_points")) > 0 for row in evaluated
     ) else "waiting_for_future_fixtures"
@@ -879,6 +900,12 @@ def build_decision_support(
             "captain": captain,
             "vice_captain": captain_pool[1] if len(captain_pool) > 1 else None,
             "alternatives": captain_pool[:5],
+            "player_audits": captain_audit_by_player if status == "ready" else {},
+            "scoring_basis": {
+                "reported_xpts": "mean_expected_points_only",
+                "strategic_utility_selects_captain": True,
+                "strategic_bonus_is_expected_points": False,
+            },
             "principle": (
                 "Risk-adjusted mean FPL points is primary; bounded p90, 10+/15+ "
                 "and ownership/rank exposure break close calls. Defensive captaincy "
