@@ -6,9 +6,8 @@ This is the executable roadmap for fresh ChatGPT project chats. Pair it with `PR
 
 Use one of these commands:
 
-- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below. **As of 2026-09-06 this resolves to FPL-22B.**
-- `Start FPL-22B` — implement the shared strategic captain utility.
-- `Start FPL-22C` — historical validation of the shared captain objective, after FPL-22B.
+- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below. **As of 2026-09-06 this resolves to FPL-22C.**
+- `Start FPL-22C` — historical/prospective validation of the shared captain objective.
 - `Start FPL-22D` — reporting and audit cleanup.
 - `Start FPL-22E` — fresh actionable-Gameweek reassessment after the engineering phases are green.
 
@@ -69,61 +68,72 @@ Strategic captain utility decides **who is doubled**. It must never be added to 
 
 ## FPL-22B — One shared strategic captain utility
 
-**Status: NEXT / ACTIVE ROADMAP ITEM**
+**Status: COMPLETE — 2026-09-06**
 
 ### Goal
 
 Replace the partially duplicated current-Gameweek captain objectives with one reusable strategic captain-selection function.
 
-The shared current-GW utility should have auditable inputs for:
+### Landed change
 
-- mean expected points;
-- p90 / ceiling;
-- P(10+);
-- P(15+);
-- expected minutes / availability confidence;
-- bounded ownership/rank exposure;
-- sensible position/uncertainty treatment.
+PR #48 — `Implement FPL-22B shared strategic captain utility`
 
-### Scope
+- validated PR head: `7b35fdf9c04187cc248c6b34dd7019d44e883292`
+- exact-head data validation: GREEN
+- exact-head full model build: GREEN
+- exact-head tests: 147 passed
+- squash merge commit: `26be4484fdae7707a3c553f1cc032c10d65405f0`
+- post-merge data refresh run `34025234701`: SUCCESS
+- refreshed-data commit: `59929b9cbc2bcb3b876c99e17740cb732ad8033f`
+- post-merge production build run `34025259144`: SUCCESS
+- post-merge model-output commit: `aa2f8884b0a760a5a06cf549a4d7b36e9c73f54e`
 
-Use the same utility wherever a current actionable Gameweek captain is selected:
+The shared `strategic-captain-1.0` utility:
 
-- normal weekly decision support;
-- first actionable Gameweek of multi-Gameweek routing;
-- Wildcard target-Gameweek captain selection;
-- chip decisions where equivalent current-GW distribution inputs exist.
+- uses risk-adjusted current-Gameweek mean xPts as the primary component;
+- uses bounded p90, P(10+), P(15+) and ownership/rank-pressure terms;
+- records expected minutes, availability confidence and selection-risk adjustment in the audit without double-penalising them;
+- applies bounded position uncertainty so a defensive captain requires a material edge but remains possible when evidence genuinely dominates;
+- is deterministic and contains no player/team-specific exceptions;
+- centralises the already-tested Wildcard captain coefficients rather than fitting new coefficients against the exposed 2025/26 holdout.
 
-Future Gameweeks may retain a simpler mean-based captain rule until equivalent future-GW distribution inputs are available. If so, that limitation must be explicit and auditable.
+The same utility now drives:
 
-### Core invariant
+- normal current-Gameweek decision support;
+- the first actionable Gameweek of multi-Gameweek routing;
+- Wildcard target-Gameweek captaincy;
+- target-Gameweek Triple Captain selection;
+- target-Gameweek Free Hit strategic squad/captain selection.
 
-The strategic captain score decides **who is doubled**. It must never be added to reported expected points. Route/report xPts remain the sum of mean player xPts plus the selected captain's mean xPts.
+Future Gameweeks may retain a simpler mean-based captain rule until equivalent future-GW distribution/reliability inputs are available; that limitation is explicit.
 
-### Design requirements
+### Acceptance evidence
 
-- one implementation, not separately tuned weekly/Wildcard coefficient copies where avoidable;
-- no hard-coded players, teams or IDs;
-- bounded strategic terms so weak mean projections cannot be rescued by ownership/ceiling alone;
-- deterministic output for unchanged inputs;
-- explicit component audit showing why captain A outranked captain B;
-- preserve exceptional defender captaincy when evidence genuinely dominates, while avoiding small-edge defensive artefacts;
-- do not revive the rejected component challenger as part of this work.
+Fresh production output generated `2026-09-06T09:40:45Z` confirms:
 
-### Acceptance gates before FPL-22C
+- `decision_version = fpl-decisions-2.4`;
+- report status remains `ready`;
+- production model remains `player-sim-2.0`;
+- `ensemble_status = holdout_rejected`;
+- ensemble point and 6+/10+/15+ challenger weights remain `0.0`;
+- challenger remains shadow-only;
+- provisional GW4 report captain = player `411` / `Haaland`;
+- first GW4 route captain = the same player;
+- report and route expected points agree at `44.563` using mean xPts accounting;
+- strategic utility therefore changed the selected captain without adding the strategic score to reported xPts;
+- no player-specific special case is present in the implementation.
 
-- focused captain-utility unit tests;
-- weekly, multiweek, Wildcard and applicable chip wiring regressions;
-- proof strategic utility can change captain selection without fabricating mean xPts;
-- proof all user-facing current-GW captain fields agree;
-- full existing suite green;
-- exact-head live shadow/output audit contains no player-specific special cases.
+The named GW4 result is validation evidence only. FPL-22E must recompute the actionable recommendation from fresh inputs and independent team-news checks.
+
+### Permanent invariant from FPL-22B
+
+The shared strategic captain utility decides **who is doubled**. Strategic ceiling/rank/position terms are never added to displayed expected points.
 
 ---
 
 ## FPL-22C — Historical captain-objective validation
 
-**Status: PLANNED; requires FPL-22B**
+**Status: NEXT / ACTIVE ROADMAP ITEM**
 
 ### Goal
 
@@ -209,7 +219,7 @@ Only after the captain model and reporting are internally coherent, reassess the
 
 ### Important
 
-Do not inherit `B.Fernandes` captain / `Haaland` vice, `roll_or_hold`, or any previous live-week result simply because it appeared in an earlier validation build. Recompute from fresh inputs.
+Do not inherit `Haaland` captain / `João Pedro` vice, `roll_or_hold`, or any previous live-week result simply because it appeared in an earlier validation build. Recompute from fresh inputs.
 
 ---
 
