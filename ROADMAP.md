@@ -6,9 +6,8 @@ This is the executable roadmap for fresh ChatGPT project chats. Pair it with `PR
 
 Use one of these commands:
 
-- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below. **As of 2026-09-06 this resolves to FPL-22C.**
-- `Start FPL-22C` — historical/prospective validation of the shared captain objective.
-- `Start FPL-22D` — reporting and audit cleanup.
+- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below. **As of 2026-09-06 this resolves to FPL-22D.**
+- `Start FPL-22D` — policy-aware reporting and captain-audit cleanup.
 - `Start FPL-22E` — fresh actionable-Gameweek reassessment after the engineering phases are green.
 
 A requested phase must not bypass incomplete prerequisites. Always read `PROJECT_STATE.md`, re-check current GitHub/CI state, and update both handoff files after material progress.
@@ -35,30 +34,7 @@ PR #47 — `Unify current-Gameweek captaincy with route scoring`
 - post-merge production build run: `34022620843` — SUCCESS
 - post-merge model-output commit: `d4279c867a0f5d70ae5df8fb1ed44d7e7794a0ec`
 
-The implementation:
-
-- passes the decision layer's strategic captain-score map into the first actionable Gameweek of multi-Gameweek routing;
-- still calculates all reported route points from mean expected points only;
-- makes the route captain the operational scoring authority, with the decision captain only a fallback;
-- bumps operations output to `fpl-gameweek-operations-1.7`.
-
-### Post-merge acceptance evidence
-
-Fresh production output generated `2026-09-06T08:44:35Z` proves the safeguards simultaneously:
-
-- production model: `player-sim-2.0`;
-- `ensemble_status = holdout_rejected`;
-- ensemble point weight: `0.0`;
-- ensemble 6+/10+/15+ probability weights: all `0.0`;
-- challenger remains `player-sim-3.0-candidate`, shadow-only / not applied live;
-- raw fixture-history rows: `1889`;
-- completed fixture-history rows admitted to live features: `1236`;
-- unfinished current-GW history therefore remains excluded;
-- `gameweek_report.json` captain and first route captain both resolve to player `426` / `B.Fernandes` for the current provisional GW4 build;
-- route/report expected points agree at `44.474` and use that captain's mean return in the doubled-score arithmetic;
-- report status is `ready` and the production build completed successfully.
-
-The named GW4 output above is validation evidence only, not a permanent player rule and not final advice. FPL-22E must recompute from fresh inputs.
+The implementation passes the decision layer's strategic captain-score map into the first actionable route Gameweek while retaining mean expected points as the only route/report scoring basis.
 
 ### Permanent invariant from FPL-22A
 
@@ -84,46 +60,18 @@ PR #48 — `Implement FPL-22B shared strategic captain utility`
 - exact-head tests: 147 passed
 - squash merge commit: `26be4484fdae7707a3c553f1cc032c10d65405f0`
 - post-merge data refresh run `34025234701`: SUCCESS
-- refreshed-data commit: `59929b9cbc2bcb3b876c99e17740cb732ad8033f`
 - post-merge production build run `34025259144`: SUCCESS
-- post-merge model-output commit: `aa2f8884b0a760a5a06cf549a4d7b36e9c73f54e`
 
 The shared `strategic-captain-1.0` utility:
 
-- uses risk-adjusted current-Gameweek mean xPts as the primary component;
+- uses risk-adjusted current-GW mean xPts as its primary component;
 - uses bounded p90, P(10+), P(15+) and ownership/rank-pressure terms;
-- records expected minutes, availability confidence and selection-risk adjustment in the audit without double-penalising them;
-- applies bounded position uncertainty so a defensive captain requires a material edge but remains possible when evidence genuinely dominates;
-- is deterministic and contains no player/team-specific exceptions;
-- centralises the already-tested Wildcard captain coefficients rather than fitting new coefficients against the exposed 2025/26 holdout.
+- records expected minutes, availability confidence and selection-risk adjustment without double-penalising them;
+- applies bounded position uncertainty so a defensive captain requires a material edge but remains possible;
+- is deterministic and has no player/team-specific exceptions;
+- drives normal current-GW support, first actionable route GW, Wildcard target-GW captaincy, target-GW Triple Captain and current-GW Free Hit captaincy.
 
-The same utility now drives:
-
-- normal current-Gameweek decision support;
-- the first actionable Gameweek of multi-Gameweek routing;
-- Wildcard target-Gameweek captaincy;
-- target-Gameweek Triple Captain selection;
-- target-Gameweek Free Hit strategic squad/captain selection.
-
-Future Gameweeks may retain a simpler mean-based captain rule until equivalent future-GW distribution/reliability inputs are available; that limitation is explicit.
-
-### Acceptance evidence
-
-Fresh production output generated `2026-09-06T09:40:45Z` confirms:
-
-- `decision_version = fpl-decisions-2.4`;
-- report status remains `ready`;
-- production model remains `player-sim-2.0`;
-- `ensemble_status = holdout_rejected`;
-- ensemble point and 6+/10+/15+ challenger weights remain `0.0`;
-- challenger remains shadow-only;
-- provisional GW4 report captain = player `411` / `Haaland`;
-- first GW4 route captain = the same player;
-- report and route expected points agree at `44.563` using mean xPts accounting;
-- strategic utility therefore changed the selected captain without adding the strategic score to reported xPts;
-- no player-specific special case is present in the implementation.
-
-The named GW4 result is validation evidence only. FPL-22E must recompute the actionable recommendation from fresh inputs and independent team-news checks.
+Future Gameweeks may retain a simpler mean-based captain rule until equivalent distribution/reliability inputs are available; that limitation must remain explicit.
 
 ### Permanent invariant from FPL-22B
 
@@ -133,44 +81,57 @@ The shared strategic captain utility decides **who is doubled**. Strategic ceili
 
 ## FPL-22C — Historical captain-objective validation
 
-**Status: NEXT / ACTIVE ROADMAP ITEM**
+**Status: COMPLETE / ACCEPTED — 2026-09-06**
 
 ### Goal
 
 Test whether the unified captain utility improves the objective that matters: selecting high-scoring captains without damaging model integrity.
 
-### Validation design
+### Predeclared design
 
-Use leakage-safe historical Gameweek reconstruction. Do not tune specifically for a current player or current fixture. The frozen 2025/26 holdout has already been exposed and is closed; do not tune new coefficients against it.
+The validation design and gates were committed before any result workflow existed in `9373201e509e01221d3c6b5cf18a0197ad6c692a`.
 
-Use development/validation splits that keep final evaluation separate from coefficient selection. If genuinely fresh historical data are unavailable, prefer prospective 2026/27 evaluation over repeated tuning on an already-exposed holdout.
+- primary gated seasons: 2018/19–2021/22;
+- 2022/23–2023/24 descriptive only;
+- 2024/25 and the exposed/closed 2025/26 holdout excluded from promotion gates;
+- `strategic-captain-1.0` coefficients frozen, with no tuning in this phase;
+- target-GW ownership excluded; lagged ownership reconstructed from previous-GW selected counts;
+- one deterministic legal synthetic reference squad/starting XI per Gameweek isolates captain selection.
 
-### Required metrics
+The first run was correctly `inconclusive` because only 69 primary GWs could be reconstructed. No gate was weakened. Older historical rows were then repaired only for missing structural metadata:
 
-At minimum compare shared strategic captaincy with the current/control captain method for:
+- player ID -> position from `players_raw.csv`;
+- fixture ID -> scheduled `team_h`/`team_a`, combined with archived `was_home`, to restore club identity.
 
-- actual captain FPL points;
-- mean captaincy regret versus best available squad captain;
-- best-captain hit rate;
-- frequency of actual captain scores 10+;
-- frequency of actual captain scores 15+;
-- top-haul shortlist quality where relevant;
-- premium-attacker cases;
-- high-ownership/high-ceiling cases;
-- defensive-captain false positives;
-- stability across seasons, not only pooled averages.
+No score/stat/result, target-GW ownership, availability or end-of-season player performance field was imported into validation inputs. The final audit repaired 44,350 position rows and 44,350 team rows, with zero unresolved rows.
 
-### Promotion rule
+### Acceptance evidence
 
-Predeclare acceptance criteria before looking at the final evaluation. Do not weaken a gate after seeing a desired live-week outcome.
+PR #49 — `Validate shared captain objective without holdout leakage`
 
-If the shared objective fails, keep the simpler validated behaviour and record the rejection in `PROJECT_STATE.md` rather than forcing promotion.
+- final validated head: `5eef04298f0f7bac30d6c9f49a65181433f024a8`;
+- captain validation run `34027036338`: SUCCESS;
+- normal data validation run `34027036319`: SUCCESS;
+- exact-head full suite: 155/155 tests passed;
+- primary evaluated Gameweeks: `136`, gate minimum `100`;
+- lagged ownership coverage: `93.38%`;
+- mean captain points difference: `+1.9412` points/GW, 95% CI `+1.0381` to `+2.8442`;
+- mean regret difference: `-1.9412`;
+- best-captain hit-rate difference: `+11.76` percentage points;
+- 10+ captain rate difference: `+13.24pp`;
+- 15+ captain rate difference: `+3.68pp`;
+- all four primary seasons passed stability checks;
+- failed gates: none;
+- final validation status: `accepted`;
+- squash merge commit: `94000a20c39eddc89b97eed571f32fe23c76bb96`.
+
+The frozen utility therefore remains the current-GW captain authority. FPL-22C is now exposed evidence and must not become a coefficient-tuning set. Prospective 2026/27 evidence may continue independently.
 
 ---
 
 ## FPL-22D — Policy-aware reporting and audit cleanup
 
-**Status: PLANNED; can develop after FPL-22B, finalise after FPL-22C**
+**Status: NEXT / ACTIVE ROADMAP ITEM**
 
 ### Goal
 
@@ -202,7 +163,7 @@ Make conversational/operational outputs accurately describe the model that is ac
 
 ## FPL-22E — Fresh actionable-Gameweek reassessment
 
-**Status: PLANNED; requires FPL-22B and should normally follow FPL-22C–22D**
+**Status: PLANNED; requires FPL-22D**
 
 ### Goal
 
