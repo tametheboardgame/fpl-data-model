@@ -2,6 +2,16 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
+from src.fpl_captaincy import (
+    CAPTAIN_CEILING_WEIGHT,
+    CAPTAIN_RANK_WEIGHT,
+    CAPTAIN_UTILITY_VERSION,
+    DEFENSIVE_CAPTAIN_EXCEPTION_MARGIN,
+    captain_ceiling_bonus as shared_captain_ceiling_bonus,
+    captain_utility as shared_captain_utility,
+    ownership_pressure as shared_ownership_pressure,
+    select_strategic_captain as shared_select_strategic_captain,
+)
 from src.fpl_multiweek import (
     MINIMUM_ROUTE_SEPARATION_POINTS,
     POSITION_LIMITS,
@@ -26,18 +36,8 @@ MINIMUM_EDGE = {"wildcard": 12.0, "freehit": 10.0, "bboost": 8.0, "3xc": 7.5}
 # bounded rank exposure have strategic value beyond raw squad efficiency.
 WILDCARD_OBJECTIVE_VERSION = "captaincy-ceiling-1.4"
 STARTER_CEILING_WEIGHT = 0.08
-CAPTAIN_CEILING_WEIGHT = 0.70
-CAPTAIN_RANK_WEIGHT = 0.45
 SEARCH_PLAYER_CEILING_WEIGHT = 0.12
 SEARCH_CAPTAIN_ACCESS_WEIGHT = 0.65
-P90_GAP_WEIGHT = 0.16
-PROBABILITY_10_PLUS_WEIGHT = 1.20
-PROBABILITY_15_PLUS_WEIGHT = 2.00
-MAX_PLAYER_CEILING_BONUS = 1.75
-MAX_CAPTAIN_STRATEGIC_BONUS = 1.80
-DEFENSIVE_CAPTAIN_PENALTY = 0.30
-OWNERSHIP_PRESSURE_FLOOR = 35.0
-OWNERSHIP_PRESSURE_FULL = 75.0
 
 
 def clamp(value: float, lower: float, upper: float) -> float:
@@ -346,13 +346,7 @@ def _fixture_metric_matrix(
 
 
 def _ownership_pressure(player: dict[str, Any]) -> float:
-    ownership = number(player.get("selected_by_percent"))
-    return clamp(
-        (ownership - OWNERSHIP_PRESSURE_FLOOR)
-        / max(1.0, OWNERSHIP_PRESSURE_FULL - OWNERSHIP_PRESSURE_FLOOR),
-        0.0,
-        1.0,
-    )
+    return shared_ownership_pressure(number(player.get("selected_by_percent")))
 
 
 def _ceiling_bonus(
@@ -361,13 +355,12 @@ def _ceiling_bonus(
     probability_10_plus: float,
     probability_15_plus: float,
 ) -> float:
-    p90_gap = max(0.0, p90 - expected_points)
-    bonus = (
-        P90_GAP_WEIGHT * p90_gap
-        + PROBABILITY_10_PLUS_WEIGHT * clamp(probability_10_plus, 0.0, 1.0)
-        + PROBABILITY_15_PLUS_WEIGHT * clamp(probability_15_plus, 0.0, 1.0)
+    return shared_captain_ceiling_bonus(
+        expected_points,
+        p90,
+        probability_10_plus,
+        probability_15_plus,
     )
-    return min(MAX_PLAYER_CEILING_BONUS, bonus)
 
 
 def _captain_utility(
@@ -378,26 +371,22 @@ def _captain_utility(
     probability_10_plus: dict[int, float],
     probability_15_plus: dict[int, float],
 ) -> tuple[float, float, float]:
-    mean = expected_points.get(player_id, 0.0)
-    ceiling = _ceiling_bonus(
-        mean,
-        p90.get(player_id, mean),
-        probability_10_plus.get(player_id, 0.0),
-        probability_15_plus.get(player_id, 0.0),
-    )
     player = player_by_id.get(player_id, {})
-    rank_pressure = _ownership_pressure(player)
-    position = str(player.get("position"))
-    defensive_penalty = (
-        DEFENSIVE_CAPTAIN_PENALTY
-        if position in {"Goalkeeper", "Defender"}
-        else 0.0
+    mean = expected_points.get(player_id, 0.0)
+    audit = shared_captain_utility(
+        player_id=player_id,
+        mean_expected_points=mean,
+        points_p90=p90.get(player_id, mean),
+        probability_10_plus=probability_10_plus.get(player_id, 0.0),
+        probability_15_plus=probability_15_plus.get(player_id, 0.0),
+        ownership_percent=number(player.get("selected_by_percent")),
+        position=str(player.get("position")),
     )
-    strategic_bonus = min(
-        MAX_CAPTAIN_STRATEGIC_BONUS,
-        CAPTAIN_CEILING_WEIGHT * ceiling + CAPTAIN_RANK_WEIGHT * rank_pressure,
+    return (
+        number(audit.get("raw_utility")),
+        number(audit.get("ceiling_bonus")),
+        number(audit.get("rank_pressure")),
     )
-    return mean + strategic_bonus - defensive_penalty, ceiling, rank_pressure
 
 
 def _best_attacking_captain_utility(
@@ -446,31 +435,14 @@ def _select_strategic_captain(
     probability_10_plus: dict[int, float],
     probability_15_plus: dict[int, float],
 ) -> int | None:
-    starters = tuple(starter_ids)
-    if not starters:
-        return None
-    overall = max(
-        starters,
-        key=lambda player_id: _captain_utility(
-            player_id, player_by_id, expected_points, p90,
-            probability_10_plus, probability_15_plus
-        )[0],
+    return shared_select_strategic_captain(
+        starter_ids,
+        player_by_id,
+        expected_points,
+        p90,
+        probability_10_plus,
+        probability_15_plus,
     )
-    if str(player_by_id.get(overall, {}).get("position")) not in {"Goalkeeper", "Defender"}:
-        return overall
-    attacker, attacker_utility = _best_attacking_captain_utility(
-        starters, player_by_id, expected_points, p90,
-        probability_10_plus, probability_15_plus
-    )
-    if attacker is None:
-        return overall
-    overall_utility = _captain_utility(
-        overall, player_by_id, expected_points, p90,
-        probability_10_plus, probability_15_plus
-    )[0]
-    if overall_utility - attacker_utility <= MINIMUM_ROUTE_SEPARATION_POINTS + 1e-9:
-        return attacker
-    return overall
 
 
 def _missing_elite_attacking_captain_seed(
@@ -798,9 +770,22 @@ def optimise_chip_plan(
         for offset, gameweek in enumerate(gameweeks):
             route_squad = squads.get(gameweek, starting_ids)
             points = matrix.get(gameweek, {})
-            normal_score, starters, captain = optimise_gameweek_lineup(
+            normal_score, starters, route_captain = optimise_gameweek_lineup(
                 route_squad, player_by_id, points
             )
+            captain = route_captain
+            if gameweek == target_gameweek:
+                captain = _select_strategic_captain(
+                    starters,
+                    player_by_id,
+                    points,
+                    p90_matrix.get(gameweek, {}),
+                    p10_matrix.get(gameweek, {}),
+                    p15_matrix.get(gameweek, {}),
+                )
+                normal_score = sum(
+                    points.get(player_id, 0) for player_id in starters
+                ) + (points.get(captain, 0) if captain is not None else 0.0)
             starter_score = sum(points.get(player_id, 0) for player_id in starters)
             bench_score = sum(points.get(player_id, 0) for player_id in route_squad) - starter_score
             structure = structures[gameweek]
@@ -835,9 +820,46 @@ def optimise_chip_plan(
                 })
 
             if chip_available(chip_state, "freehit"):
-                free_hit = optimise_budget_squad(player_by_id, points, total_budget)
+                if gameweek == target_gameweek:
+                    free_hit_heuristic = _wildcard_search_heuristic(
+                        player_by_id,
+                        [gameweek],
+                        0,
+                        {gameweek: points},
+                        {gameweek: p90_matrix.get(gameweek, {})},
+                        {gameweek: p10_matrix.get(gameweek, {})},
+                        {gameweek: p15_matrix.get(gameweek, {})},
+                        1.0,
+                    )
+
+                    def free_hit_final_scorer(
+                        squad_ids: tuple[int, ...],
+                    ) -> tuple[float, list[int], int | None]:
+                        strategic_score, _, starter_ids, captain_id, _ = (
+                            _strategic_gameweek_score(
+                                squad_ids,
+                                player_by_id,
+                                points,
+                                p90_matrix.get(gameweek, {}),
+                                p10_matrix.get(gameweek, {}),
+                                p15_matrix.get(gameweek, {}),
+                            )
+                        )
+                        return strategic_score, starter_ids, captain_id
+
+                    free_hit = optimise_budget_squad(
+                        player_by_id,
+                        free_hit_heuristic,
+                        total_budget,
+                        final_scorer=free_hit_final_scorer,
+                    )
+                else:
+                    free_hit = optimise_budget_squad(player_by_id, points, total_budget)
                 if free_hit:
-                    fh_ids, fh_cost, fh_score, fh_starters, fh_captain = free_hit
+                    fh_ids, fh_cost, fh_objective, fh_starters, fh_captain = free_hit
+                    fh_score = sum(
+                        points.get(player_id, 0) for player_id in fh_starters
+                    ) + (points.get(fh_captain, 0) if fh_captain is not None else 0.0)
                     edge = fh_score - baseline_by_gw.get(gameweek, normal_score)
                     status, reason = candidate_status(
                         "freehit", edge, structure, horizon_reaches_expiry
@@ -1128,7 +1150,8 @@ def optimise_chip_plan(
             "search_player_ceiling_weight": SEARCH_PLAYER_CEILING_WEIGHT,
             "search_captain_access_weight": SEARCH_CAPTAIN_ACCESS_WEIGHT,
             "archetype_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,
-            "defensive_captain_exception_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,
+            "defensive_captain_exception_separation_points": DEFENSIVE_CAPTAIN_EXCEPTION_MARGIN,
+            "captain_utility_version": CAPTAIN_UTILITY_VERSION,
             "target_gameweek_missing_elite_captain_seed_count": 1,
             "hard_coded_players": False,
         },

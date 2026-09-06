@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from src.external_context import number, resolved_context
+from src.fpl_captaincy import CAPTAIN_UTILITY_VERSION, captain_utility
 from src.fpl_chip_optimizer import optimise_chip_plan
 from src.fpl_chips import derive_chip_state
 from src.fpl_initial_squad import build_initial_squad_plan
@@ -20,7 +21,7 @@ from src.fpl_multiweek import (
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-2.3"
+DECISION_VERSION = "fpl-decisions-2.4"
 MARKET_BLEND_WEIGHT = 0.75
 MINUTES_RISK_WEIGHT = 0.30
 MODEL_DISAGREEMENT_WEIGHT = 0.25
@@ -400,16 +401,34 @@ def selection_risk_adjustment(
         minutes_penalty + availability_penalty + disagreement_penalty,
     )
     selection_points = max(0.0, decision_points - total_penalty)
-    points_p90 = horizon_value(horizon, 1, "points_p90")
+    model_points = horizon_value(horizon, 1)
+    captain_tail_multiplier = (
+        selection_points / model_points if model_points > 0 else 1.0
+    )
+    points_p90 = (
+        horizon_value(horizon, 1, "points_p90") * captain_tail_multiplier
+    )
     probability_10_plus = horizon_value(horizon, 1, "probability_10_plus")
     probability_15_plus = horizon_value(horizon, 1, "probability_15_plus")
     position = str(player.get("position") or horizon.get("position"))
-    captain_score = (
-        selection_points
-        + 0.15 * max(0.0, points_p90 - decision_points)
-        + 0.8 * probability_10_plus
-        + 0.5 * probability_15_plus
-        - (0.35 if position in {"Goalkeeper", "Defender"} else 0.0)
+    if chance not in {None, ""}:
+        availability_confidence = clamp(number(chance) / 100, 0.0, 1.0)
+    elif status in {"a", ""}:
+        availability_confidence = 1.0
+    else:
+        availability_confidence = 0.82
+    captain_audit = captain_utility(
+        player_id=integer(player.get("player_id") or horizon.get("player_id")),
+        mean_expected_points=selection_points,
+        reference_mean_expected_points=decision_points,
+        points_p90=points_p90,
+        probability_10_plus=probability_10_plus,
+        probability_15_plus=probability_15_plus,
+        ownership_percent=ownership(player),
+        position=position,
+        expected_minutes=expected_minutes,
+        availability_confidence=availability_confidence,
+        selection_risk_penalty=total_penalty,
     )
     reasons = []
     if minutes_penalty > 0.05:
@@ -441,7 +460,8 @@ def selection_risk_adjustment(
         "observed_usage_rate": (
             round(observed_usage, 4) if observed_usage is not None else None
         ),
-        "captain_score": round(captain_score, 4),
+        "captain_score": captain_audit["captain_score"],
+        "captain_utility": captain_audit,
         "selection_risk_reasons": reasons,
     }
 
@@ -670,6 +690,7 @@ def build_decision_support(
             number(row.get("external_upside_score")),
             number(row.get("probability_10_plus_next_1")),
             number(row.get("points_p90_next_1")),
+            -integer(row.get("player_id")),
         ),
         reverse=True,
     )
@@ -854,12 +875,14 @@ def build_decision_support(
         "bench_order": bench,
         "lineup_correlation": lineup_correlation,
         "captaincy": {
+            "utility_version": CAPTAIN_UTILITY_VERSION,
             "captain": captain,
             "vice_captain": captain_pool[1] if len(captain_pool) > 1 else None,
             "alternatives": captain_pool[:5],
             "principle": (
-                "Expected FPL points is primary; 10+ probability and upper-tail points "
-                "break close calls."
+                "Risk-adjusted mean FPL points is primary; bounded p90, 10+/15+ "
+                "and ownership/rank exposure break close calls. Defensive captaincy "
+                "requires a material utility edge."
             ),
         },
         "transfer_shortlist": transfer_candidates[:20],
@@ -900,6 +923,9 @@ def build_decision_support(
             ),
             "unmodified_model_forecast_retained": True,
             "decision_layer_market_adjustment": True,
+            "captain_utility_version": CAPTAIN_UTILITY_VERSION,
+            "captain_utility_hard_coded_players": False,
+            "captain_strategic_bonus_is_expected_points": False,
         },
     }
 

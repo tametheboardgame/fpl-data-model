@@ -25,4 +25,4 @@ The beam-search pruning heuristic includes bounded ceiling and potential-captain
 - Chip timing thresholds remain based on expected-points gain.
 - The strategic components are emitted in the candidate audit for review and future calibration.
 
-Current objective version: `captaincy-ceiling-1.1`.
+Current objective version: `captaincy-ceiling-1.4`. Captain selection uses the shared `strategic-captain-1.0` utility from FPL-22B.
