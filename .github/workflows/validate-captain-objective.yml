@@ -1,0 +1,69 @@
+name: Validate FPL captain objective
+
+on:
+  pull_request:
+    paths:
+      - "src/fpl_captaincy.py"
+      - "src/validate_captain_objective.py"
+      - "src/backtest_fpl_model.py"
+      - "src/fpl_chip_optimizer.py"
+      - "tests/test_validate_captain_objective.py"
+      - "data/history/**"
+      - "docs/notes/fpl-22c-captain-validation.md"
+      - ".github/workflows/validate-captain-objective.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Run focused validation tests
+        run: python -m unittest tests.test_validate_captain_objective -v
+
+      - name: Run frozen captain-objective validation
+        run: >-
+          python -m src.validate_captain_objective
+          --data-dir data
+          --simulations 300
+          --output data/backtests/captain_objective_validation.json
+          --details-output data/backtests/captain_objective_gameweeks.csv
+
+      - name: Print validation decision
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path("data/backtests/captain_objective_validation.json").read_text(encoding="utf-8"))
+          print("FPL_22C_STATUS", report["status"])
+          print("FPL_22C_RECOMMENDED", report["recommended_for_current_gameweek_authority"])
+          print("FPL_22C_FAILED_GATES", json.dumps(report["acceptance"]["failed_gates"]))
+          print("FPL_22C_PRIMARY_METRICS", json.dumps(report["primary_metrics"], sort_keys=True))
+          print("FPL_22C_BY_SEASON", json.dumps({season: report["by_season"][season] for season in report["evaluation_design"]["primary_gated_seasons"]}, sort_keys=True))
+          print("FPL_22C_DESCRIPTIVE_METRICS", json.dumps(report["descriptive_metrics"], sort_keys=True))
+          PY
+
+      - name: Upload captain validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: fpl-22c-captain-validation
+          path: |
+            data/backtests/captain_objective_validation.json
+            data/backtests/captain_objective_gameweeks.csv
+          if-no-files-found: error
