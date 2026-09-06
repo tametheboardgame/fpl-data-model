@@ -6,8 +6,7 @@ This is the executable roadmap for fresh ChatGPT project chats. Pair it with `PR
 
 Use one of these commands:
 
-- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below. **As of 2026-09-06 this resolves to FPL-22D.**
-- `Start FPL-22D` — policy-aware reporting and captain-audit cleanup.
+- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below. **As of 2026-09-06 this resolves to FPL-22E.**
 - `Start FPL-22E` — fresh actionable-Gameweek reassessment after the engineering phases are green.
 
 A requested phase must not bypass incomplete prerequisites. Always read `PROJECT_STATE.md`, re-check current GitHub/CI state, and update both handoff files after material progress.
@@ -131,43 +130,52 @@ The frozen utility therefore remains the current-GW captain authority. FPL-22C i
 
 ## FPL-22D — Policy-aware reporting and audit cleanup
 
-**Status: NEXT / ACTIVE ROADMAP ITEM**
+**Status: COMPLETE — 2026-09-06**
 
 ### Goal
 
 Make conversational/operational outputs accurately describe the model that is actually live and make captaincy reasoning inspectable.
 
-### Known current defect
+### Landed change
 
-`data/chatgpt/projection_summary.json` correctly reports `player-sim-2.0`, `holdout_rejected` and zero challenger weights, but its human-readable `method` string still says `Development-selected ensemble ...`. Treat that text as stale until this phase fixes it.
+PR #50 — `Make production policy and captain audits explicit`
 
-### Required changes
+- clean PR head: `64a654b6a326fe63f4072e1e521ba1f226467a01`
+- exact-head data validation run `34028912769`: SUCCESS
+- exact-head full model build run `34028912763`: SUCCESS
+- exact-head full suite: 157/157 tests passed
+- squash merge commit: `f06c708f5ac8787097c33df270b750618961f238`
+- post-merge data refresh run `34029053476`: SUCCESS
+- post-merge fresh dataset commit: `88a6cb710d434edbecb07551014b988f0849345a`
+- post-merge production build run `34029081257`: SUCCESS
+- post-merge model-output commit: `ec5b074c517f1dd5b7188c18c5e9f567225f6870`
 
-- make `projection_summary.json` method/limitations policy-aware;
-- remove any remaining live-output text that describes the rejected ensemble as production;
-- expose live model version, challenger status and production weights clearly;
-- expose captain mean xPts separately from strategic captain utility;
-- include an audit of bounded ceiling/haul/ownership/minutes contributions used to select captain and vice;
-- explicitly state that strategic captain bonuses are not part of displayed xPts;
-- keep reports concise enough for deadline use.
+FPL-22D now:
 
-### Acceptance gates
+- derives production-policy text from `ensemble_production_policy.json`;
+- exposes live model, challenger mode/status and production weights explicitly;
+- removes stale live-output wording that described the rejected ensemble as production;
+- separates captain/vice mean xPts from strategic utility;
+- exposes bounded ceiling/haul/ownership/minutes/availability audit inputs;
+- records the captain selection basis;
+- explicitly states strategic bonuses are not expected points;
+- preserves agreement between report captain, route captain and mean-xPts scoring.
 
-- production-policy text matches `ensemble_production_policy.json`;
-- no output calls a rejected ensemble the live model;
-- report captain, route captain and captain scoring basis agree;
-- schema/version bumps and regression tests where output contracts change;
-- full suite green.
+Output contracts are now `fpl-decisions-2.5` and `fpl-gameweek-operations-1.8`.
+
+### Permanent invariant from FPL-22D
+
+Production governance text must reflect the sticky production policy, and strategic captain utility must remain auditable but separate from mean expected-points accounting.
 
 ---
 
 ## FPL-22E — Fresh actionable-Gameweek reassessment
 
-**Status: PLANNED; requires FPL-22D**
+**Status: NEXT / ACTIVE ROADMAP ITEM**
 
 ### Goal
 
-Only after the captain model and reporting are internally coherent, reassess the currently actionable Gameweek from scratch.
+Reassess the currently actionable Gameweek from scratch after the captain model and reporting have been made internally coherent.
 
 ### Procedure
 
@@ -177,6 +185,16 @@ Only after the captain model and reporting are internally coherent, reassess the
 4. Independently sanity-check material decisions against current official club/FPL news and trusted late team-news/predicted-lineup sources.
 5. Review transfers, XI, bench, captain, vice and chip state.
 6. Compare mean xPts with ceiling/haul/rank considerations without overriding the model through ad-hoc player preferences.
+
+### Acceptance gates
+
+- use fresh post-FPL-22D official data and production outputs;
+- confirm report/model versions and production policy are current;
+- confirm registered squad and operational recommendation are valid;
+- independently check material injury/availability/role/fixture assumptions against current sources;
+- explicitly identify provisional versus firm/final advice based on deadline timing and source freshness;
+- do not inherit any earlier engineering-validation recommendation merely because it appeared previously;
+- record the resulting actionable recommendation and any unresolved checks in the handoff state.
 
 ### Important
 
