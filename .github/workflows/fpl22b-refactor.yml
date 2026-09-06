@@ -43,14 +43,14 @@ jobs:
       - name: Run full unit suite
         run: python -m unittest discover -s tests -v
 
-      - name: Commit validated refactor
+      - name: Commit validated source refactor
         shell: bash
         run: |
-          rm .github/workflows/fpl22b-refactor.yml
+          git restore .github/workflows/build-fpl-model.yml
           rm tools/fpl22b_refactor.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add src/fpl_captaincy.py src/fpl_decisions.py src/fpl_chip_optimizer.py tests/test_fpl_captaincy.py tests/test_phase18_chips.py docs/notes/shared-captain-utility.md docs/notes/captaincy-aware-wildcard.md tools/fpl22b_refactor.py
           git diff --cached --check
           git commit -m "Implement FPL-22B shared captain utility"
           git push origin HEAD:feature/fpl-22b-shared-captain-utility
