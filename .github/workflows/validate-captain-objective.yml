@@ -5,9 +5,11 @@ on:
     paths:
       - "src/fpl_captaincy.py"
       - "src/validate_captain_objective.py"
+      - "src/prepare_captain_validation_history.py"
       - "src/backtest_fpl_model.py"
       - "src/fpl_chip_optimizer.py"
       - "tests/test_validate_captain_objective.py"
+      - "tests/test_prepare_captain_validation_history.py"
       - "data/history/**"
       - "docs/notes/fpl-22c-captain-validation.md"
       - ".github/workflows/validate-captain-objective.yml"
@@ -34,12 +36,24 @@ jobs:
         run: python -m pip install --requirement requirements.txt
 
       - name: Run focused validation tests
-        run: python -m unittest tests.test_validate_captain_objective -v
+        run: >-
+          python -m unittest
+          tests.test_validate_captain_objective
+          tests.test_prepare_captain_validation_history
+          -v
+
+      - name: Prepare legacy position metadata
+        run: >-
+          python -m src.prepare_captain_validation_history
+          --source data/history/historical_player_gameweeks.csv.gz
+          --output /tmp/fpl22c-data/history/historical_player_gameweeks.csv.gz
+          --audit data/backtests/captain_position_fallback_audit.json
+          --seasons 2018-19 2019-20 2020-21 2021-22 2022-23 2023-24
 
       - name: Run frozen captain-objective validation
         run: >-
           python -m src.validate_captain_objective
-          --data-dir data
+          --data-dir /tmp/fpl22c-data
           --simulations 300
           --output data/backtests/captain_objective_validation.json
           --details-output data/backtests/captain_objective_gameweeks.csv
@@ -50,7 +64,10 @@ jobs:
           import json
           from pathlib import Path
 
+          audit = json.loads(Path("data/backtests/captain_position_fallback_audit.json").read_text(encoding="utf-8"))
           report = json.loads(Path("data/backtests/captain_objective_validation.json").read_text(encoding="utf-8"))
+          print("FPL_22C_POSITION_REPAIRS", json.dumps(audit["repaired_position_rows_by_season"], sort_keys=True))
+          print("FPL_22C_POSITION_UNRESOLVED", json.dumps(audit["unresolved_position_rows_by_season"], sort_keys=True))
           print("FPL_22C_STATUS", report["status"])
           print("FPL_22C_RECOMMENDED", report["recommended_for_current_gameweek_authority"])
           print("FPL_22C_FAILED_GATES", json.dumps(report["acceptance"]["failed_gates"]))
@@ -64,6 +81,7 @@ jobs:
         with:
           name: fpl-22c-captain-validation
           path: |
+            data/backtests/captain_position_fallback_audit.json
             data/backtests/captain_objective_validation.json
             data/backtests/captain_objective_gameweeks.csv
           if-no-files-found: error
