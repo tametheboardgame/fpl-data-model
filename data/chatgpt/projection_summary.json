@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T11:01:23+00:00",
+  "generated_at": "2026-09-06T11:03:05+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -11,6 +11,21 @@
     "15": 0.0
   },
   "challenger_status": "candidate_not_applied_to_live_model",
+  "production_policy": {
+    "status": "holdout_rejected",
+    "live_model_version": "player-sim-2.0",
+    "challenger_model_version": "player-sim-3.0-candidate",
+    "challenger_status": "candidate_not_applied_to_live_model",
+    "challenger_mode": "shadow_only",
+    "live_point_weight": 0.0,
+    "live_probability_weights": {
+      "6": 0.0,
+      "10": 0.0,
+      "15": 0.0
+    },
+    "reason": "The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
+    "reconsideration_gate": "prospective_2026_27_evidence_and_explicit_production_approval"
+  },
   "season": "2026/27",
   "scoring_rules_status": "ready",
   "scoring_rules_version": "fpl-2026-27",
@@ -32,7 +47,7 @@
     "principle": "A bounded position-level prior is used only while 2026/27 observations are sparse; it fades to the player's observed bonus rate."
   },
   "simulations_per_player_fixture": 600,
-  "method": "Development-selected ensemble with player-specific early-season priors, separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
+  "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
   "player_feature_rows": 653,
   "team_feature_rows": 20,
   "raw_fixture_history_rows": 1889,
@@ -703,9 +718,9 @@
   "gameweek_report_material_change": false,
   "gameweek_report_warning_count": 3,
   "limitations": [
-    "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
-    "The control and component models remain available beside every ensemble recommendation for audit.",
-    "External context is source-weighted and applied only to decision support until prospective evidence justifies changing the validated ensemble.",
+    "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
+    "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
+    "External context is source-weighted and affects the audited decision layer rather than silently changing the production model policy.",
     "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage unless a timestamped decision-layer signal is present.",
     "Previous-season player evidence is shrunk towards positional priors and fades over the first six current-season fixtures.",
     "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",

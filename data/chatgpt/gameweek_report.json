@@ -1,14 +1,14 @@
 {
-  "operations_version": "fpl-gameweek-operations-1.7",
-  "generated_at": "2026-09-06T11:01:23+00:00",
+  "operations_version": "fpl-gameweek-operations-1.8",
+  "generated_at": "2026-09-06T11:03:05+00:00",
   "status": "ready",
   "decision_status": "ready",
-  "decision_version": "fpl-decisions-2.4",
+  "decision_version": "fpl-decisions-2.5",
   "target_gameweek": 4,
   "deadline": {
     "deadline_time": "2026-09-12T12:30:00+00:00",
     "deadline_time_uk": "2026-09-12T13:30:00+01:00",
-    "hours_remaining": 145.477
+    "hours_remaining": 145.449
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -111,7 +111,7 @@
         "team_name": "Chelsea",
         "position": "Forward",
         "price": 7.7,
-        "expected_points": 5.107,
+        "expected_points": 5.106,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -165,7 +165,7 @@
         "team_name": "Coventry City",
         "position": "Defender",
         "price": 4.0,
-        "expected_points": 1.871,
+        "expected_points": 1.872,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -231,19 +231,21 @@
       "team_name": "Chelsea",
       "position": "Forward",
       "price": 7.7,
-      "expected_points": 5.107,
+      "expected_points": 5.106,
       "availability_status": "a",
       "chance_of_playing": null,
       "news": "",
       "news_added": ""
     },
+    "captain_selection_basis": "route_strategic_utility",
+    "vice_captain_selection_basis": "decision_strategic_utility",
     "transfers": [],
     "transfer_action": "roll_or_hold",
     "free_transfers_before": 2,
     "hit_cost": 0,
     "bank_after": 0.6,
-    "expected_points": 44.541,
-    "net_expected_points": 44.541,
+    "expected_points": 44.54,
+    "net_expected_points": 44.54,
     "six_gameweek_net_gain_vs_hold": 0.0,
     "six_gameweek_total_hit_cost": 0,
     "lineup_correlation": {
@@ -283,6 +285,60 @@
       593
     ]
   },
+  "captaincy_audit": {
+    "utility_version": "strategic-captain-1.0",
+    "captain": {
+      "utility_version": "strategic-captain-1.0",
+      "player_id": 411,
+      "displayed_mean_xpts": 5.4,
+      "risk_adjusted_mean_input": 5.4,
+      "strategic_score": 6.462,
+      "selection_basis": "route_strategic_utility",
+      "components": {
+        "bounded_strategic_bonus": 1.062,
+        "ceiling_contribution": 0.6559,
+        "rank_pressure_contribution": 0.4061,
+        "position_uncertainty_penalty": 0.0,
+        "defensive_exception_margin": 0.0,
+        "selection_risk_penalty": 0.0,
+        "expected_minutes": 81.52,
+        "availability_confidence": 1.0,
+        "points_p90": 10.1561,
+        "probability_10_plus": 0.1217,
+        "probability_15_plus": 0.015,
+        "ownership_percent": 71.1
+      },
+      "strategic_utility_available": true,
+      "strategic_bonus_is_expected_points": false
+    },
+    "vice_captain": {
+      "utility_version": "strategic-captain-1.0",
+      "player_id": 165,
+      "displayed_mean_xpts": 5.106,
+      "risk_adjusted_mean_input": 5.106,
+      "strategic_score": 6.2667,
+      "selection_basis": "decision_strategic_utility",
+      "components": {
+        "bounded_strategic_bonus": 1.1607,
+        "ceiling_contribution": 0.7478,
+        "rank_pressure_contribution": 0.4129,
+        "position_uncertainty_penalty": 0.0,
+        "defensive_exception_margin": 0.0,
+        "selection_risk_penalty": 0.0,
+        "expected_minutes": 77.92,
+        "availability_confidence": 1.0,
+        "points_p90": 10.8454,
+        "probability_10_plus": 0.1083,
+        "probability_15_plus": 0.01,
+        "ownership_percent": 71.7
+      },
+      "strategic_utility_available": true,
+      "strategic_bonus_is_expected_points": false
+    },
+    "reported_xpts_basis": "mean_expected_points_only",
+    "strategic_bonus_is_expected_points": false,
+    "principle": "Strategic captain utility selects who is doubled; ceiling, haul, ownership and uncertainty terms are never added to displayed or route expected points."
+  },
   "chip_recommendation": {
     "action": "hold",
     "chip": null,
@@ -309,8 +365,8 @@
         "free_transfers_before": 2,
         "hit_cost": 0,
         "bank_after": 0.6,
-        "lineup_expected_points": 44.541,
-        "net_expected_points": 44.541,
+        "lineup_expected_points": 44.54,
+        "net_expected_points": 44.54,
         "captain_player_id": 411,
         "captain": "Haaland",
         "starter_player_ids": [
@@ -486,8 +542,8 @@
     }
   ],
   "source_freshness": {
-    "official_fpl_generated_at": "2026-09-06T11:00:21+00:00",
-    "external_context_generated_at": "2026-09-06T11:01:23+00:00",
+    "official_fpl_generated_at": "2026-09-06T11:02:15+00:00",
+    "external_context_generated_at": "2026-09-06T11:03:05+00:00",
     "active_external_signals": 2544,
     "expired_external_signals": 11368
   },

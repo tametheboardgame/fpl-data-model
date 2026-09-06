@@ -1,6 +1,6 @@
 {
   "schema_version": "external-context-1.0",
-  "generated_at": "2026-09-06T11:01:23+00:00",
+  "generated_at": "2026-09-06T11:03:05+00:00",
   "registered_sources": 9,
   "signal_rows": 13912,
   "active_signal_rows": 2544,
@@ -14,5 +14,5 @@
   "sources_used": [
     "odds_api_market"
   ],
-  "principle": "External signals are timestamped, source-weighted and kept separate from the validated ensemble forecast."
+  "principle": "External signals are timestamped, source-weighted and kept separate from production model governance; they enter only through the audited decision layer."
 }
