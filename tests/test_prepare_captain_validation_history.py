@@ -2,7 +2,11 @@ from __future__ import annotations
 
 import unittest
 
-from src.prepare_captain_validation_history import parse_position_metadata
+from src.prepare_captain_validation_history import (
+    parse_fixture_teams,
+    parse_position_metadata,
+    truthy,
+)
 
 
 class CaptainValidationHistoryPreparationTests(unittest.TestCase):
@@ -23,6 +27,24 @@ class CaptainValidationHistoryPreparationTests(unittest.TestCase):
     def test_unknown_element_type_is_ignored(self) -> None:
         text = "id,element_type\n10,5\n11,2\n"
         self.assertEqual(parse_position_metadata(text), {"11": "DEF"})
+
+    def test_fixture_parser_retains_only_structural_team_ids(self) -> None:
+        text = (
+            "id,team_h,team_a,team_h_score,team_a_score,finished,stats\n"
+            "101,3,7,4,0,True,result payload\n"
+            "102,9,2,1,1,True,other result\n"
+            ",5,6,0,0,False,ignored\n"
+        )
+        self.assertEqual(
+            parse_fixture_teams(text),
+            {"101": ("3", "7"), "102": ("9", "2")},
+        )
+
+    def test_truthy_handles_archived_was_home_values(self) -> None:
+        for value in (True, 1, "1", "true", "True", "yes"):
+            self.assertTrue(truthy(value))
+        for value in (False, 0, "0", "false", "", None):
+            self.assertFalse(truthy(value))
 
 
 if __name__ == "__main__":
