@@ -6,12 +6,11 @@ This is the executable roadmap for fresh ChatGPT project chats. Pair it with `PR
 
 Use one of these commands:
 
-- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below.
-- `Start FPL-22A` — land and validate the current captain-route consistency fix.
-- `Start FPL-22B` — implement the shared strategic captain utility, after prerequisites.
-- `Start FPL-22C` — historical validation of the shared captain objective.
+- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below. **As of 2026-09-06 this resolves to FPL-22B.**
+- `Start FPL-22B` — implement the shared strategic captain utility.
+- `Start FPL-22C` — historical validation of the shared captain objective, after FPL-22B.
 - `Start FPL-22D` — reporting and audit cleanup.
-- `Start FPL-22E` — fresh current-Gameweek reassessment after the engineering phases are green.
+- `Start FPL-22E` — fresh actionable-Gameweek reassessment after the engineering phases are green.
 
 A requested phase must not bypass incomplete prerequisites. Always read `PROJECT_STATE.md`, re-check current GitHub/CI state, and update both handoff files after material progress.
 
@@ -19,64 +18,58 @@ A requested phase must not bypass incomplete prerequisites. Always read `PROJECT
 
 ## FPL-22A — Captain/route consistency production landing
 
-**Status:** ACTIVE — validated implementation exists, but its PR branch is currently stale/diverged from latest `main`.
-
-**Validated implementation:** PR #47, `Unify current-Gameweek captaincy with route scoring`, head `ec5c2be96b5222c4ba5619a3a341f05b64cc0149`.
-
-The validated head passed exact-head data validation, the full production build and 140 tests. Afterward `main` advanced with handoff/documentation work and refreshed datasets. At the latest recorded comparison the branch was 4 commits ahead / 8 behind its merge base and GitHub reported it not mergeable.
+**Status: COMPLETE — 2026-09-06**
 
 ### Goal
 
 Make the current actionable Gameweek have one coherent captain authority: the player exposed to the user as captain must be the same player whose mean expected return is doubled in route/report xPts.
 
-### Required actions
+### Landed change
 
-1. Read `PROJECT_STATE.md` and re-check current `main`, PR #47 and its five intended changed files.
-2. Refresh the validated change onto latest `main`. Prefer either:
-   - a safe rebase/merge of latest `main` into the branch if the resulting diff remains exactly intended; or
-   - a clean superseding branch/PR from latest `main` carrying only the validated five source/test file changes.
-3. Confirm the refreshed diff contains only:
-   - `src/fpl_decisions.py`
-   - `src/fpl_gameweek_operations.py`
-   - `src/fpl_multiweek.py`
-   - `tests/test_phase17_multiweek.py`
-   - `tests/test_phase21_gameweek_operations.py`
-4. Run exact-head CI again on the refreshed implementation.
-5. Merge only when it is mergeable and all required checks are green.
-6. Run/observe a clean production build on `main` after merge.
-7. Inspect fresh production outputs rather than relying on the earlier PR-run generated files.
+PR #47 — `Unify current-Gameweek captaincy with route scoring`
 
-### Acceptance gates
+- validated PR head: `ec5c2be96b5222c4ba5619a3a341f05b64cc0149`
+- exact-head data validation: GREEN
+- exact-head full model build: GREEN
+- exact-head tests: 140 passed
+- squash merge commit: `4e3efbbc946c7055c8088871fcc9ab3ea353d099`
+- post-merge production build run: `34022620843` — SUCCESS
+- post-merge model-output commit: `d4279c867a0f5d70ae5df8fb1ed44d7e7794a0ec`
 
-The post-merge production build must prove all of the following simultaneously:
+The implementation:
 
+- passes the decision layer's strategic captain-score map into the first actionable Gameweek of multi-Gameweek routing;
+- still calculates all reported route points from mean expected points only;
+- makes the route captain the operational scoring authority, with the decision captain only a fallback;
+- bumps operations output to `fpl-gameweek-operations-1.7`.
+
+### Post-merge acceptance evidence
+
+Fresh production output generated `2026-09-06T08:44:35Z` proves the safeguards simultaneously:
+
+- production model: `player-sim-2.0`;
 - `ensemble_status = holdout_rejected`;
-- production component/ensemble point and probability weights remain zero;
-- live expected points are driven by `player-sim-2.0` control;
-- component challenger remains shadow-only;
-- unfinished current-GW history remains excluded from rolling features;
-- completed-vs-raw history counts remain auditable;
-- captain displayed in `gameweek_report.json` matches the first actionable route captain;
-- reported mean xPts are calculated by doubling that same captain's mean return;
-- no illegal XI/bench/captain or recommendation-field regression;
-- full test/production build is green.
+- ensemble point weight: `0.0`;
+- ensemble 6+/10+/15+ probability weights: all `0.0`;
+- challenger remains `player-sim-3.0-candidate`, shadow-only / not applied live;
+- raw fixture-history rows: `1889`;
+- completed fixture-history rows admitted to live features: `1236`;
+- unfinished current-GW history therefore remains excluded;
+- `gameweek_report.json` captain and first route captain both resolve to player `426` / `B.Fernandes` for the current provisional GW4 build;
+- route/report expected points agree at `44.474` and use that captain's mean return in the doubled-score arithmetic;
+- report status is `ready` and the production build completed successfully.
 
-### Do not
+The named GW4 output above is validation evidence only, not a permanent player rule and not final advice. FPL-22E must recompute from fresh inputs.
 
-- do not alter model coefficients merely to make the current captain a preferred named player;
-- do not re-enable the rejected component challenger;
-- do not treat strategic captain utility as extra expected points;
-- do not merge a stale/diverged PR just because an older exact-head run was green.
+### Permanent invariant from FPL-22A
 
-### Completion
-
-Mark FPL-22A complete in this file and `PROJECT_STATE.md`, recording the final PR/merge commit and post-merge validation result.
+Strategic captain utility decides **who is doubled**. It must never be added to reported expected points.
 
 ---
 
 ## FPL-22B — One shared strategic captain utility
 
-**Status:** PLANNED; requires FPL-22A
+**Status: NEXT / ACTIVE ROADMAP ITEM**
 
 ### Goal
 
@@ -101,7 +94,7 @@ Use the same utility wherever a current actionable Gameweek captain is selected:
 - Wildcard target-Gameweek captain selection;
 - chip decisions where equivalent current-GW distribution inputs exist.
 
-Future Gameweeks may retain a simpler mean-based captain rule until equivalent future-GW distribution inputs are available. If so, that limitation must be explicit in output/audit data.
+Future Gameweeks may retain a simpler mean-based captain rule until equivalent future-GW distribution inputs are available. If so, that limitation must be explicit and auditable.
 
 ### Core invariant
 
@@ -114,31 +107,33 @@ The strategic captain score decides **who is doubled**. It must never be added t
 - bounded strategic terms so weak mean projections cannot be rescued by ownership/ceiling alone;
 - deterministic output for unchanged inputs;
 - explicit component audit showing why captain A outranked captain B;
-- preserve exceptional defender captaincy when evidence genuinely dominates, while avoiding small-edge defensive artefacts.
+- preserve exceptional defender captaincy when evidence genuinely dominates, while avoiding small-edge defensive artefacts;
+- do not revive the rejected component challenger as part of this work.
 
 ### Acceptance gates before FPL-22C
 
-- focused captain utility unit tests;
-- weekly, multiweek, Wildcard and chip wiring regressions;
-- proof strategic utility changes selection without fabricating mean xPts;
+- focused captain-utility unit tests;
+- weekly, multiweek, Wildcard and applicable chip wiring regressions;
+- proof strategic utility can change captain selection without fabricating mean xPts;
 - proof all user-facing current-GW captain fields agree;
-- full existing suite green.
+- full existing suite green;
+- exact-head live shadow/output audit contains no player-specific special cases.
 
 ---
 
 ## FPL-22C — Historical captain-objective validation
 
-**Status:** PLANNED; requires FPL-22B
+**Status: PLANNED; requires FPL-22B**
 
 ### Goal
 
-Test whether the unified captain utility improves the objective that actually matters: selecting high-scoring captains without damaging model integrity.
+Test whether the unified captain utility improves the objective that matters: selecting high-scoring captains without damaging model integrity.
 
 ### Validation design
 
-Use leakage-safe historical Gameweek reconstruction. Do not tune specifically for a current player or current fixture. Do not reopen/tune against the frozen 2025/26 holdout after its prior exposure.
+Use leakage-safe historical Gameweek reconstruction. Do not tune specifically for a current player or current fixture. The frozen 2025/26 holdout has already been exposed and is closed; do not tune new coefficients against it.
 
-Use development/validation splits that keep final evaluation separate from coefficient selection. If genuinely fresh data are unavailable, prefer prospective 2026/27 evaluation over repeated tuning on an already-exposed holdout.
+Use development/validation splits that keep final evaluation separate from coefficient selection. If genuinely fresh historical data are unavailable, prefer prospective 2026/27 evaluation over repeated tuning on an already-exposed holdout.
 
 ### Required metrics
 
@@ -147,9 +142,9 @@ At minimum compare shared strategic captaincy with the current/control captain m
 - actual captain FPL points;
 - mean captaincy regret versus best available squad captain;
 - best-captain hit rate;
-- P(actual captain scores 10+);
-- P(actual captain scores 15+);
-- top-10/top-haul shortlist quality where relevant;
+- frequency of actual captain scores 10+;
+- frequency of actual captain scores 15+;
+- top-haul shortlist quality where relevant;
 - premium-attacker cases;
 - high-ownership/high-ceiling cases;
 - defensive-captain false positives;
@@ -157,7 +152,7 @@ At minimum compare shared strategic captaincy with the current/control captain m
 
 ### Promotion rule
 
-Predeclare the acceptance criteria before looking at the final evaluation. Do not weaken a gate after seeing a desired live-week outcome.
+Predeclare acceptance criteria before looking at the final evaluation. Do not weaken a gate after seeing a desired live-week outcome.
 
 If the shared objective fails, keep the simpler validated behaviour and record the rejection in `PROJECT_STATE.md` rather than forcing promotion.
 
@@ -165,19 +160,23 @@ If the shared objective fails, keep the simpler validated behaviour and record t
 
 ## FPL-22D — Policy-aware reporting and audit cleanup
 
-**Status:** PLANNED; can develop after FPL-22A, finalise after FPL-22C
+**Status: PLANNED; can develop after FPL-22B, finalise after FPL-22C**
 
 ### Goal
 
-Make all conversational/operational outputs accurately describe the model that is actually live and make captaincy reasoning inspectable.
+Make conversational/operational outputs accurately describe the model that is actually live and make captaincy reasoning inspectable.
+
+### Known current defect
+
+`data/chatgpt/projection_summary.json` correctly reports `player-sim-2.0`, `holdout_rejected` and zero challenger weights, but its human-readable `method` string still says `Development-selected ensemble ...`. Treat that text as stale until this phase fixes it.
 
 ### Required changes
 
-- remove/replace stale text that describes the development-selected ensemble as live while production policy is `holdout_rejected`;
 - make `projection_summary.json` method/limitations policy-aware;
+- remove any remaining live-output text that describes the rejected ensemble as production;
 - expose live model version, challenger status and production weights clearly;
 - expose captain mean xPts separately from strategic captain utility;
-- include an audit of the bounded ceiling/haul/ownership/minutes contributions used to select captain and vice;
+- include an audit of bounded ceiling/haul/ownership/minutes contributions used to select captain and vice;
 - explicitly state that strategic captain bonuses are not part of displayed xPts;
 - keep reports concise enough for deadline use.
 
@@ -193,16 +192,16 @@ Make all conversational/operational outputs accurately describe the model that i
 
 ## FPL-22E — Fresh actionable-Gameweek reassessment
 
-**Status:** PLANNED; requires FPL-22A and should normally follow FPL-22B–22D
+**Status: PLANNED; requires FPL-22B and should normally follow FPL-22C–22D**
 
 ### Goal
 
-Only after the model is internally coherent, reassess the currently actionable Gameweek from scratch.
+Only after the captain model and reporting are internally coherent, reassess the currently actionable Gameweek from scratch.
 
 ### Procedure
 
 1. Refresh official FPL data and production model outputs.
-2. Confirm operational readiness and deadline state.
+2. Confirm operational readiness and exact deadline state.
 3. Use the production report as the quantitative source of truth.
 4. Independently sanity-check material decisions against current official club/FPL news and trusted late team-news/predicted-lineup sources.
 5. Review transfers, XI, bench, captain, vice and chip state.
@@ -210,7 +209,7 @@ Only after the model is internally coherent, reassess the currently actionable G
 
 ### Important
 
-Do not inherit `B.Fernandes` captain / `Haaland` vice or any previous live-week result simply because it appeared in an earlier validation build. Recompute from fresh inputs.
+Do not inherit `B.Fernandes` captain / `Haaland` vice, `roll_or_hold`, or any previous live-week result simply because it appeared in an earlier validation build. Recompute from fresh inputs.
 
 ---
 
