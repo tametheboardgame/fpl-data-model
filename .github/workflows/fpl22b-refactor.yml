@@ -1,0 +1,874 @@
+name: Apply FPL-22B shared captain utility
+
+on:
+  push:
+    branches:
+      - feature/fpl-22b-shared-captain-utility
+    paths:
+      - ".github/workflows/fpl22b-refactor.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v7
+        with:
+          ref: feature/fpl-22b-shared-captain-utility
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install --requirement requirements.txt
+      - name: Apply FPL-22B refactor
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(text: str, old: str, new: str, label: str) -> str:
+              count = text.count(old)
+              if count != 1:
+                  raise RuntimeError(f"{label}: expected exactly one match, found {count}")
+              return text.replace(old, new, 1)
+
+          captain_module = '''from __future__ import annotations
+
+from typing import Any
+
+
+CAPTAIN_UTILITY_VERSION = "strategic-captain-1.0"
+P90_GAP_WEIGHT = 0.16
+PROBABILITY_10_PLUS_WEIGHT = 1.20
+PROBABILITY_15_PLUS_WEIGHT = 2.00
+MAX_PLAYER_CEILING_BONUS = 1.75
+CAPTAIN_CEILING_WEIGHT = 0.70
+CAPTAIN_RANK_WEIGHT = 0.45
+MAX_CAPTAIN_STRATEGIC_BONUS = 1.80
+DEFENSIVE_CAPTAIN_PENALTY = 0.30
+DEFENSIVE_CAPTAIN_EXCEPTION_MARGIN = 1.50
+OWNERSHIP_PRESSURE_FLOOR = 35.0
+OWNERSHIP_PRESSURE_FULL = 75.0
+
+
+def number(value: Any) -> float:
+    try:
+        return float(value or 0)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def clamp(value: float, lower: float, upper: float) -> float:
+    return max(lower, min(upper, value))
+
+
+def ownership_pressure(ownership_percent: float) -> float:
+    return clamp(
+        (number(ownership_percent) - OWNERSHIP_PRESSURE_FLOOR)
+        / max(1.0, OWNERSHIP_PRESSURE_FULL - OWNERSHIP_PRESSURE_FLOOR),
+        0.0,
+        1.0,
+    )
+
+
+def captain_ceiling_bonus(
+    mean_expected_points: float,
+    points_p90: float,
+    probability_10_plus: float,
+    probability_15_plus: float,
+) -> float:
+    mean = max(0.0, number(mean_expected_points))
+    p90_gap = max(0.0, number(points_p90) - mean)
+    bonus = (
+        P90_GAP_WEIGHT * p90_gap
+        + PROBABILITY_10_PLUS_WEIGHT * clamp(number(probability_10_plus), 0.0, 1.0)
+        + PROBABILITY_15_PLUS_WEIGHT * clamp(number(probability_15_plus), 0.0, 1.0)
+    )
+    return min(MAX_PLAYER_CEILING_BONUS, bonus)
+
+
+def captain_utility(
+    *,
+    player_id: int,
+    mean_expected_points: float,
+    points_p90: float,
+    probability_10_plus: float,
+    probability_15_plus: float,
+    ownership_percent: float,
+    position: str,
+    reference_mean_expected_points: float | None = None,
+    expected_minutes: float | None = None,
+    availability_confidence: float | None = None,
+    selection_risk_penalty: float | None = None,
+) -> dict[str, Any]:
+    """Return one auditable strategic captain score.
+
+    `mean_expected_points` is the already risk-adjusted operational mean used for
+    selection. Minutes and availability are therefore represented once through that
+    mean and exposed here for audit rather than being penalised a second time.
+    Strategic ceiling/rank terms choose who is doubled but are never expected points.
+    """
+
+    mean = max(0.0, number(mean_expected_points))
+    reference_mean = (
+        max(0.0, number(reference_mean_expected_points))
+        if reference_mean_expected_points is not None
+        else mean
+    )
+    p90 = max(0.0, number(points_p90))
+    p10 = clamp(number(probability_10_plus), 0.0, 1.0)
+    p15 = clamp(number(probability_15_plus), 0.0, 1.0)
+    ownership = clamp(number(ownership_percent), 0.0, 100.0)
+    ceiling = captain_ceiling_bonus(mean, p90, p10, p15)
+    rank_pressure = ownership_pressure(ownership)
+    ceiling_contribution = CAPTAIN_CEILING_WEIGHT * ceiling
+    rank_contribution = CAPTAIN_RANK_WEIGHT * rank_pressure
+    strategic_bonus = min(
+        MAX_CAPTAIN_STRATEGIC_BONUS,
+        ceiling_contribution + rank_contribution,
+    )
+    defensive = str(position) in {"Goalkeeper", "Defender"}
+    position_penalty = DEFENSIVE_CAPTAIN_PENALTY if defensive else 0.0
+    defensive_margin = DEFENSIVE_CAPTAIN_EXCEPTION_MARGIN if defensive else 0.0
+    raw_utility = mean + strategic_bonus - position_penalty
+    selection_score = raw_utility - defensive_margin
+    reliability_ratio = (
+        clamp(mean / reference_mean, 0.0, 1.5) if reference_mean > 0 else 1.0
+    )
+
+    return {
+        "version": CAPTAIN_UTILITY_VERSION,
+        "player_id": int(player_id),
+        "captain_score": round(selection_score, 4),
+        "raw_utility": round(raw_utility, 4),
+        "mean_expected_points": round(mean, 4),
+        "reference_mean_expected_points": round(reference_mean, 4),
+        "selection_reliability_ratio": round(reliability_ratio, 4),
+        "selection_risk_penalty": (
+            round(max(0.0, number(selection_risk_penalty)), 4)
+            if selection_risk_penalty is not None
+            else None
+        ),
+        "expected_minutes": (
+            round(max(0.0, number(expected_minutes)), 2)
+            if expected_minutes is not None
+            else None
+        ),
+        "availability_confidence": (
+            round(clamp(number(availability_confidence), 0.0, 1.0), 4)
+            if availability_confidence is not None
+            else None
+        ),
+        "points_p90": round(p90, 4),
+        "p90_gap": round(max(0.0, p90 - mean), 4),
+        "probability_10_plus": round(p10, 4),
+        "probability_15_plus": round(p15, 4),
+        "ownership_percent": round(ownership, 4),
+        "rank_pressure": round(rank_pressure, 4),
+        "ceiling_bonus": round(ceiling, 4),
+        "ceiling_contribution": round(ceiling_contribution, 4),
+        "rank_pressure_contribution": round(rank_contribution, 4),
+        "bounded_strategic_bonus": round(strategic_bonus, 4),
+        "position": str(position),
+        "position_uncertainty_penalty": round(position_penalty, 4),
+        "defensive_exception_margin": round(defensive_margin, 4),
+        "strategic_bonus_is_expected_points": False,
+    }
+
+
+def select_strategic_captain(
+    starter_ids: list[int] | tuple[int, ...] | set[int],
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    points_p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> int | None:
+    """Select a deterministic captain using the shared strategic utility."""
+
+    starters = sorted(set(int(player_id) for player_id in starter_ids))
+    if not starters:
+        return None
+
+    audits: dict[int, dict[str, Any]] = {}
+    for player_id in starters:
+        player = player_by_id.get(player_id, {})
+        mean = number(expected_points.get(player_id, 0.0))
+        audits[player_id] = captain_utility(
+            player_id=player_id,
+            mean_expected_points=mean,
+            points_p90=number(points_p90.get(player_id, mean)),
+            probability_10_plus=number(probability_10_plus.get(player_id, 0.0)),
+            probability_15_plus=number(probability_15_plus.get(player_id, 0.0)),
+            ownership_percent=number(player.get("selected_by_percent")),
+            position=str(player.get("position")),
+        )
+
+    return max(
+        starters,
+        key=lambda player_id: (
+            number(audits[player_id].get("captain_score")),
+            number(audits[player_id].get("raw_utility")),
+            number(expected_points.get(player_id, 0.0)),
+            number(probability_15_plus.get(player_id, 0.0)),
+            number(probability_10_plus.get(player_id, 0.0)),
+            number(points_p90.get(player_id, 0.0)),
+            -player_id,
+        ),
+    )
+'''
+          Path("src/fpl_captaincy.py").write_text(captain_module, encoding="utf-8")
+
+          decisions_path = Path("src/fpl_decisions.py")
+          decisions = decisions_path.read_text(encoding="utf-8")
+          decisions = replace_once(
+              decisions,
+              "from src.external_context import number, resolved_context\nfrom src.fpl_chip_optimizer import optimise_chip_plan",
+              "from src.external_context import number, resolved_context\nfrom src.fpl_captaincy import CAPTAIN_UTILITY_VERSION, captain_utility\nfrom src.fpl_chip_optimizer import optimise_chip_plan",
+              "decision imports",
+          )
+          decisions = replace_once(
+              decisions,
+              'DECISION_VERSION = "fpl-decisions-2.3"',
+              'DECISION_VERSION = "fpl-decisions-2.4"',
+              "decision version",
+          )
+          old_captain_block = '''    points_p90 = horizon_value(horizon, 1, "points_p90")
+    probability_10_plus = horizon_value(horizon, 1, "probability_10_plus")
+    probability_15_plus = horizon_value(horizon, 1, "probability_15_plus")
+    position = str(player.get("position") or horizon.get("position"))
+    captain_score = (
+        selection_points
+        + 0.15 * max(0.0, points_p90 - decision_points)
+        + 0.8 * probability_10_plus
+        + 0.5 * probability_15_plus
+        - (0.35 if position in {"Goalkeeper", "Defender"} else 0.0)
+    )
+    reasons = []'''
+          new_captain_block = '''    model_points = horizon_value(horizon, 1)
+    captain_tail_multiplier = (
+        selection_points / model_points if model_points > 0 else 1.0
+    )
+    points_p90 = (
+        horizon_value(horizon, 1, "points_p90") * captain_tail_multiplier
+    )
+    probability_10_plus = horizon_value(horizon, 1, "probability_10_plus")
+    probability_15_plus = horizon_value(horizon, 1, "probability_15_plus")
+    position = str(player.get("position") or horizon.get("position"))
+    if chance not in {None, ""}:
+        availability_confidence = clamp(number(chance) / 100, 0.0, 1.0)
+    elif status in {"a", ""}:
+        availability_confidence = 1.0
+    else:
+        availability_confidence = 0.82
+    captain_audit = captain_utility(
+        player_id=integer(player.get("player_id") or horizon.get("player_id")),
+        mean_expected_points=selection_points,
+        reference_mean_expected_points=decision_points,
+        points_p90=points_p90,
+        probability_10_plus=probability_10_plus,
+        probability_15_plus=probability_15_plus,
+        ownership_percent=ownership(player),
+        position=position,
+        expected_minutes=expected_minutes,
+        availability_confidence=availability_confidence,
+        selection_risk_penalty=total_penalty,
+    )
+    reasons = []'''
+          decisions = replace_once(decisions, old_captain_block, new_captain_block, "weekly captain block")
+          decisions = replace_once(
+              decisions,
+              '        "captain_score": round(captain_score, 4),\n        "selection_risk_reasons": reasons,',
+              '        "captain_score": captain_audit["captain_score"],\n        "captain_utility": captain_audit,\n        "selection_risk_reasons": reasons,',
+              "captain audit return",
+          )
+          decisions = replace_once(
+              decisions,
+              '            number(row.get("points_p90_next_1")),\n        ),\n        reverse=True,',
+              '            number(row.get("points_p90_next_1")),\n            -integer(row.get("player_id")),\n        ),\n        reverse=True,',
+              "captain deterministic tie break",
+          )
+          decisions = replace_once(
+              decisions,
+              '        "captaincy": {\n            "captain": captain,',
+              '        "captaincy": {\n            "utility_version": CAPTAIN_UTILITY_VERSION,\n            "captain": captain,',
+              "captaincy version output",
+          )
+          decisions = replace_once(
+              decisions,
+              '                "Expected FPL points is primary; 10+ probability and upper-tail points "\n                "break close calls."',
+              '                "Risk-adjusted mean FPL points is primary; bounded p90, 10+/15+ "\n                "and ownership/rank exposure break close calls. Defensive captaincy "\n                "requires a material utility edge."',
+              "captaincy principle",
+          )
+          decisions = replace_once(
+              decisions,
+              '            "decision_layer_market_adjustment": True,\n        },',
+              '            "decision_layer_market_adjustment": True,\n            "captain_utility_version": CAPTAIN_UTILITY_VERSION,\n            "captain_utility_hard_coded_players": False,\n            "captain_strategic_bonus_is_expected_points": False,\n        },',
+              "decision audit metadata",
+          )
+          decisions_path.write_text(decisions, encoding="utf-8")
+
+          chip_path = Path("src/fpl_chip_optimizer.py")
+          chip = chip_path.read_text(encoding="utf-8")
+          chip = replace_once(
+              chip,
+              "from typing import Any, Callable\n\nfrom src.fpl_multiweek import (",
+              "from typing import Any, Callable\n\nfrom src.fpl_captaincy import (\n    CAPTAIN_CEILING_WEIGHT,\n    CAPTAIN_RANK_WEIGHT,\n    CAPTAIN_UTILITY_VERSION,\n    DEFENSIVE_CAPTAIN_EXCEPTION_MARGIN,\n    captain_ceiling_bonus as shared_captain_ceiling_bonus,\n    captain_utility as shared_captain_utility,\n    ownership_pressure as shared_ownership_pressure,\n    select_strategic_captain as shared_select_strategic_captain,\n)\nfrom src.fpl_multiweek import (",
+              "chip captain imports",
+          )
+          old_constants = '''STARTER_CEILING_WEIGHT = 0.08
+CAPTAIN_CEILING_WEIGHT = 0.70
+CAPTAIN_RANK_WEIGHT = 0.45
+SEARCH_PLAYER_CEILING_WEIGHT = 0.12
+SEARCH_CAPTAIN_ACCESS_WEIGHT = 0.65
+P90_GAP_WEIGHT = 0.16
+PROBABILITY_10_PLUS_WEIGHT = 1.20
+PROBABILITY_15_PLUS_WEIGHT = 2.00
+MAX_PLAYER_CEILING_BONUS = 1.75
+MAX_CAPTAIN_STRATEGIC_BONUS = 1.80
+DEFENSIVE_CAPTAIN_PENALTY = 0.30
+OWNERSHIP_PRESSURE_FLOOR = 35.0
+OWNERSHIP_PRESSURE_FULL = 75.0'''
+          new_constants = '''STARTER_CEILING_WEIGHT = 0.08
+SEARCH_PLAYER_CEILING_WEIGHT = 0.12
+SEARCH_CAPTAIN_ACCESS_WEIGHT = 0.65'''
+          chip = replace_once(chip, old_constants, new_constants, "remove duplicated captain constants")
+          old_ownership = '''def _ownership_pressure(player: dict[str, Any]) -> float:
+    ownership = number(player.get("selected_by_percent"))
+    return clamp(
+        (ownership - OWNERSHIP_PRESSURE_FLOOR)
+        / max(1.0, OWNERSHIP_PRESSURE_FULL - OWNERSHIP_PRESSURE_FLOOR),
+        0.0,
+        1.0,
+    )'''
+          new_ownership = '''def _ownership_pressure(player: dict[str, Any]) -> float:
+    return shared_ownership_pressure(number(player.get("selected_by_percent")))'''
+          chip = replace_once(chip, old_ownership, new_ownership, "ownership wrapper")
+          old_ceiling = '''def _ceiling_bonus(
+    expected_points: float,
+    p90: float,
+    probability_10_plus: float,
+    probability_15_plus: float,
+) -> float:
+    p90_gap = max(0.0, p90 - expected_points)
+    bonus = (
+        P90_GAP_WEIGHT * p90_gap
+        + PROBABILITY_10_PLUS_WEIGHT * clamp(probability_10_plus, 0.0, 1.0)
+        + PROBABILITY_15_PLUS_WEIGHT * clamp(probability_15_plus, 0.0, 1.0)
+    )
+    return min(MAX_PLAYER_CEILING_BONUS, bonus)'''
+          new_ceiling = '''def _ceiling_bonus(
+    expected_points: float,
+    p90: float,
+    probability_10_plus: float,
+    probability_15_plus: float,
+) -> float:
+    return shared_captain_ceiling_bonus(
+        expected_points,
+        p90,
+        probability_10_plus,
+        probability_15_plus,
+    )'''
+          chip = replace_once(chip, old_ceiling, new_ceiling, "ceiling wrapper")
+          old_utility = '''def _captain_utility(
+    player_id: int,
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> tuple[float, float, float]:
+    mean = expected_points.get(player_id, 0.0)
+    ceiling = _ceiling_bonus(
+        mean,
+        p90.get(player_id, mean),
+        probability_10_plus.get(player_id, 0.0),
+        probability_15_plus.get(player_id, 0.0),
+    )
+    player = player_by_id.get(player_id, {})
+    rank_pressure = _ownership_pressure(player)
+    position = str(player.get("position"))
+    defensive_penalty = (
+        DEFENSIVE_CAPTAIN_PENALTY
+        if position in {"Goalkeeper", "Defender"}
+        else 0.0
+    )
+    strategic_bonus = min(
+        MAX_CAPTAIN_STRATEGIC_BONUS,
+        CAPTAIN_CEILING_WEIGHT * ceiling + CAPTAIN_RANK_WEIGHT * rank_pressure,
+    )
+    return mean + strategic_bonus - defensive_penalty, ceiling, rank_pressure'''
+          new_utility = '''def _captain_utility(
+    player_id: int,
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> tuple[float, float, float]:
+    player = player_by_id.get(player_id, {})
+    mean = expected_points.get(player_id, 0.0)
+    audit = shared_captain_utility(
+        player_id=player_id,
+        mean_expected_points=mean,
+        points_p90=p90.get(player_id, mean),
+        probability_10_plus=probability_10_plus.get(player_id, 0.0),
+        probability_15_plus=probability_15_plus.get(player_id, 0.0),
+        ownership_percent=number(player.get("selected_by_percent")),
+        position=str(player.get("position")),
+    )
+    return (
+        number(audit.get("raw_utility")),
+        number(audit.get("ceiling_bonus")),
+        number(audit.get("rank_pressure")),
+    )'''
+          chip = replace_once(chip, old_utility, new_utility, "captain utility wrapper")
+          old_selector = '''def _select_strategic_captain(
+    starter_ids: list[int] | tuple[int, ...] | set[int],
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> int | None:
+    starters = tuple(starter_ids)
+    if not starters:
+        return None
+    overall = max(
+        starters,
+        key=lambda player_id: _captain_utility(
+            player_id, player_by_id, expected_points, p90,
+            probability_10_plus, probability_15_plus
+        )[0],
+    )
+    if str(player_by_id.get(overall, {}).get("position")) not in {"Goalkeeper", "Defender"}:
+        return overall
+    attacker, attacker_utility = _best_attacking_captain_utility(
+        starters, player_by_id, expected_points, p90,
+        probability_10_plus, probability_15_plus
+    )
+    if attacker is None:
+        return overall
+    overall_utility = _captain_utility(
+        overall, player_by_id, expected_points, p90,
+        probability_10_plus, probability_15_plus
+    )[0]
+    if overall_utility - attacker_utility <= MINIMUM_ROUTE_SEPARATION_POINTS + 1e-9:
+        return attacker
+    return overall'''
+          new_selector = '''def _select_strategic_captain(
+    starter_ids: list[int] | tuple[int, ...] | set[int],
+    player_by_id: dict[int, dict[str, Any]],
+    expected_points: dict[int, float],
+    p90: dict[int, float],
+    probability_10_plus: dict[int, float],
+    probability_15_plus: dict[int, float],
+) -> int | None:
+    return shared_select_strategic_captain(
+        starter_ids,
+        player_by_id,
+        expected_points,
+        p90,
+        probability_10_plus,
+        probability_15_plus,
+    )'''
+          chip = replace_once(chip, old_selector, new_selector, "captain selector wrapper")
+          old_normal = '''            normal_score, starters, captain = optimise_gameweek_lineup(
+                route_squad, player_by_id, points
+            )
+            starter_score = sum(points.get(player_id, 0) for player_id in starters)'''
+          new_normal = '''            normal_score, starters, route_captain = optimise_gameweek_lineup(
+                route_squad, player_by_id, points
+            )
+            captain = route_captain
+            if gameweek == target_gameweek:
+                captain = _select_strategic_captain(
+                    starters,
+                    player_by_id,
+                    points,
+                    p90_matrix.get(gameweek, {}),
+                    p10_matrix.get(gameweek, {}),
+                    p15_matrix.get(gameweek, {}),
+                )
+                normal_score = sum(
+                    points.get(player_id, 0) for player_id in starters
+                ) + (points.get(captain, 0) if captain is not None else 0.0)
+            starter_score = sum(points.get(player_id, 0) for player_id in starters)'''
+          chip = replace_once(chip, old_normal, new_normal, "target chip captain selection")
+          old_freehit = '''            if chip_available(chip_state, "freehit"):
+                free_hit = optimise_budget_squad(player_by_id, points, total_budget)
+                if free_hit:'''
+          new_freehit = '''            if chip_available(chip_state, "freehit"):
+                if gameweek == target_gameweek:
+                    free_hit_heuristic = _wildcard_search_heuristic(
+                        player_by_id,
+                        [gameweek],
+                        0,
+                        {gameweek: points},
+                        {gameweek: p90_matrix.get(gameweek, {})},
+                        {gameweek: p10_matrix.get(gameweek, {})},
+                        {gameweek: p15_matrix.get(gameweek, {})},
+                        1.0,
+                    )
+
+                    def free_hit_final_scorer(
+                        squad_ids: tuple[int, ...],
+                    ) -> tuple[float, list[int], int | None]:
+                        _, mean_score, starter_ids, captain_id, _ = _strategic_gameweek_score(
+                            squad_ids,
+                            player_by_id,
+                            points,
+                            p90_matrix.get(gameweek, {}),
+                            p10_matrix.get(gameweek, {}),
+                            p15_matrix.get(gameweek, {}),
+                        )
+                        return mean_score, starter_ids, captain_id
+
+                    free_hit = optimise_budget_squad(
+                        player_by_id,
+                        free_hit_heuristic,
+                        total_budget,
+                        final_scorer=free_hit_final_scorer,
+                    )
+                else:
+                    free_hit = optimise_budget_squad(player_by_id, points, total_budget)
+                if free_hit:'''
+          chip = replace_once(chip, old_freehit, new_freehit, "free hit captain wiring")
+          chip = replace_once(
+              chip,
+              '            "defensive_captain_exception_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,',
+              '            "defensive_captain_exception_separation_points": DEFENSIVE_CAPTAIN_EXCEPTION_MARGIN,\n            "captain_utility_version": CAPTAIN_UTILITY_VERSION,',
+              "wildcard shared utility metadata",
+          )
+          chip_path.write_text(chip, encoding="utf-8")
+
+          test_content = '''from __future__ import annotations
+
+import unittest
+
+from src.fpl_captaincy import (
+    CAPTAIN_UTILITY_VERSION,
+    captain_utility,
+    ownership_pressure,
+    select_strategic_captain,
+)
+from src.fpl_decisions import selection_risk_adjustment
+from src.fpl_multiweek import optimise_gameweek_lineup
+
+
+class SharedCaptainUtilityTests(unittest.TestCase):
+    def test_audit_uses_risk_adjusted_mean_once(self) -> None:
+        audit = captain_utility(
+            player_id=1,
+            mean_expected_points=5.4,
+            reference_mean_expected_points=6.0,
+            points_p90=12.0,
+            probability_10_plus=0.35,
+            probability_15_plus=0.12,
+            ownership_percent=70.0,
+            position="Forward",
+            expected_minutes=72.0,
+            availability_confidence=0.8,
+            selection_risk_penalty=0.6,
+        )
+        self.assertEqual(audit["version"], CAPTAIN_UTILITY_VERSION)
+        self.assertEqual(audit["mean_expected_points"], 5.4)
+        self.assertEqual(audit["reference_mean_expected_points"], 6.0)
+        self.assertEqual(audit["selection_reliability_ratio"], 0.9)
+        self.assertEqual(audit["expected_minutes"], 72.0)
+        self.assertEqual(audit["availability_confidence"], 0.8)
+        self.assertFalse(audit["strategic_bonus_is_expected_points"])
+
+    def test_ownership_is_bounded_and_cannot_rescue_bad_mean(self) -> None:
+        strong = captain_utility(
+            player_id=1,
+            mean_expected_points=7.0,
+            points_p90=8.0,
+            probability_10_plus=0.05,
+            probability_15_plus=0.0,
+            ownership_percent=5.0,
+            position="Forward",
+        )
+        weak_popular = captain_utility(
+            player_id=2,
+            mean_expected_points=4.0,
+            points_p90=5.0,
+            probability_10_plus=0.05,
+            probability_15_plus=0.0,
+            ownership_percent=100.0,
+            position="Forward",
+        )
+        self.assertEqual(ownership_pressure(5.0), 0.0)
+        self.assertEqual(ownership_pressure(100.0), 1.0)
+        self.assertGreater(strong["captain_score"], weak_popular["captain_score"])
+
+    def test_small_defender_edge_is_rejected_but_exceptional_edge_survives(self) -> None:
+        players = {
+            1: {"player_id": 1, "position": "Defender", "selected_by_percent": 75.0},
+            2: {"player_id": 2, "position": "Forward", "selected_by_percent": 50.0},
+        }
+        self.assertEqual(
+            select_strategic_captain(
+                {1, 2},
+                players,
+                {1: 6.0, 2: 5.8},
+                {1: 8.0, 2: 8.5},
+                {1: 0.10, 2: 0.10},
+                {1: 0.0, 2: 0.01},
+            ),
+            2,
+        )
+        self.assertEqual(
+            select_strategic_captain(
+                {1, 2},
+                players,
+                {1: 9.0, 2: 5.0},
+                {1: 14.0, 2: 8.0},
+                {1: 0.40, 2: 0.08},
+                {1: 0.10, 2: 0.01},
+            ),
+            1,
+        )
+
+    def test_weekly_decision_score_is_the_shared_utility(self) -> None:
+        player = {
+            "player_id": 9,
+            "position": "Forward",
+            "selected_by_percent": 75.0,
+            "status": "a",
+            "starts": 3,
+            "minutes": 270,
+        }
+        horizon = {
+            "player_id": 9,
+            "position": "Forward",
+            "expected_points_next_1": 6.0,
+            "expected_minutes_next_1": 90.0,
+            "points_p90_next_1": 13.0,
+            "probability_10_plus_next_1": 0.4,
+            "probability_15_plus_next_1": 0.12,
+            "current_season_fixture_count": 3,
+        }
+        result = selection_risk_adjustment(
+            player,
+            horizon,
+            {"decision_expected_points": 6.0, "market_adjustment_points": 0.0},
+            4,
+        )
+        direct = captain_utility(
+            player_id=9,
+            mean_expected_points=result["selection_expected_points"],
+            reference_mean_expected_points=6.0,
+            points_p90=13.0,
+            probability_10_plus=0.4,
+            probability_15_plus=0.12,
+            ownership_percent=75.0,
+            position="Forward",
+            expected_minutes=90.0,
+            availability_confidence=1.0,
+            selection_risk_penalty=0.0,
+        )
+        self.assertEqual(result["captain_score"], direct["captain_score"])
+        self.assertEqual(result["captain_utility"]["version"], CAPTAIN_UTILITY_VERSION)
+
+    def test_multiweek_lineup_doubles_shared_captain_mean_only(self) -> None:
+        positions = (
+            ["Goalkeeper"] * 2
+            + ["Defender"] * 5
+            + ["Midfielder"] * 5
+            + ["Forward"] * 3
+        )
+        players = {
+            player_id: {
+                "player_id": player_id,
+                "position": position,
+                "team_id": player_id,
+                "selected_by_percent": 75.0 if player_id == 13 else 5.0,
+            }
+            for player_id, position in enumerate(positions, start=1)
+        }
+        points = {player_id: 4.0 for player_id in players}
+        points[8] = 6.2
+        points[13] = 5.9
+        p90 = {player_id: points[player_id] + 1.0 for player_id in players}
+        p90[13] = 14.0
+        p10 = {player_id: 0.02 for player_id in players}
+        p10[13] = 0.50
+        p15 = {player_id: 0.0 for player_id in players}
+        p15[13] = 0.20
+        score_map = {
+            player_id: captain_utility(
+                player_id=player_id,
+                mean_expected_points=points[player_id],
+                points_p90=p90[player_id],
+                probability_10_plus=p10[player_id],
+                probability_15_plus=p15[player_id],
+                ownership_percent=players[player_id]["selected_by_percent"],
+                position=players[player_id]["position"],
+            )["captain_score"]
+            for player_id in players
+        }
+        lineup_score, starters, captain = optimise_gameweek_lineup(
+            tuple(players),
+            players,
+            points,
+            captain_scores_by_player=score_map,
+        )
+        self.assertEqual(captain, 13)
+        self.assertEqual(
+            lineup_score,
+            sum(points[player_id] for player_id in starters) + points[13],
+        )
+
+    def test_ties_are_deterministic(self) -> None:
+        players = {
+            1: {"player_id": 1, "position": "Forward", "selected_by_percent": 10.0},
+            2: {"player_id": 2, "position": "Forward", "selected_by_percent": 10.0},
+        }
+        selected = select_strategic_captain(
+            {2, 1},
+            players,
+            {1: 6.0, 2: 6.0},
+            {1: 10.0, 2: 10.0},
+            {1: 0.2, 2: 0.2},
+            {1: 0.05, 2: 0.05},
+        )
+        self.assertEqual(selected, 1)
+
+
+if __name__ == "__main__":
+    unittest.main()
+'''
+          Path("tests/test_fpl_captaincy.py").write_text(test_content, encoding="utf-8")
+
+          chips_test_path = Path("tests/test_phase18_chips.py")
+          chips_test = chips_test_path.read_text(encoding="utf-8")
+          anchor = '''    def test_expiry_pressure_can_make_best_double_actionable(self) -> None:\n'''
+          new_test = '''    def test_target_gameweek_triple_captain_uses_shared_strategic_captain(self) -> None:
+        projections = self.projections()
+        for row in projections:
+            if row["gameweek"] != 10:
+                continue
+            row["points_p90"] = row["expected_points"] + 1.0
+            row["probability_10_plus"] = 0.02
+            row["probability_15_plus"] = 0.0
+            if row["player_id"] == 8:
+                row["expected_points"] = 6.2
+                row["points_p90"] = 8.0
+                self.players[7]["selected_by_percent"] = 5.0
+            elif row["player_id"] == 13:
+                row["expected_points"] = 5.9
+                row["points_p90"] = 14.0
+                row["probability_10_plus"] = 0.50
+                row["probability_15_plus"] = 0.20
+                self.players[12]["selected_by_percent"] = 75.0
+
+        result = optimise_chip_plan(
+            projections,
+            self.players,
+            self.squad,
+            25.0,
+            self.chips,
+            self.route,
+            10,
+        )
+        target = next(
+            row
+            for row in result["candidates"]
+            if row["chip"] == "3xc" and row["gameweek"] == 10
+        )
+        self.assertEqual(target["captain_player_id"], 13)
+        self.assertEqual(target["incremental_expected_points"], 5.9)
+
+'''
+          chips_test = replace_once(chips_test, anchor, new_test + anchor, "chip shared captain regression")
+          chips_test_path.write_text(chips_test, encoding="utf-8")
+
+          build_path = Path(".github/workflows/build-fpl-model.yml")
+          build = build_path.read_text(encoding="utf-8")
+          build = replace_once(
+              build,
+              '      - "src/fpl_decisions.py"\n      - "src/fpl_initial_squad.py"',
+              '      - "src/fpl_decisions.py"\n      - "src/fpl_captaincy.py"\n      - "src/fpl_initial_squad.py"',
+              "build captain path",
+          )
+          build = replace_once(
+              build,
+              '      - "tests/test_phase18_chips.py"\n      - "tests/test_wildcard_strategy.py"',
+              '      - "tests/test_phase18_chips.py"\n      - "tests/test_fpl_captaincy.py"\n      - "tests/test_wildcard_strategy.py"',
+              "build captain test path",
+          )
+          build_path.write_text(build, encoding="utf-8")
+
+          design = '''# Shared strategic captain utility
+
+FPL-22B replaces the duplicated weekly and Wildcard captain objectives with one reusable utility in `src/fpl_captaincy.py`.
+
+## Accounting boundary
+
+The utility decides **who is doubled**. Its ceiling, ownership/rank and position terms are selection utilities only. Reported expected points continue to equal the selected XI's risk-adjusted mean expected points plus the selected captain's risk-adjusted mean expected points.
+
+## Inputs
+
+The shared score uses:
+
+- risk-adjusted current-Gameweek mean expected points as the primary component;
+- p90 gap, P(10+) and P(15+) as bounded ceiling evidence;
+- bounded ownership pressure for rank exposure;
+- a defensive uncertainty penalty plus a 1.5-point exception margin so a defender can captain only when the evidence materially dominates.
+
+Expected minutes, availability confidence and the selection-risk penalty are recorded in the weekly audit. They already affect the risk-adjusted mean upstream and are not subtracted again inside captain utility.
+
+## Reused coefficients
+
+FPL-22B does not tune new strategic coefficients against the exposed 2025/26 holdout. It centralises the coefficients already used by the captaincy-aware Wildcard objective. FPL-22C is responsible for leakage-safe historical/prospective validation and promotion/rejection evidence.
+
+## Wiring
+
+The shared utility now drives:
+
+- weekly current-Gameweek captain ranking;
+- the first actionable Gameweek captain score map supplied to multi-Gameweek routing;
+- Wildcard strategic captaincy;
+- target-Gameweek Triple Captain selection;
+- target-Gameweek Free Hit final squad/captain scoring.
+
+Future-Gameweek route captaincy may continue to use its simpler mean-based rule where equivalent decision-layer reliability inputs are unavailable.
+
+Current utility version: `strategic-captain-1.0`.
+'''
+          Path("docs/notes/shared-captain-utility.md").write_text(design, encoding="utf-8")
+
+          wildcard_doc_path = Path("docs/notes/captaincy-aware-wildcard.md")
+          wildcard_doc = wildcard_doc_path.read_text(encoding="utf-8")
+          wildcard_doc = replace_once(
+              wildcard_doc,
+              'Current objective version: `captaincy-ceiling-1.1`.',
+              'Current objective version: `captaincy-ceiling-1.4`. Captain selection uses the shared `strategic-captain-1.0` utility from FPL-22B.',
+              "wildcard captain utility doc",
+          )
+          wildcard_doc_path.write_text(wildcard_doc, encoding="utf-8")
+          PY
+      - name: Compile changed Python
+        run: python -m compileall -q src tests
+      - name: Run focused captain tests
+        run: python -m unittest -v tests.test_fpl_captaincy tests.test_wildcard_strategy tests.test_phase18_chips tests.test_phase17_multiweek
+      - name: Run full unit suite
+        run: python -m unittest discover -s tests -v
+      - name: Commit validated refactor
+        shell: bash
+        run: |
+          rm .github/workflows/fpl22b-refactor.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/fpl_captaincy.py src/fpl_decisions.py src/fpl_chip_optimizer.py tests/test_fpl_captaincy.py tests/test_phase18_chips.py .github/workflows/build-fpl-model.yml docs/notes/shared-captain-utility.md docs/notes/captaincy-aware-wildcard.md .github/workflows/fpl22b-refactor.yml
+          git diff --cached --check
+          git commit -m "Implement FPL-22B shared captain utility"
+          git push origin HEAD:feature/fpl-22b-shared-captain-utility
