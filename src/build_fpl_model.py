@@ -265,6 +265,93 @@ def load_ensemble_config(
         return {**disabled, "status": "candidate_assessment_unreadable"}
 
 
+def production_policy_reporting(
+    policy_path: Path,
+    ensemble_config: dict[str, Any],
+    challenger_status: str,
+) -> dict[str, Any]:
+    """Build policy-derived user-facing model governance text.
+
+    This is deliberately sourced from the sticky production policy rather than the
+    development candidate so a rejected challenger cannot be described as live.
+    """
+
+    policy: dict[str, Any] = {}
+    if policy_path.is_file():
+        try:
+            loaded = json.loads(policy_path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                policy = loaded
+        except (json.JSONDecodeError, OSError, TypeError):
+            policy = {}
+
+    status = str(policy.get("status") or ensemble_config.get("status") or "unknown")
+    live_model = str(
+        policy.get("live_model_version")
+        or ensemble_config.get("model_version")
+        or MODEL_VERSION
+    )
+    point_weight = number(
+        policy.get("live_point_weight")
+        if policy.get("live_point_weight") is not None
+        else ensemble_config.get("point_weight")
+    )
+    raw_probability_weights = (
+        policy.get("live_probability_weights")
+        if isinstance(policy.get("live_probability_weights"), dict)
+        else ensemble_config.get("probability_weights", {})
+    )
+    probability_weights = {
+        str(threshold): number((raw_probability_weights or {}).get(str(threshold)))
+        for threshold in (6, 10, 15)
+    }
+    challenger_mode = str(
+        policy.get("challenger_mode")
+        or ("live_weighted" if point_weight > 0 else "shadow_only")
+    )
+    reason = str(policy.get("reason") or "").strip()
+    reconsideration_gate = str(policy.get("reconsideration_gate") or "").strip() or None
+
+    policy_summary = {
+        "status": status,
+        "live_model_version": live_model,
+        "challenger_model_version": COMPONENT_MODEL_VERSION,
+        "challenger_status": challenger_status,
+        "challenger_mode": challenger_mode,
+        "live_point_weight": round(point_weight, 6),
+        "live_probability_weights": {
+            key: round(value, 6) for key, value in probability_weights.items()
+        },
+        "reason": reason or None,
+        "reconsideration_gate": reconsideration_gate,
+    }
+    method = (
+        f"Production uses {live_model} for mean and haul-probability forecasts. "
+        f"Production policy is {status}; challenger {COMPONENT_MODEL_VERSION} is "
+        f"{challenger_mode} with mean weight {point_weight:.3f} and 6+/10+/15+ "
+        f"weights {probability_weights['6']:.3f}/{probability_weights['10']:.3f}/"
+        f"{probability_weights['15']:.3f}. Qualitative and timestamped external "
+        "context remain separately audited decision layers."
+    )
+    limitations = [
+        (
+            f"Production policy status is {status}. "
+            + (reason if reason else "The sticky production policy governs live model selection.")
+        ),
+        (
+            f"The challenger {COMPONENT_MODEL_VERSION} is {challenger_mode}; its "
+            "diagnostic outputs remain available for audit but do not influence "
+            "production selections when live weights are zero."
+        ),
+        "External context is source-weighted and affects the audited decision layer rather than silently changing the production model policy.",
+        "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage unless a timestamped decision-layer signal is present.",
+        "Previous-season player evidence is shrunk towards positional priors and fades over the first six current-season fixtures.",
+        "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
+        "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly.",
+    ]
+    return {"policy": policy_summary, "method": method, "limitations": limitations}
+
+
 def ordered_fields(rows: list[dict[str, Any]], preferred: list[str]) -> list[str]:
     extras = sorted({key for row in rows for key in row}.difference(preferred))
     return preferred + extras
@@ -1706,6 +1793,11 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "principle": "Raw human observations are preserved and evaluated separately from the quantitative forecast.",
     }
     write_json(chatgpt_dir / "qualitative_signal_summary.json", qualitative_summary)
+    policy_reporting = production_policy_reporting(
+        data_dir / "model" / "ensemble_production_policy.json",
+        ensemble_config,
+        component_candidate_status,
+    )
     summary = {
         "generated_at": generated_at,
         "model_version": ensemble_config["model_version"],
@@ -1715,12 +1807,13 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "ensemble_point_weight": ensemble_config["point_weight"],
         "ensemble_probability_weights": ensemble_config["probability_weights"],
         "challenger_status": component_candidate_status,
+        "production_policy": policy_reporting["policy"],
         "season": season,
         "scoring_rules_status": scoring_rules.get("status"),
         "scoring_rules_version": scoring_rules.get("version"),
         "bonus_transition": scoring_rules.get("bonus_transition"),
         "simulations_per_player_fixture": DEFAULT_SIMULATIONS,
-        "method": "Development-selected ensemble with player-specific early-season priors, separately audited control, component, qualitative and freshness-weighted external-context decision layers.",
+        "method": policy_reporting["method"],
         "player_feature_rows": len(player_features),
         "team_feature_rows": len(team_features),
         "raw_fixture_history_rows": len(fixture_history),
@@ -1762,15 +1855,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         "gameweek_operations_status": operations.get("status"),
         "gameweek_report_material_change": operations.get("material_change"),
         "gameweek_report_warning_count": len(operations.get("warnings", [])),
-        "limitations": [
-            "The ensemble weights were fitted on 2022/23-2023/24 and passed the documented 2024/25 held-out promotion gate.",
-            "The control and component models remain available beside every ensemble recommendation for audit.",
-            "External context is source-weighted and applied only to decision support until prospective evidence justifies changing the validated ensemble.",
-            "Expected minutes are inferred from recent starts, minutes, availability and prior-season usage unless a timestamped decision-layer signal is present.",
-            "Previous-season player evidence is shrunk towards positional priors and fades over the first six current-season fixtures.",
-            "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
-            "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly.",
-        ],
+        "limitations": policy_reporting["limitations"],
     }
     write_json(chatgpt_dir / "projection_summary.json", summary)
     update_dataset_manifest(chatgpt_dir)

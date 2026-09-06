@@ -400,7 +400,8 @@ def context_summary(
         ),
         "principle": (
             "External signals are timestamped, source-weighted and kept separate "
-            "from the validated ensemble forecast."
+            "from production model governance; they enter only through the audited "
+            "decision layer."
         ),
     }
 
