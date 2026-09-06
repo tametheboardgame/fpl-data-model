@@ -98,6 +98,42 @@ class Phase18ChipOptimiserTests(unittest.TestCase):
         )
         self.assertEqual(result["best_by_chip"]["3xc"]["status"], "hold")
 
+    def test_target_gameweek_triple_captain_uses_shared_strategic_captain(self) -> None:
+        projections = self.projections()
+        for row in projections:
+            if row["gameweek"] != 10:
+                continue
+            row["points_p90"] = row["expected_points"] + 1.0
+            row["probability_10_plus"] = 0.02
+            row["probability_15_plus"] = 0.0
+            if row["player_id"] == 8:
+                row["expected_points"] = 6.2
+                row["points_p90"] = 8.0
+                self.players[7]["selected_by_percent"] = 5.0
+            elif row["player_id"] == 13:
+                row["expected_points"] = 5.9
+                row["points_p90"] = 14.0
+                row["probability_10_plus"] = 0.50
+                row["probability_15_plus"] = 0.20
+                self.players[12]["selected_by_percent"] = 75.0
+
+        result = optimise_chip_plan(
+            projections,
+            self.players,
+            self.squad,
+            25.0,
+            self.chips,
+            self.route,
+            10,
+        )
+        target = next(
+            row
+            for row in result["candidates"]
+            if row["chip"] == "3xc" and row["gameweek"] == 10
+        )
+        self.assertEqual(target["captain_player_id"], 13)
+        self.assertEqual(target["incremental_expected_points"], 5.9)
+
     def test_expiry_pressure_can_make_best_double_actionable(self) -> None:
         self.chips["periods"][0]["end_gameweek"] = 11
         result = optimise_chip_plan(
