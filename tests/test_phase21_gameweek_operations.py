@@ -146,6 +146,25 @@ class Phase21OperationsTests(unittest.TestCase):
         self.assertIn("FPL Gameweek 1 Deadline Report", markdown)
         self.assertIn("No transfers, chips or team changes are made automatically", markdown)
 
+    def test_route_captain_and_route_score_remain_the_same_user_facing_authority(self) -> None:
+        # Simulate a stale disagreement between the separate decision captain and
+        # the route. Operations must never expose the former alongside the latter's
+        # doubled-score arithmetic.
+        self.decision["captaincy"]["captain"] = {"player_id": 8}
+        route_move = self.decision["multi_gameweek_plan"]["recommended_route"]["gameweek_plan"][0]
+        route_move["captain_player_id"] = 13
+        route_move["captain"] = "Player 13"
+        route_move["lineup_expected_points"] = 62.5
+        route_move["net_expected_points"] = 62.5
+
+        report = self.build()
+
+        self.assertEqual(report["recommendation"]["captain"]["player_id"], 13)
+        self.assertEqual(report["recommendation"]["expected_points"], 62.5)
+        first_route = report["six_gameweek_plan"]["gameweek_plan"][0]
+        self.assertEqual(first_route["captain_player_id"], 13)
+        self.assertEqual(first_route["lineup_expected_points"], 62.5)
+
     def test_waiting_state_contains_no_named_recommendation(self) -> None:
         self.decision["status"] = "waiting_for_future_fixtures"
         self.current["next"] = None
@@ -159,6 +178,9 @@ class Phase21OperationsTests(unittest.TestCase):
         previous = self.build()
         self.decision["captaincy"]["captain"] = {"player_id": 3}
         self.decision["captaincy"]["vice_captain"] = {"player_id": 4}
+        route_move = self.decision["multi_gameweek_plan"]["recommended_route"]["gameweek_plan"][0]
+        route_move["captain_player_id"] = 3
+        route_move["captain"] = "Player 3"
         self.players[2]["status"] = "d"
         self.players[2]["chance_of_playing_next_round"] = 50
         self.players[2]["news"] = "Knock, late test."

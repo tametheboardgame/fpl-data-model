@@ -189,9 +189,15 @@ def optimise_gameweek_lineup(
     points_by_player: dict[int, float],
     fixtures_by_player: dict[int, list[dict[str, Any]]] | None = None,
     risk_profile: str = "balanced",
+    captain_scores_by_player: dict[int, float] | None = None,
 ) -> tuple[float, list[int], int | None]:
     def captain_key(player_id: int) -> tuple[float, float]:
         points = points_by_player.get(player_id, 0)
+        if captain_scores_by_player is not None:
+            # The caller's captain utility is authoritative when supplied. The
+            # returned lineup score still uses mean expected points, so strategic
+            # captain selection never fabricates xPts.
+            return captain_scores_by_player.get(player_id, points), points
         position = str(player_by_id.get(player_id, {}).get("position"))
         uncertainty_penalty = (
             DEFENSIVE_CAPTAIN_UNCERTAINTY_PENALTY
@@ -432,6 +438,7 @@ def optimise_multi_gameweek_route(
     beam_width: int = 60,
     discount: float = 0.96,
     first_gameweek_multiplier: dict[int, float] | None = None,
+    first_gameweek_captain_scores: dict[int, float] | None = None,
 ) -> dict[str, Any]:
     future_gameweeks = sorted(
         {
@@ -494,9 +501,19 @@ def optimise_multi_gameweek_route(
         moves=(),
     )
 
+    def captain_scores_for(gameweek: int) -> dict[int, float] | None:
+        if gameweek == future_gameweeks[0]:
+            return first_gameweek_captain_scores
+        return None
+
     hold_points = 0.0
     for gameweek in future_gameweeks:
-        points, _, _ = optimise_gameweek_lineup(squad_ids, player_by_id, matrix.get(gameweek, {}))
+        points, _, _ = optimise_gameweek_lineup(
+            squad_ids,
+            player_by_id,
+            matrix.get(gameweek, {}),
+            captain_scores_by_player=captain_scores_for(gameweek),
+        )
         hold_points += points
 
     states = [initial]
@@ -512,7 +529,10 @@ def optimise_multi_gameweek_route(
                 transfers_used = len(transfers)
                 paid_transfers = max(0, transfers_used - state.free_transfers)
                 points, starters, captain = optimise_gameweek_lineup(
-                    new_squad, player_by_id, matrix.get(gameweek, {})
+                    new_squad,
+                    player_by_id,
+                    matrix.get(gameweek, {}),
+                    captain_scores_by_player=captain_scores_for(gameweek),
                 )
                 net_points = points - paid_transfers * hit_cost
                 decision_cost, reversals = transfer_decision_cost(
@@ -569,7 +589,10 @@ def optimise_multi_gameweek_route(
     hold_discounted_points = 0.0
     for offset, gameweek in enumerate(future_gameweeks):
         points, starters, captain = optimise_gameweek_lineup(
-            squad_ids, player_by_id, matrix.get(gameweek, {})
+            squad_ids,
+            player_by_id,
+            matrix.get(gameweek, {}),
+            captain_scores_by_player=captain_scores_for(gameweek),
         )
         hold_discounted_points += (discount**offset) * points
         hold_moves.append(
