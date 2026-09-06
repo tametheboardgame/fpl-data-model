@@ -11,9 +11,8 @@ Season: `2026/27`
 
 A new project chat can simply say:
 
-- `Start FPL-NEXT` — continue the first incomplete item in `ROADMAP.md`; **currently FPL-22D**.
-- `Start FPL-22D` — policy-aware reporting and captain-audit cleanup.
-- `Start FPL-22E` — fresh actionable-Gameweek reassessment after FPL-22D is green.
+- `Start FPL-NEXT` — continue the first incomplete item in `ROADMAP.md`; **currently FPL-22E**.
+- `Start FPL-22E` — fresh actionable-Gameweek reassessment from current production outputs plus independent current-news checks.
 
 When receiving one of those commands:
 
@@ -62,6 +61,7 @@ PR #45 made this rejection sticky. Do not allow recurring development backtests 
 - Wildcard strategic bonuses are selection utilities only; displayed expected points remain mean xPts.
 - PR #47 / FPL-22A: one current-GW captain authority, so the displayed captain is the player whose mean return is doubled in route/report xPts.
 - PR #48 / FPL-22B: one shared `strategic-captain-1.0` utility drives weekly current-GW captaincy, first actionable route GW, Wildcard target-GW captaincy, target-GW Triple Captain and current-GW Free Hit captaincy.
+- PR #50 / FPL-22D: user-facing model-policy text now comes from the sticky production policy; captain/vice strategic utility is auditable separately from mean xPts.
 
 ## FPL-22A completion record
 
@@ -124,26 +124,40 @@ Final exact-head evidence on `5eef04298f0f7bac30d6c9f49a65181433f024a8`:
 - all four primary seasons passed stability checks;
 - failed gates: none;
 - validation status: `accepted`;
-- recommendation: retain `strategic-captain-1.0` as current-GW captain authority.
-
-Squash merge: `94000a20c39eddc89b97eed571f32fe23c76bb96`.
+- recommendation: retain `strategic-captain-1.0` as current-GW captain authority;
+- squash merge: `94000a20c39eddc89b97eed571f32fe23c76bb96`.
 
 Do not tune `strategic-captain-1.0` against this now-exposed FPL-22C evaluation set. Prospective 2026/27 monitoring may continue independently.
 
-## Current live-output caveat / FPL-22D target
+## FPL-22D completion record
 
-`data/chatgpt/projection_summary.json` is structurally correct about `player-sim-2.0`, `holdout_rejected` and zero challenger weights, but its human-readable method/limitations still describe a development-selected/validated ensemble as though it were production. This is stale and misleading.
+PR #50 — `Make production policy and captain audits explicit` — is **COMPLETE**.
 
-FPL-22D must:
+Landed behaviour:
 
-- make projection-summary method/limitations production-policy aware;
-- remove any remaining live-output wording that calls the rejected ensemble production;
-- expose live model/challenger status/weights clearly;
-- expose captain mean xPts separately from strategic utility;
-- expose bounded ceiling/haul/ownership/minutes audit contributions for captain and vice;
-- explicitly state strategic captain bonuses are not part of displayed xPts;
-- keep deadline reports concise;
-- preserve agreement between report captain, route captain and mean-xPts scoring basis.
+- `projection_summary.json` method/limitations are generated from the sticky production policy rather than a development candidate;
+- live model, policy status, challenger mode and live weights are exposed explicitly;
+- stale wording that described the rejected ensemble as production has been removed from live summaries;
+- current-GW captain utility audits expose mean input, bounded ceiling/haul/rank contributions, minutes/availability context and selection basis;
+- operational captain and vice audits explicitly state that strategic bonuses are not expected points;
+- report/route xPts continue to double mean xPts only;
+- `decision_version = fpl-decisions-2.5`;
+- `operations_version = fpl-gameweek-operations-1.8`.
+
+Validation evidence:
+
+- clean PR head: `64a654b6a326fe63f4072e1e521ba1f226467a01`;
+- exact-head data validation run `34028912769`: SUCCESS;
+- exact-head full model build run `34028912763`: SUCCESS;
+- exact-head full suite: 157/157 tests passed;
+- separate production-shaped source validation also passed a real build and policy/captain output assertions;
+- squash merge: `f06c708f5ac8787097c33df270b750618961f238`;
+- post-merge live-data run `34029053476`: SUCCESS;
+- post-merge fresh dataset commit: `88a6cb710d434edbecb07551014b988f0849345a`;
+- post-merge production build `34029081257`: SUCCESS;
+- post-merge model-output commit: `ec5b074c517f1dd5b7188c18c5e9f567225f6870`.
+
+Permanent invariant: strategic captain utility selects who is doubled; displayed and route expected points remain mean xPts only.
 
 ## Important research conclusions already reached
 
@@ -157,11 +171,10 @@ Do not repeat these without new evidence or a materially different hypothesis:
 
 ## Current roadmap position
 
-**FPL-22A, FPL-22B and FPL-22C are complete. FPL-22D is the active package.**
+**FPL-22A, FPL-22B, FPL-22C and FPL-22D are complete. FPL-22E is the active package.**
 
-After FPL-22D:
+FPL-22E must reassess the actionable Gameweek from fresh production outputs and independent current-news/fixture checks. Do not inherit any earlier captain, vice, transfer, chip or lineup result merely because it appeared during engineering validation.
 
-1. FPL-22E — fresh actionable-Gameweek reassessment from newly generated production outputs plus independent current team-news/fixture sanity checks.
-2. Later research only if justified, including prospective 2026/27 challenger evidence and bounded rival/mini-league exposure modelling.
+After FPL-22E, later research is optional and evidence-driven, including prospective 2026/27 challenger evidence and bounded rival/mini-league exposure modelling.
 
 See `ROADMAP.md` for exact scope and acceptance gates.
