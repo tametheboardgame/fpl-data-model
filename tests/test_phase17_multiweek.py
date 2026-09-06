@@ -144,7 +144,7 @@ class MultiGameweekOptimiserTests(unittest.TestCase):
         )
         self.assertIn("minimum decision-adjusted edge", result["recommendation_reason"])
 
-    def test_holds_when_two_high_edge_transfer_targets_are_indistinguishable(self) -> None:
+    def test_high_edge_target_ambiguity_preserves_transfer_action(self) -> None:
         projections = self.projections()
         self.players.extend(
             [player(99, "Forward", 1), player(100, "Forward", 1)]
@@ -166,9 +166,44 @@ class MultiGameweekOptimiserTests(unittest.TestCase):
             horizon=1,
         )
 
+        transfers = result["recommended_route"]["gameweek_plan"][0]["transfers"]
+        self.assertTrue(transfers)
+        self.assertTrue(result["robustness"]["target_ambiguity"])
+        self.assertTrue(result["robustness"]["transfer_action_robust"])
+        self.assertIsNone(result["robustness"]["rejected_transfer_reason"])
+        self.assertGreater(
+            result["robustness"]["runner_up_transfer_decision_adjusted_gain"],
+            result["robustness"]["minimum_route_edge_points"],
+        )
+
+    def test_holds_when_ambiguous_alternative_does_not_clear_actionability_floor(self) -> None:
+        projections = self.projections()
+        projections.append({"player_id": 8, "gameweek": 1, "expected_points": 7.0})
+        self.players.extend(
+            [player(99, "Forward", 1), player(100, "Forward", 1)]
+        )
+        projections.extend(
+            [
+                {"player_id": 99, "gameweek": 1, "expected_points": 8.5},
+                {"player_id": 100, "gameweek": 1, "expected_points": 8.2},
+            ]
+        )
+
+        result = optimise_multi_gameweek_route(
+            projections,
+            self.players,
+            self.squad,
+            bank=0,
+            free_transfers=1,
+            target_gameweek=1,
+            horizon=1,
+        )
+
         self.assertEqual(
             result["recommended_route"]["gameweek_plan"][0]["transfers"], []
         )
+        self.assertTrue(result["robustness"]["target_ambiguity"])
+        self.assertFalse(result["robustness"]["transfer_action_robust"])
         self.assertEqual(
             result["robustness"]["rejected_transfer_reason"],
             "ambiguous_best_route",

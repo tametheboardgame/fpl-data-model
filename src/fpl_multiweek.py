@@ -657,6 +657,27 @@ def optimise_multi_gameweek_route(
     runner_up_gap = (
         best_state.score - runner_up.score if runner_up is not None else None
     )
+    runner_up_adjusted_gain = (
+        runner_up.undiscounted_points - hold_points - runner_up.decision_cost
+        if runner_up is not None
+        else None
+    )
+    target_ambiguity = bool(
+        best_has_transfers
+        and runner_up_gap is not None
+        and runner_up_gap < MINIMUM_ROUTE_SEPARATION_POINTS
+    )
+    transfer_action_robust = bool(
+        best_has_transfers
+        and best_adjusted_gain >= MINIMUM_ROUTE_EDGE_POINTS
+        and (
+            not target_ambiguity
+            or (
+                runner_up_adjusted_gain is not None
+                and runner_up_adjusted_gain >= MINIMUM_ROUTE_EDGE_POINTS
+            )
+        )
+    )
     recommendation_reason = "Highest robust decision-adjusted expected return."
     rejected_transfer_reason = None
     if best_has_transfers and best_adjusted_gain < MINIMUM_ROUTE_EDGE_POINTS:
@@ -665,14 +686,17 @@ def optimise_multi_gameweek_route(
             "Hold: no transfer route clears the minimum decision-adjusted edge "
             "after uncertainty costs."
         )
-    elif (
-        best_has_transfers
-        and runner_up_gap is not None
-        and runner_up_gap < MINIMUM_ROUTE_SEPARATION_POINTS
-    ):
+    elif target_ambiguity and not transfer_action_robust:
         rejected_transfer_reason = "ambiguous_best_route"
         recommendation_reason = (
-            "Hold: competing transfer routes are too close to distinguish reliably."
+            "Hold: competing transfer routes are too close and the alternative "
+            "does not independently clear the actionability floor."
+        )
+    elif target_ambiguity:
+        recommendation_reason = (
+            "Transfer action is robust: multiple high-edge transfer routes clear "
+            "the actionability floor, with the leading route selected despite "
+            "target ambiguity."
         )
     if rejected_transfer_reason:
         states = [hold_state] + [
@@ -721,7 +745,14 @@ def optimise_multi_gameweek_route(
                 if runner_up_gap is not None
                 else None
             ),
+            "runner_up_transfer_decision_adjusted_gain": (
+                round(runner_up_adjusted_gain, 3)
+                if runner_up_adjusted_gain is not None
+                else None
+            ),
             "minimum_route_separation_points": MINIMUM_ROUTE_SEPARATION_POINTS,
+            "target_ambiguity": target_ambiguity,
+            "transfer_action_robust": transfer_action_robust,
             "rejected_transfer_reason": rejected_transfer_reason,
         },
         "hold_current_squad_expected_points": round(hold_points, 3),
