@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T20:53:06+00:00",
+  "generated_at": "2026-09-07T04:46:54+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -84,7 +84,7 @@
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 7.5,
+      "price": 7.6,
       "expected_points_next_1": 4.925
     },
     {
@@ -172,7 +172,7 @@
       "web_name": "Thiago",
       "team_name": "Brentford",
       "position": "Forward",
-      "price": 8.0,
+      "price": 7.9,
       "expected_points_next_1": 4.207
     },
     {
@@ -212,7 +212,7 @@
       "web_name": "Gakpo",
       "team_name": "Liverpool",
       "position": "Midfielder",
-      "price": 7.1,
+      "price": 7.2,
       "expected_points_next_1": 4.043
     },
     {
@@ -270,7 +270,7 @@
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 7.5,
+      "price": 7.6,
       "expected_points_next_3": 13.453
     },
     {
@@ -310,7 +310,7 @@
       "web_name": "Thiago",
       "team_name": "Brentford",
       "position": "Forward",
-      "price": 8.0,
+      "price": 7.9,
       "expected_points_next_3": 12.653
     },
     {
@@ -358,7 +358,7 @@
       "web_name": "Anderson",
       "team_name": "Man City",
       "position": "Midfielder",
-      "price": 6.4,
+      "price": 6.3,
       "expected_points_next_3": 11.93
     },
     {
@@ -456,7 +456,7 @@
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 7.5,
+      "price": 7.6,
       "component_expected_points_next_1": 3.395
     },
     {
@@ -496,7 +496,7 @@
       "web_name": "Thiago",
       "team_name": "Brentford",
       "position": "Forward",
-      "price": 8.0,
+      "price": 7.9,
       "component_expected_points_next_1": 3.163
     },
     {
@@ -618,7 +618,7 @@
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 7.5,
+      "price": 7.6,
       "component_expected_points_next_3": 9.913
     },
     {
@@ -642,7 +642,7 @@
       "web_name": "Thiago",
       "team_name": "Brentford",
       "position": "Forward",
-      "price": 8.0,
+      "price": 7.9,
       "component_expected_points_next_3": 9.598
     },
     {
@@ -716,7 +716,7 @@
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 3,
+  "gameweek_report_warning_count": 2,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
