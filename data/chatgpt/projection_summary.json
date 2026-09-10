@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T04:47:25+00:00",
+  "generated_at": "2026-09-10T05:22:53+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -55,8 +55,8 @@
   "fixture_projection_rows": 3924,
   "player_horizon_rows": 654,
   "scouting_observation_rows": 0,
-  "external_context_signal_rows": 16344,
-  "active_external_context_signal_rows": 4320,
+  "external_context_signal_rows": 16504,
+  "active_external_context_signal_rows": 4480,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -716,7 +716,7 @@
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 4,
+  "gameweek_report_warning_count": 3,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
