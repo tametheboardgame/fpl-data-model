@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T21:14:58+00:00",
+  "generated_at": "2026-09-11T04:47:03+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -164,7 +164,7 @@
       "web_name": "Palmer",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 9.6,
+      "price": 9.7,
       "expected_points_next_1": 4.345
     },
     {
@@ -172,7 +172,7 @@
       "web_name": "Scott",
       "team_name": "Bournemouth",
       "position": "Midfielder",
-      "price": 6.0,
+      "price": 6.1,
       "expected_points_next_1": 4.278
     },
     {
@@ -342,7 +342,7 @@
       "web_name": "Palmer",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 9.6,
+      "price": 9.7,
       "expected_points_next_3": 12.302
     },
     {
@@ -350,7 +350,7 @@
       "web_name": "Scott",
       "team_name": "Bournemouth",
       "position": "Midfielder",
-      "price": 6.0,
+      "price": 6.1,
       "expected_points_next_3": 12.157
     },
     {
@@ -440,7 +440,7 @@
       "web_name": "Palmer",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 9.6,
+      "price": 9.7,
       "component_expected_points_next_1": 3.693
     },
     {
@@ -504,7 +504,7 @@
       "web_name": "Calafiori",
       "team_name": "Arsenal",
       "position": "Defender",
-      "price": 5.7,
+      "price": 5.8,
       "component_expected_points_next_1": 3.397
     },
     {
@@ -536,7 +536,7 @@
       "web_name": "\u00d8degaard",
       "team_name": "Arsenal",
       "position": "Midfielder",
-      "price": 6.6,
+      "price": 6.7,
       "component_expected_points_next_1": 3.312
     },
     {
@@ -618,7 +618,7 @@
       "web_name": "Calafiori",
       "team_name": "Arsenal",
       "position": "Defender",
-      "price": 5.7,
+      "price": 5.8,
       "component_expected_points_next_3": 10.47
     },
     {
@@ -634,7 +634,7 @@
       "web_name": "Palmer",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 9.6,
+      "price": 9.7,
       "component_expected_points_next_3": 10.438
     },
     {
@@ -650,7 +650,7 @@
       "web_name": "\u00d8degaard",
       "team_name": "Arsenal",
       "position": "Midfielder",
-      "price": 6.6,
+      "price": 6.7,
       "component_expected_points_next_3": 10.228
     },
     {
@@ -716,7 +716,7 @@
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 3,
+  "gameweek_report_warning_count": 4,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
