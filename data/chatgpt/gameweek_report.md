@@ -1,9 +1,9 @@
 # FPL Gameweek 5 Deadline Report
 
 Status: ready
-Generated: 2026-09-12T15:35:03+00:00
+Generated: 2026-09-12T15:53:03+00:00
 UK deadline: 2026-09-18T18:30:00+01:00
-Hours remaining: 145.916
+Hours remaining: 145.616
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,43 +16,32 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 2.911 xPts)
-- Guéhi (Man City, 5.577 xPts)
+- Verbruggen (Brighton, 2.888 xPts)
+- Guéhi (Man City, 5.658 xPts)
 - Tarkowski (Everton, 4.485 xPts)
-- Thomas (Coventry City, 2.513 xPts)
-- B.Fernandes (Man Utd, 5.746 xPts)
-- Szoboszlai (Liverpool, 4.485 xPts)
-- Haaland (Man City, 7.006 xPts)
-- João Pedro (Chelsea, 4.387 xPts)
-- Tavernier (Bournemouth, 4.319 xPts)
-- Thiago (Brentford, 4.156 xPts)
+- Thomas (Coventry City, 2.483 xPts)
+- B.Fernandes (Man Utd, 5.724 xPts)
+- Szoboszlai (Liverpool, 4.5 xPts)
+- Haaland (Man City, 7.093 xPts)
+- João Pedro (Chelsea, 4.401 xPts)
+- Tavernier (Bournemouth, 4.327 xPts)
+- Thiago (Brentford, 4.119 xPts)
 - Scott (Bournemouth, 4.088 xPts)
 
-Captain: Haaland (7.006 mean xPts; strategic score 8.3429)
-Vice-captain: B.Fernandes (5.746 mean xPts; strategic score 6.5635)
+Captain: Haaland (7.093 mean xPts; strategic score 8.4381)
+Vice-captain: B.Fernandes (5.724 mean xPts; strategic score 6.5394)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Konsa (2.17 xPts)
-2. Slater (1.878 xPts)
-3. Egan (1.627 xPts)
-4. Steele (0.296 xPts)
+1. Konsa (2.194 xPts)
+2. Slater (1.861 xPts)
+3. Egan (1.56 xPts)
+4. Steele (0.293 xPts)
 
 ## Changes since previous report
 
-- Target Gameweek changed
-- Deadline changed
-- Starting XI changed
-- Bench order changed
-- Vice-captain changed
-- Transfer recommendation changed
-- Chip recommendation changed
-- Fixture information changed
-- Data-quality warning state changed
-- Deadline advice stage changed
-- Firm-advice safety gate changed
-- Starting XI correlation exposure changed
+- No material changes
 
 ## Warnings
 
