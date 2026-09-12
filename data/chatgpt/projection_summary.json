@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T21:22:20+00:00",
+  "generated_at": "2026-09-12T04:39:48+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -706,17 +706,17 @@
       "web_name": "E.Le F\u00e9e",
       "team_name": "Sunderland",
       "position": "Midfielder",
-      "price": 5.9,
+      "price": 5.8,
       "component_expected_points_next_3": 9.48
     }
   ],
-  "prediction_snapshot_created": null,
+  "prediction_snapshot_created": "predictions/gw04/20260912T043948Z.csv",
   "evaluated_gameweeks": 3,
   "prospective_evaluated_gameweeks": 2,
-  "prospective_snapshot_created": null,
+  "prospective_snapshot_created": "prospective/gw04/20260912T043948Z.json",
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 4,
+  "gameweek_report_warning_count": 3,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
