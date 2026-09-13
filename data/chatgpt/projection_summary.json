@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T21:01:20+00:00",
+  "generated_at": "2026-09-13T04:53:09+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -48,15 +48,15 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
-  "player_feature_rows": 656,
+  "player_feature_rows": 657,
   "team_feature_rows": 20,
   "raw_fixture_history_rows": 1890,
   "completed_fixture_history_rows": 1890,
-  "fixture_projection_rows": 3936,
-  "player_horizon_rows": 656,
+  "fixture_projection_rows": 3942,
+  "player_horizon_rows": 657,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 18248,
-  "active_external_context_signal_rows": 3960,
+  "active_external_context_signal_rows": 3576,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -172,7 +172,7 @@
       "web_name": "Jo\u00e3o Pedro",
       "team_name": "Chelsea",
       "position": "Forward",
-      "price": 7.7,
+      "price": 7.8,
       "expected_points_next_1": 4.31
     },
     {
@@ -212,7 +212,7 @@
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 7.6,
+      "price": 7.7,
       "expected_points_next_1": 4.052
     },
     {
@@ -294,7 +294,7 @@
       "web_name": "Jo\u00e3o Pedro",
       "team_name": "Chelsea",
       "position": "Forward",
-      "price": 7.7,
+      "price": 7.8,
       "expected_points_next_3": 13.268
     },
     {
@@ -342,7 +342,7 @@
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 7.6,
+      "price": 7.7,
       "expected_points_next_3": 12.185
     },
     {
@@ -448,7 +448,7 @@
       "web_name": "Jo\u00e3o Pedro",
       "team_name": "Chelsea",
       "position": "Forward",
-      "price": 7.7,
+      "price": 7.8,
       "component_expected_points_next_1": 3.428
     },
     {
@@ -618,7 +618,7 @@
       "web_name": "Jo\u00e3o Pedro",
       "team_name": "Chelsea",
       "position": "Forward",
-      "price": 7.7,
+      "price": 7.8,
       "component_expected_points_next_3": 10.69
     },
     {
@@ -650,7 +650,7 @@
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 7.6,
+      "price": 7.7,
       "component_expected_points_next_3": 9.918
     },
     {
