@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T05:28:30+00:00",
+  "generated_at": "2026-09-15T11:48:31+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -50,8 +50,8 @@
   "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
   "player_feature_rows": 659,
   "team_feature_rows": 20,
-  "raw_fixture_history_rows": 2548,
-  "completed_fixture_history_rows": 1890,
+  "raw_fixture_history_rows": 2549,
+  "completed_fixture_history_rows": 2549,
   "fixture_projection_rows": 3954,
   "player_horizon_rows": 659,
   "scouting_observation_rows": 0,
@@ -69,7 +69,7 @@
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.5,
-      "expected_points_next_1": 6.53
+      "expected_points_next_1": 6.687
     },
     {
       "player_id": 426,
@@ -77,7 +77,7 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 12.0,
-      "expected_points_next_1": 5.867
+      "expected_points_next_1": 5.622
     },
     {
       "player_id": 388,
@@ -85,15 +85,7 @@
       "team_name": "Man City",
       "position": "Defender",
       "price": 6.0,
-      "expected_points_next_1": 5.127
-    },
-    {
-      "player_id": 427,
-      "web_name": "Mbeumo",
-      "team_name": "Man Utd",
-      "position": "Midfielder",
-      "price": 7.9,
-      "expected_points_next_1": 5.117
+      "expected_points_next_1": 5.242
     },
     {
       "player_id": 480,
@@ -101,7 +93,7 @@
       "team_name": "Nott'm Forest",
       "position": "Midfielder",
       "price": 7.9,
-      "expected_points_next_1": 4.758
+      "expected_points_next_1": 5.182
     },
     {
       "player_id": 12,
@@ -109,7 +101,15 @@
       "team_name": "Arsenal",
       "position": "Midfielder",
       "price": 9.5,
-      "expected_points_next_1": 4.542
+      "expected_points_next_1": 4.97
+    },
+    {
+      "player_id": 427,
+      "web_name": "Mbeumo",
+      "team_name": "Man Utd",
+      "position": "Midfielder",
+      "price": 7.9,
+      "expected_points_next_1": 4.89
     },
     {
       "player_id": 229,
@@ -117,55 +117,7 @@
       "team_name": "Everton",
       "position": "Defender",
       "price": 6.1,
-      "expected_points_next_1": 4.485
-    },
-    {
-      "player_id": 106,
-      "web_name": "Thiago",
-      "team_name": "Brentford",
-      "position": "Forward",
-      "price": 7.9,
-      "expected_points_next_1": 4.358
-    },
-    {
-      "player_id": 368,
-      "web_name": "Szoboszlai",
-      "team_name": "Liverpool",
-      "position": "Midfielder",
-      "price": 7.0,
-      "expected_points_next_1": 4.352
-    },
-    {
-      "player_id": 469,
-      "web_name": "N.Williams",
-      "team_name": "Nott'm Forest",
-      "position": "Defender",
-      "price": 5.0,
-      "expected_points_next_1": 4.35
-    },
-    {
-      "player_id": 68,
-      "web_name": "Tavernier",
-      "team_name": "Bournemouth",
-      "position": "Midfielder",
-      "price": 6.1,
-      "expected_points_next_1": 4.338
-    },
-    {
-      "player_id": 397,
-      "web_name": "Semenyo",
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 8.4,
-      "expected_points_next_1": 4.323
-    },
-    {
-      "player_id": 481,
-      "web_name": "Anderson",
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 6.3,
-      "expected_points_next_1": 4.315
+      "expected_points_next_1": 4.82
     },
     {
       "player_id": 165,
@@ -173,47 +125,39 @@
       "team_name": "Chelsea",
       "position": "Forward",
       "price": 7.8,
-      "expected_points_next_1": 4.31
+      "expected_points_next_1": 4.725
     },
     {
-      "player_id": 445,
-      "web_name": "Thiaw",
-      "team_name": "Newcastle",
-      "position": "Defender",
-      "price": 5.0,
-      "expected_points_next_1": 4.167
-    },
-    {
-      "player_id": 236,
-      "web_name": "Dewsbury-Hall",
-      "team_name": "Everton",
-      "position": "Midfielder",
-      "price": 6.5,
-      "expected_points_next_1": 4.102
-    },
-    {
-      "player_id": 367,
-      "web_name": "Gakpo",
-      "team_name": "Liverpool",
-      "position": "Midfielder",
-      "price": 7.2,
-      "expected_points_next_1": 4.092
-    },
-    {
-      "player_id": 69,
-      "web_name": "Scott",
+      "player_id": 68,
+      "web_name": "Tavernier",
       "team_name": "Bournemouth",
       "position": "Midfielder",
       "price": 6.1,
-      "expected_points_next_1": 4.088
+      "expected_points_next_1": 4.552
     },
     {
-      "player_id": 40,
-      "web_name": "Rogers",
-      "team_name": "Chelsea",
+      "player_id": 469,
+      "web_name": "N.Williams",
+      "team_name": "Nott'm Forest",
+      "position": "Defender",
+      "price": 5.0,
+      "expected_points_next_1": 4.507
+    },
+    {
+      "player_id": 368,
+      "web_name": "Szoboszlai",
+      "team_name": "Liverpool",
       "position": "Midfielder",
-      "price": 7.7,
-      "expected_points_next_1": 4.052
+      "price": 7.0,
+      "expected_points_next_1": 4.345
+    },
+    {
+      "player_id": 330,
+      "web_name": "Bogle",
+      "team_name": "Leeds",
+      "position": "Defender",
+      "price": 4.5,
+      "expected_points_next_1": 4.333
     },
     {
       "player_id": 112,
@@ -221,7 +165,63 @@
       "team_name": "Spurs",
       "position": "Defender",
       "price": 4.9,
-      "expected_points_next_1": 4.035
+      "expected_points_next_1": 4.318
+    },
+    {
+      "player_id": 481,
+      "web_name": "Anderson",
+      "team_name": "Man City",
+      "position": "Midfielder",
+      "price": 6.3,
+      "expected_points_next_1": 4.238
+    },
+    {
+      "player_id": 69,
+      "web_name": "Scott",
+      "team_name": "Bournemouth",
+      "position": "Midfielder",
+      "price": 6.1,
+      "expected_points_next_1": 4.235
+    },
+    {
+      "player_id": 106,
+      "web_name": "Thiago",
+      "team_name": "Brentford",
+      "position": "Forward",
+      "price": 7.9,
+      "expected_points_next_1": 4.208
+    },
+    {
+      "player_id": 40,
+      "web_name": "Rogers",
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 7.7,
+      "expected_points_next_1": 4.165
+    },
+    {
+      "player_id": 346,
+      "web_name": "Calvert-Lewin",
+      "team_name": "Leeds",
+      "position": "Forward",
+      "price": 6.0,
+      "expected_points_next_1": 4.162
+    },
+    {
+      "player_id": 94,
+      "web_name": "Schade",
+      "team_name": "Brentford",
+      "position": "Midfielder",
+      "price": 6.0,
+      "expected_points_next_1": 4.148
+    },
+    {
+      "player_id": 472,
+      "web_name": "Murillo",
+      "team_name": "Nott'm Forest",
+      "position": "Defender",
+      "price": 5.5,
+      "expected_points_next_1": 4.135
     }
   ],
   "top_next_three_gameweeks": [
@@ -231,7 +231,7 @@
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.5,
-      "expected_points_next_3": 18.572
+      "expected_points_next_3": 19.15
     },
     {
       "player_id": 426,
@@ -239,23 +239,7 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 12.0,
-      "expected_points_next_3": 17.673
-    },
-    {
-      "player_id": 427,
-      "web_name": "Mbeumo",
-      "team_name": "Man Utd",
-      "position": "Midfielder",
-      "price": 7.9,
-      "expected_points_next_3": 15.407
-    },
-    {
-      "player_id": 388,
-      "web_name": "Gu\u00e9hi",
-      "team_name": "Man City",
-      "position": "Defender",
-      "price": 6.0,
-      "expected_points_next_3": 14.673
+      "expected_points_next_3": 16.935
     },
     {
       "player_id": 12,
@@ -263,15 +247,23 @@
       "team_name": "Arsenal",
       "position": "Midfielder",
       "price": 9.5,
-      "expected_points_next_3": 14.157
+      "expected_points_next_3": 15.388
     },
     {
-      "player_id": 68,
-      "web_name": "Tavernier",
-      "team_name": "Bournemouth",
+      "player_id": 427,
+      "web_name": "Mbeumo",
+      "team_name": "Man Utd",
       "position": "Midfielder",
-      "price": 6.1,
-      "expected_points_next_3": 13.837
+      "price": 7.9,
+      "expected_points_next_3": 15.002
+    },
+    {
+      "player_id": 388,
+      "web_name": "Gu\u00e9hi",
+      "team_name": "Man City",
+      "position": "Defender",
+      "price": 6.0,
+      "expected_points_next_3": 14.568
     },
     {
       "player_id": 480,
@@ -279,23 +271,15 @@
       "team_name": "Nott'm Forest",
       "position": "Midfielder",
       "price": 7.9,
-      "expected_points_next_3": 13.823
+      "expected_points_next_3": 14.437
     },
     {
-      "player_id": 4,
-      "web_name": "Gabriel",
-      "team_name": "Arsenal",
-      "position": "Defender",
-      "price": 8.0,
-      "expected_points_next_3": 13.605
-    },
-    {
-      "player_id": 165,
-      "web_name": "Jo\u00e3o Pedro",
-      "team_name": "Chelsea",
-      "position": "Forward",
-      "price": 7.8,
-      "expected_points_next_3": 13.268
+      "player_id": 68,
+      "web_name": "Tavernier",
+      "team_name": "Bournemouth",
+      "position": "Midfielder",
+      "price": 6.1,
+      "expected_points_next_3": 14.375
     },
     {
       "player_id": 229,
@@ -303,47 +287,23 @@
       "team_name": "Everton",
       "position": "Defender",
       "price": 6.1,
-      "expected_points_next_3": 13.267
+      "expected_points_next_3": 13.982
     },
     {
-      "player_id": 106,
-      "web_name": "Thiago",
-      "team_name": "Brentford",
-      "position": "Forward",
-      "price": 7.9,
-      "expected_points_next_3": 12.813
-    },
-    {
-      "player_id": 368,
-      "web_name": "Szoboszlai",
-      "team_name": "Liverpool",
-      "position": "Midfielder",
-      "price": 7.0,
-      "expected_points_next_3": 12.528
-    },
-    {
-      "player_id": 397,
-      "web_name": "Semenyo",
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 8.4,
-      "expected_points_next_3": 12.362
-    },
-    {
-      "player_id": 481,
-      "web_name": "Anderson",
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 6.3,
-      "expected_points_next_3": 12.305
-    },
-    {
-      "player_id": 40,
-      "web_name": "Rogers",
+      "player_id": 165,
+      "web_name": "Jo\u00e3o Pedro",
       "team_name": "Chelsea",
-      "position": "Midfielder",
-      "price": 7.7,
-      "expected_points_next_3": 12.185
+      "position": "Forward",
+      "price": 7.8,
+      "expected_points_next_3": 13.918
+    },
+    {
+      "player_id": 4,
+      "web_name": "Gabriel",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 8.0,
+      "expected_points_next_3": 13.04
     },
     {
       "player_id": 69,
@@ -351,31 +311,7 @@
       "team_name": "Bournemouth",
       "position": "Midfielder",
       "price": 6.1,
-      "expected_points_next_3": 12.172
-    },
-    {
-      "player_id": 542,
-      "web_name": "E.Le F\u00e9e",
-      "team_name": "Sunderland",
-      "position": "Midfielder",
-      "price": 5.8,
-      "expected_points_next_3": 11.873
-    },
-    {
-      "player_id": 236,
-      "web_name": "Dewsbury-Hall",
-      "team_name": "Everton",
-      "position": "Midfielder",
-      "price": 6.5,
-      "expected_points_next_3": 11.865
-    },
-    {
-      "player_id": 13,
-      "web_name": "Rice",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 7.4,
-      "expected_points_next_3": 11.85
+      "expected_points_next_3": 12.872
     },
     {
       "player_id": 154,
@@ -383,7 +319,71 @@
       "team_name": "Chelsea",
       "position": "Midfielder",
       "price": 9.7,
-      "expected_points_next_3": 11.848
+      "expected_points_next_3": 12.655
+    },
+    {
+      "player_id": 368,
+      "web_name": "Szoboszlai",
+      "team_name": "Liverpool",
+      "position": "Midfielder",
+      "price": 7.0,
+      "expected_points_next_3": 12.652
+    },
+    {
+      "player_id": 40,
+      "web_name": "Rogers",
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 7.7,
+      "expected_points_next_3": 12.557
+    },
+    {
+      "player_id": 94,
+      "web_name": "Schade",
+      "team_name": "Brentford",
+      "position": "Midfielder",
+      "price": 6.0,
+      "expected_points_next_3": 12.477
+    },
+    {
+      "player_id": 106,
+      "web_name": "Thiago",
+      "team_name": "Brentford",
+      "position": "Forward",
+      "price": 7.9,
+      "expected_points_next_3": 12.372
+    },
+    {
+      "player_id": 481,
+      "web_name": "Anderson",
+      "team_name": "Man City",
+      "position": "Midfielder",
+      "price": 6.3,
+      "expected_points_next_3": 12.315
+    },
+    {
+      "player_id": 542,
+      "web_name": "E.Le F\u00e9e",
+      "team_name": "Sunderland",
+      "position": "Midfielder",
+      "price": 5.8,
+      "expected_points_next_3": 12.3
+    },
+    {
+      "player_id": 469,
+      "web_name": "N.Williams",
+      "team_name": "Nott'm Forest",
+      "position": "Defender",
+      "price": 5.0,
+      "expected_points_next_3": 12.105
+    },
+    {
+      "player_id": 112,
+      "web_name": "Van Hecke",
+      "team_name": "Spurs",
+      "position": "Defender",
+      "price": 4.9,
+      "expected_points_next_3": 12.093
     }
   ],
   "component_top_next_gameweek": [
@@ -393,7 +393,7 @@
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.5,
-      "component_expected_points_next_1": 5.075
+      "component_expected_points_next_1": 5.743
     },
     {
       "player_id": 426,
@@ -401,15 +401,7 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 12.0,
-      "component_expected_points_next_1": 4.413
-    },
-    {
-      "player_id": 427,
-      "web_name": "Mbeumo",
-      "team_name": "Man Utd",
-      "position": "Midfielder",
-      "price": 7.9,
-      "component_expected_points_next_1": 4.247
+      "component_expected_points_next_1": 4.492
     },
     {
       "player_id": 480,
@@ -417,23 +409,15 @@
       "team_name": "Nott'm Forest",
       "position": "Midfielder",
       "price": 7.9,
-      "component_expected_points_next_1": 4.11
+      "component_expected_points_next_1": 4.482
     },
     {
-      "player_id": 388,
-      "web_name": "Gu\u00e9hi",
-      "team_name": "Man City",
-      "position": "Defender",
-      "price": 6.0,
-      "component_expected_points_next_1": 4.033
-    },
-    {
-      "player_id": 68,
-      "web_name": "Tavernier",
-      "team_name": "Bournemouth",
+      "player_id": 427,
+      "web_name": "Mbeumo",
+      "team_name": "Man Utd",
       "position": "Midfielder",
-      "price": 6.1,
-      "component_expected_points_next_1": 3.858
+      "price": 7.9,
+      "component_expected_points_next_1": 4.417
     },
     {
       "player_id": 12,
@@ -441,47 +425,15 @@
       "team_name": "Arsenal",
       "position": "Midfielder",
       "price": 9.5,
-      "component_expected_points_next_1": 3.495
+      "component_expected_points_next_1": 4.315
     },
     {
-      "player_id": 165,
-      "web_name": "Jo\u00e3o Pedro",
-      "team_name": "Chelsea",
-      "position": "Forward",
-      "price": 7.8,
-      "component_expected_points_next_1": 3.428
-    },
-    {
-      "player_id": 472,
-      "web_name": "Murillo",
-      "team_name": "Nott'm Forest",
-      "position": "Defender",
-      "price": 5.5,
-      "component_expected_points_next_1": 3.38
-    },
-    {
-      "player_id": 229,
-      "web_name": "Tarkowski",
-      "team_name": "Everton",
-      "position": "Defender",
+      "player_id": 68,
+      "web_name": "Tavernier",
+      "team_name": "Bournemouth",
+      "position": "Midfielder",
       "price": 6.1,
-      "component_expected_points_next_1": 3.355
-    },
-    {
-      "player_id": 249,
-      "web_name": "Barry",
-      "team_name": "Everton",
-      "position": "Forward",
-      "price": 5.6,
-      "component_expected_points_next_1": 3.352
-    },
-    {
-      "player_id": 106,
-      "web_name": "Thiago",
-      "team_name": "Brentford",
-      "position": "Forward",
-      "price": 7.9,
-      "component_expected_points_next_1": 3.307
+      "component_expected_points_next_1": 4.142
     },
     {
       "player_id": 115,
@@ -489,15 +441,47 @@
       "team_name": "Brighton",
       "position": "Defender",
       "price": 4.8,
-      "component_expected_points_next_1": 3.305
+      "component_expected_points_next_1": 3.767
     },
     {
-      "player_id": 15,
-      "web_name": "\u00d8degaard",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 6.7,
-      "component_expected_points_next_1": 3.238
+      "player_id": 388,
+      "web_name": "Gu\u00e9hi",
+      "team_name": "Man City",
+      "position": "Defender",
+      "price": 6.0,
+      "component_expected_points_next_1": 3.76
+    },
+    {
+      "player_id": 249,
+      "web_name": "Barry",
+      "team_name": "Everton",
+      "position": "Forward",
+      "price": 5.6,
+      "component_expected_points_next_1": 3.755
+    },
+    {
+      "player_id": 229,
+      "web_name": "Tarkowski",
+      "team_name": "Everton",
+      "position": "Defender",
+      "price": 6.1,
+      "component_expected_points_next_1": 3.582
+    },
+    {
+      "player_id": 330,
+      "web_name": "Bogle",
+      "team_name": "Leeds",
+      "position": "Defender",
+      "price": 4.5,
+      "component_expected_points_next_1": 3.573
+    },
+    {
+      "player_id": 165,
+      "web_name": "Jo\u00e3o Pedro",
+      "team_name": "Chelsea",
+      "position": "Forward",
+      "price": 7.8,
+      "component_expected_points_next_1": 3.56
     },
     {
       "player_id": 154,
@@ -505,31 +489,15 @@
       "team_name": "Chelsea",
       "position": "Midfielder",
       "price": 9.7,
-      "component_expected_points_next_1": 3.235
+      "component_expected_points_next_1": 3.507
     },
     {
-      "player_id": 469,
-      "web_name": "N.Williams",
+      "player_id": 472,
+      "web_name": "Murillo",
       "team_name": "Nott'm Forest",
       "position": "Defender",
-      "price": 5.0,
-      "component_expected_points_next_1": 3.218
-    },
-    {
-      "player_id": 399,
-      "web_name": "Cherki",
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 7.8,
-      "component_expected_points_next_1": 3.207
-    },
-    {
-      "player_id": 449,
-      "web_name": "Hall",
-      "team_name": "Newcastle",
-      "position": "Defender",
-      "price": 5.2,
-      "component_expected_points_next_1": 3.2
+      "price": 5.5,
+      "component_expected_points_next_1": 3.487
     },
     {
       "player_id": 379,
@@ -537,7 +505,31 @@
       "team_name": "Liverpool",
       "position": "Forward",
       "price": 9.1,
-      "component_expected_points_next_1": 3.187
+      "component_expected_points_next_1": 3.467
+    },
+    {
+      "player_id": 447,
+      "web_name": "Botman",
+      "team_name": "Newcastle",
+      "position": "Defender",
+      "price": 5.0,
+      "component_expected_points_next_1": 3.44
+    },
+    {
+      "player_id": 469,
+      "web_name": "N.Williams",
+      "team_name": "Nott'm Forest",
+      "position": "Defender",
+      "price": 5.0,
+      "component_expected_points_next_1": 3.43
+    },
+    {
+      "player_id": 124,
+      "web_name": "Gro\u00df",
+      "team_name": "Brighton",
+      "position": "Midfielder",
+      "price": 5.6,
+      "component_expected_points_next_1": 3.425
     },
     {
       "player_id": 368,
@@ -545,7 +537,15 @@
       "team_name": "Liverpool",
       "position": "Midfielder",
       "price": 7.0,
-      "component_expected_points_next_1": 3.182
+      "component_expected_points_next_1": 3.403
+    },
+    {
+      "player_id": 346,
+      "web_name": "Calvert-Lewin",
+      "team_name": "Leeds",
+      "position": "Forward",
+      "price": 6.0,
+      "component_expected_points_next_1": 3.395
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -555,23 +555,7 @@
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.5,
-      "component_expected_points_next_3": 14.16
-    },
-    {
-      "player_id": 426,
-      "web_name": "B.Fernandes",
-      "team_name": "Man Utd",
-      "position": "Midfielder",
-      "price": 12.0,
-      "component_expected_points_next_3": 13.982
-    },
-    {
-      "player_id": 427,
-      "web_name": "Mbeumo",
-      "team_name": "Man Utd",
-      "position": "Midfielder",
-      "price": 7.9,
-      "component_expected_points_next_3": 12.975
+      "component_expected_points_next_3": 16.185
     },
     {
       "player_id": 12,
@@ -579,7 +563,23 @@
       "team_name": "Arsenal",
       "position": "Midfielder",
       "price": 9.5,
-      "component_expected_points_next_3": 11.91
+      "component_expected_points_next_3": 14.643
+    },
+    {
+      "player_id": 426,
+      "web_name": "B.Fernandes",
+      "team_name": "Man Utd",
+      "position": "Midfielder",
+      "price": 12.0,
+      "component_expected_points_next_3": 13.963
+    },
+    {
+      "player_id": 427,
+      "web_name": "Mbeumo",
+      "team_name": "Man Utd",
+      "position": "Midfielder",
+      "price": 7.9,
+      "component_expected_points_next_3": 13.715
     },
     {
       "player_id": 68,
@@ -587,15 +587,7 @@
       "team_name": "Bournemouth",
       "position": "Midfielder",
       "price": 6.1,
-      "component_expected_points_next_3": 11.307
-    },
-    {
-      "player_id": 388,
-      "web_name": "Gu\u00e9hi",
-      "team_name": "Man City",
-      "position": "Defender",
-      "price": 6.0,
-      "component_expected_points_next_3": 11.132
+      "component_expected_points_next_3": 12.275
     },
     {
       "player_id": 480,
@@ -603,23 +595,15 @@
       "team_name": "Nott'm Forest",
       "position": "Midfielder",
       "price": 7.9,
-      "component_expected_points_next_3": 11.033
+      "component_expected_points_next_3": 12.26
     },
     {
-      "player_id": 4,
-      "web_name": "Gabriel",
-      "team_name": "Arsenal",
+      "player_id": 388,
+      "web_name": "Gu\u00e9hi",
+      "team_name": "Man City",
       "position": "Defender",
-      "price": 8.0,
-      "component_expected_points_next_3": 10.74
-    },
-    {
-      "player_id": 165,
-      "web_name": "Jo\u00e3o Pedro",
-      "team_name": "Chelsea",
-      "position": "Forward",
-      "price": 7.8,
-      "component_expected_points_next_3": 10.69
+      "price": 6.0,
+      "component_expected_points_next_3": 11.43
     },
     {
       "player_id": 115,
@@ -627,31 +611,15 @@
       "team_name": "Brighton",
       "position": "Defender",
       "price": 4.8,
-      "component_expected_points_next_3": 10.443
+      "component_expected_points_next_3": 11.263
     },
     {
-      "player_id": 8,
-      "web_name": "Calafiori",
-      "team_name": "Arsenal",
-      "position": "Defender",
-      "price": 5.8,
-      "component_expected_points_next_3": 10.437
-    },
-    {
-      "player_id": 15,
-      "web_name": "\u00d8degaard",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 6.7,
-      "component_expected_points_next_3": 10.288
-    },
-    {
-      "player_id": 40,
-      "web_name": "Rogers",
+      "player_id": 165,
+      "web_name": "Jo\u00e3o Pedro",
       "team_name": "Chelsea",
-      "position": "Midfielder",
-      "price": 7.7,
-      "component_expected_points_next_3": 9.918
+      "position": "Forward",
+      "price": 7.8,
+      "component_expected_points_next_3": 11.157
     },
     {
       "player_id": 249,
@@ -659,31 +627,23 @@
       "team_name": "Everton",
       "position": "Forward",
       "price": 5.6,
-      "component_expected_points_next_3": 9.867
+      "component_expected_points_next_3": 11.098
     },
     {
-      "player_id": 368,
-      "web_name": "Szoboszlai",
-      "team_name": "Liverpool",
+      "player_id": 4,
+      "web_name": "Gabriel",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 8.0,
+      "component_expected_points_next_3": 10.888
+    },
+    {
+      "player_id": 124,
+      "web_name": "Gro\u00df",
+      "team_name": "Brighton",
       "position": "Midfielder",
-      "price": 7.0,
-      "component_expected_points_next_3": 9.825
-    },
-    {
-      "player_id": 154,
-      "web_name": "Palmer",
-      "team_name": "Chelsea",
-      "position": "Midfielder",
-      "price": 9.7,
-      "component_expected_points_next_3": 9.802
-    },
-    {
-      "player_id": 106,
-      "web_name": "Thiago",
-      "team_name": "Brentford",
-      "position": "Forward",
-      "price": 7.9,
-      "component_expected_points_next_3": 9.783
+      "price": 5.6,
+      "component_expected_points_next_3": 10.722
     },
     {
       "player_id": 542,
@@ -691,7 +651,23 @@
       "team_name": "Sunderland",
       "position": "Midfielder",
       "price": 5.8,
-      "component_expected_points_next_3": 9.615
+      "component_expected_points_next_3": 10.515
+    },
+    {
+      "player_id": 154,
+      "web_name": "Palmer",
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 9.7,
+      "component_expected_points_next_3": 10.513
+    },
+    {
+      "player_id": 15,
+      "web_name": "\u00d8degaard",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.7,
+      "component_expected_points_next_3": 10.473
     },
     {
       "player_id": 229,
@@ -699,15 +675,39 @@
       "team_name": "Everton",
       "position": "Defender",
       "price": 6.1,
-      "component_expected_points_next_3": 9.522
+      "component_expected_points_next_3": 10.432
     },
     {
-      "player_id": 449,
-      "web_name": "Hall",
-      "team_name": "Newcastle",
+      "player_id": 40,
+      "web_name": "Rogers",
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 7.7,
+      "component_expected_points_next_3": 10.308
+    },
+    {
+      "player_id": 8,
+      "web_name": "Calafiori",
+      "team_name": "Arsenal",
       "position": "Defender",
-      "price": 5.2,
-      "component_expected_points_next_3": 9.513
+      "price": 5.8,
+      "component_expected_points_next_3": 10.302
+    },
+    {
+      "player_id": 379,
+      "web_name": "Isak",
+      "team_name": "Liverpool",
+      "position": "Forward",
+      "price": 9.1,
+      "component_expected_points_next_3": 10.273
+    },
+    {
+      "player_id": 368,
+      "web_name": "Szoboszlai",
+      "team_name": "Liverpool",
+      "position": "Midfielder",
+      "price": 7.0,
+      "component_expected_points_next_3": 10.033
     }
   ],
   "prediction_snapshot_created": null,
@@ -715,7 +715,7 @@
   "prospective_evaluated_gameweeks": 2,
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
-  "gameweek_report_material_change": false,
+  "gameweek_report_material_change": true,
   "gameweek_report_warning_count": 2,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
