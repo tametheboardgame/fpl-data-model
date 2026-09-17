@@ -61,6 +61,27 @@ def derive_free_transfer_state(
         for row in (current_rows or [])
         if integer(row.get("event"))
     }
+    if integer(target_gameweek) > 1:
+        missing_events = [
+            gameweek
+            for gameweek in range(1, integer(target_gameweek))
+            if gameweek not in rows
+        ]
+        if missing_events:
+            return {
+                "status": "current_history_incomplete",
+                "target_gameweek": target_gameweek,
+                "available": 0,
+                "maximum": maximum,
+                "hit_cost": hit_cost,
+                "missing_gameweeks": missing_events,
+                "calculation": (
+                    "Current-season manager history is incomplete; free-transfer advice "
+                    "fails closed and assumes no free transfers until official history is complete."
+                ),
+                "trace": [],
+            }
+
     chip_by_event = {
         integer(row.get("event")): str(row.get("name"))
         for row in history.get("chips", [])
