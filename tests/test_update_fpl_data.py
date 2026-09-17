@@ -81,7 +81,15 @@ class TransformTests(unittest.TestCase):
             "summary_event_points": 7,
         }
         self.history = {
-            "current": [{"event": 1, "points": 7, "total_points": 7}],
+            "current": [
+                {
+                    "event": 1,
+                    "points": 7,
+                    "total_points": 7,
+                    "event_transfers": 1,
+                    "event_transfers_cost": 0,
+                }
+            ],
             "past": [{"season_name": "2025/26", "total_points": 7, "rank": 500}],
             "chips": [{"name": "3xc", "event": 1}],
         }
@@ -137,6 +145,17 @@ class TransformTests(unittest.TestCase):
             my_team = json.loads((output / "chatgpt" / "my_team.json").read_text())
             self.assertEqual(my_team["team_name"], "Test XI")
             self.assertEqual(my_team["squad"][0]["web_name"], "Example")
+
+            manager_history = json.loads(
+                (output / "chatgpt" / "manager_history.json").read_text()
+            )
+            self.assertEqual(
+                set(manager_history), {"current", "past_seasons", "chips"}
+            )
+            self.assertEqual(manager_history["current"], self.history["current"])
+            self.assertEqual(manager_history["past_seasons"], self.history["past"])
+            self.assertEqual(manager_history["chips"], self.history["chips"])
+            self.assertEqual(manager_history["current"][0]["event_transfers"], 1)
 
             with (output / "chatgpt" / "players.csv").open(newline="") as handle:
                 rows = list(csv.DictReader(handle))

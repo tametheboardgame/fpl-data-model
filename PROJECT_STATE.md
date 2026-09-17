@@ -2,7 +2,7 @@
 
 This file is the fresh-chat handoff for the repository. Read it before starting new model-development work.
 
-Last updated: 2026-09-06
+Last updated: 2026-09-17
 Repository: `tametheboardgame/fpl-data-model`
 FPL team ID: `39395`
 Season: `2026/27`
@@ -62,6 +62,7 @@ PR #45 made this rejection sticky. Do not allow recurring development backtests 
 - PR #47 / FPL-22A: one current-GW captain authority, so the displayed captain is the player whose mean return is doubled in route/report xPts.
 - PR #48 / FPL-22B: one shared `strategic-captain-1.0` utility drives weekly current-GW captaincy, first actionable route GW, Wildcard target-GW captaincy, target-GW Triple Captain and current-GW Free Hit captaincy.
 - PR #50 / FPL-22D: user-facing model-policy text now comes from the sticky production policy; captain/vice strategic utility is auditable separately from mean xPts.
+- PR #54 hotfix: current-season official manager history is retained for free-transfer replay; missing or incomplete current-season history fails closed rather than silently creating free transfers.
 
 ## FPL-22A completion record
 
@@ -136,7 +137,7 @@ PR #50 — `Make production policy and captain audits explicit` — is **COMPLET
 Landed behaviour:
 
 - `projection_summary.json` method/limitations are generated from the sticky production policy rather than a development candidate;
-- live model, policy status, challenger mode and live weights are exposed explicitly;
+- live model, policy status, challenger mode/status and production weights are exposed explicitly;
 - stale wording that described the rejected ensemble as production has been removed from live summaries;
 - current-GW captain utility audits expose mean input, bounded ceiling/haul/rank contributions, minutes/availability context and selection basis;
 - operational captain and vice audits explicitly state that strategic bonuses are not expected points;
@@ -158,6 +159,22 @@ Validation evidence:
 - post-merge model-output commit: `ec5b074c517f1dd5b7188c18c5e9f567225f6870`.
 
 Permanent invariant: strategic captain utility selects who is doubled; displayed and route expected points remain mean xPts only.
+
+## Free-transfer reconstruction hotfix
+
+PR #54 fixes an operational data-contract defect discovered during the GW5 review. Raw official FPL history correctly recorded two zero-cost GW4 transfers, but `manager_history.json` dropped the current-season history rows before the decision layer replayed free transfers. That caused production to report three GW5 free transfers instead of one.
+
+The hotfix:
+
+- retains `current`, `past_seasons` and `chips` in the manager-history decision dataset;
+- replays free transfers from the retained official current-season history;
+- preserves banked free transfers across Wildcard/Free Hit use according to configured rules;
+- fails closed with zero assumed free transfers when required current-season history is missing or incomplete;
+- includes regression coverage for the sequence GW1 no transfers, GW2 no transfers, GW3 Wildcard, GW4 two free transfers used, producing exactly one free transfer for GW5;
+- verifies a second transfer from that state costs four points;
+- does not alter player projections, captaincy logic or production-model governance.
+
+Permanent invariant: a transfer route must never be presented as free unless its free-transfer state can be reconstructed from complete retained official current-season manager history.
 
 ## Important research conclusions already reached
 

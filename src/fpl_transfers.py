@@ -31,18 +31,62 @@ def derive_free_transfer_state(
     maximum = integer(transfer_rules.get("maximum_free_transfers")) or 5
     hit_cost = integer(transfer_rules.get("hit_cost")) or 4
     history = manager_history or {}
+    current_rows = history.get("current")
+
+    if target_gameweek is None:
+        if isinstance(current_rows, list) and current_rows:
+            target_gameweek = max(
+                (integer(row.get("event")) for row in current_rows),
+                default=0,
+            ) + 1
+        else:
+            target_gameweek = 1
+
+    if integer(target_gameweek) > 1 and not isinstance(current_rows, list):
+        return {
+            "status": "current_history_missing",
+            "target_gameweek": target_gameweek,
+            "available": 0,
+            "maximum": maximum,
+            "hit_cost": hit_cost,
+            "calculation": (
+                "Current-season manager history is missing; free-transfer advice "
+                "fails closed and assumes no free transfers until official history is restored."
+            ),
+            "trace": [],
+        }
+
     rows = {
         integer(row.get("event")): row
-        for row in history.get("current", [])
+        for row in (current_rows or [])
         if integer(row.get("event"))
     }
+    if integer(target_gameweek) > 1:
+        missing_events = [
+            gameweek
+            for gameweek in range(1, integer(target_gameweek))
+            if gameweek not in rows
+        ]
+        if missing_events:
+            return {
+                "status": "current_history_incomplete",
+                "target_gameweek": target_gameweek,
+                "available": 0,
+                "maximum": maximum,
+                "hit_cost": hit_cost,
+                "missing_gameweeks": missing_events,
+                "calculation": (
+                    "Current-season manager history is incomplete; free-transfer advice "
+                    "fails closed and assumes no free transfers until official history is complete."
+                ),
+                "trace": [],
+            }
+
     chip_by_event = {
         integer(row.get("event")): str(row.get("name"))
         for row in history.get("chips", [])
         if integer(row.get("event"))
     }
-    if not target_gameweek:
-        target_gameweek = max(rows, default=0) + 1 if rows else 1
 
     available = 0
     trace: list[dict[str, Any]] = []
