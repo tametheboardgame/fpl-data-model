@@ -519,6 +519,7 @@ def build_datasets(
     write_json(
         chatgpt_dir / "manager_history.json",
         {
+            "current": history_rows,
             "past_seasons": (history or {}).get("past", []),
             "chips": (history or {}).get("chips", []),
         },
