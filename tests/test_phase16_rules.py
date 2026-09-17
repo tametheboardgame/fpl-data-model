@@ -107,6 +107,24 @@ class ChipAndTransferRuleTests(unittest.TestCase):
         self.assertEqual(transfer_hit_cost(1, state["available"]), 4)
         self.assertEqual(transfer_hit_cost(2, state["available"]), 8)
 
+    def test_incomplete_current_history_fails_closed(self) -> None:
+        state = derive_free_transfer_state(
+            {
+                "current": [
+                    {"event": 1, "event_transfers": 0, "event_transfers_cost": 0},
+                    {"event": 2, "event_transfers": 0, "event_transfers_cost": 0},
+                    {"event": 4, "event_transfers": 2, "event_transfers_cost": 0},
+                ],
+                "chips": [{"name": "wildcard", "event": 3}],
+            },
+            5,
+            self.rules,
+        )
+        self.assertEqual(state["status"], "current_history_incomplete")
+        self.assertEqual(state["available"], 0)
+        self.assertEqual(state["missing_gameweeks"], [3])
+        self.assertEqual(transfer_hit_cost(1, state["available"]), 4)
+
 
 class FinalityTests(unittest.TestCase):
     def test_external_signals_wait_for_finished_and_checked_event(self) -> None:
