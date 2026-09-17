@@ -6,7 +6,7 @@ This is the executable roadmap for fresh ChatGPT project chats. Pair it with `PR
 
 Use one of these commands:
 
-- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below. **As of 2026-09-06 this resolves to FPL-22E.**
+- `Start FPL-NEXT` — inspect GitHub and continue the first incomplete phase below. **As of 2026-09-17 this resolves to FPL-22E.**
 - `Start FPL-22E` — fresh actionable-Gameweek reassessment after the engineering phases are green.
 
 A requested phase must not bypass incomplete prerequisites. Always read `PROJECT_STATE.md`, re-check current GitHub/CI state, and update both handoff files after material progress.
@@ -169,6 +169,30 @@ Production governance text must reflect the sticky production policy, and strate
 
 ---
 
+## Operational hotfix — Free-transfer history reconstruction
+
+**Status: COMPLETE IN PR #54 — 2026-09-17**
+
+### Goal
+
+Ensure weekly transfer optimisation uses David's actual official free-transfer state rather than silently reconstructing missing current-season transfer history as zero transfers.
+
+### Fix
+
+- retain `current`, `past_seasons` and `chips` in `data/chatgpt/manager_history.json`;
+- replay free transfers from official current-season `event_transfers`, hit costs and transfer-chip use;
+- preserve banked free transfers through Wildcard/Free Hit according to the configured rules;
+- fail closed with zero assumed free transfers when required current-season history is missing or incomplete;
+- regression-test the GW1/GW2 no-transfer, GW3 Wildcard, GW4 two-free-transfer sequence so GW5 resolves to exactly one free transfer;
+- verify a second transfer from that state costs four points;
+- leave `player-sim-2.0`, captaincy and challenger governance unchanged.
+
+### Permanent invariant
+
+A transfer route must never be presented as free unless its free-transfer state is reconstructable from complete retained official current-season manager history.
+
+---
+
 ## FPL-22E — Fresh actionable-Gameweek reassessment
 
 **Status: NEXT / ACTIVE ROADMAP ITEM**
@@ -222,4 +246,5 @@ Across all future phases:
 - no unfinished fixture rows as completed form/usage evidence;
 - no rejected challenger influencing production selections;
 - no strategic utility added to mean expected-points accounting;
+- free-transfer state must come from complete retained official current-season manager history and fail closed when unavailable;
 - every model promotion must be auditable and reversible.
