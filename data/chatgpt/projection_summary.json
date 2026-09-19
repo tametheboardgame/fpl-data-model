@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T16:06:51+00:00",
+  "generated_at": "2026-09-19T20:44:40+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -48,15 +48,15 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
-  "player_feature_rows": 662,
+  "player_feature_rows": 667,
   "team_feature_rows": 20,
   "raw_fixture_history_rows": 3211,
   "completed_fixture_history_rows": 2549,
-  "fixture_projection_rows": 3972,
-  "player_horizon_rows": 662,
+  "fixture_projection_rows": 4002,
+  "player_horizon_rows": 667,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 22440,
-  "active_external_context_signal_rows": 5672,
+  "active_external_context_signal_rows": 3936,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -524,6 +524,14 @@
       "component_expected_points_next_1": 3.387
     },
     {
+      "player_id": 586,
+      "web_name": "Mendy",
+      "team_name": "Hull City",
+      "position": "Defender",
+      "price": 4.1,
+      "component_expected_points_next_1": 3.352
+    },
+    {
       "player_id": 379,
       "web_name": "Isak",
       "team_name": "Liverpool",
@@ -538,14 +546,6 @@
       "position": "Defender",
       "price": 4.0,
       "component_expected_points_next_1": 3.337
-    },
-    {
-      "player_id": 304,
-      "web_name": "O'Shea",
-      "team_name": "Ipswich Town",
-      "position": "Defender",
-      "price": 4.0,
-      "component_expected_points_next_1": 3.317
     }
   ],
   "component_top_next_three_gameweeks": [
