@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T21:18:14+00:00",
+  "generated_at": "2026-09-19T04:41:56+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -48,15 +48,15 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
-  "player_feature_rows": 659,
+  "player_feature_rows": 662,
   "team_feature_rows": 20,
   "raw_fixture_history_rows": 2549,
   "completed_fixture_history_rows": 2549,
-  "fixture_projection_rows": 3954,
-  "player_horizon_rows": 659,
+  "fixture_projection_rows": 3972,
+  "player_horizon_rows": 662,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 22000,
-  "active_external_context_signal_rows": 6072,
+  "active_external_context_signal_rows": 5664,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -132,7 +132,7 @@
       "web_name": "E.Le F\u00e9e",
       "team_name": "Sunderland",
       "position": "Midfielder",
-      "price": 5.8,
+      "price": 5.7,
       "expected_points_next_1": 4.617
     },
     {
@@ -204,7 +204,7 @@
       "web_name": "Dewsbury-Hall",
       "team_name": "Everton",
       "position": "Midfielder",
-      "price": 6.5,
+      "price": 6.6,
       "expected_points_next_1": 4.035
     },
     {
@@ -294,7 +294,7 @@
       "web_name": "E.Le F\u00e9e",
       "team_name": "Sunderland",
       "position": "Midfielder",
-      "price": 5.8,
+      "price": 5.7,
       "expected_points_next_3": 13.218
     },
     {
@@ -480,7 +480,7 @@
       "web_name": "E.Le F\u00e9e",
       "team_name": "Sunderland",
       "position": "Midfielder",
-      "price": 5.8,
+      "price": 5.7,
       "component_expected_points_next_1": 3.71
     },
     {
@@ -610,7 +610,7 @@
       "web_name": "E.Le F\u00e9e",
       "team_name": "Sunderland",
       "position": "Midfielder",
-      "price": 5.8,
+      "price": 5.7,
       "component_expected_points_next_3": 11.582
     },
     {
