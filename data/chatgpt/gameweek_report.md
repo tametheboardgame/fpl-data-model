@@ -1,9 +1,9 @@
 # FPL Gameweek 6 Deadline Report
 
 Status: review_required
-Generated: 2026-09-20T16:32:17+00:00
+Generated: 2026-09-20T20:52:48+00:00
 UK deadline: 2026-10-10T11:00:00+01:00
-Hours remaining: 473.462
+Hours remaining: 469.12
 Advice level: blocked
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.314 xPts)
+- Verbruggen (Brighton, 3.282 xPts)
 - Tarkowski (Everton, 4.942 xPts)
-- Guéhi (Man City, 4.382 xPts)
-- Konsa (Arsenal, 3.011 xPts)
-- B.Fernandes (Man Utd, 5.974 xPts)
-- Tavernier (Bournemouth, 4.645 xPts)
-- Haaland (Man City, 5.943 xPts)
-- Szoboszlai (Liverpool, 4.149 xPts)
-- Scott (Bournemouth, 4.073 xPts)
-- Thiago (Brentford, 3.932 xPts)
-- João Pedro (Chelsea, 3.53 xPts)
+- Guéhi (Man City, 4.372 xPts)
+- Konsa (Arsenal, 2.97 xPts)
+- B.Fernandes (Man Utd, 5.945 xPts)
+- Tavernier (Bournemouth, 4.647 xPts)
+- Haaland (Man City, 5.922 xPts)
+- Szoboszlai (Liverpool, 4.154 xPts)
+- Scott (Bournemouth, 4.077 xPts)
+- Thiago (Brentford, 3.947 xPts)
+- João Pedro (Chelsea, 3.489 xPts)
 
-Captain: Haaland (5.943 mean xPts; strategic score 7.1068)
-Vice-captain: B.Fernandes (5.974 mean xPts; strategic score 6.7973)
+Captain: Haaland (5.922 mean xPts; strategic score 7.0848)
+Vice-captain: B.Fernandes (5.945 mean xPts; strategic score 6.762)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Thomas (2.895 xPts)
-2. Egan (2.318 xPts)
-3. Slater (2.198 xPts)
-4. Steele (0.239 xPts)
+1. Thomas (2.954 xPts)
+2. Egan (2.34 xPts)
+3. Slater (2.206 xPts)
+4. Steele (0.236 xPts)
 
 ## Changes since previous report
 
@@ -48,7 +48,7 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 - [HIGH] João Pedro has an availability flag (75% chance): Knee injury - 75% chance of playing.
 - [LOW] The starting XI contains negatively correlated opposing players: Guéhi / Szoboszlai. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 18504 external-context signals have expired and are excluded.
+- [LOW] 20360 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 
