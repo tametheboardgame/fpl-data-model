@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T13:24:31+00:00",
+  "generated_at": "2026-09-21T22:01:32+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -120,14 +120,6 @@
       "expected_points_next_1": 4.703
     },
     {
-      "player_id": 154,
-      "web_name": "Palmer",
-      "team_name": "Chelsea",
-      "position": "Midfielder",
-      "price": 9.7,
-      "expected_points_next_1": 4.635
-    },
-    {
       "player_id": 8,
       "web_name": "Calafiori",
       "team_name": "Arsenal",
@@ -222,6 +214,14 @@
       "position": "Midfielder",
       "price": 6.1,
       "expected_points_next_1": 4.127
+    },
+    {
+      "player_id": 15,
+      "web_name": "\u00d8degaard",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.8,
+      "expected_points_next_1": 4.082
     }
   ],
   "top_next_three_gameweeks": [
@@ -288,14 +288,6 @@
       "position": "Defender",
       "price": 6.1,
       "expected_points_next_3": 13.672
-    },
-    {
-      "player_id": 154,
-      "web_name": "Palmer",
-      "team_name": "Chelsea",
-      "position": "Midfielder",
-      "price": 9.7,
-      "expected_points_next_3": 13.46
     },
     {
       "player_id": 542,
@@ -384,6 +376,14 @@
       "position": "Defender",
       "price": 5.0,
       "expected_points_next_3": 12.198
+    },
+    {
+      "player_id": 346,
+      "web_name": "Calvert-Lewin",
+      "team_name": "Leeds",
+      "position": "Forward",
+      "price": 6.0,
+      "expected_points_next_3": 12.168
     }
   ],
   "component_top_next_gameweek": [
@@ -508,14 +508,6 @@
       "component_expected_points_next_1": 3.712
     },
     {
-      "player_id": 154,
-      "web_name": "Palmer",
-      "team_name": "Chelsea",
-      "position": "Midfielder",
-      "price": 9.7,
-      "component_expected_points_next_1": 3.7
-    },
-    {
       "player_id": 449,
       "web_name": "Hall",
       "team_name": "Newcastle",
@@ -546,6 +538,14 @@
       "position": "Defender",
       "price": 5.5,
       "component_expected_points_next_1": 3.547
+    },
+    {
+      "player_id": 173,
+      "web_name": "Thomas",
+      "team_name": "Coventry City",
+      "position": "Defender",
+      "price": 4.0,
+      "component_expected_points_next_1": 3.525
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -678,14 +678,6 @@
       "component_expected_points_next_3": 10.713
     },
     {
-      "player_id": 154,
-      "web_name": "Palmer",
-      "team_name": "Chelsea",
-      "position": "Midfielder",
-      "price": 9.7,
-      "component_expected_points_next_3": 10.567
-    },
-    {
       "player_id": 249,
       "web_name": "Barry",
       "team_name": "Everton",
@@ -708,14 +700,22 @@
       "position": "Forward",
       "price": 7.8,
       "component_expected_points_next_3": 10.412
+    },
+    {
+      "player_id": 472,
+      "web_name": "Murillo",
+      "team_name": "Nott'm Forest",
+      "position": "Defender",
+      "price": 5.5,
+      "component_expected_points_next_3": 10.358
     }
   ],
   "prediction_snapshot_created": null,
-  "evaluated_gameweeks": 4,
-  "prospective_evaluated_gameweeks": 3,
+  "evaluated_gameweeks": 5,
+  "prospective_evaluated_gameweeks": 4,
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
-  "gameweek_report_material_change": false,
+  "gameweek_report_material_change": true,
   "gameweek_report_warning_count": 4,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
@@ -726,7 +726,7 @@
     "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
     "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly."
   ],
-  "evaluated_external_context_signals": 15928,
+  "evaluated_external_context_signals": 20360,
   "chip_state_status": "ready",
   "free_transfer_state_status": "ready"
 }
