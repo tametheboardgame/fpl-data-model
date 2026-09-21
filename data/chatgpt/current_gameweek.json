@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-09-21T04:59:06+00:00",
+  "generated_at": "2026-09-21T12:52:38+00:00",
   "current": {
     "id": 5,
     "name": "Gameweek 5",
     "deadline_time": "2026-09-18T17:30:00Z",
     "release_time": null,
-    "average_entry_score": 44,
+    "average_entry_score": 48,
     "finished": false,
     "data_checked": false,
-    "highest_scoring_entry": 2581517,
+    "highest_scoring_entry": 2727735,
     "deadline_time_epoch": 1789752600,
     "deadline_time_game_offset": 0,
-    "highest_score": 124,
+    "highest_score": 126,
     "is_previous": false,
     "is_current": true,
     "is_next": false,
@@ -20,7 +20,7 @@
     "can_enter": false,
     "can_manage": false,
     "released": true,
-    "ranked_count": 10833802,
+    "ranked_count": 10833606,
     "overrides": {
       "rules": {},
       "scoring": {},
@@ -83,12 +83,29 @@
       "element_types": [],
       "pick_multiplier": null
     },
-    "chip_plays": [],
+    "chip_plays": [
+      {
+        "chip_name": "bboost",
+        "num_played": 43906
+      },
+      {
+        "chip_name": "freehit",
+        "num_played": 41611
+      },
+      {
+        "chip_name": "wildcard",
+        "num_played": 198822
+      },
+      {
+        "chip_name": "3xc",
+        "num_played": 33070
+      }
+    ],
     "most_selected": null,
     "most_transferred_in": null,
     "top_element": null,
     "top_element_info": null,
-    "transfers_made": 0,
+    "transfers_made": 4611571,
     "most_captained": null,
     "most_vice_captained": null
   }
