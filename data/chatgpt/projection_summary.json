@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T13:53:03+00:00",
+  "generated_at": "2026-10-09T22:42:13+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -56,7 +56,7 @@
   "player_horizon_rows": 667,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 33256,
-  "active_external_context_signal_rows": 8160,
+  "active_external_context_signal_rows": 8000,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -118,6 +118,14 @@
       "position": "Midfielder",
       "price": 8.0,
       "expected_points_next_1": 4.703
+    },
+    {
+      "player_id": 154,
+      "web_name": "Palmer",
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 9.7,
+      "expected_points_next_1": 4.635
     },
     {
       "player_id": 106,
@@ -214,14 +222,6 @@
       "position": "Goalkeeper",
       "price": 5.0,
       "expected_points_next_1": 4.072
-    },
-    {
-      "player_id": 368,
-      "web_name": "Szoboszlai",
-      "team_name": "Liverpool",
-      "position": "Midfielder",
-      "price": 6.9,
-      "expected_points_next_1": 4.005
     }
   ],
   "top_next_three_gameweeks": [
@@ -280,6 +280,14 @@
       "position": "Defender",
       "price": 6.2,
       "expected_points_next_3": 13.672
+    },
+    {
+      "player_id": 154,
+      "web_name": "Palmer",
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 9.7,
+      "expected_points_next_3": 13.545
     },
     {
       "player_id": 68,
@@ -376,14 +384,6 @@
       "position": "Midfielder",
       "price": 5.9,
       "expected_points_next_3": 12.18
-    },
-    {
-      "player_id": 346,
-      "web_name": "Calvert-Lewin",
-      "team_name": "Leeds",
-      "position": "Forward",
-      "price": 6.0,
-      "expected_points_next_3": 12.168
     }
   ],
   "component_top_next_gameweek": [
@@ -492,6 +492,14 @@
       "component_expected_points_next_1": 3.71
     },
     {
+      "player_id": 154,
+      "web_name": "Palmer",
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 9.7,
+      "component_expected_points_next_1": 3.7
+    },
+    {
       "player_id": 449,
       "web_name": "Hall",
       "team_name": "Newcastle",
@@ -538,14 +546,6 @@
       "position": "Forward",
       "price": 6.0,
       "component_expected_points_next_1": 3.475
-    },
-    {
-      "player_id": 94,
-      "web_name": "Schade",
-      "team_name": "Brentford",
-      "position": "Midfielder",
-      "price": 6.2,
-      "component_expected_points_next_1": 3.443
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -646,6 +646,14 @@
       "component_expected_points_next_3": 11.01
     },
     {
+      "player_id": 154,
+      "web_name": "Palmer",
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 9.7,
+      "component_expected_points_next_3": 10.797
+    },
+    {
       "player_id": 106,
       "web_name": "Thiago",
       "team_name": "Brentford",
@@ -700,14 +708,6 @@
       "position": "Defender",
       "price": 6.2,
       "component_expected_points_next_3": 10.255
-    },
-    {
-      "player_id": 94,
-      "web_name": "Schade",
-      "team_name": "Brentford",
-      "position": "Midfielder",
-      "price": 6.2,
-      "component_expected_points_next_3": 10.192
     }
   ],
   "prediction_snapshot_created": null,
