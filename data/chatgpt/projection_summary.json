@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T13:06:45+00:00",
+  "generated_at": "2026-10-10T21:47:53+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -56,7 +56,7 @@
   "player_horizon_rows": 667,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 33728,
-  "active_external_context_signal_rows": 7992,
+  "active_external_context_signal_rows": 5488,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -208,20 +208,20 @@
       "expected_points_next_1": 4.153
     },
     {
-      "player_id": 94,
-      "web_name": "Schade",
-      "team_name": "Brentford",
-      "position": "Midfielder",
-      "price": 6.2,
-      "expected_points_next_1": 4.112
-    },
-    {
       "player_id": 335,
       "web_name": "Stach",
       "team_name": "Leeds",
       "position": "Midfielder",
       "price": 6.0,
       "expected_points_next_1": 4.085
+    },
+    {
+      "player_id": 61,
+      "web_name": "Truffert",
+      "team_name": "Bournemouth",
+      "position": "Defender",
+      "price": 5.4,
+      "expected_points_next_1": 4.07
     }
   ],
   "top_next_three_gameweeks": [
@@ -280,14 +280,6 @@
       "position": "Defender",
       "price": 8.0,
       "expected_points_next_3": 13.662
-    },
-    {
-      "player_id": 94,
-      "web_name": "Schade",
-      "team_name": "Brentford",
-      "position": "Midfielder",
-      "price": 6.2,
-      "expected_points_next_3": 13.495
     },
     {
       "player_id": 388,
@@ -384,6 +376,14 @@
       "position": "Midfielder",
       "price": 5.9,
       "expected_points_next_3": 11.985
+    },
+    {
+      "player_id": 1,
+      "web_name": "Raya",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 6.1,
+      "expected_points_next_3": 11.862
     }
   ],
   "component_top_next_gameweek": [
@@ -678,14 +678,6 @@
       "component_expected_points_next_3": 10.507
     },
     {
-      "player_id": 94,
-      "web_name": "Schade",
-      "team_name": "Brentford",
-      "position": "Midfielder",
-      "price": 6.2,
-      "component_expected_points_next_3": 10.327
-    },
-    {
       "player_id": 15,
       "web_name": "\u00d8degaard",
       "team_name": "Arsenal",
@@ -708,6 +700,14 @@
       "position": "Midfielder",
       "price": 5.5,
       "component_expected_points_next_3": 10.107
+    },
+    {
+      "player_id": 368,
+      "web_name": "Szoboszlai",
+      "team_name": "Liverpool",
+      "position": "Midfielder",
+      "price": 6.9,
+      "component_expected_points_next_3": 10.075
     }
   ],
   "prediction_snapshot_created": null,
@@ -716,7 +716,7 @@
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 2,
+  "gameweek_report_warning_count": 3,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
