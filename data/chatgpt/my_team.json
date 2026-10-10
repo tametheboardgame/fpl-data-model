@@ -4,23 +4,23 @@
   "team_name": "Let's get Herr Cutts",
   "manager": "David Fairbairn",
   "overall_points": 298,
-  "overall_rank": 4659046,
-  "last_gameweek_points": 49,
-  "latest_squad_gameweek": 5,
+  "overall_rank": 4997623,
+  "last_gameweek_points": 0,
+  "latest_squad_gameweek": 6,
   "entry_history": {
-    "event": 5,
-    "points": 49,
+    "event": 6,
+    "points": 0,
     "total_points": 298,
-    "rank": 4929425,
-    "rank_sort": 4929908,
+    "rank": null,
+    "rank_sort": null,
     "overall_rank": 4659663,
-    "percentile_rank": 50,
-    "overall_rank_percentage": "43",
-    "bank": 4,
-    "value": 1001,
+    "percentile_rank": null,
+    "overall_rank_percentage": null,
+    "bank": 3,
+    "value": 999,
     "event_transfers": 1,
     "event_transfers_cost": 0,
-    "points_on_bench": 3
+    "points_on_bench": 0
   },
   "active_chip": null,
   "squad": [
@@ -50,18 +50,6 @@
     },
     {
       "squad_position": 3,
-      "player_id": 31,
-      "web_name": "Konsa",
-      "club": "Arsenal",
-      "position": "Defender",
-      "multiplier": 1,
-      "is_captain": false,
-      "is_vice_captain": false,
-      "purchase_price": null,
-      "selling_price": null
-    },
-    {
-      "squad_position": 4,
       "player_id": 391,
       "web_name": "Gvardiol",
       "club": "Man City",
@@ -73,7 +61,7 @@
       "selling_price": null
     },
     {
-      "squad_position": 5,
+      "squad_position": 4,
       "player_id": 173,
       "web_name": "Thomas",
       "club": "Coventry City",
@@ -85,7 +73,7 @@
       "selling_price": null
     },
     {
-      "squad_position": 6,
+      "squad_position": 5,
       "player_id": 368,
       "web_name": "Szoboszlai",
       "club": "Liverpool",
@@ -97,7 +85,7 @@
       "selling_price": null
     },
     {
-      "squad_position": 7,
+      "squad_position": 6,
       "player_id": 68,
       "web_name": "Tavernier",
       "club": "Bournemouth",
@@ -109,10 +97,22 @@
       "selling_price": null
     },
     {
-      "squad_position": 8,
+      "squad_position": 7,
       "player_id": 426,
       "web_name": "B.Fernandes",
       "club": "Man Utd",
+      "position": "Midfielder",
+      "multiplier": 1,
+      "is_captain": false,
+      "is_vice_captain": true,
+      "purchase_price": null,
+      "selling_price": null
+    },
+    {
+      "squad_position": 8,
+      "player_id": 94,
+      "web_name": "Schade",
+      "club": "Brentford",
       "position": "Midfielder",
       "multiplier": 1,
       "is_captain": false,
@@ -122,13 +122,13 @@
     },
     {
       "squad_position": 9,
-      "player_id": 69,
-      "web_name": "Scott",
-      "club": "Bournemouth",
-      "position": "Midfielder",
+      "player_id": 165,
+      "web_name": "João Pedro",
+      "club": "Chelsea",
+      "position": "Forward",
       "multiplier": 1,
       "is_captain": false,
-      "is_vice_captain": true,
+      "is_vice_captain": false,
       "purchase_price": null,
       "selling_price": null
     },
@@ -170,18 +170,6 @@
     },
     {
       "squad_position": 13,
-      "player_id": 165,
-      "web_name": "João Pedro",
-      "club": "Chelsea",
-      "position": "Forward",
-      "multiplier": 0,
-      "is_captain": false,
-      "is_vice_captain": false,
-      "purchase_price": null,
-      "selling_price": null
-    },
-    {
-      "squad_position": 14,
       "player_id": 277,
       "web_name": "Egan",
       "club": "Hull City",
@@ -193,11 +181,23 @@
       "selling_price": null
     },
     {
-      "squad_position": 15,
+      "squad_position": 14,
       "player_id": 290,
       "web_name": "Slater",
       "club": "Hull City",
       "position": "Midfielder",
+      "multiplier": 0,
+      "is_captain": false,
+      "is_vice_captain": false,
+      "purchase_price": null,
+      "selling_price": null
+    },
+    {
+      "squad_position": 15,
+      "player_id": 31,
+      "web_name": "Konsa",
+      "club": "Arsenal",
+      "position": "Defender",
       "multiplier": 0,
       "is_captain": false,
       "is_vice_captain": false,
