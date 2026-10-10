@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T06:29:29+00:00",
+  "generated_at": "2026-10-10T12:38:44+00:00",
   "evaluated_gameweeks": 5,
   "skipped_unfinalised_gameweeks": 1,
   "finality_requirement": "finished=true and data_checked=true",
@@ -16,33 +16,9 @@
     "mean_bias": -0.2432,
     "average_predicted_points": 1.2212,
     "average_actual_points": 1.4643,
-    "managed_team": {
-      "gameweek": 5,
-      "selected_xi_players_evaluated": 11,
-      "selected_xi_mean_absolute_error": 2.1952,
-      "selected_xi_mean_bias": 0.305,
-      "starting_xi_predicted_points_before_captain": 46.355,
-      "starting_xi_actual_points_before_captain": 43.0,
-      "submitted_team_predicted_points": 53.042,
-      "submitted_team_actual_points": 49.0,
-      "official_manager_points": 49.0,
-      "captain_player_id": 411,
-      "bench_actual_points": 3.0
-    }
+    "managed_team": null
   },
-  "managed_team_latest": {
-    "gameweek": 5,
-    "selected_xi_players_evaluated": 11,
-    "selected_xi_mean_absolute_error": 2.1952,
-    "selected_xi_mean_bias": 0.305,
-    "starting_xi_predicted_points_before_captain": 46.355,
-    "starting_xi_actual_points_before_captain": 43.0,
-    "submitted_team_predicted_points": 53.042,
-    "submitted_team_actual_points": 49.0,
-    "official_manager_points": 49.0,
-    "captain_player_id": 411,
-    "bench_actual_points": 3.0
-  },
+  "managed_team_latest": null,
   "history": [
     {
       "gameweek": 1,
@@ -112,19 +88,7 @@
       "mean_bias": -0.2432,
       "average_predicted_points": 1.2212,
       "average_actual_points": 1.4643,
-      "managed_team": {
-        "gameweek": 5,
-        "selected_xi_players_evaluated": 11,
-        "selected_xi_mean_absolute_error": 2.1952,
-        "selected_xi_mean_bias": 0.305,
-        "starting_xi_predicted_points_before_captain": 46.355,
-        "starting_xi_actual_points_before_captain": 43.0,
-        "submitted_team_predicted_points": 53.042,
-        "submitted_team_actual_points": 49.0,
-        "official_manager_points": 49.0,
-        "captain_player_id": 411,
-        "bench_actual_points": 3.0
-      }
+      "managed_team": null
     }
   ]
 }
