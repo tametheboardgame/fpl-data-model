@@ -1,9 +1,9 @@
 # FPL Gameweek 7 Deadline Report
 
 Status: review_required
-Generated: 2026-10-14T21:44:53+00:00
+Generated: 2026-10-14T21:58:28+00:00
 UK deadline: 2026-10-17T11:00:00+01:00
-Hours remaining: 60.252
+Hours remaining: 60.026
 Advice level: blocked
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.85 xPts)
-- Guéhi (Man City, 5.109 xPts)
+- Verbruggen (Brighton, 3.876 xPts)
+- Guéhi (Man City, 5.206 xPts)
 - Van Hecke (Spurs, 4.688 xPts)
-- Thomas (Coventry City, 3.958 xPts)
-- B.Fernandes (Man Utd, 5.12 xPts)
-- Tavernier (Bournemouth, 4.431 xPts)
-- Haaland (Man City, 7.693 xPts)
-- Thiago (Brentford, 4.038 xPts)
-- João Pedro (Chelsea, 3.958 xPts)
-- Konsa (Arsenal, 2.927 xPts)
-- Schade (Brentford, 2.864 xPts)
+- Thomas (Coventry City, 3.876 xPts)
+- B.Fernandes (Man Utd, 5.1 xPts)
+- Tavernier (Bournemouth, 4.448 xPts)
+- Haaland (Man City, 7.833 xPts)
+- Thiago (Brentford, 4.052 xPts)
+- João Pedro (Chelsea, 3.989 xPts)
+- Konsa (Arsenal, 2.98 xPts)
+- Schade (Brentford, 2.871 xPts)
 
-Captain: Haaland (7.693 mean xPts; strategic score 9.0663)
-Vice-captain: B.Fernandes (5.12 mean xPts; strategic score 5.7744)
+Captain: Haaland (7.833 mean xPts; strategic score 9.2178)
+Vice-captain: B.Fernandes (5.1 mean xPts; strategic score 5.7524)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Egan (2.759 xPts)
-2. Slater (2.673 xPts)
-3. Szoboszlai (2.064 xPts)
-4. Steele (0.012 xPts)
+1. Egan (2.715 xPts)
+2. Slater (2.659 xPts)
+3. Szoboszlai (2.068 xPts)
+4. Steele (0.013 xPts)
 
 ## Changes since previous report
 
