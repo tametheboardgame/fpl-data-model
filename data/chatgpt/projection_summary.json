@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T17:01:10+00:00",
+  "generated_at": "2026-10-16T21:13:51+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -56,7 +56,7 @@
   "player_horizon_rows": 667,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 37032,
-  "active_external_context_signal_rows": 5520,
+  "active_external_context_signal_rows": 5440,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -160,14 +160,6 @@
       "expected_points_next_1": 4.422
     },
     {
-      "player_id": 480,
-      "web_name": "Gibbs-White",
-      "team_name": "Nott'm Forest",
-      "position": "Midfielder",
-      "price": 8.0,
-      "expected_points_next_1": 4.403
-    },
-    {
       "player_id": 173,
       "web_name": "Thomas",
       "team_name": "Coventry City",
@@ -222,6 +214,14 @@
       "position": "Defender",
       "price": 5.5,
       "expected_points_next_1": 4.277
+    },
+    {
+      "player_id": 566,
+      "web_name": "Silva",
+      "team_name": "Bournemouth",
+      "position": "Defender",
+      "price": 5.0,
+      "expected_points_next_1": 4.243
     }
   ],
   "top_next_three_gameweeks": [
@@ -256,14 +256,6 @@
       "position": "Midfielder",
       "price": 7.9,
       "expected_points_next_3": 15.365
-    },
-    {
-      "player_id": 480,
-      "web_name": "Gibbs-White",
-      "team_name": "Nott'm Forest",
-      "position": "Midfielder",
-      "price": 8.0,
-      "expected_points_next_3": 13.99
     },
     {
       "player_id": 399,
@@ -384,6 +376,14 @@
       "position": "Defender",
       "price": 5.3,
       "expected_points_next_3": 12.492
+    },
+    {
+      "player_id": 8,
+      "web_name": "Calafiori",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 5.9,
+      "expected_points_next_3": 12.46
     }
   ],
   "component_top_next_gameweek": [
@@ -442,14 +442,6 @@
       "position": "Defender",
       "price": 6.0,
       "component_expected_points_next_1": 4.053
-    },
-    {
-      "player_id": 480,
-      "web_name": "Gibbs-White",
-      "team_name": "Nott'm Forest",
-      "position": "Midfielder",
-      "price": 8.0,
-      "component_expected_points_next_1": 3.942
     },
     {
       "player_id": 112,
@@ -546,6 +538,14 @@
       "position": "Defender",
       "price": 5.1,
       "component_expected_points_next_1": 3.598
+    },
+    {
+      "player_id": 236,
+      "web_name": "Dewsbury-Hall",
+      "team_name": "Everton",
+      "position": "Midfielder",
+      "price": 6.6,
+      "component_expected_points_next_1": 3.567
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -580,14 +580,6 @@
       "position": "Midfielder",
       "price": 11.9,
       "component_expected_points_next_3": 13.358
-    },
-    {
-      "player_id": 480,
-      "web_name": "Gibbs-White",
-      "team_name": "Nott'm Forest",
-      "position": "Midfielder",
-      "price": 8.0,
-      "component_expected_points_next_3": 12.645
     },
     {
       "player_id": 68,
@@ -708,6 +700,14 @@
       "position": "Forward",
       "price": 6.1,
       "component_expected_points_next_3": 10.39
+    },
+    {
+      "player_id": 566,
+      "web_name": "Silva",
+      "team_name": "Bournemouth",
+      "position": "Defender",
+      "price": 5.0,
+      "component_expected_points_next_3": 10.383
     }
   ],
   "prediction_snapshot_created": null,
