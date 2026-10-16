@@ -1,9 +1,9 @@
 # FPL Gameweek 7 Deadline Report
 
 Status: review_required
-Generated: 2026-10-16T05:09:53+00:00
+Generated: 2026-10-16T11:29:07+00:00
 UK deadline: 2026-10-17T11:00:00+01:00
-Hours remaining: 28.835
+Hours remaining: 22.515
 Advice level: blocked
 Firm advice allowed: False
 
@@ -16,43 +16,43 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.88 xPts)
-- Guéhi (Man City, 5.164 xPts)
+- Verbruggen (Brighton, 3.836 xPts)
+- Guéhi (Man City, 5.032 xPts)
 - Van Hecke (Spurs, 4.688 xPts)
-- Thomas (Coventry City, 3.885 xPts)
-- B.Fernandes (Man Utd, 5.082 xPts)
-- Tavernier (Bournemouth, 4.447 xPts)
-- Haaland (Man City, 7.769 xPts)
-- Thiago (Brentford, 4.052 xPts)
-- João Pedro (Chelsea, 3.99 xPts)
-- Konsa (Arsenal, 2.978 xPts)
-- Schade (Brentford, 2.87 xPts)
+- Thomas (Coventry City, 3.999 xPts)
+- B.Fernandes (Man Utd, 5.114 xPts)
+- Tavernier (Bournemouth, 4.422 xPts)
+- Haaland (Man City, 7.589 xPts)
+- Thiago (Brentford, 4.025 xPts)
+- João Pedro (Chelsea, 3.946 xPts)
+- Konsa (Arsenal, 2.903 xPts)
+- Schade (Brentford, 2.857 xPts)
 
-Captain: Haaland (7.769 mean xPts; strategic score 9.1485)
-Vice-captain: B.Fernandes (5.082 mean xPts; strategic score 5.7325)
+Captain: Haaland (7.589 mean xPts; strategic score 8.9538)
+Vice-captain: B.Fernandes (5.114 mean xPts; strategic score 5.7678)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Egan (2.713 xPts)
-2. Slater (2.661 xPts)
-3. Szoboszlai (2.068 xPts)
-4. Steele (0.014 xPts)
+1. Egan (2.771 xPts)
+2. Slater (2.677 xPts)
+3. Szoboszlai (0.722 xPts)
+4. Steele (0.011 xPts)
 
 ## Changes since previous report
 
-- No material changes
+- Availability information changed
 
 ## Warnings
 
 - [HIGH] Schade has an availability flag (75% chance): Shoulder injury - 75% chance of playing.
-- [MEDIUM] Szoboszlai has an availability flag (75% chance): Hamstring injury - 75% chance of playing.
+- [MEDIUM] Szoboszlai has an availability flag (25% chance): Hamstring injury - 25% chance of playing.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
 - [LOW] 28216 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 
-Status: not_due
+Status: required_before_action
 API-Football is plan-blocked, so check official club news and trusted predicted line-ups before applying the recommendation.
 
 ## Deadline snapshot
