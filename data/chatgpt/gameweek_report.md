@@ -1,9 +1,9 @@
 # FPL Gameweek 7 Deadline Report
 
 Status: review_required
-Generated: 2026-10-16T21:46:56+00:00
+Generated: 2026-10-17T04:32:03+00:00
 UK deadline: 2026-10-17T11:00:00+01:00
-Hours remaining: 12.218
+Hours remaining: 5.466
 Advice level: blocked
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.894 xPts)
-- Guéhi (Man City, 5.178 xPts)
+- Verbruggen (Brighton, 3.844 xPts)
+- Guéhi (Man City, 5.035 xPts)
 - Van Hecke (Spurs, 4.688 xPts)
-- Thomas (Coventry City, 3.877 xPts)
-- B.Fernandes (Man Utd, 5.066 xPts)
-- Tavernier (Bournemouth, 4.417 xPts)
-- Haaland (Man City, 7.767 xPts)
-- Thiago (Brentford, 4.028 xPts)
-- João Pedro (Chelsea, 3.971 xPts)
-- Konsa (Arsenal, 2.974 xPts)
-- Schade (Brentford, 2.856 xPts)
+- Thomas (Coventry City, 4.001 xPts)
+- B.Fernandes (Man Utd, 5.104 xPts)
+- Tavernier (Bournemouth, 4.398 xPts)
+- Haaland (Man City, 7.576 xPts)
+- Thiago (Brentford, 4.005 xPts)
+- João Pedro (Chelsea, 3.929 xPts)
+- Konsa (Arsenal, 2.895 xPts)
+- Schade (Brentford, 2.846 xPts)
 
-Captain: Haaland (7.767 mean xPts; strategic score 9.1464)
-Vice-captain: B.Fernandes (5.066 mean xPts; strategic score 5.7149)
+Captain: Haaland (7.576 mean xPts; strategic score 8.9397)
+Vice-captain: B.Fernandes (5.104 mean xPts; strategic score 5.7568)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Egan (2.703 xPts)
-2. Slater (2.659 xPts)
-3. Szoboszlai (0.725 xPts)
-4. Steele (0.015 xPts)
+1. Egan (2.767 xPts)
+2. Slater (2.677 xPts)
+3. Szoboszlai (0.723 xPts)
+4. Steele (0.011 xPts)
 
 ## Changes since previous report
 
@@ -57,7 +57,7 @@ API-Football is plan-blocked, so check official club news and trusted predicted 
 
 ## Deadline snapshot
 
-Freeze status: waiting_for_freeze_window
-Immutable snapshot: Not yet available
+Freeze status: frozen
+Immutable snapshot: prospective/gw07/20261017T043203Z.json
 
 This report is advisory only. No transfers, chips or team changes are made automatically.
