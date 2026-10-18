@@ -1,17 +1,33 @@
 {
-  "generated_at": "2026-10-18T11:10:43+00:00",
+  "generated_at": "2026-10-18T15:54:13+00:00",
   "season": "2026/27",
   "current_gameweek": 7,
   "next_gameweek": 8,
-  "total_managers": 11116722,
+  "total_managers": 11120162,
   "team": {
     "team_id": 39395,
     "available": true,
     "team_name": "Let's get Herr Cutts",
-    "overall_points": 387,
-    "overall_rank": 4616505
+    "overall_points": 404,
+    "overall_rank": 4529979
   },
   "top_total_points": [
+    {
+      "player_id": 115,
+      "web_name": "De Cuyper",
+      "team_name": "Brighton",
+      "position": "Defender",
+      "price": 5.2,
+      "total_points": 59
+    },
+    {
+      "player_id": 124,
+      "web_name": "Groß",
+      "team_name": "Brighton",
+      "position": "Midfielder",
+      "price": 6.1,
+      "total_points": 58
+    },
     {
       "player_id": 411,
       "web_name": "Haaland",
@@ -21,20 +37,12 @@
       "total_points": 58
     },
     {
-      "player_id": 115,
-      "web_name": "De Cuyper",
+      "player_id": 504,
+      "web_name": "Vuskovic",
       "team_name": "Brighton",
       "position": "Defender",
-      "price": 5.2,
-      "total_points": 53
-    },
-    {
-      "player_id": 124,
-      "web_name": "Groß",
-      "team_name": "Brighton",
-      "position": "Midfielder",
-      "price": 6.1,
-      "total_points": 53
+      "price": 5.1,
+      "total_points": 51
     },
     {
       "player_id": 165,
@@ -53,6 +61,14 @@
       "total_points": 46
     },
     {
+      "player_id": 330,
+      "web_name": "Bogle",
+      "team_name": "Leeds",
+      "position": "Defender",
+      "price": 4.7,
+      "total_points": 45
+    },
+    {
       "player_id": 399,
       "web_name": "Cherki",
       "team_name": "Man City",
@@ -61,12 +77,12 @@
       "total_points": 44
     },
     {
-      "player_id": 330,
-      "web_name": "Bogle",
-      "team_name": "Leeds",
-      "position": "Defender",
-      "price": 4.7,
-      "total_points": 43
+      "player_id": 68,
+      "web_name": "Tavernier",
+      "team_name": "Bournemouth",
+      "position": "Midfielder",
+      "price": 6.1,
+      "total_points": 42
     },
     {
       "player_id": 379,
@@ -77,11 +93,27 @@
       "total_points": 42
     },
     {
+      "player_id": 138,
+      "web_name": "Kostoulas",
+      "team_name": "Brighton",
+      "position": "Forward",
+      "price": 5.7,
+      "total_points": 41
+    },
+    {
       "player_id": 391,
       "web_name": "Gvardiol",
       "team_name": "Man City",
       "position": "Defender",
       "price": 5.8,
+      "total_points": 41
+    },
+    {
+      "player_id": 427,
+      "web_name": "Mbeumo",
+      "team_name": "Man Utd",
+      "position": "Midfielder",
+      "price": 7.8,
       "total_points": 41
     },
     {
@@ -93,44 +125,12 @@
       "total_points": 40
     },
     {
-      "player_id": 504,
-      "web_name": "Vuskovic",
-      "team_name": "Brighton",
-      "position": "Defender",
-      "price": 5.1,
-      "total_points": 40
-    },
-    {
       "player_id": 40,
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
       "price": 7.9,
       "total_points": 40
-    },
-    {
-      "player_id": 286,
-      "web_name": "Belloumi",
-      "team_name": "Hull City",
-      "position": "Midfielder",
-      "price": 5.2,
-      "total_points": 39
-    },
-    {
-      "player_id": 572,
-      "web_name": "Tzolakis",
-      "team_name": "Hull City",
-      "position": "Goalkeeper",
-      "price": 4.7,
-      "total_points": 39
-    },
-    {
-      "player_id": 8,
-      "web_name": "Calafiori",
-      "team_name": "Arsenal",
-      "position": "Defender",
-      "price": 6.0,
-      "total_points": 38
     }
   ],
   "top_form": [
@@ -143,12 +143,44 @@
       "form": "9.7"
     },
     {
+      "player_id": 115,
+      "web_name": "De Cuyper",
+      "team_name": "Brighton",
+      "position": "Defender",
+      "price": 5.2,
+      "form": "9.0"
+    },
+    {
+      "player_id": 504,
+      "web_name": "Vuskovic",
+      "team_name": "Brighton",
+      "position": "Defender",
+      "price": 5.1,
+      "form": "9.0"
+    },
+    {
+      "player_id": 124,
+      "web_name": "Groß",
+      "team_name": "Brighton",
+      "position": "Midfielder",
+      "price": 6.1,
+      "form": "8.3"
+    },
+    {
       "player_id": 411,
       "web_name": "Haaland",
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.7,
       "form": "8.3"
+    },
+    {
+      "player_id": 138,
+      "web_name": "Kostoulas",
+      "team_name": "Brighton",
+      "position": "Forward",
+      "price": 5.7,
+      "form": "7.7"
     },
     {
       "player_id": 101,
@@ -159,6 +191,14 @@
       "form": "7.7"
     },
     {
+      "player_id": 114,
+      "web_name": "Boscagli",
+      "team_name": "Brighton",
+      "position": "Defender",
+      "price": 4.5,
+      "form": "7.3"
+    },
+    {
       "player_id": 156,
       "web_name": "Neto",
       "team_name": "Chelsea",
@@ -167,11 +207,27 @@
       "form": "7.3"
     },
     {
-      "player_id": 115,
-      "web_name": "De Cuyper",
+      "player_id": 79,
+      "web_name": "Evanilson",
+      "team_name": "Bournemouth",
+      "position": "Forward",
+      "price": 6.1,
+      "form": "7.0"
+    },
+    {
+      "player_id": 109,
+      "web_name": "Verbruggen",
       "team_name": "Brighton",
-      "position": "Defender",
-      "price": 5.2,
+      "position": "Goalkeeper",
+      "price": 4.6,
+      "form": "7.0"
+    },
+    {
+      "player_id": 127,
+      "web_name": "Gomez",
+      "team_name": "Brighton",
+      "position": "Midfielder",
+      "price": 5.0,
       "form": "7.0"
     },
     {
@@ -183,76 +239,20 @@
       "form": "7.0"
     },
     {
-      "player_id": 124,
-      "web_name": "Groß",
-      "team_name": "Brighton",
-      "position": "Midfielder",
-      "price": 6.1,
-      "form": "6.7"
-    },
-    {
-      "player_id": 176,
-      "web_name": "Dasilva",
-      "team_name": "Coventry City",
-      "position": "Defender",
-      "price": 4.0,
-      "form": "6.7"
-    },
-    {
-      "player_id": 261,
-      "web_name": "Iwobi",
-      "team_name": "Fulham",
-      "position": "Midfielder",
-      "price": 5.4,
-      "form": "6.7"
-    },
-    {
       "player_id": 428,
       "web_name": "Cunha",
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 7.9,
+      "form": "7.0"
+    },
+    {
+      "player_id": 113,
+      "web_name": "F.Kadıoğlu",
+      "team_name": "Brighton",
+      "position": "Defender",
+      "price": 4.4,
       "form": "6.7"
-    },
-    {
-      "player_id": 41,
-      "web_name": "Buendía",
-      "team_name": "Aston Villa",
-      "position": "Midfielder",
-      "price": 5.9,
-      "form": "6.3"
-    },
-    {
-      "player_id": 400,
-      "web_name": "Doku",
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 7.4,
-      "form": "6.3"
-    },
-    {
-      "player_id": 236,
-      "web_name": "Dewsbury-Hall",
-      "team_name": "Everton",
-      "position": "Midfielder",
-      "price": 6.6,
-      "form": "6.0"
-    },
-    {
-      "player_id": 399,
-      "web_name": "Cherki",
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 8.0,
-      "form": "6.0"
-    },
-    {
-      "player_id": 45,
-      "web_name": "McGinn",
-      "team_name": "Aston Villa",
-      "position": "Midfielder",
-      "price": 5.4,
-      "form": "5.7"
     }
   ],
   "most_transferred_in_this_gameweek": [
@@ -262,23 +262,7 @@
       "team_name": "Brighton",
       "position": "Midfielder",
       "price": 6.1,
-      "transfers_in_event": 43480
-    },
-    {
-      "player_id": 379,
-      "web_name": "Isak",
-      "team_name": "Liverpool",
-      "position": "Forward",
-      "price": 9.0,
-      "transfers_in_event": 42253
-    },
-    {
-      "player_id": 53,
-      "web_name": "Manzambi",
-      "team_name": "Aston Villa",
-      "position": "Midfielder",
-      "price": 6.0,
-      "transfers_in_event": 41006
+      "transfers_in_event": 68461
     },
     {
       "player_id": 115,
@@ -286,7 +270,15 @@
       "team_name": "Brighton",
       "position": "Defender",
       "price": 5.2,
-      "transfers_in_event": 38619
+      "transfers_in_event": 59816
+    },
+    {
+      "player_id": 379,
+      "web_name": "Isak",
+      "team_name": "Liverpool",
+      "position": "Forward",
+      "price": 9.0,
+      "transfers_in_event": 56888
     },
     {
       "player_id": 399,
@@ -294,7 +286,15 @@
       "team_name": "Man City",
       "position": "Midfielder",
       "price": 8.0,
-      "transfers_in_event": 34691
+      "transfers_in_event": 53513
+    },
+    {
+      "player_id": 53,
+      "web_name": "Manzambi",
+      "team_name": "Aston Villa",
+      "position": "Midfielder",
+      "price": 6.0,
+      "transfers_in_event": 50954
     },
     {
       "player_id": 40,
@@ -302,7 +302,7 @@
       "team_name": "Chelsea",
       "position": "Midfielder",
       "price": 7.9,
-      "transfers_in_event": 31522
+      "transfers_in_event": 46910
     },
     {
       "player_id": 94,
@@ -310,15 +310,7 @@
       "team_name": "Brentford",
       "position": "Midfielder",
       "price": 6.2,
-      "transfers_in_event": 27312
-    },
-    {
-      "player_id": 165,
-      "web_name": "João Pedro",
-      "team_name": "Chelsea",
-      "position": "Forward",
-      "price": 7.8,
-      "transfers_in_event": 26281
+      "transfers_in_event": 38786
     },
     {
       "player_id": 156,
@@ -326,7 +318,15 @@
       "team_name": "Chelsea",
       "position": "Midfielder",
       "price": 6.5,
-      "transfers_in_event": 25918
+      "transfers_in_event": 38515
+    },
+    {
+      "player_id": 165,
+      "web_name": "João Pedro",
+      "team_name": "Chelsea",
+      "position": "Forward",
+      "price": 7.8,
+      "transfers_in_event": 36385
     },
     {
       "player_id": 411,
@@ -334,7 +334,7 @@
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.7,
-      "transfers_in_event": 24067
+      "transfers_in_event": 34221
     },
     {
       "player_id": 330,
@@ -342,39 +342,39 @@
       "team_name": "Leeds",
       "position": "Defender",
       "price": 4.7,
-      "transfers_in_event": 19310
+      "transfers_in_event": 28942
     },
     {
-      "player_id": 286,
-      "web_name": "Belloumi",
-      "team_name": "Hull City",
+      "player_id": 427,
+      "web_name": "Mbeumo",
+      "team_name": "Man Utd",
       "position": "Midfielder",
-      "price": 5.2,
-      "transfers_in_event": 17665
+      "price": 7.8,
+      "transfers_in_event": 28284
     },
     {
-      "player_id": 8,
-      "web_name": "Calafiori",
-      "team_name": "Arsenal",
-      "position": "Defender",
+      "player_id": 68,
+      "web_name": "Tavernier",
+      "team_name": "Bournemouth",
+      "position": "Midfielder",
+      "price": 6.1,
+      "transfers_in_event": 26351
+    },
+    {
+      "player_id": 346,
+      "web_name": "Calvert-Lewin",
+      "team_name": "Leeds",
+      "position": "Forward",
       "price": 6.0,
-      "transfers_in_event": 15560
+      "transfers_in_event": 26142
     },
     {
-      "player_id": 627,
-      "web_name": "Barcola",
-      "team_name": "Liverpool",
-      "position": "Midfielder",
-      "price": 8.0,
-      "transfers_in_event": 15330
-    },
-    {
-      "player_id": 400,
-      "web_name": "Doku",
-      "team_name": "Man City",
-      "position": "Midfielder",
-      "price": 7.4,
-      "transfers_in_event": 14138
+      "player_id": 138,
+      "web_name": "Kostoulas",
+      "team_name": "Brighton",
+      "position": "Forward",
+      "price": 5.7,
+      "transfers_in_event": 25849
     }
   ]
 }
