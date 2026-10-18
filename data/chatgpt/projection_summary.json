@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T21:02:03+00:00",
+  "generated_at": "2026-10-18T04:38:39+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -56,7 +56,7 @@
   "player_horizon_rows": 667,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 37840,
-  "active_external_context_signal_rows": 4080,
+  "active_external_context_signal_rows": 4040,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -124,7 +124,7 @@
       "web_name": "Calafiori",
       "team_name": "Arsenal",
       "position": "Defender",
-      "price": 5.9,
+      "price": 6.0,
       "expected_points_next_1": 4.457
     },
     {
@@ -164,7 +164,7 @@
       "web_name": "Cherki",
       "team_name": "Man City",
       "position": "Midfielder",
-      "price": 7.9,
+      "price": 8.0,
       "expected_points_next_1": 4.295
     },
     {
@@ -286,7 +286,7 @@
       "web_name": "Calafiori",
       "team_name": "Arsenal",
       "position": "Defender",
-      "price": 5.9,
+      "price": 6.0,
       "expected_points_next_3": 13.417
     },
     {
@@ -302,7 +302,7 @@
       "web_name": "Cherki",
       "team_name": "Man City",
       "position": "Midfielder",
-      "price": 7.9,
+      "price": 8.0,
       "expected_points_next_3": 13.265
     },
     {
@@ -448,7 +448,7 @@
       "web_name": "Calafiori",
       "team_name": "Arsenal",
       "position": "Defender",
-      "price": 5.9,
+      "price": 6.0,
       "component_expected_points_next_1": 3.82
     },
     {
@@ -544,7 +544,7 @@
       "web_name": "Cherki",
       "team_name": "Man City",
       "position": "Midfielder",
-      "price": 7.9,
+      "price": 8.0,
       "component_expected_points_next_1": 3.517
     }
   ],
@@ -626,7 +626,7 @@
       "web_name": "Calafiori",
       "team_name": "Arsenal",
       "position": "Defender",
-      "price": 5.9,
+      "price": 6.0,
       "component_expected_points_next_3": 11.302
     },
     {
@@ -666,7 +666,7 @@
       "web_name": "Cherki",
       "team_name": "Man City",
       "position": "Midfielder",
-      "price": 7.9,
+      "price": 8.0,
       "component_expected_points_next_3": 10.775
     },
     {
@@ -715,7 +715,7 @@
   "prospective_evaluated_gameweeks": 5,
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
-  "gameweek_report_material_change": false,
+  "gameweek_report_material_change": true,
   "gameweek_report_warning_count": 2,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
