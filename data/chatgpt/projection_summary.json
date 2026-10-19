@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T05:24:31+00:00",
+  "generated_at": "2026-10-19T13:23:26+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -50,27 +50,19 @@
   "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
   "player_feature_rows": 668,
   "team_feature_rows": 20,
-  "raw_fixture_history_rows": 4550,
+  "raw_fixture_history_rows": 4551,
   "completed_fixture_history_rows": 3883,
   "fixture_projection_rows": 4008,
   "player_horizon_rows": 668,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 38744,
-  "active_external_context_signal_rows": 3288,
+  "active_external_context_signal_rows": 3272,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
   "launch_validation_high_severity_issues": 0,
   "qualitatively_adjusted_fixture_rows": 0,
   "top_next_gameweek": [
-    {
-      "player_id": 411,
-      "web_name": "Haaland",
-      "team_name": "Man City",
-      "position": "Forward",
-      "price": 15.7,
-      "expected_points_next_1": 6.165
-    },
     {
       "player_id": 12,
       "web_name": "Saka",
@@ -118,6 +110,14 @@
       "position": "Midfielder",
       "price": 6.2,
       "expected_points_next_1": 4.503
+    },
+    {
+      "player_id": 411,
+      "web_name": "Haaland",
+      "team_name": "Man City",
+      "position": "Forward",
+      "price": 15.7,
+      "expected_points_next_1": 4.47
     },
     {
       "player_id": 8,
@@ -226,14 +226,6 @@
   ],
   "top_next_three_gameweeks": [
     {
-      "player_id": 411,
-      "web_name": "Haaland",
-      "team_name": "Man City",
-      "position": "Forward",
-      "price": 15.7,
-      "expected_points_next_3": 18.885
-    },
-    {
       "player_id": 12,
       "web_name": "Saka",
       "team_name": "Arsenal",
@@ -272,6 +264,14 @@
       "position": "Defender",
       "price": 6.2,
       "expected_points_next_3": 14.178
+    },
+    {
+      "player_id": 411,
+      "web_name": "Haaland",
+      "team_name": "Man City",
+      "position": "Forward",
+      "price": 15.7,
+      "expected_points_next_3": 13.945
     },
     {
       "player_id": 154,
@@ -388,14 +388,6 @@
   ],
   "component_top_next_gameweek": [
     {
-      "player_id": 411,
-      "web_name": "Haaland",
-      "team_name": "Man City",
-      "position": "Forward",
-      "price": 15.7,
-      "component_expected_points_next_1": 5.305
-    },
-    {
       "player_id": 427,
       "web_name": "Mbeumo",
       "team_name": "Man Utd",
@@ -466,6 +458,14 @@
       "position": "Midfielder",
       "price": 5.7,
       "component_expected_points_next_1": 3.768
+    },
+    {
+      "player_id": 411,
+      "web_name": "Haaland",
+      "team_name": "Man City",
+      "position": "Forward",
+      "price": 15.7,
+      "component_expected_points_next_1": 3.722
     },
     {
       "player_id": 94,
@@ -550,14 +550,6 @@
   ],
   "component_top_next_three_gameweeks": [
     {
-      "player_id": 411,
-      "web_name": "Haaland",
-      "team_name": "Man City",
-      "position": "Forward",
-      "price": 15.7,
-      "component_expected_points_next_3": 15.592
-    },
-    {
       "player_id": 12,
       "web_name": "Saka",
       "team_name": "Arsenal",
@@ -580,6 +572,14 @@
       "position": "Midfielder",
       "price": 7.8,
       "component_expected_points_next_3": 13.342
+    },
+    {
+      "player_id": 411,
+      "web_name": "Haaland",
+      "team_name": "Man City",
+      "position": "Forward",
+      "price": 15.7,
+      "component_expected_points_next_3": 12.187
     },
     {
       "player_id": 15,
@@ -714,9 +714,9 @@
   "evaluated_gameweeks": 6,
   "prospective_evaluated_gameweeks": 5,
   "prospective_snapshot_created": null,
-  "gameweek_operations_status": "ready",
-  "gameweek_report_material_change": false,
-  "gameweek_report_warning_count": 2,
+  "gameweek_operations_status": "review_required",
+  "gameweek_report_material_change": true,
+  "gameweek_report_warning_count": 3,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
