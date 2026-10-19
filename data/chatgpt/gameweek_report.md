@@ -1,42 +1,42 @@
 # FPL Gameweek 8 Deadline Report
 
 Status: review_required
-Generated: 2026-10-19T22:24:05+00:00
+Generated: 2026-10-19T22:39:45+00:00
 UK deadline: 2026-10-23T18:30:00+01:00
-Hours remaining: 91.099
+Hours remaining: 90.838
 Advice level: blocked
 Firm advice allowed: False
 
 ## Recommended action
 
-Transfers: João Pedro to Calvert-Lewin, Szoboszlai to Mbeumo
+Transfers: B.Fernandes to Saka, Szoboszlai to Mbeumo
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.066 xPts)
-- Guéhi (Man City, 4.535 xPts)
-- Thomas (Coventry City, 4.155 xPts)
-- Gvardiol (Man City, 3.616 xPts)
-- B.Fernandes (Man Utd, 5.776 xPts)
+- Verbruggen (Brighton, 3.051 xPts)
+- Guéhi (Man City, 4.599 xPts)
+- Thomas (Coventry City, 4.117 xPts)
+- Gvardiol (Man City, 3.669 xPts)
+- Saka (Arsenal, 5.837 xPts)
 - Mbeumo (Man Utd, 5.583 xPts)
-- Thiago (Brentford, 4.519 xPts)
-- Schade (Brentford, 4.752 xPts)
-- Haaland (Man City, 4.294 xPts)
-- Calvert-Lewin (Leeds, 4.297 xPts)
-- Tavernier (Bournemouth, 4.206 xPts)
+- Thiago (Brentford, 4.637 xPts)
+- Schade (Brentford, 4.85 xPts)
+- João Pedro (Chelsea, 4.423 xPts)
+- Haaland (Man City, 4.362 xPts)
+- Tavernier (Bournemouth, 4.199 xPts)
 
-Captain: Mbeumo (5.583 mean xPts; strategic score 6.5217)
-Vice-captain: Haaland (4.294 mean xPts; strategic score 5.4698)
+Captain: Saka (5.837 mean xPts; strategic score 7.0922)
+Vice-captain: Haaland (4.362 mean xPts; strategic score 5.5467)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Konsa (3.096 xPts)
-2. Slater (2.835 xPts)
-3. Egan (2.822 xPts)
+1. Konsa (3.202 xPts)
+2. Slater (2.813 xPts)
+3. Egan (2.737 xPts)
 4. Steele (0.0 xPts)
 
 ## Changes since previous report
@@ -44,7 +44,6 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 - Starting XI changed
 - Captain changed
 - Transfer recommendation changed
-- Fixture information changed
 
 ## Warnings
 
