@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-19T13:22:00+00:00",
+  "generated_at": "2026-10-19T22:22:42+00:00",
   "current": {
     "id": 7,
     "name": "Gameweek 7",
     "deadline_time": "2026-10-17T10:00:00Z",
     "release_time": null,
-    "average_entry_score": 55,
+    "average_entry_score": 56,
     "finished": false,
     "data_checked": false,
     "highest_scoring_entry": 504619,
@@ -20,14 +20,31 @@
     "can_enter": false,
     "can_manage": false,
     "released": true,
-    "ranked_count": 11063692,
+    "ranked_count": 11063327,
     "overrides": {
       "rules": {},
       "scoring": {},
       "element_types": [],
       "pick_multiplier": null
     },
-    "chip_plays": [],
+    "chip_plays": [
+      {
+        "chip_name": "bboost",
+        "num_played": 179094
+      },
+      {
+        "chip_name": "freehit",
+        "num_played": 93126
+      },
+      {
+        "chip_name": "wildcard",
+        "num_played": 335228
+      },
+      {
+        "chip_name": "3xc",
+        "num_played": 724286
+      }
+    ],
     "most_selected": 411,
     "most_transferred_in": 399,
     "top_element": 156,
@@ -36,8 +53,8 @@
       "points": 15
     },
     "transfers_made": 12547022,
-    "most_captained": null,
-    "most_vice_captained": null
+    "most_captained": 411,
+    "most_vice_captained": 165
   },
   "next": {
     "id": 8,
