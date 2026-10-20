@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.8",
-  "generated_at": "2026-10-20T11:42:43+00:00",
+  "generated_at": "2026-10-20T12:19:22+00:00",
   "status": "review_required",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-2.5",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-10-23T17:30:00+00:00",
     "deadline_time_uk": "2026-10-23T18:30:00+01:00",
-    "hours_remaining": 77.788
+    "hours_remaining": 77.177
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -20,20 +20,7 @@
         "team_name": "Brighton",
         "position": "Goalkeeper",
         "price": 4.6,
-        "expected_points": 3.18,
-        "availability_status": "a",
-        "chance_of_playing": null,
-        "news": "",
-        "news_added": ""
-      },
-      {
-        "player_id": 173,
-        "web_name": "Thomas",
-        "team_id": 7,
-        "team_name": "Coventry City",
-        "position": "Defender",
-        "price": 4.0,
-        "expected_points": 4.287,
+        "expected_points": 3.159,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -46,7 +33,20 @@
         "team_name": "Man City",
         "position": "Defender",
         "price": 6.0,
-        "expected_points": 4.27,
+        "expected_points": 4.351,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 173,
+        "web_name": "Thomas",
+        "team_id": 7,
+        "team_name": "Coventry City",
+        "position": "Defender",
+        "price": 4.0,
+        "expected_points": 4.251,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -59,7 +59,7 @@
         "team_name": "Arsenal",
         "position": "Defender",
         "price": 4.6,
-        "expected_points": 3.661,
+        "expected_points": 3.738,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -85,7 +85,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 11.8,
-        "expected_points": 5.707,
+        "expected_points": 5.8,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -98,7 +98,7 @@
         "team_name": "Brentford",
         "position": "Forward",
         "price": 7.8,
-        "expected_points": 4.755,
+        "expected_points": 4.897,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -111,7 +111,7 @@
         "team_name": "Man City",
         "position": "Forward",
         "price": 15.7,
-        "expected_points": 4.552,
+        "expected_points": 4.635,
         "availability_status": "d",
         "chance_of_playing": 75,
         "news": "Unspecified injury - 75% chance of playing",
@@ -124,7 +124,7 @@
         "team_name": "Bournemouth",
         "position": "Midfielder",
         "price": 6.2,
-        "expected_points": 4.379,
+        "expected_points": 4.329,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -150,7 +150,7 @@
         "team_name": "Brentford",
         "position": "Midfielder",
         "price": 6.2,
-        "expected_points": 4.031,
+        "expected_points": 4.126,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -159,26 +159,26 @@
     ],
     "bench_order": [
       {
-        "player_id": 277,
-        "web_name": "Egan",
-        "team_id": 11,
-        "team_name": "Hull City",
-        "position": "Defender",
-        "price": 4.1,
-        "expected_points": 3.201,
-        "availability_status": "a",
-        "chance_of_playing": null,
-        "news": "",
-        "news_added": ""
-      },
-      {
         "player_id": 391,
         "web_name": "Gvardiol",
         "team_id": 15,
         "team_name": "Man City",
         "position": "Defender",
         "price": 5.8,
-        "expected_points": 3.113,
+        "expected_points": 3.169,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 277,
+        "web_name": "Egan",
+        "team_id": 11,
+        "team_name": "Hull City",
+        "position": "Defender",
+        "price": 4.1,
+        "expected_points": 3.108,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -191,7 +191,7 @@
         "team_name": "Hull City",
         "position": "Midfielder",
         "price": 4.5,
-        "expected_points": 2.766,
+        "expected_points": 2.746,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -231,7 +231,7 @@
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.7,
-      "expected_points": 4.552,
+      "expected_points": 4.635,
       "availability_status": "d",
       "chance_of_playing": 75,
       "news": "Unspecified injury - 75% chance of playing",
@@ -261,9 +261,9 @@
     "free_transfers_before": 2,
     "hit_cost": 0,
     "bank_after": 1.2,
-    "expected_points": 55.077,
-    "net_expected_points": 55.077,
-    "six_gameweek_net_gain_vs_hold": 34.258,
+    "expected_points": 55.695,
+    "net_expected_points": 55.695,
+    "six_gameweek_net_gain_vs_hold": 34.22,
     "six_gameweek_total_hit_cost": 0,
     "lineup_correlation": {
       "opposing_pairs": [],
@@ -295,19 +295,19 @@
       "utility_version": "strategic-captain-1.0",
       "player_id": 427,
       "displayed_mean_xpts": 5.602,
-      "risk_adjusted_mean_input": 5.986,
-      "strategic_score": 6.7968,
+      "risk_adjusted_mean_input": 6.087,
+      "strategic_score": 6.9087,
       "selection_basis": "route_strategic_utility",
       "components": {
-        "bounded_strategic_bonus": 0.8108,
-        "ceiling_contribution": 0.8108,
+        "bounded_strategic_bonus": 0.8217,
+        "ceiling_contribution": 0.8217,
         "rank_pressure_contribution": 0.0,
         "position_uncertainty_penalty": 0.0,
         "defensive_exception_margin": 0.0,
         "selection_risk_penalty": 0.0,
         "expected_minutes": 88.72,
         "availability_confidence": 1.0,
-        "points_p90": 11.754,
+        "points_p90": 11.9523,
         "probability_10_plus": 0.1433,
         "probability_15_plus": 0.0317,
         "ownership_percent": 20.3
@@ -318,20 +318,20 @@
     "vice_captain": {
       "utility_version": "strategic-captain-1.0",
       "player_id": 411,
-      "displayed_mean_xpts": 4.552,
-      "risk_adjusted_mean_input": 4.5525,
-      "strategic_score": 5.7279,
+      "displayed_mean_xpts": 4.635,
+      "risk_adjusted_mean_input": 4.6346,
+      "strategic_score": 5.8206,
       "selection_basis": "decision_strategic_utility",
       "components": {
-        "bounded_strategic_bonus": 1.1755,
-        "ceiling_contribution": 0.7255,
+        "bounded_strategic_bonus": 1.186,
+        "ceiling_contribution": 0.736,
         "rank_pressure_contribution": 0.45,
         "position_uncertainty_penalty": 0.0,
         "defensive_exception_margin": 0.0,
-        "selection_risk_penalty": 0.4365,
+        "selection_risk_penalty": 0.4444,
         "expected_minutes": 63.39,
         "availability_confidence": 0.75,
-        "points_p90": 9.7797,
+        "points_p90": 9.9561,
         "probability_10_plus": 0.125,
         "probability_15_plus": 0.025,
         "ownership_percent": 76.8
@@ -361,7 +361,7 @@
       12,
       13
     ],
-    "net_gain_vs_hold": 34.258,
+    "net_gain_vs_hold": 34.22,
     "gameweek_plan": [
       {
         "gameweek": 8,
@@ -386,14 +386,14 @@
         "free_transfers_before": 2,
         "hit_cost": 0,
         "bank_after": 1.2,
-        "lineup_expected_points": 55.077,
-        "net_expected_points": 55.077,
+        "lineup_expected_points": 55.695,
+        "net_expected_points": 55.695,
         "captain_player_id": 427,
         "captain": "Mbeumo",
         "starter_player_ids": [
           109,
-          173,
           388,
+          173,
           31,
           427,
           426,
@@ -596,7 +596,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-10-20T05:00:21+00:00",
+      "generated_at": "2026-10-20T11:49:41+00:00",
       "required_action": null,
       "error": null
     },
@@ -611,8 +611,8 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-10-20T11:41:47+00:00",
-    "external_context_generated_at": "2026-10-20T11:42:43+00:00",
-    "active_external_signals": 3360,
+    "external_context_generated_at": "2026-10-20T12:19:22+00:00",
+    "active_external_signals": 3520,
     "expired_external_signals": 35872
   },
   "fixture_signature": [
@@ -1502,21 +1502,21 @@
       "summary": "Starting XI changed",
       "before": [
         109,
-        388,
         173,
-        391,
-        12,
+        388,
+        31,
         427,
+        426,
         106,
-        94,
-        165,
         411,
-        68
+        68,
+        346,
+        94
       ],
       "after": [
         109,
-        173,
         388,
+        173,
         31,
         427,
         426,
@@ -1531,52 +1531,22 @@
       "type": "bench",
       "summary": "Bench order changed",
       "before": [
-        31,
-        290,
-        277,
-        111
-      ],
-      "after": [
         277,
         391,
         290,
         111
-      ]
-    },
-    {
-      "type": "captain",
-      "summary": "Captain changed",
-      "before": 12,
-      "after": 427
-    },
-    {
-      "type": "transfers",
-      "summary": "Transfer recommendation changed",
-      "before": [
-        [
-          426,
-          12
-        ],
-        [
-          368,
-          427
-        ]
       ],
       "after": [
-        [
-          165,
-          346
-        ],
-        [
-          368,
-          427
-        ]
+        391,
+        277,
+        290,
+        111
       ]
     }
   ],
   "material_change": true,
-  "change_summary": "Starting XI changed Bench order changed Captain changed Transfer recommendation changed",
-  "decision_fingerprint": "9d506cf235249f3a98905b65fc7bc91bc8604f4ebf0402afdca8ec6c48e518ae",
-  "archive_created_this_run": "operations/gw08/20261020T114243Z.json",
-  "archive_markdown_created_this_run": "operations/gw08/20261020T114243Z.md"
+  "change_summary": "Starting XI changed Bench order changed",
+  "decision_fingerprint": "efe394110803f74bfefe79f37a41342c26bf23470016a3f37d4af6d679120937",
+  "archive_created_this_run": "operations/gw08/20261020T121922Z.json",
+  "archive_markdown_created_this_run": "operations/gw08/20261020T121922Z.md"
 }
