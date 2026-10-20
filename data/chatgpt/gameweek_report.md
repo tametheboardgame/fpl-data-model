@@ -1,10 +1,10 @@
 # FPL Gameweek 8 Deadline Report
 
-Status: review_required
-Generated: 2026-10-20T17:35:10+00:00
+Status: ready
+Generated: 2026-10-20T21:40:39+00:00
 UK deadline: 2026-10-23T18:30:00+01:00
-Hours remaining: 71.914
-Advice level: blocked
+Hours remaining: 67.823
+Advice level: provisional
 Firm advice allowed: False
 
 ## Recommended action
@@ -16,36 +16,42 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.168 xPts)
-- Guéhi (Man City, 4.354 xPts)
-- Thomas (Coventry City, 4.25 xPts)
-- Konsa (Arsenal, 3.742 xPts)
+- Verbruggen (Brighton, 3.181 xPts)
+- Guéhi (Man City, 4.298 xPts)
+- Thomas (Coventry City, 4.275 xPts)
+- Konsa (Arsenal, 3.681 xPts)
 - Mbeumo (Man Utd, 5.602 xPts)
-- B.Fernandes (Man Utd, 5.813 xPts)
-- Thiago (Brentford, 4.903 xPts)
-- Haaland (Man City, 4.637 xPts)
-- Tavernier (Bournemouth, 4.331 xPts)
+- B.Fernandes (Man Utd, 5.746 xPts)
+- Haaland (Man City, 6.755 xPts)
+- Thiago (Brentford, 4.8 xPts)
+- Tavernier (Bournemouth, 4.36 xPts)
 - Calvert-Lewin (Leeds, 4.432 xPts)
-- Schade (Brentford, 4.13 xPts)
+- Schade (Brentford, 4.061 xPts)
 
-Captain: Mbeumo (5.602 mean xPts; strategic score 6.9253)
-Vice-captain: Haaland (4.637 mean xPts; strategic score 5.8237)
+Captain: Haaland (6.755 mean xPts; strategic score 7.9648)
+Vice-captain: B.Fernandes (5.746 mean xPts; strategic score 6.4233)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Gvardiol (3.172 xPts)
-2. Egan (3.104 xPts)
-3. Slater (2.745 xPts)
+1. Egan (3.171 xPts)
+2. Gvardiol (3.133 xPts)
+3. Slater (2.76 xPts)
 4. Steele (0.0 xPts)
 
 ## Changes since previous report
 
+- Operational readiness changed
+- Starting XI changed
 - Bench order changed
+- Captain changed
+- Vice-captain changed
+- Availability information changed
+- Data-quality warning state changed
+- Deadline advice stage changed
 
 ## Warnings
 
-- [HIGH] Haaland has an availability flag (75% chance): Unspecified injury - 75% chance of playing.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
 - [LOW] 35872 external-context signals have expired and are excluded.
 
