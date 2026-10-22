@@ -25,7 +25,7 @@ class DiagnosticTransferChallengeTests(unittest.TestCase):
 
     def test_gameweek_mismatch_fails_closed(self):
         self.report["target_gameweek"] = 9
-        with self.assertRaises(AssertionError):
+        with self.assertRaises(ValueError):
             audit(self.report, self.decisions)
 
 
