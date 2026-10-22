@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T22:01:17+00:00",
+  "generated_at": "2026-10-22T04:53:43+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -140,7 +140,7 @@
       "web_name": "Calvert-Lewin",
       "team_name": "Leeds",
       "position": "Forward",
-      "price": 6.0,
+      "price": 6.1,
       "expected_points_next_1": 4.432
     },
     {
@@ -270,7 +270,7 @@
       "web_name": "Calvert-Lewin",
       "team_name": "Leeds",
       "position": "Forward",
-      "price": 6.0,
+      "price": 6.1,
       "expected_points_next_3": 13.952
     },
     {
@@ -370,20 +370,20 @@
       "expected_points_next_3": 12.552
     },
     {
-      "player_id": 12,
-      "web_name": "Saka",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 9.6,
-      "expected_points_next_3": 12.528
-    },
-    {
       "player_id": 572,
       "web_name": "Tzolakis",
       "team_name": "Hull City",
       "position": "Goalkeeper",
       "price": 4.7,
       "expected_points_next_3": 12.458
+    },
+    {
+      "player_id": 15,
+      "web_name": "\u00d8degaard",
+      "team_name": "Arsenal",
+      "position": "Midfielder",
+      "price": 6.8,
+      "expected_points_next_3": 12.438
     }
   ],
   "component_top_next_gameweek": [
@@ -434,14 +434,6 @@
       "position": "Defender",
       "price": 7.9,
       "component_expected_points_next_1": 4.012
-    },
-    {
-      "player_id": 12,
-      "web_name": "Saka",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 9.6,
-      "component_expected_points_next_1": 3.877
     },
     {
       "player_id": 8,
@@ -546,6 +538,14 @@
       "position": "Forward",
       "price": 6.1,
       "component_expected_points_next_1": 3.487
+    },
+    {
+      "player_id": 572,
+      "web_name": "Tzolakis",
+      "team_name": "Hull City",
+      "position": "Goalkeeper",
+      "price": 4.7,
+      "component_expected_points_next_1": 3.487
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -634,16 +634,8 @@
       "web_name": "Calvert-Lewin",
       "team_name": "Leeds",
       "position": "Forward",
-      "price": 6.0,
+      "price": 6.1,
       "component_expected_points_next_3": 11.012
-    },
-    {
-      "player_id": 12,
-      "web_name": "Saka",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 9.6,
-      "component_expected_points_next_3": 10.897
     },
     {
       "player_id": 330,
@@ -708,6 +700,14 @@
       "position": "Midfielder",
       "price": 5.4,
       "component_expected_points_next_3": 10.417
+    },
+    {
+      "player_id": 379,
+      "web_name": "Isak",
+      "team_name": "Liverpool",
+      "position": "Forward",
+      "price": 9.0,
+      "component_expected_points_next_3": 10.313
     }
   ],
   "prediction_snapshot_created": null,
