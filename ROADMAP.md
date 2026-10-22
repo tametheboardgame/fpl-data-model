@@ -248,3 +248,7 @@ Across all future phases:
 - no strategic utility added to mean expected-points accounting;
 - free-transfer state must come from complete retained official current-season manager history and fail closed when unavailable;
 - every model promotion must be auditable and reversible.
+
+## Issue #55 — Groß versus Mbeumo diagnostic (independent, non-blocking)
+
+**Status: DRAFT / INCOMPLETE (PR #56).** Read-only audit of published routes and shortlist. Outstanding: forced GW8 Groß-first counterfactual, external evidence, multi-horizon verdict, exact-head CI. This is not a production-model change and does not supersede FPL-22E.
