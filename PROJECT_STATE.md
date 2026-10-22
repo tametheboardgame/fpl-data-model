@@ -195,3 +195,7 @@ FPL-22E must reassess the actionable Gameweek from fresh production outputs and 
 After FPL-22E, later research is optional and evidence-driven, including prospective 2026/27 challenger evidence and bounded rival/mini-league exposure modelling.
 
 See `ROADMAP.md` for exact scope and acceptance gates.
+
+## Issue #55 diagnostic (draft, 2026-10-22)
+
+Draft PR #56 adds a read-only published-route diagnostic and preliminary evidence in `docs/diagnostics/issue-55-gross-mbeumo-gw8.md`. Groß is in the Szoboszlai replacement shortlist, and one published route buys him in GW11, but no published route buys him in GW8. A forced Groß-first counterfactual and external evidence checks remain **incomplete**. No production model/policy changes or FPL actions. Do not merge as a completed investigation until tests and counterfactual are validated.
