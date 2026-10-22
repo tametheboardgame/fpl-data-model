@@ -27,3 +27,22 @@ The available evidence supports a **route optimisation / timing** question, not 
 `python -m src.diagnostic_transfer_challenge --candidate Groß --chosen Mbeumo`
 
 The script reads existing JSON and prints JSON to stdout. It neither runs the optimiser nor writes production files. **No verdict that a Groß-first transfer is better or worse can be supported until gate 1 passes.**
+
+
+## Exact-input constrained replay — completed 2026-10-22
+
+GitHub Actions [run #39738278078](https://github.com/tametheboardgame/fpl-data-model/actions/runs/39738278078) succeeded (unit tests and exact-input replay). This **new model build** produced slightly different control numbers than the earlier committed 05:27 UTC snapshot; compare only numbers from the same run.
+
+| Same-run GW8–GW13 measure | Unconstrained control | Force Groß purchase in GW8 | Forced minus control |
+| --- | ---: | ---: | ---: |
+| Discounted optimiser objective | 308.468 | 305.815 | **-2.653** |
+| Six-GW projected net points | 348.590 | 345.828 | **-2.762** |
+| GW8 lineup projected points | 58.508 | 57.629 | **-0.879** |
+
+Control GW8 transfers: João Pedro → Calvert-Lewin; Szoboszlai → Mbeumo.
+
+Forced Groß GW8 transfers: Szoboszlai → Groß; Steele → Tzolakis. Subsequent transfers: GW9 João Pedro → Calvert-Lewin; GW10 Schade → Mbeumo; GW11 Gvardiol → De Cuyper; GW12 Guéhi → Tarkowski.
+
+**Interpretation:** Within the validated control model and this bounded six-GW search, the Mbeumo-first strategy wins. Groß's 58 points from 610 minutes, with six assists versus 1.16 xA, are strong observed returns but include substantial assist overperformance; Mbeumo has 3.96 xG versus Groß's 2.16 xG. The replay establishes a model preference, **not** a guarantee of future outcomes.
+
+**Limitations:** This is a constrained beam-search comparison, not an exhaustive global optimum or independent market-odds/news validation. The GW8 forced route includes an early goalkeeper transfer, so it does not isolate the direct midfielder swap. Independent official club/team news, predicted lineups, ceiling/haul, ownership/rank utility and broader walk-forward validation remain unverified. No production model change is justified by this audit.
