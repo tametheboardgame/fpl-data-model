@@ -5,6 +5,7 @@ inputs in memory, then compares its untouched result to a forced first-week
 candidate purchase using identical arguments. No output files are committed.
 """
 import json
+import inspect
 import runpy
 import sys
 from src import fpl_decisions
@@ -16,7 +17,10 @@ def run(candidate_id=124):
     evidence = []
     def capture(*args, **kwargs):
         baseline = original(*args, **kwargs)
-        forced = forced_first_week_route(*args, candidate_id=candidate_id, **kwargs)
+        bound = inspect.signature(original).bind(*args, **kwargs)
+        values = dict(bound.arguments)
+        values['candidate_id'] = candidate_id
+        forced = forced_first_week_route(**values)
         a = baseline.get("recommended_route") or {}
         b = forced.get("recommended_route") or {}
         evidence.append({
