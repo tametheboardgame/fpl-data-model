@@ -42,6 +42,27 @@ def forced_first_week_route(fixture_projections, players, squad, bank,
         options = original(state, player_by_id, augmented, remaining_points, max_transfers)
         forced = [option for option in options
                   if any(move["buy_player_id"] == candidate_id for move in option[3])]
+        # Enumerate legal direct candidate purchases independently of the
+        # original top-24 option pruning.
+        squad_ids = state.squad_ids
+        for outgoing_id in squad_ids:
+            outgoing = player_by_id[outgoing_id]
+            if str(outgoing.get("position")) != position or candidate_id in squad_ids:
+                continue
+            prices = state.price_map()
+            sale = fpl_multiweek.number(prices.get(outgoing_id, outgoing.get("price")))
+            buy = fpl_multiweek.number(player_by_id[candidate_id].get("price"))
+            new_bank = state.bank + sale - buy
+            if new_bank < -1e-9:
+                continue
+            new_squad = tuple(sorted((set(squad_ids) - {outgoing_id}) | {candidate_id}))
+            if not fpl_multiweek.legal_squad(new_squad, player_by_id):
+                continue
+            prices.pop(outgoing_id, None)
+            prices[candidate_id] = buy
+            move = {"sell_player_id": outgoing_id, "buy_player_id": candidate_id,
+                    "sell_price": round(sale, 1), "buy_price": round(buy, 1)}
+            forced.append((new_squad, prices, new_bank, [move]))
         if not forced:
             raise ValueError("No legal first-week purchase of candidate; check budget and club limits")
         return forced
