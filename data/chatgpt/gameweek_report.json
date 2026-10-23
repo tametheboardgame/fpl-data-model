@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.8",
-  "generated_at": "2026-10-23T17:12:25+00:00",
+  "generated_at": "2026-10-23T17:30:42+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-2.5",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-10-23T17:30:00+00:00",
     "deadline_time_uk": "2026-10-23T18:30:00+01:00",
-    "hours_remaining": 0.293
+    "hours_remaining": -0.012
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -20,7 +20,7 @@
         "team_name": "Brighton",
         "position": "Goalkeeper",
         "price": 4.6,
-        "expected_points": 3.139,
+        "expected_points": 3.107,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -33,7 +33,7 @@
         "team_name": "Man City",
         "position": "Defender",
         "price": 6.0,
-        "expected_points": 4.344,
+        "expected_points": 4.417,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -46,24 +46,24 @@
         "team_name": "Coventry City",
         "position": "Defender",
         "price": 4.0,
-        "expected_points": 4.25,
+        "expected_points": 4.206,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
         "news_added": ""
       },
       {
-        "player_id": 112,
-        "web_name": "Van Hecke",
-        "team_id": 19,
-        "team_name": "Spurs",
+        "player_id": 31,
+        "web_name": "Konsa",
+        "team_id": 1,
+        "team_name": "Arsenal",
         "position": "Defender",
-        "price": 4.9,
-        "expected_points": 4.117,
+        "price": 4.6,
+        "expected_points": 3.704,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
-        "news_added": "2026-09-30T16:00:09.552205Z"
+        "news_added": "2026-10-05T09:30:09.853316Z"
       },
       {
         "player_id": 427,
@@ -85,7 +85,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 11.8,
-        "expected_points": 5.578,
+        "expected_points": 5.576,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -98,7 +98,7 @@
         "team_name": "Man City",
         "position": "Forward",
         "price": 15.7,
-        "expected_points": 6.854,
+        "expected_points": 6.978,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -111,20 +111,7 @@
         "team_name": "Brentford",
         "position": "Forward",
         "price": 7.8,
-        "expected_points": 4.842,
-        "availability_status": "a",
-        "chance_of_playing": null,
-        "news": "",
-        "news_added": ""
-      },
-      {
-        "player_id": 68,
-        "web_name": "Tavernier",
-        "team_id": 3,
-        "team_name": "Bournemouth",
-        "position": "Midfielder",
-        "price": 6.2,
-        "expected_points": 4.444,
+        "expected_points": 4.997,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -137,11 +124,24 @@
         "team_name": "Chelsea",
         "position": "Forward",
         "price": 7.9,
-        "expected_points": 4.374,
+        "expected_points": 4.471,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
         "news_added": "2026-09-16T19:00:09.919929Z"
+      },
+      {
+        "player_id": 68,
+        "web_name": "Tavernier",
+        "team_id": 3,
+        "team_name": "Bournemouth",
+        "position": "Midfielder",
+        "price": 6.2,
+        "expected_points": 4.427,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
       },
       {
         "player_id": 94,
@@ -150,7 +150,7 @@
         "team_name": "Brentford",
         "position": "Midfielder",
         "price": 6.2,
-        "expected_points": 4.092,
+        "expected_points": 4.196,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -159,17 +159,17 @@
     ],
     "bench_order": [
       {
-        "player_id": 31,
-        "web_name": "Konsa",
-        "team_id": 1,
-        "team_name": "Arsenal",
+        "player_id": 112,
+        "web_name": "Van Hecke",
+        "team_id": 19,
+        "team_name": "Spurs",
         "position": "Defender",
-        "price": 4.6,
-        "expected_points": 3.648,
+        "price": 4.9,
+        "expected_points": 4.117,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
-        "news_added": "2026-10-05T09:30:09.853316Z"
+        "news_added": "2026-09-30T16:00:09.552205Z"
       },
       {
         "player_id": 277,
@@ -178,7 +178,7 @@
         "team_name": "Hull City",
         "position": "Defender",
         "price": 4.1,
-        "expected_points": 3.153,
+        "expected_points": 3.057,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -191,7 +191,7 @@
         "team_name": "Hull City",
         "position": "Midfielder",
         "price": 4.5,
-        "expected_points": 2.75,
+        "expected_points": 2.729,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -218,7 +218,7 @@
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.7,
-      "expected_points": 6.854,
+      "expected_points": 6.978,
       "availability_status": "a",
       "chance_of_playing": 100,
       "news": "",
@@ -231,7 +231,7 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 11.8,
-      "expected_points": 5.578,
+      "expected_points": 5.576,
       "availability_status": "a",
       "chance_of_playing": null,
       "news": "",
@@ -261,27 +261,14 @@
     "free_transfers_before": 2,
     "hit_cost": 0,
     "bank_after": 0.1,
-    "expected_points": 58.36,
-    "net_expected_points": 58.36,
-    "six_gameweek_net_gain_vs_hold": 31.922,
+    "expected_points": 58.9,
+    "net_expected_points": 58.9,
+    "six_gameweek_net_gain_vs_hold": 31.774,
     "six_gameweek_total_hit_cost": 0,
     "lineup_correlation": {
-      "opposing_pairs": [
-        {
-          "fixture_id": 73,
-          "defender_player_id": 112,
-          "defender": "Van Hecke",
-          "defender_team_id": 19,
-          "attacker_player_id": 165,
-          "attacker": "João Pedro",
-          "attacker_team_id": 6,
-          "clean_sheet_expected_points": 0.8867,
-          "attacking_return_probability": 0.2667,
-          "negative_correlation_exposure": 0.2365
-        }
-      ],
-      "opposing_pair_count": 1,
-      "negative_correlation_exposure": 0.2365,
+      "opposing_pairs": [],
+      "opposing_pair_count": 0,
+      "negative_correlation_exposure": 0,
       "principle": "Opposing attackers and defenders do not change mean expected points, but they reduce line-up variance and ceiling. Balanced selection keeps mean points primary; aggressive selection applies a bounded exposure penalty."
     },
     "squad_player_ids": [
@@ -307,20 +294,20 @@
     "captain": {
       "utility_version": "strategic-captain-1.0",
       "player_id": 411,
-      "displayed_mean_xpts": 6.854,
-      "risk_adjusted_mean_input": 6.854,
-      "strategic_score": 8.0722,
+      "displayed_mean_xpts": 6.978,
+      "risk_adjusted_mean_input": 6.978,
+      "strategic_score": 8.2067,
       "selection_basis": "route_strategic_utility",
       "components": {
-        "bounded_strategic_bonus": 1.2182,
-        "ceiling_contribution": 0.7682,
+        "bounded_strategic_bonus": 1.2287,
+        "ceiling_contribution": 0.7787,
         "rank_pressure_contribution": 0.45,
         "position_uncertainty_penalty": 0.0,
         "defensive_exception_margin": 0.0,
         "selection_risk_penalty": 0.0,
         "expected_minutes": 87.28,
         "availability_confidence": 1.0,
-        "points_p90": 12.0592,
+        "points_p90": 12.2774,
         "probability_10_plus": 0.1733,
         "probability_15_plus": 0.0283,
         "ownership_percent": 77.4
@@ -331,20 +318,20 @@
     "vice_captain": {
       "utility_version": "strategic-captain-1.0",
       "player_id": 426,
-      "displayed_mean_xpts": 5.578,
-      "risk_adjusted_mean_input": 5.578,
-      "strategic_score": 6.2389,
+      "displayed_mean_xpts": 5.576,
+      "risk_adjusted_mean_input": 5.576,
+      "strategic_score": 6.2367,
       "selection_basis": "decision_strategic_utility",
       "components": {
-        "bounded_strategic_bonus": 0.6609,
-        "ceiling_contribution": 0.6609,
+        "bounded_strategic_bonus": 0.6607,
+        "ceiling_contribution": 0.6607,
         "rank_pressure_contribution": 0.0,
         "position_uncertainty_penalty": 0.0,
         "defensive_exception_margin": 0.0,
         "selection_risk_penalty": 0.0,
         "expected_minutes": 88.83,
         "availability_confidence": 1.0,
-        "points_p90": 10.4164,
+        "points_p90": 10.4127,
         "probability_10_plus": 0.1167,
         "probability_15_plus": 0.015,
         "ownership_percent": 26.3
@@ -374,7 +361,7 @@
       12,
       13
     ],
-    "net_gain_vs_hold": 31.922,
+    "net_gain_vs_hold": 31.774,
     "gameweek_plan": [
       {
         "gameweek": 8,
@@ -399,21 +386,21 @@
         "free_transfers_before": 2,
         "hit_cost": 0,
         "bank_after": 0.1,
-        "lineup_expected_points": 58.36,
-        "net_expected_points": 58.36,
+        "lineup_expected_points": 58.9,
+        "net_expected_points": 58.9,
         "captain_player_id": 411,
         "captain": "Haaland",
         "starter_player_ids": [
           109,
           388,
           173,
-          112,
+          31,
           427,
           426,
           411,
           106,
-          68,
           165,
+          68,
           94
         ]
       },
@@ -578,11 +565,6 @@
   "availability_risks": [],
   "warnings": [
     {
-      "code": "opposing_player_correlation",
-      "severity": "low",
-      "message": "The starting XI contains negatively correlated opposing players: Van Hecke / João Pedro. This affects variance, not mean expected points."
-    },
-    {
       "code": "provider_plan_blocked",
       "severity": "low",
       "message": "API-Football is unavailable under the current plan; recommendations use the remaining sources."
@@ -598,7 +580,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-10-23T11:49:18+00:00",
+      "generated_at": "2026-10-23T17:16:22+00:00",
       "required_action": null,
       "error": null
     },
@@ -613,8 +595,8 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-10-23T17:11:12+00:00",
-    "external_context_generated_at": "2026-10-23T17:12:25+00:00",
-    "active_external_signals": 5472,
+    "external_context_generated_at": "2026-10-23T17:30:42+00:00",
+    "active_external_signals": 5640,
     "expired_external_signals": 35872
   },
   "fixture_signature": [
@@ -1460,10 +1442,8 @@
     ]
   ],
   "deadline_freeze": {
-    "status": "frozen",
-    "window_hours": 8,
-    "immutable_snapshot": "prospective/gw08/20261023T171225Z.json",
-    "snapshot_created_this_run": "prospective/gw08/20261023T171225Z.json"
+    "status": "deadline_passed",
+    "immutable_snapshot": "prospective/gw08/20261023T171225Z.json"
   },
   "decision_validation": {
     "status": "passed",
@@ -1485,13 +1465,13 @@
     "principle": "GW1 uses launch validation; later Gameweeks validate the registered squad, legal weekly selection and transfer robustness directly."
   },
   "operational_readiness": {
-    "advice_level": "final",
-    "firm_advice_allowed": true,
+    "advice_level": "provisional",
+    "firm_advice_allowed": false,
     "validation_passed": true,
     "blocking_reasons": [],
     "late_team_news_review": {
-      "status": "required_before_action",
-      "required": true,
+      "status": "not_due",
+      "required": false,
       "reason": "API-Football is plan-blocked, so check official club news and trusted predicted line-ups before applying the recommendation."
     }
   },
@@ -1505,19 +1485,6 @@
         109,
         388,
         173,
-        31,
-        427,
-        426,
-        411,
-        106,
-        68,
-        346,
-        94
-      ],
-      "after": [
-        109,
-        388,
-        173,
         112,
         427,
         426,
@@ -1526,62 +1493,41 @@
         68,
         165,
         94
+      ],
+      "after": [
+        109,
+        388,
+        173,
+        31,
+        427,
+        426,
+        411,
+        106,
+        165,
+        68,
+        94
       ]
     },
     {
       "type": "bench",
       "summary": "Bench order changed",
       "before": [
-        391,
-        277,
-        290,
-        111
-      ],
-      "after": [
         31,
         277,
         290,
         111
-      ]
-    },
-    {
-      "type": "transfers",
-      "summary": "Transfer recommendation changed",
-      "before": [
-        [
-          165,
-          346
-        ],
-        [
-          368,
-          427
-        ]
       ],
       "after": [
-        [
-          391,
-          112
-        ],
-        [
-          368,
-          427
-        ]
+        112,
+        277,
+        290,
+        111
       ]
     },
     {
       "type": "warning_codes",
       "summary": "Data-quality warning state changed",
       "before": [
-        [
-          "expired_context",
-          "low"
-        ],
-        [
-          "provider_plan_blocked",
-          "low"
-        ]
-      ],
-      "after": [
         [
           "expired_context",
           "low"
@@ -1594,24 +1540,40 @@
           "provider_plan_blocked",
           "low"
         ]
+      ],
+      "after": [
+        [
+          "expired_context",
+          "low"
+        ],
+        [
+          "provider_plan_blocked",
+          "low"
+        ]
       ]
     },
     {
       "type": "advice_level",
       "summary": "Deadline advice stage changed",
-      "before": "firm",
-      "after": "final"
+      "before": "final",
+      "after": "provisional"
+    },
+    {
+      "type": "firm_advice_allowed",
+      "summary": "Firm-advice safety gate changed",
+      "before": true,
+      "after": false
     },
     {
       "type": "lineup_correlation",
       "summary": "Starting XI correlation exposure changed",
-      "before": 0,
-      "after": 0.2365
+      "before": 0.2365,
+      "after": 0
     }
   ],
   "material_change": true,
-  "change_summary": "Starting XI changed Bench order changed Transfer recommendation changed Data-quality warning state changed Deadline advice stage changed Starting XI correlation exposure changed",
-  "decision_fingerprint": "223974ad901c343fc5e8cbe053f75a630c6f99d4765ca48bb58ff4b83a3a8af6",
-  "archive_created_this_run": "operations/gw08/20261023T171225Z.json",
-  "archive_markdown_created_this_run": "operations/gw08/20261023T171225Z.md"
+  "change_summary": "Starting XI changed Bench order changed Data-quality warning state changed Deadline advice stage changed Firm-advice safety gate changed Starting XI correlation exposure changed",
+  "decision_fingerprint": "35d0c12ed62a38918770c5a2d70123de311c62b1b520f29231928d5b4ba6fe2c",
+  "archive_created_this_run": "operations/gw08/20261023T173042Z.json",
+  "archive_markdown_created_this_run": "operations/gw08/20261023T173042Z.md"
 }
