@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T12:12:28+00:00",
+  "generated_at": "2026-10-23T17:12:25+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -136,14 +136,6 @@
       "expected_points_next_1": 4.463
     },
     {
-      "player_id": 346,
-      "web_name": "Calvert-Lewin",
-      "team_name": "Leeds",
-      "position": "Forward",
-      "price": 6.1,
-      "expected_points_next_1": 4.432
-    },
-    {
       "player_id": 173,
       "web_name": "Thomas",
       "team_name": "Coventry City",
@@ -222,6 +214,14 @@
       "position": "Midfielder",
       "price": 5.7,
       "expected_points_next_1": 4.175
+    },
+    {
+      "player_id": 112,
+      "web_name": "Van Hecke",
+      "team_name": "Spurs",
+      "position": "Defender",
+      "price": 4.9,
+      "expected_points_next_1": 4.117
     }
   ],
   "top_next_three_gameweeks": [
@@ -264,14 +264,6 @@
       "position": "Midfielder",
       "price": 6.2,
       "expected_points_next_3": 14.53
-    },
-    {
-      "player_id": 346,
-      "web_name": "Calvert-Lewin",
-      "team_name": "Leeds",
-      "position": "Forward",
-      "price": 6.1,
-      "expected_points_next_3": 13.952
     },
     {
       "player_id": 229,
@@ -362,14 +354,6 @@
       "expected_points_next_3": 12.73
     },
     {
-      "player_id": 335,
-      "web_name": "Stach",
-      "team_name": "Leeds",
-      "position": "Midfielder",
-      "price": 6.0,
-      "expected_points_next_3": 12.552
-    },
-    {
       "player_id": 572,
       "web_name": "Tzolakis",
       "team_name": "Hull City",
@@ -384,6 +368,22 @@
       "position": "Midfielder",
       "price": 6.8,
       "expected_points_next_3": 12.438
+    },
+    {
+      "player_id": 115,
+      "web_name": "De Cuyper",
+      "team_name": "Brighton",
+      "position": "Defender",
+      "price": 5.3,
+      "expected_points_next_3": 12.403
+    },
+    {
+      "player_id": 332,
+      "web_name": "Justin",
+      "team_name": "Leeds",
+      "position": "Defender",
+      "price": 4.5,
+      "expected_points_next_3": 12.387
     }
   ],
   "component_top_next_gameweek": [
@@ -630,14 +630,6 @@
       "component_expected_points_next_3": 11.08
     },
     {
-      "player_id": 346,
-      "web_name": "Calvert-Lewin",
-      "team_name": "Leeds",
-      "position": "Forward",
-      "price": 6.1,
-      "component_expected_points_next_3": 11.012
-    },
-    {
       "player_id": 330,
       "web_name": "Bogle",
       "team_name": "Leeds",
@@ -708,15 +700,23 @@
       "position": "Forward",
       "price": 9.0,
       "component_expected_points_next_3": 10.313
+    },
+    {
+      "player_id": 60,
+      "web_name": "Hill",
+      "team_name": "Bournemouth",
+      "position": "Defender",
+      "price": 5.5,
+      "component_expected_points_next_3": 10.242
     }
   ],
-  "prediction_snapshot_created": "predictions/gw08/20261023T121228Z.csv",
+  "prediction_snapshot_created": "predictions/gw08/20261023T171225Z.csv",
   "evaluated_gameweeks": 7,
   "prospective_evaluated_gameweeks": 6,
-  "prospective_snapshot_created": "prospective/gw08/20261023T121228Z.json",
+  "prospective_snapshot_created": "prospective/gw08/20261023T171225Z.json",
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 2,
+  "gameweek_report_warning_count": 3,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
