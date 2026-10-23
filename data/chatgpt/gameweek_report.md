@@ -1,55 +1,62 @@
-# FPL Gameweek 8 Deadline Report
+# FPL Gameweek 9 Deadline Report
 
 Status: ready
-Generated: 2026-10-23T17:30:42+00:00
-UK deadline: 2026-10-23T18:30:00+01:00
-Hours remaining: -0.012
+Generated: 2026-10-23T21:27:39+00:00
+UK deadline: 2026-10-31T11:00:00+00:00
+Hours remaining: 181.539
 Advice level: provisional
 Firm advice allowed: False
 
 ## Recommended action
 
-Transfers: Gvardiol to Van Hecke, Szoboszlai to Mbeumo
+Transfers: Gvardiol to Tarkowski
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.107 xPts)
-- Guéhi (Man City, 4.417 xPts)
-- Thomas (Coventry City, 4.206 xPts)
-- Konsa (Arsenal, 3.704 xPts)
-- Mbeumo (Man Utd, 5.602 xPts)
-- B.Fernandes (Man Utd, 5.576 xPts)
-- Haaland (Man City, 6.978 xPts)
-- Thiago (Brentford, 4.997 xPts)
-- João Pedro (Chelsea, 4.471 xPts)
-- Tavernier (Bournemouth, 4.427 xPts)
-- Schade (Brentford, 4.196 xPts)
+- Verbruggen (Brighton, 2.609 xPts)
+- Tarkowski (Everton, 4.587 xPts)
+- Guéhi (Man City, 4.345 xPts)
+- Thomas (Coventry City, 4.221 xPts)
+- Tavernier (Bournemouth, 4.894 xPts)
+- B.Fernandes (Man Utd, 4.719 xPts)
+- Haaland (Man City, 6.844 xPts)
+- Mbeumo (Man Utd, 4.684 xPts)
+- Thiago (Brentford, 4.404 xPts)
+- Schade (Brentford, 3.705 xPts)
+- Egan (Hull City, 3.392 xPts)
 
-Captain: Haaland (6.978 mean xPts; strategic score 8.2067)
-Vice-captain: B.Fernandes (5.576 mean xPts; strategic score 6.2367)
+Captain: Haaland (6.844 mean xPts; strategic score 8.1254)
+Vice-captain: Tavernier (4.894 mean xPts; strategic score 5.4429)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Van Hecke (4.117 xPts)
-2. Egan (3.057 xPts)
-3. Slater (2.729 xPts)
+1. Konsa (3.007 xPts)
+2. Slater (2.759 xPts)
+3. Calvert-Lewin (1.702 xPts)
 4. Steele (0.0 xPts)
 
 ## Changes since previous report
 
+- Target Gameweek changed
+- Deadline changed
 - Starting XI changed
 - Bench order changed
+- Vice-captain changed
+- Transfer recommendation changed
+- Chip recommendation changed
+- Availability information changed
+- Fixture information changed
 - Data-quality warning state changed
-- Deadline advice stage changed
-- Firm-advice safety gate changed
 - Starting XI correlation exposure changed
 
 ## Warnings
 
+- [MEDIUM] Calvert-Lewin has an availability flag (50% chance): Foot injury - 50% chance of playing.
+- [LOW] The starting XI contains negatively correlated opposing players: Verbruggen / Haaland. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
 - [LOW] 35872 external-context signals have expired and are excluded.
 
@@ -60,7 +67,7 @@ API-Football is plan-blocked, so check official club news and trusted predicted 
 
 ## Deadline snapshot
 
-Freeze status: deadline_passed
-Immutable snapshot: prospective/gw08/20261023T171225Z.json
+Freeze status: waiting_for_freeze_window
+Immutable snapshot: Not yet available
 
 This report is advisory only. No transfers, chips or team changes are made automatically.
