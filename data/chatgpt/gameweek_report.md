@@ -1,52 +1,55 @@
 # FPL Gameweek 9 Deadline Report
 
 Status: ready
-Generated: 2026-10-26T05:27:31+00:00
+Generated: 2026-10-26T13:09:35+00:00
 UK deadline: 2026-10-31T11:00:00+00:00
-Hours remaining: 125.541
+Hours remaining: 117.84
 Advice level: provisional
 Firm advice allowed: False
 
 ## Recommended action
 
-Transfers: Gvardiol to Tarkowski
+Transfers: Gvardiol to Hill
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 2.593 xPts)
-- Guéhi (Man City, 4.36 xPts)
-- Tarkowski (Everton, 4.587 xPts)
-- Egan (Hull City, 3.377 xPts)
-- Tavernier (Bournemouth, 4.893 xPts)
-- B.Fernandes (Man Utd, 4.65 xPts)
-- Haaland (Man City, 6.873 xPts)
-- Calvert-Lewin (Leeds, 4.678 xPts)
-- Mbeumo (Man Utd, 4.608 xPts)
-- Thiago (Brentford, 4.453 xPts)
-- Schade (Brentford, 3.739 xPts)
+- Verbruggen (Brighton, 2.734 xPts)
+- Hill (Bournemouth, 4.898 xPts)
+- Guéhi (Man City, 4.11 xPts)
+- Konsa (Arsenal, 3.616 xPts)
+- Tavernier (Bournemouth, 5.196 xPts)
+- Mbeumo (Man Utd, 4.66 xPts)
+- Haaland (Man City, 6.882 xPts)
+- Calvert-Lewin (Leeds, 4.545 xPts)
+- Thiago (Brentford, 4.458 xPts)
+- Schade (Brentford, 3.653 xPts)
+- B.Fernandes (Man Utd, 3.652 xPts)
 
-Captain: Haaland (6.873 mean xPts; strategic score 8.1569)
-Vice-captain: Tavernier (4.893 mean xPts; strategic score 5.4418)
+Captain: Haaland (6.882 mean xPts; strategic score 8.177)
+Vice-captain: Tavernier (5.196 mean xPts; strategic score 5.7214)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Konsa (3.138 xPts)
-2. Slater (2.753 xPts)
-3. Thomas (2.721 xPts)
+1. Egan (3.504 xPts)
+2. Slater (2.769 xPts)
+3. Thomas (2.673 xPts)
 4. Steele (0.0 xPts)
 
 ## Changes since previous report
 
 - Starting XI changed
+- Bench order changed
+- Transfer recommendation changed
+- Starting XI correlation exposure changed
 
 ## Warnings
 
 - [MEDIUM] Thomas has an availability flag (75% chance): Unspecified injury - 75% chance of playing.
-- [LOW] The starting XI contains negatively correlated opposing players: Verbruggen / Haaland. This affects variance, not mean expected points.
+- [LOW] The starting XI contains negatively correlated opposing players: Hill / Calvert-Lewin, Verbruggen / Haaland. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
 - [LOW] 40016 external-context signals have expired and are excluded.
 
