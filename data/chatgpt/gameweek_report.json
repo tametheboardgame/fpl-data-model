@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.8",
-  "generated_at": "2026-10-27T18:06:55+00:00",
+  "generated_at": "2026-10-27T18:22:48+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-2.5",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-10-31T11:00:00+00:00",
     "deadline_time_uk": "2026-10-31T11:00:00+00:00",
-    "hours_remaining": 88.885
+    "hours_remaining": 88.62
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -20,7 +20,7 @@
         "team_name": "Brighton",
         "position": "Goalkeeper",
         "price": 4.6,
-        "expected_points": 2.703,
+        "expected_points": 2.704,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -46,7 +46,7 @@
         "team_name": "Man City",
         "position": "Defender",
         "price": 6.0,
-        "expected_points": 4.135,
+        "expected_points": 4.132,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -98,7 +98,7 @@
         "team_name": "Man City",
         "position": "Forward",
         "price": 15.7,
-        "expected_points": 6.942,
+        "expected_points": 6.94,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -124,7 +124,7 @@
         "team_name": "Brentford",
         "position": "Forward",
         "price": 7.8,
-        "expected_points": 4.505,
+        "expected_points": 4.501,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -137,7 +137,7 @@
         "team_name": "Brentford",
         "position": "Midfielder",
         "price": 6.2,
-        "expected_points": 3.683,
+        "expected_points": 3.681,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -150,7 +150,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 11.7,
-        "expected_points": 3.633,
+        "expected_points": 3.634,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -165,7 +165,7 @@
         "team_name": "Hull City",
         "position": "Defender",
         "price": 4.1,
-        "expected_points": 3.501,
+        "expected_points": 3.503,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -218,7 +218,7 @@
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.7,
-      "expected_points": 6.942,
+      "expected_points": 6.94,
       "availability_status": "a",
       "chance_of_playing": 100,
       "news": "",
@@ -253,9 +253,9 @@
     "free_transfers_before": 1,
     "hit_cost": 0,
     "bank_after": 1.1,
-    "expected_points": 55.39,
-    "net_expected_points": 55.39,
-    "six_gameweek_net_gain_vs_hold": 23.361,
+    "expected_points": 55.379,
+    "net_expected_points": 55.379,
+    "six_gameweek_net_gain_vs_hold": 23.359,
     "six_gameweek_total_hit_cost": 0,
     "lineup_correlation": {
       "opposing_pairs": [
@@ -311,20 +311,20 @@
     "captain": {
       "utility_version": "strategic-captain-1.0",
       "player_id": 411,
-      "displayed_mean_xpts": 6.942,
-      "risk_adjusted_mean_input": 6.942,
-      "strategic_score": 8.2423,
+      "displayed_mean_xpts": 6.94,
+      "risk_adjusted_mean_input": 6.94,
+      "strategic_score": 8.2401,
       "selection_basis": "route_strategic_utility",
       "components": {
-        "bounded_strategic_bonus": 1.3003,
-        "ceiling_contribution": 0.8503,
+        "bounded_strategic_bonus": 1.3001,
+        "ceiling_contribution": 0.8501,
         "rank_pressure_contribution": 0.45,
         "position_uncertainty_penalty": 0.0,
         "defensive_exception_margin": 0.0,
         "selection_risk_penalty": 0.0,
         "expected_minutes": 87.14,
         "availability_confidence": 1.0,
-        "points_p90": 12.3835,
+        "points_p90": 12.38,
         "probability_10_plus": 0.22,
         "probability_15_plus": 0.04,
         "ownership_percent": 78.1
@@ -378,7 +378,7 @@
       13,
       14
     ],
-    "net_gain_vs_hold": 23.361,
+    "net_gain_vs_hold": 23.359,
     "gameweek_plan": [
       {
         "gameweek": 9,
@@ -395,8 +395,8 @@
         "free_transfers_before": 1,
         "hit_cost": 0,
         "bank_after": 1.1,
-        "lineup_expected_points": 55.39,
-        "net_expected_points": 55.39,
+        "lineup_expected_points": 55.379,
+        "net_expected_points": 55.379,
         "captain_player_id": 411,
         "captain": "Haaland",
         "starter_player_ids": [
@@ -633,7 +633,7 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-10-27T18:05:36+00:00",
-    "external_context_generated_at": "2026-10-27T18:06:55+00:00",
+    "external_context_generated_at": "2026-10-27T18:22:48+00:00",
     "active_external_signals": 3912,
     "expired_external_signals": 40016
   },
@@ -1516,41 +1516,10 @@
   },
   "advisory_only": true,
   "automatic_fpl_actions": false,
-  "material_changes": [
-    {
-      "type": "starting_xi",
-      "summary": "Starting XI changed",
-      "before": [
-        109,
-        60,
-        388,
-        31,
-        68,
-        427,
-        411,
-        106,
-        346,
-        94,
-        426
-      ],
-      "after": [
-        109,
-        60,
-        388,
-        31,
-        68,
-        427,
-        411,
-        346,
-        106,
-        94,
-        426
-      ]
-    }
-  ],
-  "material_change": true,
-  "change_summary": "Starting XI changed",
+  "material_changes": [],
+  "material_change": false,
+  "change_summary": "No material change since the previous report.",
   "decision_fingerprint": "e4db98c462ca8da744de356939c397f31a938b8b979550135e7b15138d985585",
-  "archive_created_this_run": "operations/gw09/20261027T180655Z.json",
-  "archive_markdown_created_this_run": "operations/gw09/20261027T180655Z.md"
+  "archive_created_this_run": null,
+  "archive_markdown_created_this_run": null
 }
