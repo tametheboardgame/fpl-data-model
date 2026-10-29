@@ -1,9 +1,9 @@
 # FPL Gameweek 9 Deadline Report
 
 Status: ready
-Generated: 2026-10-29T05:53:07+00:00
+Generated: 2026-10-29T06:32:41+00:00
 UK deadline: 2026-10-31T11:00:00+00:00
-Hours remaining: 53.115
+Hours remaining: 52.455
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,27 +16,27 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 2.696 xPts)
+- Verbruggen (Brighton, 2.659 xPts)
 - Hill (Bournemouth, 4.898 xPts)
-- Guéhi (Man City, 4.113 xPts)
-- Konsa (Arsenal, 3.616 xPts)
-- Tavernier (Bournemouth, 5.189 xPts)
-- Mbeumo (Man Utd, 4.628 xPts)
-- Haaland (Man City, 6.958 xPts)
-- Calvert-Lewin (Leeds, 4.532 xPts)
-- Thiago (Brentford, 4.473 xPts)
-- Schade (Brentford, 3.661 xPts)
-- B.Fernandes (Man Utd, 3.629 xPts)
+- Guéhi (Man City, 4.172 xPts)
+- Konsa (Arsenal, 3.624 xPts)
+- Tavernier (Bournemouth, 5.187 xPts)
+- Mbeumo (Man Utd, 4.605 xPts)
+- Haaland (Man City, 7.025 xPts)
+- Thiago (Brentford, 4.576 xPts)
+- Calvert-Lewin (Leeds, 4.54 xPts)
+- Schade (Brentford, 3.728 xPts)
+- B.Fernandes (Man Utd, 3.609 xPts)
 
-Captain: Haaland (6.958 mean xPts; strategic score 8.2597)
-Vice-captain: Tavernier (5.189 mean xPts; strategic score 5.7138)
+Captain: Haaland (7.025 mean xPts; strategic score 8.3325)
+Vice-captain: Tavernier (5.187 mean xPts; strategic score 5.7116)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Egan (3.508 xPts)
-2. Slater (2.766 xPts)
-3. Thomas (2.67 xPts)
+1. Egan (3.459 xPts)
+2. Slater (2.761 xPts)
+3. Thomas (2.648 xPts)
 4. Steele (0.0 xPts)
 
 ## Changes since previous report
