@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T13:46:54+00:00",
+  "generated_at": "2026-10-29T22:48:06+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -168,14 +168,6 @@
       "expected_points_next_1": 4.31
     },
     {
-      "player_id": 533,
-      "web_name": "Mukiele",
-      "team_name": "Sunderland",
-      "position": "Defender",
-      "price": 5.4,
-      "expected_points_next_1": 4.302
-    },
-    {
       "player_id": 597,
       "web_name": "Suzuki",
       "team_name": "Aston Villa",
@@ -190,6 +182,14 @@
       "position": "Defender",
       "price": 4.0,
       "expected_points_next_1": 4.242
+    },
+    {
+      "player_id": 469,
+      "web_name": "N.Williams",
+      "team_name": "Nott'm Forest",
+      "position": "Defender",
+      "price": 5.0,
+      "expected_points_next_1": 4.225
     },
     {
       "player_id": 472,
@@ -420,14 +420,6 @@
       "component_expected_points_next_1": 3.98
     },
     {
-      "player_id": 533,
-      "web_name": "Mukiele",
-      "team_name": "Sunderland",
-      "position": "Defender",
-      "price": 5.4,
-      "component_expected_points_next_1": 3.945
-    },
-    {
       "player_id": 566,
       "web_name": "Silva",
       "team_name": "Bournemouth",
@@ -546,6 +538,14 @@
       "position": "Midfielder",
       "price": 6.3,
       "component_expected_points_next_1": 3.422
+    },
+    {
+      "player_id": 304,
+      "web_name": "O'Shea",
+      "team_name": "Ipswich Town",
+      "position": "Defender",
+      "price": 4.0,
+      "component_expected_points_next_1": 3.41
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -638,14 +638,6 @@
       "component_expected_points_next_3": 11.0
     },
     {
-      "player_id": 533,
-      "web_name": "Mukiele",
-      "team_name": "Sunderland",
-      "position": "Defender",
-      "price": 5.4,
-      "component_expected_points_next_3": 10.99
-    },
-    {
       "player_id": 542,
       "web_name": "E.Le F\u00e9e",
       "team_name": "Sunderland",
@@ -708,6 +700,14 @@
       "position": "Midfielder",
       "price": 6.3,
       "component_expected_points_next_3": 10.268
+    },
+    {
+      "player_id": 1,
+      "web_name": "Raya",
+      "team_name": "Arsenal",
+      "position": "Goalkeeper",
+      "price": 6.2,
+      "component_expected_points_next_3": 10.255
     }
   ],
   "prediction_snapshot_created": null,
