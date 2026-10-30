@@ -1,11 +1,11 @@
 # FPL Gameweek 9 Deadline Report
 
 Status: ready
-Generated: 2026-10-30T06:31:54+00:00
+Generated: 2026-10-30T13:00:37+00:00
 UK deadline: 2026-10-31T11:00:00+00:00
-Hours remaining: 28.468
-Advice level: provisional
-Firm advice allowed: False
+Hours remaining: 21.99
+Advice level: firm
+Firm advice allowed: True
 
 ## Recommended action
 
@@ -16,32 +16,34 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 2.631 xPts)
+- Verbruggen (Brighton, 2.675 xPts)
 - Hill (Bournemouth, 4.898 xPts)
-- Guéhi (Man City, 4.19 xPts)
-- Konsa (Arsenal, 3.617 xPts)
-- Tavernier (Bournemouth, 5.179 xPts)
-- Mbeumo (Man Utd, 4.588 xPts)
-- Haaland (Man City, 7.082 xPts)
-- Thiago (Brentford, 4.562 xPts)
-- Calvert-Lewin (Leeds, 4.543 xPts)
-- Schade (Brentford, 3.72 xPts)
-- B.Fernandes (Man Utd, 3.597 xPts)
+- Guéhi (Man City, 4.128 xPts)
+- Konsa (Arsenal, 3.607 xPts)
+- Tavernier (Bournemouth, 5.188 xPts)
+- Mbeumo (Man Utd, 4.614 xPts)
+- Haaland (Man City, 7.003 xPts)
+- Calvert-Lewin (Leeds, 4.53 xPts)
+- Thiago (Brentford, 4.464 xPts)
+- Schade (Brentford, 3.656 xPts)
+- B.Fernandes (Man Utd, 3.619 xPts)
 
-Captain: Haaland (7.082 mean xPts; strategic score 8.3945)
-Vice-captain: Tavernier (5.179 mean xPts; strategic score 5.703)
+Captain: Haaland (7.003 mean xPts; strategic score 8.3086)
+Vice-captain: Tavernier (5.188 mean xPts; strategic score 5.7127)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Egan (3.469 xPts)
-2. Slater (2.759 xPts)
-3. Thomas (1.787 xPts)
+1. Egan (3.514 xPts)
+2. Slater (2.764 xPts)
+3. Thomas (1.799 xPts)
 4. Steele (0.0 xPts)
 
 ## Changes since previous report
 
 - Starting XI changed
+- Deadline advice stage changed
+- Firm-advice safety gate changed
 
 ## Warnings
 
@@ -52,7 +54,7 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Manual late-news check
 
-Status: not_due
+Status: required_before_action
 API-Football is plan-blocked, so check official club news and trusted predicted line-ups before applying the recommendation.
 
 ## Deadline snapshot
