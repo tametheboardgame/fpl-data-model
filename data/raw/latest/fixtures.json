@@ -29466,12 +29466,68 @@
     "kickoff_time": "2026-10-31T12:30:00Z",
     "minutes": 0,
     "provisional_start_time": false,
-    "started": false,
+    "started": true,
     "team_a": 16,
     "team_a_score": null,
     "team_h": 6,
     "team_h_score": null,
-    "stats": [],
+    "stats": [
+      {
+        "identifier": "goals_scored",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "assists",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "own_goals",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "penalties_saved",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "penalties_missed",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "yellow_cards",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "red_cards",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "saves",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "bonus",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "bps",
+        "a": [],
+        "h": []
+      },
+      {
+        "identifier": "defensive_contribution",
+        "a": [],
+        "h": []
+      }
+    ],
     "team_h_difficulty": 4,
     "team_a_difficulty": 4,
     "pulse_id": 0
