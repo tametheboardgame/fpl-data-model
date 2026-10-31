@@ -1,0 +1,1555 @@
+{
+  "operations_version": "fpl-gameweek-operations-1.8",
+  "generated_at": "2026-10-31T05:47:45+00:00",
+  "status": "ready",
+  "decision_status": "ready",
+  "decision_version": "fpl-decisions-2.5",
+  "target_gameweek": 9,
+  "deadline": {
+    "deadline_time": "2026-10-31T11:00:00+00:00",
+    "deadline_time_uk": "2026-10-31T11:00:00+00:00",
+    "hours_remaining": 5.204
+  },
+  "recommendation": {
+    "selection_source": "registered_team",
+    "starting_xi": [
+      {
+        "player_id": 109,
+        "web_name": "Verbruggen",
+        "team_id": 5,
+        "team_name": "Brighton",
+        "position": "Goalkeeper",
+        "price": 4.6,
+        "expected_points": 2.702,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 60,
+        "web_name": "Hill",
+        "team_id": 3,
+        "team_name": "Bournemouth",
+        "position": "Defender",
+        "price": 5.5,
+        "expected_points": 4.898,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 388,
+        "web_name": "Guéhi",
+        "team_id": 15,
+        "team_name": "Man City",
+        "position": "Defender",
+        "price": 6.0,
+        "expected_points": 4.062,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 31,
+        "web_name": "Konsa",
+        "team_id": 1,
+        "team_name": "Arsenal",
+        "position": "Defender",
+        "price": 4.7,
+        "expected_points": 3.596,
+        "availability_status": "a",
+        "chance_of_playing": 100,
+        "news": "",
+        "news_added": "2026-10-05T09:30:09.853316Z"
+      },
+      {
+        "player_id": 68,
+        "web_name": "Tavernier",
+        "team_id": 3,
+        "team_name": "Bournemouth",
+        "position": "Midfielder",
+        "price": 6.5,
+        "expected_points": 5.192,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 427,
+        "web_name": "Mbeumo",
+        "team_id": 16,
+        "team_name": "Man Utd",
+        "position": "Midfielder",
+        "price": 7.9,
+        "expected_points": 4.673,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 411,
+        "web_name": "Haaland",
+        "team_id": 15,
+        "team_name": "Man City",
+        "position": "Forward",
+        "price": 15.8,
+        "expected_points": 6.947,
+        "availability_status": "a",
+        "chance_of_playing": 100,
+        "news": "",
+        "news_added": "2026-10-19T13:00:10.543876Z"
+      },
+      {
+        "player_id": 346,
+        "web_name": "Calvert-Lewin",
+        "team_id": 13,
+        "team_name": "Leeds",
+        "position": "Forward",
+        "price": 6.1,
+        "expected_points": 4.525,
+        "availability_status": "a",
+        "chance_of_playing": 100,
+        "news": "",
+        "news_added": "2026-10-23T13:00:09.444671Z"
+      },
+      {
+        "player_id": 106,
+        "web_name": "Thiago",
+        "team_id": 4,
+        "team_name": "Brentford",
+        "position": "Forward",
+        "price": 7.8,
+        "expected_points": 4.438,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 426,
+        "web_name": "B.Fernandes",
+        "team_id": 16,
+        "team_name": "Man Utd",
+        "position": "Midfielder",
+        "price": 11.7,
+        "expected_points": 3.663,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 94,
+        "web_name": "Schade",
+        "team_id": 4,
+        "team_name": "Brentford",
+        "position": "Midfielder",
+        "price": 6.2,
+        "expected_points": 3.643,
+        "availability_status": "a",
+        "chance_of_playing": 100,
+        "news": "",
+        "news_added": "2026-10-10T16:30:08.848962Z"
+      }
+    ],
+    "bench_order": [
+      {
+        "player_id": 277,
+        "web_name": "Egan",
+        "team_id": 11,
+        "team_name": "Hull City",
+        "position": "Defender",
+        "price": 4.1,
+        "expected_points": 3.525,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 290,
+        "web_name": "Slater",
+        "team_id": 11,
+        "team_name": "Hull City",
+        "position": "Midfielder",
+        "price": 4.5,
+        "expected_points": 2.768,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 173,
+        "web_name": "Thomas",
+        "team_id": 7,
+        "team_name": "Coventry City",
+        "position": "Defender",
+        "price": 4.0,
+        "expected_points": 1.799,
+        "availability_status": "d",
+        "chance_of_playing": 50,
+        "news": "Calf injury - 50% chance of playing",
+        "news_added": "2026-10-24T17:00:09.115906Z"
+      },
+      {
+        "player_id": 111,
+        "web_name": "Steele",
+        "team_id": 5,
+        "team_name": "Brighton",
+        "position": "Goalkeeper",
+        "price": 4.0,
+        "expected_points": 0.0,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      }
+    ],
+    "captain": {
+      "player_id": 411,
+      "web_name": "Haaland",
+      "team_id": 15,
+      "team_name": "Man City",
+      "position": "Forward",
+      "price": 15.8,
+      "expected_points": 6.947,
+      "availability_status": "a",
+      "chance_of_playing": 100,
+      "news": "",
+      "news_added": "2026-10-19T13:00:10.543876Z"
+    },
+    "vice_captain": {
+      "player_id": 68,
+      "web_name": "Tavernier",
+      "team_id": 3,
+      "team_name": "Bournemouth",
+      "position": "Midfielder",
+      "price": 6.5,
+      "expected_points": 5.192,
+      "availability_status": "a",
+      "chance_of_playing": null,
+      "news": "",
+      "news_added": ""
+    },
+    "captain_selection_basis": "route_strategic_utility",
+    "vice_captain_selection_basis": "decision_strategic_utility",
+    "transfers": [
+      {
+        "sell_player_id": 391,
+        "sell": "Gvardiol",
+        "buy_player_id": 60,
+        "buy": "Hill",
+        "sell_price": 5.7,
+        "buy_price": 5.5
+      }
+    ],
+    "transfer_action": "make_transfers",
+    "free_transfers_before": 1,
+    "hit_cost": 0,
+    "bank_after": 1.1,
+    "expected_points": 55.245,
+    "net_expected_points": 55.245,
+    "six_gameweek_net_gain_vs_hold": 24.022,
+    "six_gameweek_total_hit_cost": 0,
+    "lineup_correlation": {
+      "opposing_pairs": [
+        {
+          "fixture_id": 82,
+          "defender_player_id": 60,
+          "defender": "Hill",
+          "defender_team_id": 3,
+          "attacker_player_id": 346,
+          "attacker": "Calvert-Lewin",
+          "attacker_team_id": 13,
+          "clean_sheet_expected_points": 1.1,
+          "attacking_return_probability": 0.2517,
+          "negative_correlation_exposure": 0.2769
+        },
+        {
+          "fixture_id": 88,
+          "defender_player_id": 109,
+          "defender": "Verbruggen",
+          "defender_team_id": 5,
+          "attacker_player_id": 411,
+          "attacker": "Haaland",
+          "attacker_team_id": 15,
+          "clean_sheet_expected_points": 0.48,
+          "attacking_return_probability": 0.4183,
+          "negative_correlation_exposure": 0.2008
+        }
+      ],
+      "opposing_pair_count": 2,
+      "negative_correlation_exposure": 0.4777,
+      "principle": "Opposing attackers and defenders do not change mean expected points, but they reduce line-up variance and ceiling. Balanced selection keeps mean points primary; aggressive selection applies a bounded exposure penalty."
+    },
+    "squad_player_ids": [
+      31,
+      60,
+      68,
+      94,
+      106,
+      109,
+      111,
+      173,
+      277,
+      290,
+      346,
+      388,
+      411,
+      426,
+      427
+    ]
+  },
+  "captaincy_audit": {
+    "utility_version": "strategic-captain-1.0",
+    "captain": {
+      "utility_version": "strategic-captain-1.0",
+      "player_id": 411,
+      "displayed_mean_xpts": 6.947,
+      "risk_adjusted_mean_input": 6.947,
+      "strategic_score": 8.2477,
+      "selection_basis": "route_strategic_utility",
+      "components": {
+        "bounded_strategic_bonus": 1.3007,
+        "ceiling_contribution": 0.8507,
+        "rank_pressure_contribution": 0.45,
+        "position_uncertainty_penalty": 0.0,
+        "defensive_exception_margin": 0.0,
+        "selection_risk_penalty": 0.0,
+        "expected_minutes": 87.14,
+        "availability_confidence": 1.0,
+        "points_p90": 12.3924,
+        "probability_10_plus": 0.22,
+        "probability_15_plus": 0.04,
+        "ownership_percent": 78.8
+      },
+      "strategic_utility_available": true,
+      "strategic_bonus_is_expected_points": false
+    },
+    "vice_captain": {
+      "utility_version": "strategic-captain-1.0",
+      "player_id": 68,
+      "displayed_mean_xpts": 5.192,
+      "risk_adjusted_mean_input": 5.192,
+      "strategic_score": 5.717,
+      "selection_basis": "decision_strategic_utility",
+      "components": {
+        "bounded_strategic_bonus": 0.525,
+        "ceiling_contribution": 0.525,
+        "rank_pressure_contribution": 0.0,
+        "position_uncertainty_penalty": 0.0,
+        "defensive_exception_margin": 0.0,
+        "selection_risk_penalty": 0.0,
+        "expected_minutes": 79.73,
+        "availability_confidence": 1.0,
+        "points_p90": 8.9552,
+        "probability_10_plus": 0.0983,
+        "probability_15_plus": 0.015,
+        "ownership_percent": 24.7
+      },
+      "strategic_utility_available": true,
+      "strategic_bonus_is_expected_points": false
+    },
+    "reported_xpts_basis": "mean_expected_points_only",
+    "strategic_bonus_is_expected_points": false,
+    "principle": "Strategic captain utility selects who is doubled; ceiling, haul, ownership and uncertainty terms are never added to displayed or route expected points."
+  },
+  "chip_recommendation": {
+    "action": "hold",
+    "chip": null,
+    "chip_name": null,
+    "gameweek": 9,
+    "incremental_expected_points": null,
+    "reason": "No available chip has a sufficient edge in the target Gameweek."
+  },
+  "six_gameweek_plan": {
+    "status": "ready",
+    "horizon_gameweeks": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "net_gain_vs_hold": 24.022,
+    "gameweek_plan": [
+      {
+        "gameweek": 9,
+        "transfers": [
+          {
+            "sell_player_id": 391,
+            "buy_player_id": 60,
+            "sell_price": 5.7,
+            "buy_price": 5.5,
+            "sell": "Gvardiol",
+            "buy": "Hill"
+          }
+        ],
+        "free_transfers_before": 1,
+        "hit_cost": 0,
+        "bank_after": 1.1,
+        "lineup_expected_points": 55.245,
+        "net_expected_points": 55.245,
+        "captain_player_id": 411,
+        "captain": "Haaland",
+        "starter_player_ids": [
+          109,
+          60,
+          388,
+          31,
+          68,
+          427,
+          411,
+          346,
+          106,
+          426,
+          94
+        ]
+      },
+      {
+        "gameweek": 10,
+        "transfers": [
+          {
+            "sell_player_id": 388,
+            "buy_player_id": 229,
+            "sell_price": 6.0,
+            "buy_price": 6.2,
+            "sell": "Guéhi",
+            "buy": "Tarkowski"
+          }
+        ],
+        "free_transfers_before": 1,
+        "hit_cost": 0,
+        "bank_after": 0.9,
+        "lineup_expected_points": 56.988,
+        "net_expected_points": 56.988,
+        "captain_player_id": 411,
+        "captain": "Haaland",
+        "starter_player_ids": [
+          109,
+          229,
+          60,
+          31,
+          427,
+          68,
+          411,
+          346,
+          106,
+          426,
+          94
+        ]
+      },
+      {
+        "gameweek": 11,
+        "transfers": [
+          {
+            "sell_player_id": 173,
+            "buy_player_id": 112,
+            "sell_price": 4.0,
+            "buy_price": 4.9,
+            "sell": "Thomas",
+            "buy": "Van Hecke"
+          }
+        ],
+        "free_transfers_before": 1,
+        "hit_cost": 0,
+        "bank_after": 0.0,
+        "lineup_expected_points": 57.602,
+        "net_expected_points": 57.602,
+        "captain_player_id": 411,
+        "captain": "Haaland",
+        "starter_player_ids": [
+          109,
+          112,
+          229,
+          60,
+          68,
+          427,
+          411,
+          346,
+          31,
+          106,
+          426
+        ]
+      },
+      {
+        "gameweek": 12,
+        "transfers": [],
+        "free_transfers_before": 1,
+        "hit_cost": 0,
+        "bank_after": 0.0,
+        "lineup_expected_points": 54.44,
+        "net_expected_points": 54.44,
+        "captain_player_id": 411,
+        "captain": "Haaland",
+        "starter_player_ids": [
+          109,
+          229,
+          60,
+          112,
+          427,
+          68,
+          411,
+          346,
+          426,
+          106,
+          31
+        ]
+      },
+      {
+        "gameweek": 13,
+        "transfers": [
+          {
+            "sell_player_id": 426,
+            "buy_player_id": 15,
+            "sell_price": 11.7,
+            "buy_price": 6.7,
+            "sell": "B.Fernandes",
+            "buy": "Ødegaard"
+          },
+          {
+            "sell_player_id": 277,
+            "buy_player_id": 4,
+            "sell_price": 4.1,
+            "buy_price": 8.0,
+            "sell": "Egan",
+            "buy": "Gabriel"
+          }
+        ],
+        "free_transfers_before": 2,
+        "hit_cost": 0,
+        "bank_after": 1.1,
+        "lineup_expected_points": 57.843,
+        "net_expected_points": 57.843,
+        "captain_player_id": 411,
+        "captain": "Haaland",
+        "starter_player_ids": [
+          109,
+          4,
+          60,
+          112,
+          68,
+          427,
+          411,
+          229,
+          15,
+          31,
+          106
+        ]
+      },
+      {
+        "gameweek": 14,
+        "transfers": [
+          {
+            "sell_player_id": 111,
+            "buy_player_id": 385,
+            "sell_price": 4.0,
+            "buy_price": 5.0,
+            "sell": "Steele",
+            "buy": "Trafford"
+          }
+        ],
+        "free_transfers_before": 1,
+        "hit_cost": 0,
+        "bank_after": 0.1,
+        "lineup_expected_points": 60.595,
+        "net_expected_points": 60.595,
+        "captain_player_id": 411,
+        "captain": "Haaland",
+        "starter_player_ids": [
+          385,
+          4,
+          60,
+          229,
+          427,
+          68,
+          411,
+          346,
+          112,
+          15,
+          106
+        ]
+      }
+    ]
+  },
+  "availability_risks": [
+    {
+      "player_id": 173,
+      "web_name": "Thomas",
+      "role": "bench",
+      "severity": "medium",
+      "availability_status": "d",
+      "chance_of_playing": 50,
+      "news": "Calf injury - 50% chance of playing",
+      "news_added": "2026-10-24T17:00:09.115906Z"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "player_availability",
+      "severity": "medium",
+      "message": "Thomas has an availability flag (50% chance): Calf injury - 50% chance of playing."
+    },
+    {
+      "code": "opposing_player_correlation",
+      "severity": "low",
+      "message": "The starting XI contains negatively correlated opposing players: Hill / Calvert-Lewin, Verbruggen / Haaland. This affects variance, not mean expected points."
+    },
+    {
+      "code": "provider_plan_blocked",
+      "severity": "low",
+      "message": "API-Football is unavailable under the current plan; recommendations use the remaining sources."
+    },
+    {
+      "code": "expired_context",
+      "severity": "low",
+      "message": "40016 external-context signals have expired and are excluded."
+    }
+  ],
+  "providers": [
+    {
+      "file": "odds_api_status.json",
+      "provider": "The Odds API",
+      "status": "ok",
+      "generated_at": "2026-10-30T22:28:25+00:00",
+      "required_action": null,
+      "error": null
+    },
+    {
+      "file": "provider_status.json",
+      "provider": "API-Football",
+      "status": "plan_blocked",
+      "generated_at": "2026-07-20T14:58:23+00:00",
+      "required_action": "Upgrade API-Football for current-season access or replace the live provider.",
+      "error": "Free plans do not have access to this season, try from 2022 to 2024."
+    }
+  ],
+  "source_freshness": {
+    "official_fpl_generated_at": "2026-10-31T05:46:36+00:00",
+    "external_context_generated_at": "2026-10-31T05:47:45+00:00",
+    "active_external_signals": 5592,
+    "expired_external_signals": 40016
+  },
+  "fixture_signature": [
+    [
+      9,
+      "81",
+      2,
+      10,
+      "2026-10-31T20:00:00Z"
+    ],
+    [
+      9,
+      "81",
+      10,
+      2,
+      "2026-10-31T20:00:00Z"
+    ],
+    [
+      9,
+      "82",
+      3,
+      13,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "82",
+      13,
+      3,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "83",
+      4,
+      18,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "83",
+      18,
+      4,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "84",
+      6,
+      16,
+      "2026-10-31T12:30:00Z"
+    ],
+    [
+      9,
+      "84",
+      16,
+      6,
+      "2026-10-31T12:30:00Z"
+    ],
+    [
+      9,
+      "85",
+      7,
+      20,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "85",
+      20,
+      7,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "86",
+      11,
+      12,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "86",
+      12,
+      11,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "87",
+      1,
+      14,
+      "2026-11-01T16:30:00Z"
+    ],
+    [
+      9,
+      "87",
+      14,
+      1,
+      "2026-11-01T16:30:00Z"
+    ],
+    [
+      9,
+      "88",
+      5,
+      15,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "88",
+      15,
+      5,
+      "2026-10-31T15:00:00Z"
+    ],
+    [
+      9,
+      "89",
+      9,
+      17,
+      "2026-11-02T20:00:00Z"
+    ],
+    [
+      9,
+      "89",
+      17,
+      9,
+      "2026-11-02T20:00:00Z"
+    ],
+    [
+      9,
+      "90",
+      8,
+      19,
+      "2026-10-31T17:30:00Z"
+    ],
+    [
+      9,
+      "90",
+      19,
+      8,
+      "2026-10-31T17:30:00Z"
+    ],
+    [
+      10,
+      "100",
+      6,
+      20,
+      "2026-11-08T14:00:00Z"
+    ],
+    [
+      10,
+      "100",
+      20,
+      6,
+      "2026-11-08T14:00:00Z"
+    ],
+    [
+      10,
+      "91",
+      1,
+      11,
+      "2026-11-07T15:00:00Z"
+    ],
+    [
+      10,
+      "91",
+      11,
+      1,
+      "2026-11-07T15:00:00Z"
+    ],
+    [
+      10,
+      "92",
+      4,
+      5,
+      "2026-11-08T14:00:00Z"
+    ],
+    [
+      10,
+      "92",
+      5,
+      4,
+      "2026-11-08T14:00:00Z"
+    ],
+    [
+      10,
+      "93",
+      8,
+      14,
+      "2026-11-08T14:00:00Z"
+    ],
+    [
+      10,
+      "93",
+      14,
+      8,
+      "2026-11-08T14:00:00Z"
+    ],
+    [
+      10,
+      "94",
+      7,
+      9,
+      "2026-11-06T20:00:00Z"
+    ],
+    [
+      10,
+      "94",
+      9,
+      7,
+      "2026-11-06T20:00:00Z"
+    ],
+    [
+      10,
+      "95",
+      10,
+      17,
+      "2026-11-07T15:00:00Z"
+    ],
+    [
+      10,
+      "95",
+      17,
+      10,
+      "2026-11-07T15:00:00Z"
+    ],
+    [
+      10,
+      "96",
+      3,
+      12,
+      "2026-11-08T14:00:00Z"
+    ],
+    [
+      10,
+      "96",
+      12,
+      3,
+      "2026-11-08T14:00:00Z"
+    ],
+    [
+      10,
+      "97",
+      13,
+      19,
+      "2026-11-07T12:30:00Z"
+    ],
+    [
+      10,
+      "97",
+      19,
+      13,
+      "2026-11-07T12:30:00Z"
+    ],
+    [
+      10,
+      "98",
+      2,
+      16,
+      "2026-11-08T16:30:00Z"
+    ],
+    [
+      10,
+      "98",
+      16,
+      2,
+      "2026-11-08T16:30:00Z"
+    ],
+    [
+      10,
+      "99",
+      15,
+      18,
+      "2026-11-07T17:30:00Z"
+    ],
+    [
+      10,
+      "99",
+      18,
+      15,
+      "2026-11-07T17:30:00Z"
+    ],
+    [
+      11,
+      "101",
+      2,
+      20,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      11,
+      "101",
+      20,
+      2,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      11,
+      "102",
+      3,
+      18,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      11,
+      "102",
+      18,
+      3,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      11,
+      "103",
+      4,
+      9,
+      "2026-11-23T20:00:00Z"
+    ],
+    [
+      11,
+      "103",
+      9,
+      4,
+      "2026-11-23T20:00:00Z"
+    ],
+    [
+      11,
+      "104",
+      6,
+      13,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      11,
+      "104",
+      13,
+      6,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      11,
+      "105",
+      7,
+      8,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      11,
+      "105",
+      8,
+      7,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      11,
+      "106",
+      5,
+      11,
+      "2026-11-22T14:00:00Z"
+    ],
+    [
+      11,
+      "106",
+      11,
+      5,
+      "2026-11-22T14:00:00Z"
+    ],
+    [
+      11,
+      "107",
+      14,
+      16,
+      "2026-11-22T16:30:00Z"
+    ],
+    [
+      11,
+      "107",
+      16,
+      14,
+      "2026-11-22T16:30:00Z"
+    ],
+    [
+      11,
+      "108",
+      10,
+      15,
+      "2026-11-21T12:30:00Z"
+    ],
+    [
+      11,
+      "108",
+      15,
+      10,
+      "2026-11-21T12:30:00Z"
+    ],
+    [
+      11,
+      "109",
+      1,
+      17,
+      "2026-11-21T17:30:00Z"
+    ],
+    [
+      11,
+      "109",
+      17,
+      1,
+      "2026-11-21T17:30:00Z"
+    ],
+    [
+      11,
+      "110",
+      12,
+      19,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      11,
+      "110",
+      19,
+      12,
+      "2026-11-21T15:00:00Z"
+    ],
+    [
+      12,
+      "111",
+      1,
+      15,
+      "2026-11-29T16:30:00Z"
+    ],
+    [
+      12,
+      "111",
+      15,
+      1,
+      "2026-11-29T16:30:00Z"
+    ],
+    [
+      12,
+      "112",
+      5,
+      17,
+      "2026-11-29T14:05:00Z"
+    ],
+    [
+      12,
+      "112",
+      17,
+      5,
+      "2026-11-29T14:05:00Z"
+    ],
+    [
+      12,
+      "113",
+      8,
+      11,
+      "2026-11-29T14:05:00Z"
+    ],
+    [
+      12,
+      "113",
+      11,
+      8,
+      "2026-11-29T14:05:00Z"
+    ],
+    [
+      12,
+      "114",
+      9,
+      14,
+      "2026-11-29T12:00:00Z"
+    ],
+    [
+      12,
+      "114",
+      14,
+      9,
+      "2026-11-29T12:00:00Z"
+    ],
+    [
+      12,
+      "115",
+      3,
+      10,
+      "2026-11-29T14:05:00Z"
+    ],
+    [
+      12,
+      "115",
+      10,
+      3,
+      "2026-11-29T14:05:00Z"
+    ],
+    [
+      12,
+      "116",
+      2,
+      12,
+      "2026-11-28T17:30:00Z"
+    ],
+    [
+      12,
+      "116",
+      12,
+      2,
+      "2026-11-28T17:30:00Z"
+    ],
+    [
+      12,
+      "117",
+      7,
+      13,
+      "2026-11-28T15:00:00Z"
+    ],
+    [
+      12,
+      "117",
+      13,
+      7,
+      "2026-11-28T15:00:00Z"
+    ],
+    [
+      12,
+      "118",
+      4,
+      16,
+      "2026-11-28T15:00:00Z"
+    ],
+    [
+      12,
+      "118",
+      16,
+      4,
+      "2026-11-28T15:00:00Z"
+    ],
+    [
+      12,
+      "119",
+      6,
+      18,
+      "2026-11-27T20:00:00Z"
+    ],
+    [
+      12,
+      "119",
+      18,
+      6,
+      "2026-11-27T20:00:00Z"
+    ],
+    [
+      12,
+      "120",
+      19,
+      20,
+      "2026-11-29T14:05:00Z"
+    ],
+    [
+      12,
+      "120",
+      20,
+      19,
+      "2026-11-29T14:05:00Z"
+    ],
+    [
+      13,
+      "121",
+      2,
+      9,
+      "2026-12-02T20:15:00Z"
+    ],
+    [
+      13,
+      "121",
+      9,
+      2,
+      "2026-12-02T20:15:00Z"
+    ],
+    [
+      13,
+      "122",
+      3,
+      5,
+      "2026-12-02T20:15:00Z"
+    ],
+    [
+      13,
+      "122",
+      5,
+      3,
+      "2026-12-02T20:15:00Z"
+    ],
+    [
+      13,
+      "123",
+      1,
+      4,
+      "2026-12-02T20:15:00Z"
+    ],
+    [
+      13,
+      "123",
+      4,
+      1,
+      "2026-12-02T20:15:00Z"
+    ],
+    [
+      13,
+      "124",
+      6,
+      8,
+      "2026-12-02T19:30:00Z"
+    ],
+    [
+      13,
+      "124",
+      8,
+      6,
+      "2026-12-02T19:30:00Z"
+    ],
+    [
+      13,
+      "125",
+      7,
+      12,
+      "2026-12-01T20:00:00Z"
+    ],
+    [
+      13,
+      "125",
+      12,
+      7,
+      "2026-12-01T20:00:00Z"
+    ],
+    [
+      13,
+      "126",
+      11,
+      18,
+      "2026-12-02T19:30:00Z"
+    ],
+    [
+      13,
+      "126",
+      18,
+      11,
+      "2026-12-02T19:30:00Z"
+    ],
+    [
+      13,
+      "127",
+      14,
+      20,
+      "2026-12-02T19:30:00Z"
+    ],
+    [
+      13,
+      "127",
+      20,
+      14,
+      "2026-12-02T19:30:00Z"
+    ],
+    [
+      13,
+      "128",
+      13,
+      15,
+      "2026-12-02T19:30:00Z"
+    ],
+    [
+      13,
+      "128",
+      15,
+      13,
+      "2026-12-02T19:30:00Z"
+    ],
+    [
+      13,
+      "129",
+      16,
+      17,
+      "2026-12-02T20:15:00Z"
+    ],
+    [
+      13,
+      "129",
+      17,
+      16,
+      "2026-12-02T20:15:00Z"
+    ],
+    [
+      13,
+      "130",
+      10,
+      19,
+      "2026-12-03T20:00:00Z"
+    ],
+    [
+      13,
+      "130",
+      19,
+      10,
+      "2026-12-03T20:00:00Z"
+    ],
+    [
+      14,
+      "131",
+      2,
+      8,
+      "2026-12-05T15:00:00Z"
+    ],
+    [
+      14,
+      "131",
+      8,
+      2,
+      "2026-12-05T15:00:00Z"
+    ],
+    [
+      14,
+      "132",
+      3,
+      11,
+      "2026-12-05T15:00:00Z"
+    ],
+    [
+      14,
+      "132",
+      11,
+      3,
+      "2026-12-05T15:00:00Z"
+    ],
+    [
+      14,
+      "133",
+      4,
+      15,
+      "2026-12-05T20:00:00Z"
+    ],
+    [
+      14,
+      "133",
+      15,
+      4,
+      "2026-12-05T20:00:00Z"
+    ],
+    [
+      14,
+      "134",
+      6,
+      14,
+      "2026-12-05T12:30:00Z"
+    ],
+    [
+      14,
+      "134",
+      14,
+      6,
+      "2026-12-05T12:30:00Z"
+    ],
+    [
+      14,
+      "135",
+      9,
+      10,
+      "2026-12-06T14:00:00Z"
+    ],
+    [
+      14,
+      "135",
+      10,
+      9,
+      "2026-12-06T14:00:00Z"
+    ],
+    [
+      14,
+      "136",
+      12,
+      13,
+      "2026-12-05T15:00:00Z"
+    ],
+    [
+      14,
+      "136",
+      13,
+      12,
+      "2026-12-05T15:00:00Z"
+    ],
+    [
+      14,
+      "137",
+      7,
+      16,
+      "2026-12-05T15:00:00Z"
+    ],
+    [
+      14,
+      "137",
+      16,
+      7,
+      "2026-12-05T15:00:00Z"
+    ],
+    [
+      14,
+      "138",
+      17,
+      20,
+      "2026-12-06T14:00:00Z"
+    ],
+    [
+      14,
+      "138",
+      20,
+      17,
+      "2026-12-06T14:00:00Z"
+    ],
+    [
+      14,
+      "139",
+      5,
+      18,
+      "2026-12-05T17:30:00Z"
+    ],
+    [
+      14,
+      "139",
+      18,
+      5,
+      "2026-12-05T17:30:00Z"
+    ],
+    [
+      14,
+      "140",
+      1,
+      19,
+      "2026-12-06T16:30:00Z"
+    ],
+    [
+      14,
+      "140",
+      19,
+      1,
+      "2026-12-06T16:30:00Z"
+    ]
+  ],
+  "deadline_freeze": {
+    "status": "frozen",
+    "window_hours": 8,
+    "immutable_snapshot": "prospective/gw09/20261031T054745Z.json",
+    "snapshot_created_this_run": "prospective/gw09/20261031T054745Z.json"
+  },
+  "decision_validation": {
+    "status": "passed",
+    "checks": {
+      "decision_ready": true,
+      "complete_unique_squad": true,
+      "complete_unique_lineup": true,
+      "complete_unique_bench": true,
+      "lineup_and_bench_disjoint": true,
+      "legal_squad_structure": true,
+      "three_player_club_limit": true,
+      "legal_formation": true,
+      "captain_in_lineup": true,
+      "vice_captain_in_lineup": true,
+      "multi_gameweek_route": true,
+      "transfer_robustness": true
+    },
+    "failed_checks": [],
+    "principle": "GW1 uses launch validation; later Gameweeks validate the registered squad, legal weekly selection and transfer robustness directly."
+  },
+  "operational_readiness": {
+    "advice_level": "firm",
+    "firm_advice_allowed": true,
+    "validation_passed": true,
+    "blocking_reasons": [],
+    "late_team_news_review": {
+      "status": "required_before_action",
+      "required": true,
+      "reason": "API-Football is plan-blocked, so check official club news and trusted predicted line-ups before applying the recommendation."
+    }
+  },
+  "advisory_only": true,
+  "automatic_fpl_actions": false,
+  "material_changes": [
+    {
+      "type": "starting_xi",
+      "summary": "Starting XI changed",
+      "before": [
+        109,
+        60,
+        388,
+        31,
+        68,
+        427,
+        411,
+        106,
+        346,
+        94,
+        426
+      ],
+      "after": [
+        109,
+        60,
+        388,
+        31,
+        68,
+        427,
+        411,
+        346,
+        106,
+        426,
+        94
+      ]
+    }
+  ],
+  "material_change": true,
+  "change_summary": "Starting XI changed",
+  "decision_fingerprint": "87892af29b0039d03486bfe461c83c5758691e7ed12c4e553c3c110bb098458b"
+}
