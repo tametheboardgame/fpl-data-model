@@ -1,9 +1,9 @@
 # FPL Gameweek 10 Deadline Report
 
 Status: ready
-Generated: 2026-11-01T18:09:32+00:00
+Generated: 2026-11-01T22:05:55+00:00
 UK deadline: 2026-11-06T18:30:00+00:00
-Hours remaining: 120.341
+Hours remaining: 116.401
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,44 +16,39 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.645 xPts)
-- Konsa (Arsenal, 4.808 xPts)
-- Hill (Bournemouth, 4.64 xPts)
-- Guéhi (Man City, 4.192 xPts)
-- Mbeumo (Man Utd, 5.926 xPts)
-- Tavernier (Bournemouth, 5.382 xPts)
-- Haaland (Man City, 6.89 xPts)
+- Verbruggen (Brighton, 3.65 xPts)
+- Konsa (Arsenal, 4.926 xPts)
+- Hill (Bournemouth, 4.663 xPts)
+- Guéhi (Man City, 4.108 xPts)
+- Mbeumo (Man Utd, 5.881 xPts)
+- Tavernier (Bournemouth, 5.367 xPts)
+- Haaland (Man City, 6.806 xPts)
 - Ødegaard (Arsenal, 4.565 xPts)
-- Calvert-Lewin (Leeds, 4.678 xPts)
-- Thiago (Brentford, 3.862 xPts)
-- Schade (Brentford, 3.199 xPts)
+- Calvert-Lewin (Leeds, 4.658 xPts)
+- Thiago (Brentford, 3.857 xPts)
+- Schade (Brentford, 3.197 xPts)
 
-Captain: Haaland (6.89 mean xPts; strategic score 8.1113)
-Vice-captain: Mbeumo (5.926 mean xPts; strategic score 6.7193)
+Captain: Haaland (6.806 mean xPts; strategic score 8.0202)
+Vice-captain: Mbeumo (5.881 mean xPts; strategic score 6.6694)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Slater (2.348 xPts)
-2. Egan (2.054 xPts)
-3. Thomas (1.52 xPts)
+1. Slater (2.369 xPts)
+2. Egan (2.133 xPts)
+3. Thomas (1.544 xPts)
 4. Steele (0.0 xPts)
 
 ## Changes since previous report
 
-- Starting XI changed
-- Bench order changed
-- Transfer recommendation changed
-- Availability information changed
-- Data-quality warning state changed
-- Starting XI correlation exposure changed
+- No material changes
 
 ## Warnings
 
 - [MEDIUM] Thomas has an availability flag (50% chance): Calf injury - 50% chance of playing.
 - [LOW] The starting XI contains negatively correlated opposing players: Verbruggen / Thiago, Verbruggen / Schade. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 43144 external-context signals have expired and are excluded.
+- [LOW] 43552 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 
