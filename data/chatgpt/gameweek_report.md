@@ -1,42 +1,42 @@
 # FPL Gameweek 10 Deadline Report
 
 Status: ready
-Generated: 2026-11-01T13:30:03+00:00
+Generated: 2026-11-01T18:09:32+00:00
 UK deadline: 2026-11-06T18:30:00+00:00
-Hours remaining: 124.999
+Hours remaining: 120.341
 Advice level: provisional
 Firm advice allowed: False
 
 ## Recommended action
 
-Transfers: Thomas to Van Hecke
+Transfers: B.Fernandes to Ødegaard
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.653 xPts)
-- Hill (Bournemouth, 4.68 xPts)
-- Konsa (Arsenal, 4.68 xPts)
-- Van Hecke (Spurs, 4.397 xPts)
-- Mbeumo (Man Utd, 5.864 xPts)
-- Tavernier (Bournemouth, 5.356 xPts)
-- Haaland (Man City, 6.749 xPts)
-- Calvert-Lewin (Leeds, 4.654 xPts)
-- Guéhi (Man City, 4.051 xPts)
-- B.Fernandes (Man Utd, 3.866 xPts)
-- Thiago (Brentford, 3.853 xPts)
+- Verbruggen (Brighton, 3.645 xPts)
+- Konsa (Arsenal, 4.808 xPts)
+- Hill (Bournemouth, 4.64 xPts)
+- Guéhi (Man City, 4.192 xPts)
+- Mbeumo (Man Utd, 5.926 xPts)
+- Tavernier (Bournemouth, 5.382 xPts)
+- Haaland (Man City, 6.89 xPts)
+- Ødegaard (Arsenal, 4.565 xPts)
+- Calvert-Lewin (Leeds, 4.678 xPts)
+- Thiago (Brentford, 3.862 xPts)
+- Schade (Brentford, 3.199 xPts)
 
-Captain: Haaland (6.749 mean xPts; strategic score 7.9585)
-Vice-captain: Mbeumo (5.864 mean xPts; strategic score 6.6506)
+Captain: Haaland (6.89 mean xPts; strategic score 8.1113)
+Vice-captain: Mbeumo (5.926 mean xPts; strategic score 6.7193)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Schade (3.195 xPts)
-2. Slater (2.385 xPts)
-3. Egan (2.19 xPts)
+1. Slater (2.348 xPts)
+2. Egan (2.054 xPts)
+3. Thomas (1.52 xPts)
 4. Steele (0.0 xPts)
 
 ## Changes since previous report
@@ -50,7 +50,8 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Warnings
 
-- [LOW] The starting XI contains negatively correlated opposing players: Verbruggen / Thiago, Van Hecke / Calvert-Lewin. This affects variance, not mean expected points.
+- [MEDIUM] Thomas has an availability flag (50% chance): Calf injury - 50% chance of playing.
+- [LOW] The starting XI contains negatively correlated opposing players: Verbruggen / Thiago, Verbruggen / Schade. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
 - [LOW] 43144 external-context signals have expired and are excluded.
 
