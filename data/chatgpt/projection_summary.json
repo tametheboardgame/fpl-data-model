@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T21:56:04+00:00",
+  "generated_at": "2026-11-01T06:11:53+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -48,15 +48,15 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
-  "player_feature_rows": 669,
+  "player_feature_rows": 670,
   "team_feature_rows": 20,
   "raw_fixture_history_rows": 5220,
   "completed_fixture_history_rows": 5220,
-  "fixture_projection_rows": 4014,
-  "player_horizon_rows": 669,
+  "fixture_projection_rows": 4020,
+  "player_horizon_rows": 670,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 46040,
-  "active_external_context_signal_rows": 3288,
+  "active_external_context_signal_rows": 2896,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -92,7 +92,7 @@
       "web_name": "Tavernier",
       "team_name": "Bournemouth",
       "position": "Midfielder",
-      "price": 6.5,
+      "price": 6.6,
       "expected_points_next_1": 5.275
     },
     {
@@ -124,7 +124,7 @@
       "web_name": "De Cuyper",
       "team_name": "Brighton",
       "position": "Defender",
-      "price": 5.3,
+      "price": 5.4,
       "expected_points_next_1": 4.715
     },
     {
@@ -204,7 +204,7 @@
       "web_name": "Van Hecke",
       "team_name": "Spurs",
       "position": "Defender",
-      "price": 4.9,
+      "price": 5.0,
       "expected_points_next_1": 4.397
     },
     {
@@ -254,7 +254,7 @@
       "web_name": "Tavernier",
       "team_name": "Bournemouth",
       "position": "Midfielder",
-      "price": 6.5,
+      "price": 6.6,
       "expected_points_next_3": 15.253
     },
     {
@@ -270,7 +270,7 @@
       "web_name": "De Cuyper",
       "team_name": "Brighton",
       "position": "Defender",
-      "price": 5.3,
+      "price": 5.4,
       "expected_points_next_3": 14.503
     },
     {
@@ -294,7 +294,7 @@
       "web_name": "Van Hecke",
       "team_name": "Spurs",
       "position": "Defender",
-      "price": 4.9,
+      "price": 5.0,
       "expected_points_next_3": 13.688
     },
     {
@@ -400,7 +400,7 @@
       "web_name": "Tavernier",
       "team_name": "Bournemouth",
       "position": "Midfielder",
-      "price": 6.5,
+      "price": 6.6,
       "component_expected_points_next_1": 5.033
     },
     {
@@ -488,7 +488,7 @@
       "web_name": "De Cuyper",
       "team_name": "Brighton",
       "position": "Defender",
-      "price": 5.3,
+      "price": 5.4,
       "component_expected_points_next_1": 3.792
     },
     {
@@ -504,7 +504,7 @@
       "web_name": "Evanilson",
       "team_name": "Bournemouth",
       "position": "Forward",
-      "price": 6.3,
+      "price": 6.4,
       "component_expected_points_next_1": 3.715
     },
     {
@@ -562,7 +562,7 @@
       "web_name": "Tavernier",
       "team_name": "Bournemouth",
       "position": "Midfielder",
-      "price": 6.5,
+      "price": 6.6,
       "component_expected_points_next_3": 14.497
     },
     {
@@ -586,7 +586,7 @@
       "web_name": "De Cuyper",
       "team_name": "Brighton",
       "position": "Defender",
-      "price": 5.3,
+      "price": 5.4,
       "component_expected_points_next_3": 12.267
     },
     {
@@ -634,7 +634,7 @@
       "web_name": "Van Hecke",
       "team_name": "Spurs",
       "position": "Defender",
-      "price": 4.9,
+      "price": 5.0,
       "component_expected_points_next_3": 11.185
     },
     {
@@ -698,7 +698,7 @@
       "web_name": "Evanilson",
       "team_name": "Bournemouth",
       "position": "Forward",
-      "price": 6.3,
+      "price": 6.4,
       "component_expected_points_next_3": 10.638
     },
     {
@@ -716,7 +716,7 @@
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 4,
+  "gameweek_report_warning_count": 3,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
