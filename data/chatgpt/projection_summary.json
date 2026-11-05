@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T07:28:20+00:00",
+  "generated_at": "2026-11-05T20:00:46+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -346,14 +346,6 @@
       "expected_points_next_3": 13.037
     },
     {
-      "player_id": 346,
-      "web_name": "Calvert-Lewin",
-      "team_name": "Leeds",
-      "position": "Forward",
-      "price": 6.1,
-      "expected_points_next_3": 12.955
-    },
-    {
       "player_id": 154,
       "web_name": "Palmer",
       "team_name": "Chelsea",
@@ -384,6 +376,14 @@
       "position": "Midfielder",
       "price": 8.2,
       "expected_points_next_3": 12.755
+    },
+    {
+      "player_id": 362,
+      "web_name": "Jacquet",
+      "team_name": "Liverpool",
+      "position": "Defender",
+      "price": 5.1,
+      "expected_points_next_3": 12.745
     }
   ],
   "component_top_next_gameweek": [
@@ -714,9 +714,9 @@
   "evaluated_gameweeks": 9,
   "prospective_evaluated_gameweeks": 8,
   "prospective_snapshot_created": null,
-  "gameweek_operations_status": "ready",
+  "gameweek_operations_status": "review_required",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 4,
+  "gameweek_report_warning_count": 5,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
