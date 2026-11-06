@@ -1,9 +1,9 @@
 # FPL Gameweek 11 Deadline Report
 
 Status: ready
-Generated: 2026-11-06T19:27:52+00:00
+Generated: 2026-11-06T19:44:29+00:00
 UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 351.536
+Hours remaining: 351.259
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,44 +16,33 @@ Chip: Hold
 
 ## Starting XI
 
-- Petrović (Bournemouth, 3.322 xPts)
+- Petrović (Bournemouth, 3.352 xPts)
 - Van Hecke (Spurs, 5.722 xPts)
-- De Cuyper (Brighton, 5.314 xPts)
-- Gabriel (Arsenal, 5.218 xPts)
-- Tavernier (Bournemouth, 5.079 xPts)
-- Ødegaard (Arsenal, 4.555 xPts)
-- Haaland (Man City, 6.941 xPts)
-- Silva (Bournemouth, 4.55 xPts)
-- Rogers (Chelsea, 4.401 xPts)
-- Groß (Brighton, 4.287 xPts)
-- Tarkowski (Everton, 4.171 xPts)
+- De Cuyper (Brighton, 5.54 xPts)
+- Gabriel (Arsenal, 5.354 xPts)
+- Tavernier (Bournemouth, 5.097 xPts)
+- Ødegaard (Arsenal, 4.655 xPts)
+- Haaland (Man City, 7.205 xPts)
+- Silva (Bournemouth, 4.584 xPts)
+- Rogers (Chelsea, 4.505 xPts)
+- Groß (Brighton, 4.442 xPts)
+- Isak (Liverpool, 4.133 xPts)
 
-Captain: Haaland (6.941 mean xPts; strategic score 8.2489)
-Vice-captain: Tavernier (5.079 mean xPts; strategic score 5.6266)
+Captain: Haaland (7.205 mean xPts; strategic score 8.5379)
+Vice-captain: Tavernier (5.097 mean xPts; strategic score 5.6461)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Barry (4.119 xPts)
-2. Isak (4.071 xPts)
-3. Slater (2.63 xPts)
-4. Steele (0.006 xPts)
+1. Tarkowski (4.085 xPts)
+2. Barry (4.077 xPts)
+3. Slater (2.591 xPts)
+4. Steele (0.009 xPts)
 
 ## Changes since previous report
 
-- Operational readiness changed
-- Target Gameweek changed
-- Deadline changed
 - Starting XI changed
 - Bench order changed
-- Vice-captain changed
-- Transfer recommendation changed
-- Chip recommendation changed
-- Availability information changed
-- Fixture information changed
-- Data-quality warning state changed
-- Deadline advice stage changed
-- Starting XI correlation exposure changed
 
 ## Warnings
 
