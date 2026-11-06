@@ -1,9 +1,9 @@
 # FPL Gameweek 10 Deadline Report
 
 Status: review_required
-Generated: 2026-11-05T20:19:24+00:00
+Generated: 2026-11-06T06:52:36+00:00
 UK deadline: 2026-11-06T18:30:00+00:00
-Hours remaining: 22.177
+Hours remaining: 11.623
 Advice level: blocked
 Firm advice allowed: False
 
@@ -16,35 +16,38 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.916 xPts)
-- Konsa (Arsenal, 5.004 xPts)
+- Verbruggen (Brighton, 3.953 xPts)
 - De Cuyper (Brighton, 4.972 xPts)
-- Hill (Bournemouth, 4.592 xPts)
-- Mbeumo (Man Utd, 5.573 xPts)
-- Tavernier (Bournemouth, 5.385 xPts)
-- Haaland (Man City, 7.127 xPts)
-- Thiago (Brentford, 3.975 xPts)
-- B.Fernandes (Man Utd, 3.965 xPts)
-- Schade (Brentford, 3.404 xPts)
-- Calvert-Lewin (Leeds, 3.183 xPts)
+- Hill (Bournemouth, 4.637 xPts)
+- Konsa (Arsenal, 3.318 xPts)
+- Mbeumo (Man Utd, 5.439 xPts)
+- Tavernier (Bournemouth, 5.345 xPts)
+- Haaland (Man City, 6.878 xPts)
+- Thiago (Brentford, 3.933 xPts)
+- B.Fernandes (Man Utd, 3.875 xPts)
+- Schade (Brentford, 3.386 xPts)
+- Calvert-Lewin (Leeds, 3.124 xPts)
 
-Captain: Haaland (7.127 mean xPts; strategic score 8.358)
-Vice-captain: Mbeumo (5.573 mean xPts; strategic score 6.2768)
+Captain: Haaland (6.878 mean xPts; strategic score 8.0888)
+Vice-captain: Mbeumo (5.439 mean xPts; strategic score 6.1288)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Slater (2.419 xPts)
-2. Egan (2.086 xPts)
-3. Thomas (1.22 xPts)
+1. Slater (2.472 xPts)
+2. Egan (2.296 xPts)
+3. Thomas (1.261 xPts)
 4. Steele (0.0 xPts)
 
 ## Changes since previous report
 
 - Starting XI changed
+- Availability information changed
+- Data-quality warning state changed
 
 ## Warnings
 
+- [HIGH] Konsa has an availability flag (75% chance): Knee injury - 75% chance of playing.
 - [HIGH] Calvert-Lewin has an availability flag (75% chance): Foot injury - 75% chance of playing.
 - [MEDIUM] Thomas has an availability flag (50% chance): Calf injury - 50% chance of playing.
 - [LOW] The starting XI contains negatively correlated opposing players: De Cuyper / Thiago, Verbruggen / Thiago, De Cuyper / Schade. This affects variance, not mean expected points.
