@@ -45,6 +45,13 @@ After material progress, update both `PROJECT_STATE.md` and `ROADMAP.md` so a fu
 - When the next locked Gameweek's public picks/transfer history appears, reconcile the observed squad, transfer, captain and bench against the manager-confirmed state. A genuine mismatch is worth investigating; an expected delay before publication is not.
 - This visibility rule **does not** waive operational-readiness, governance, freshness, player-availability or final team-news checks, and it never permits automatic FPL actions. Preserve the 48-hour notification policy; no status-only messages or repetitive warnings.
 
+## Confirmed manager actions and chip state
+
+- Before evaluating the current actionable Gameweek, check for `data/manager_confirmations/gwXX.json` and use any explicit, user-confirmed saved actions as the operator-known state pending public FPL reconciliation. This ledger supplements, but never silently overwrites, official FPL exports or the unmodified production prediction model.
+- If that Gameweek's record contains `operator_notification_policy.no_further_gw10_notifications` (or its per-Gameweek equivalent) and marks the Gameweek action complete, honour the manager's express suppression request over normal deadline alerts. Continue scheduled checks silently and resume the standard notification contract from the specified next Gameweek.
+- A confirmed Free Hit is temporary. Preserve the pre-chip registered squad as the post-Gameweek baseline until published picks and chip history verify the reversion. Recalculate the subsequent Gameweek's free transfers and bank from official history; never treat the Free Hit temporary XI as permanent purchases.
+- Do not mutate production decision files or fabricate fresh official FPL data to represent a manager-only confirmation. Any future code integration must explicitly distinguish model-generated advice from confirmed user action.
+
 ## Current project identifiers
 
 - repository: `tametheboardgame/fpl-data-model`
