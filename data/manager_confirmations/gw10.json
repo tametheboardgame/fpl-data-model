@@ -1,0 +1,131 @@
+{
+  "schema": "fpl-manager-confirmation-v1",
+  "season": "2026/27",
+  "team_id": 39395,
+  "gameweek": 10,
+  "gameweek_deadline_uk": "2026-11-06T18:30:00+00:00",
+  "confirmed_date_uk": "2026-11-06",
+  "source": "Manager's explicit confirmation in ChatGPT, corroborated by screenshot of FPL Pick Team page",
+  "verification_status": "user_confirmed; public official team/chip record to be reconciled after GW10 deadline",
+  "action_status": "complete_and_saved",
+  "chip": {
+    "name": "freehit",
+    "official_code": "freehit",
+    "activated": true,
+    "confirmed_by_manager": true,
+    "applies_only_to_gameweek": 10
+  },
+  "submitted_team": {
+    "starting_xi": [
+      {
+        "player_id": 57,
+        "name": "Petrović",
+        "position": "GK"
+      },
+      {
+        "player_id": 115,
+        "name": "De Cuyper",
+        "position": "DEF"
+      },
+      {
+        "player_id": 4,
+        "name": "Gabriel",
+        "position": "DEF"
+      },
+      {
+        "player_id": 229,
+        "name": "Tarkowski",
+        "position": "DEF"
+      },
+      {
+        "player_id": 40,
+        "name": "Rogers",
+        "position": "MID"
+      },
+      {
+        "player_id": 68,
+        "name": "Tavernier",
+        "position": "MID"
+      },
+      {
+        "player_id": 124,
+        "name": "Groß",
+        "position": "MID"
+      },
+      {
+        "player_id": 15,
+        "name": "Ødegaard",
+        "position": "MID"
+      },
+      {
+        "player_id": 379,
+        "name": "Isak",
+        "position": "FWD"
+      },
+      {
+        "player_id": 411,
+        "name": "Haaland",
+        "position": "FWD"
+      },
+      {
+        "player_id": 249,
+        "name": "Barry",
+        "position": "FWD"
+      }
+    ],
+    "bench": [
+      {
+        "bench_slot": "GK",
+        "player_id": 111,
+        "name": "Steele",
+        "position": "GK"
+      },
+      {
+        "bench_slot": 1,
+        "player_id": 566,
+        "name": "Silva",
+        "position": "DEF"
+      },
+      {
+        "bench_slot": 2,
+        "player_id": 290,
+        "name": "Slater",
+        "position": "MID"
+      },
+      {
+        "bench_slot": 3,
+        "player_id": 277,
+        "name": "Egan",
+        "position": "DEF"
+      }
+    ],
+    "captain_player_id": 411,
+    "vice_captain_player_id": 379
+  },
+  "pre_freehit_registered_squad_player_ids": [
+    109,
+    60,
+    277,
+    31,
+    68,
+    94,
+    426,
+    427,
+    411,
+    106,
+    346,
+    111,
+    388,
+    290,
+    173
+  ],
+  "next_gameweek_baseline": "After GW10, Free Hit XI reverts to pre-Free-Hit 15-man squad. Use fresh official GW10 picks, GW10 transfers and chip history to verify the chip and to determine free transfers/bank before GW11 advice. Never treat this temporary XI as a permanent transfer.",
+  "operator_notification_policy": {
+    "suppress_gameweek": 10,
+    "no_further_gw10_notifications": true,
+    "include_no_final_checklist": true,
+    "reason": "Manager explicitly confirmed the entire GW10 Free Hit selection is complete and saved and requested no further notifications this week.",
+    "resume_default_rules_from_gameweek": 11
+  },
+  "guidance": "Manager-confirmed state is authoritative for the operator ahead of publication. Do not overwrite raw official API snapshots or claim the production model ingested a manager-only override. Do not send routine advice, material-change, late-news, reminder, or status messages for GW10; the manager has closed GW10 to notifications."
+}
