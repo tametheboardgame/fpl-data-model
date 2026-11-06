@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T07:55:27+00:00",
+  "generated_at": "2026-11-06T15:01:24+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -144,6 +144,14 @@
       "expected_points_next_1": 4.725
     },
     {
+      "player_id": 31,
+      "web_name": "Konsa",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 4.8,
+      "expected_points_next_1": 4.677
+    },
+    {
       "player_id": 61,
       "web_name": "Truffert",
       "team_name": "Bournemouth",
@@ -214,14 +222,6 @@
       "position": "Defender",
       "price": 5.2,
       "expected_points_next_1": 4.358
-    },
-    {
-      "player_id": 154,
-      "web_name": "Palmer",
-      "team_name": "Chelsea",
-      "position": "Midfielder",
-      "price": 9.8,
-      "expected_points_next_1": 4.313
     }
   ],
   "top_next_three_gameweeks": [
@@ -516,6 +516,14 @@
       "component_expected_points_next_1": 3.697
     },
     {
+      "player_id": 31,
+      "web_name": "Konsa",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 4.8,
+      "component_expected_points_next_1": 3.668
+    },
+    {
       "player_id": 650,
       "web_name": "Affengruber",
       "team_name": "Fulham",
@@ -538,14 +546,6 @@
       "position": "Defender",
       "price": 5.1,
       "component_expected_points_next_1": 3.613
-    },
-    {
-      "player_id": 13,
-      "web_name": "Rice",
-      "team_name": "Arsenal",
-      "position": "Midfielder",
-      "price": 7.4,
-      "component_expected_points_next_1": 3.607
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -710,12 +710,12 @@
       "component_expected_points_next_3": 10.432
     }
   ],
-  "prediction_snapshot_created": null,
+  "prediction_snapshot_created": "predictions/gw10/20261106T150124Z.csv",
   "evaluated_gameweeks": 9,
   "prospective_evaluated_gameweeks": 8,
-  "prospective_snapshot_created": null,
+  "prospective_snapshot_created": "prospective/gw10/20261106T150124Z.json",
   "gameweek_operations_status": "review_required",
-  "gameweek_report_material_change": false,
+  "gameweek_report_material_change": true,
   "gameweek_report_warning_count": 5,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
