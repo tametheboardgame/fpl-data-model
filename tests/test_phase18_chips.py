@@ -168,6 +168,49 @@ class Phase18ChipOptimiserTests(unittest.TestCase):
             3.0,
         )
 
+    def test_confirmed_future_double_outside_horizon_defers_chip(self) -> None:
+        projections = self.projections()
+        for row in projections:
+            if row["gameweek"] == 11:
+                row["expected_points"] = 5.0
+        monitor = {
+            "status": "ready",
+            "source": "official_fpl_fixture_schedule",
+            "unscheduled_fixture_count": 0,
+            "special_gameweeks": [
+                {
+                    "gameweek": 15,
+                    "type": "double",
+                    "blank_team_count": 0,
+                    "double_team_count": 2,
+                    "blank_team_ids": [],
+                    "double_team_ids": [1, 2],
+                }
+            ],
+        }
+
+        result = optimise_chip_plan(
+            projections,
+            self.players,
+            self.squad,
+            25.0,
+            self.chips,
+            self.route,
+            10,
+            fixture_schedule_monitor=monitor,
+        )
+
+        triple = result["best_by_chip"]["3xc"]
+        self.assertEqual(triple["gameweek"], 11)
+        self.assertEqual(triple["status"], "hold")
+        self.assertEqual(triple["deferred_for_confirmed_fixture_gameweek"], 15)
+        self.assertEqual(
+            result["fixture_schedule_context"][
+                "double_gameweeks_outside_projection_horizon"
+            ],
+            [15],
+        )
+
     def test_used_chip_is_not_considered(self) -> None:
         self.chips["periods"][0]["chips"]["freehit"]["remaining"] = 0
         result = optimise_chip_plan(

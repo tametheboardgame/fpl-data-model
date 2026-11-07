@@ -16,7 +16,7 @@ from src.fpl_multiweek import (
 )
 
 
-OPERATIONS_VERSION = "fpl-gameweek-operations-1.8"
+OPERATIONS_VERSION = "fpl-gameweek-operations-1.9"
 FREEZE_WINDOW_HOURS = 8
 NORMAL_DATA_MAX_AGE_HOURS = 8
 DEADLINE_DATA_MAX_AGE_HOURS = 3
@@ -909,6 +909,25 @@ def _material_state(report: dict[str, Any]) -> dict[str, Any]:
         "chip_squad_changes": selection.get("chip_squad_changes"),
         "chip": report.get("chip_recommendation"),
         "risks": report.get("availability_risks", []),
+        "fixture_schedule": {
+            "special_gameweeks": [
+                (
+                    row.get("gameweek"),
+                    row.get("type"),
+                    tuple(row.get("blank_team_ids", [])),
+                    tuple(row.get("double_team_ids", [])),
+                )
+                for row in (report.get("fixture_schedule_monitor") or {}).get(
+                    "special_gameweeks", []
+                )
+            ],
+            "unscheduled_fixture_ids": [
+                row.get("fixture_id")
+                for row in (report.get("fixture_schedule_monitor") or {}).get(
+                    "unscheduled_fixtures", []
+                )
+            ],
+        },
         "fixture_signature": report.get("fixture_signature", []),
         "warning_codes": sorted((row.get("code"), row.get("severity")) for row in report.get("warnings", [])),
         "advice_level": (report.get("operational_readiness") or {}).get("advice_level"),
@@ -939,6 +958,7 @@ def _changes(previous: dict[str, Any] | None, current: dict[str, Any]) -> list[d
         "chip_squad_changes": "Chip-selected squad changed",
         "chip": "Chip recommendation changed",
         "risks": "Availability information changed",
+        "fixture_schedule": "Blank/Double Gameweek schedule changed",
         "fixture_signature": "Fixture information changed",
         "warning_codes": "Data-quality warning state changed",
         "advice_level": "Deadline advice stage changed",
@@ -1079,6 +1099,12 @@ def build_gameweek_report(
             "active_external_signals": external_summary.get("active_signal_rows", 0),
             "expired_external_signals": external_summary.get("expired_signal_rows", 0),
         },
+        "fixture_schedule_monitor": decision.get("fixture_schedule_monitor") or {},
+        "fixture_schedule_context": (
+            (decision.get("chip_optimisation") or {}).get("fixture_schedule_context")
+            or (decision.get("chip_indicators") or {}).get("fixture_schedule_context")
+            or {}
+        ),
         "fixture_signature": fixture_signature,
         "deadline_freeze": freeze,
         "decision_validation": decision_validation,
@@ -1166,6 +1192,39 @@ def render_markdown(report: dict[str, Any]) -> str:
             "",
         ])
         lines.extend(f"{index}. {row.get('web_name')} ({row.get('expected_points')} xPts)" for index, row in enumerate(recommendation.get("bench_order", []), start=1))
+    fixture_monitor = report.get("fixture_schedule_monitor") or {}
+    fixture_context = report.get("fixture_schedule_context") or {}
+    lines.extend(["", "## Blank/Double Gameweek monitor", ""])
+    special = fixture_monitor.get("special_gameweeks", [])
+    if special:
+        for row in special:
+            details = []
+            if row.get("double_team_names"):
+                details.append(
+                    "double: " + ", ".join(str(name) for name in row.get("double_team_names", []))
+                )
+            if row.get("blank_team_names"):
+                details.append(
+                    "blank: " + ", ".join(str(name) for name in row.get("blank_team_names", []))
+                )
+            lines.append(
+                f"- GW{row.get('gameweek')}: {row.get('type')} ({'; '.join(details)})"
+            )
+    else:
+        lines.append("- No confirmed future Blank or Double Gameweeks in the official FPL schedule.")
+    lines.append(
+        f"- Unscheduled/postponed fixtures awaiting a Gameweek: {fixture_monitor.get('unscheduled_fixture_count', 0)}"
+    )
+    if fixture_context.get("double_gameweeks_outside_projection_horizon"):
+        lines.append(
+            "- Confirmed DGWs outside the current projection horizon: "
+            + ", ".join(
+                f"GW{gw}"
+                for gw in fixture_context.get(
+                    "double_gameweeks_outside_projection_horizon", []
+                )
+            )
+        )
     lines.extend(["", "## Changes since previous report", ""])
     lines.extend(f"- {row.get('summary')}" for row in report.get("material_changes", []))
     if not report.get("material_changes"):

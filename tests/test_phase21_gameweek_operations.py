@@ -192,6 +192,47 @@ class Phase21OperationsTests(unittest.TestCase):
         self.assertIn("fixture_signature", change_types)
         self.assertTrue(any(row["code"] == "player_availability" for row in report["warnings"]))
 
+    def test_fixture_schedule_change_is_material_and_rendered(self) -> None:
+        previous = self.build()
+        self.decision["fixture_schedule_monitor"] = {
+            "status": "ready",
+            "source": "official_fpl_fixture_schedule",
+            "unscheduled_fixture_count": 1,
+            "unscheduled_fixtures": [{"fixture_id": 999}],
+            "special_gameweeks": [
+                {
+                    "gameweek": 8,
+                    "type": "double",
+                    "blank_team_ids": [],
+                    "blank_team_names": [],
+                    "double_team_ids": [1],
+                    "double_team_names": ["Club 1"],
+                    "double_team_count": 1,
+                    "blank_team_count": 0,
+                }
+            ],
+        }
+        self.decision["chip_optimisation"]["fixture_schedule_context"] = {
+            "double_gameweeks_outside_projection_horizon": [8]
+        }
+
+        report = self.build(previous=previous)
+
+        self.assertIn(
+            "fixture_schedule",
+            {row["type"] for row in report["material_changes"]},
+        )
+        self.assertEqual(
+            report["fixture_schedule_context"][
+                "double_gameweeks_outside_projection_horizon"
+            ],
+            [8],
+        )
+        markdown = render_markdown(report)
+        self.assertIn("Blank/Double Gameweek monitor", markdown)
+        self.assertIn("GW8: double", markdown)
+        self.assertIn("Unscheduled/postponed fixtures awaiting a Gameweek: 1", markdown)
+
     def test_stale_or_contradictory_inputs_require_review(self) -> None:
         self.current["generated_at"] = "2026-08-14T01:00:00+00:00"
         self.decision["multi_gameweek_plan"]["recommended_route"]["gameweek_plan"][0]["starter_player_ids"] = list(range(1, 11))

@@ -10,6 +10,7 @@ REQUIRED_FILES = [
     "manifest.json",
     "current_gameweek.json",
     "fpl_summary.json",
+    "fixture_schedule_monitor.json",
     "manager_history.json",
     "my_team.json",
     "my_transfers.csv",
@@ -46,6 +47,16 @@ def validate(data_dir: Path) -> None:
         raise ValueError(f"Unexpected team count: {teams}")
     if fixtures < 300:
         raise ValueError(f"Unexpected fixture count: {fixtures}")
+
+    fixture_monitor = json.loads(
+        (directory / "fixture_schedule_monitor.json").read_text(encoding="utf-8")
+    )
+    if fixture_monitor.get("status") != "ready":
+        raise ValueError("fixture_schedule_monitor.json is not ready")
+    if fixture_monitor.get("source") != "official_fpl_fixture_schedule":
+        raise ValueError("fixture_schedule_monitor.json has an unexpected source")
+    if not isinstance(fixture_monitor.get("special_gameweeks"), list):
+        raise ValueError("fixture_schedule_monitor.json is missing special_gameweeks")
 
     my_team = json.loads((directory / "my_team.json").read_text(encoding="utf-8"))
     if "team_id" not in my_team or "available" not in my_team:

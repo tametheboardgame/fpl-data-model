@@ -294,6 +294,111 @@ def chip_available(chip_state: dict[str, Any], chip: str) -> bool:
     return integer((chip_state.get("chips", {}).get(chip) or {}).get("remaining")) > 0
 
 
+def fixture_schedule_context(
+    fixture_schedule_monitor: dict[str, Any] | None,
+    start_gameweek: int,
+    end_gameweek: int,
+    projection_horizon_end: int,
+) -> dict[str, Any]:
+    monitor = fixture_schedule_monitor or {}
+    special = [
+        row
+        for row in monitor.get("special_gameweeks", [])
+        if start_gameweek <= integer(row.get("gameweek")) <= end_gameweek
+    ]
+    doubles = [
+        row for row in special if integer(row.get("double_team_count")) > 0
+    ]
+    blanks = [
+        row for row in special if integer(row.get("blank_team_count")) > 0
+    ]
+    outside_horizon = [
+        row for row in special if integer(row.get("gameweek")) > projection_horizon_end
+    ]
+    outside_double = [
+        row for row in outside_horizon if integer(row.get("double_team_count")) > 0
+    ]
+    outside_blank = [
+        row for row in outside_horizon if integer(row.get("blank_team_count")) > 0
+    ]
+    return {
+        "status": monitor.get("status") or "unavailable",
+        "source": monitor.get("source"),
+        "unscheduled_fixture_count": integer(monitor.get("unscheduled_fixture_count")),
+        "special_gameweeks_before_expiry": special,
+        "double_gameweeks_before_expiry": [
+            integer(row.get("gameweek")) for row in doubles
+        ],
+        "blank_gameweeks_before_expiry": [
+            integer(row.get("gameweek")) for row in blanks
+        ],
+        "double_gameweeks_outside_projection_horizon": [
+            integer(row.get("gameweek")) for row in outside_double
+        ],
+        "blank_gameweeks_outside_projection_horizon": [
+            integer(row.get("gameweek")) for row in outside_blank
+        ],
+        "next_confirmed_double_gameweek": (
+            integer(doubles[0].get("gameweek")) if doubles else None
+        ),
+        "next_confirmed_blank_gameweek": (
+            integer(blanks[0].get("gameweek")) if blanks else None
+        ),
+    }
+
+
+def apply_future_fixture_guardrail(
+    chip: str,
+    gameweek: int,
+    status: str,
+    reason: str,
+    schedule_context: dict[str, Any],
+) -> tuple[str, str, int | None]:
+    if status != "play":
+        return status, reason, None
+
+    if chip in {"bboost", "3xc"}:
+        future = [
+            gw
+            for gw in schedule_context.get(
+                "double_gameweeks_outside_projection_horizon", []
+            )
+            if integer(gw) > gameweek
+        ]
+        event_label = "Double Gameweek"
+    elif chip == "freehit":
+        future = sorted(
+            {
+                integer(gw)
+                for key in (
+                    "double_gameweeks_outside_projection_horizon",
+                    "blank_gameweeks_outside_projection_horizon",
+                )
+                for gw in schedule_context.get(key, [])
+                if integer(gw) > gameweek
+            }
+        )
+        event_label = "Blank/Double Gameweek"
+    else:
+        future = []
+        event_label = "fixture event"
+
+    if not future:
+        return status, reason, None
+
+    next_gameweek = min(future)
+    return (
+        "hold",
+        (
+            f"Confirmed future {event_label} GW{next_gameweek} is outside the current "
+            "projection horizon. Defer this chip until that event can be compared on "
+            "expected points rather than spending it while a known structural "
+            "opportunity is unmodelled."
+        ),
+        next_gameweek,
+    )
+
+
 def candidate_status(
     chip: str,
     edge: float,
@@ -703,6 +808,7 @@ def optimise_chip_plan(
     target_gameweek: int | None,
     discount: float = 0.96,
     first_gameweek_multiplier: dict[int, float] | None = None,
+    fixture_schedule_monitor: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     gameweeks = [integer(gw) for gw in multi_gameweek_plan.get("horizon_gameweeks", [])]
     routes = multi_gameweek_plan.get("routes", [])
@@ -749,6 +855,12 @@ def optimise_chip_plan(
     period = active_chip_period(chip_state)
     period_end = integer((period or {}).get("end_gameweek")) or 38
     horizon_reaches_expiry = max(gameweeks) >= period_end
+    schedule_context = fixture_schedule_context(
+        fixture_schedule_monitor,
+        integer(target_gameweek) or min(gameweeks),
+        period_end,
+        max(gameweeks),
+    )
     total_budget = sum(
         number(row.get("selling_price")) / 10
         if number(row.get("selling_price")) >= 10
@@ -806,6 +918,9 @@ def optimise_chip_plan(
                 status, reason = candidate_status(
                     chip, edge, structure, horizon_reaches_expiry
                 )
+                status, reason, deferred_for_gameweek = apply_future_fixture_guardrail(
+                    chip, gameweek, status, reason, schedule_context
+                )
                 candidates.append({
                     "chip": chip,
                     "chip_name": CHIP_LABELS[chip],
@@ -816,6 +931,7 @@ def optimise_chip_plan(
                     "discounted_incremental_points": round((discount ** offset) * edge, 3),
                     "status": status,
                     "reason": reason,
+                    "deferred_for_confirmed_fixture_gameweek": deferred_for_gameweek,
                     **detail,
                 })
 
@@ -864,6 +980,9 @@ def optimise_chip_plan(
                     status, reason = candidate_status(
                         "freehit", edge, structure, horizon_reaches_expiry
                     )
+                    status, reason, deferred_for_gameweek = apply_future_fixture_guardrail(
+                        "freehit", gameweek, status, reason, schedule_context
+                    )
                     candidates.append({
                         "chip": "freehit",
                         "chip_name": CHIP_LABELS["freehit"],
@@ -874,6 +993,7 @@ def optimise_chip_plan(
                         "discounted_incremental_points": round((discount ** offset) * edge, 3),
                         "status": status,
                         "reason": reason,
+                        "deferred_for_confirmed_fixture_gameweek": deferred_for_gameweek,
                         "temporary_squad_player_ids": list(fh_ids),
                         "starter_player_ids": fh_starters,
                         "captain_player_id": fh_captain,
@@ -1111,6 +1231,7 @@ def optimise_chip_plan(
         "horizon_gameweeks": gameweeks,
         "period_end_gameweek": period_end,
         "horizon_reaches_chip_expiry": horizon_reaches_expiry,
+        "fixture_schedule_context": schedule_context,
         "gameweek_structures": [
             {"gameweek": gameweek, **structures[gameweek]} for gameweek in gameweeks
         ],
@@ -1125,7 +1246,9 @@ def optimise_chip_plan(
         "method": (
             "Compare each available chip with the same no-chip transfer route. Wildcard squad "
             "search and final selection use bounded captaincy/ceiling/rank-aware objectives, "
-            "while chip timing thresholds remain anchored to real expected-points gain."
+            "while chip timing thresholds remain anchored to real expected-points gain. "
+            "Confirmed future Blank/Double Gameweeks outside the projection horizon are "
+            "used as a fail-closed timing guardrail until they can be compared properly."
         ),
         "context_wiring": {
             "first_gameweek_multiplier_applied": bool(first_gameweek_multiplier),

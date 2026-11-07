@@ -11,6 +11,8 @@ from typing import Any, Iterable
 
 import requests
 
+from src.fpl_fixture_monitor import build_fixture_schedule_monitor
+
 
 API_BASE = "https://fantasy.premierleague.com/api"
 DEFAULT_TEAM_ID = 39395
@@ -502,6 +504,12 @@ def build_datasets(
         "current": current_event,
         "next": next_event,
     }
+    fixture_schedule_monitor = build_fixture_schedule_monitor(
+        fixture_data,
+        teams,
+        current_gameweek,
+        generated_at,
+    )
     summary = {
         "generated_at": generated_at,
         "season": infer_season(events),
@@ -515,6 +523,7 @@ def build_datasets(
     }
 
     write_json(chatgpt_dir / "current_gameweek.json", current_gameweek)
+    write_json(chatgpt_dir / "fixture_schedule_monitor.json", fixture_schedule_monitor)
     write_json(chatgpt_dir / "my_team.json", my_team)
     write_json(
         chatgpt_dir / "manager_history.json",
@@ -538,6 +547,7 @@ def build_datasets(
 
     files = [
         "current_gameweek.json",
+        "fixture_schedule_monitor.json",
         "fixtures.csv",
         "fpl_summary.json",
         "manager_history.json",
