@@ -1,9 +1,9 @@
 # FPL Gameweek 11 Deadline Report
 
 Status: ready
-Generated: 2026-11-06T19:44:29+00:00
+Generated: 2026-11-07T06:03:08+00:00
 UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 351.259
+Hours remaining: 340.948
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Petrović (Bournemouth, 3.352 xPts)
+- Petrović (Bournemouth, 3.326 xPts)
 - Van Hecke (Spurs, 5.722 xPts)
-- De Cuyper (Brighton, 5.54 xPts)
-- Gabriel (Arsenal, 5.354 xPts)
-- Tavernier (Bournemouth, 5.097 xPts)
-- Ødegaard (Arsenal, 4.655 xPts)
-- Haaland (Man City, 7.205 xPts)
-- Silva (Bournemouth, 4.584 xPts)
-- Rogers (Chelsea, 4.505 xPts)
-- Groß (Brighton, 4.442 xPts)
-- Isak (Liverpool, 4.133 xPts)
+- De Cuyper (Brighton, 5.343 xPts)
+- Gabriel (Arsenal, 5.235 xPts)
+- Tavernier (Bournemouth, 5.081 xPts)
+- Ødegaard (Arsenal, 4.568 xPts)
+- Haaland (Man City, 6.976 xPts)
+- Silva (Bournemouth, 4.555 xPts)
+- Rogers (Chelsea, 4.418 xPts)
+- Groß (Brighton, 4.305 xPts)
+- Tarkowski (Everton, 4.16 xPts)
 
-Captain: Haaland (7.205 mean xPts; strategic score 8.5379)
-Vice-captain: Tavernier (5.097 mean xPts; strategic score 5.6461)
+Captain: Haaland (6.976 mean xPts; strategic score 8.2872)
+Vice-captain: Tavernier (5.081 mean xPts; strategic score 5.6287)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Tarkowski (4.085 xPts)
-2. Barry (4.077 xPts)
-3. Slater (2.591 xPts)
-4. Steele (0.009 xPts)
+1. Barry (4.113 xPts)
+2. Isak (4.082 xPts)
+3. Slater (2.625 xPts)
+4. Steele (0.006 xPts)
 
 ## Changes since previous report
 
@@ -47,7 +47,7 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 ## Warnings
 
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 43984 external-context signals have expired and are excluded.
+- [LOW] 44272 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 
