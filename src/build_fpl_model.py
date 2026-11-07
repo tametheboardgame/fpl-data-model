@@ -1693,6 +1693,12 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         if chip_rules_path.is_file()
         else {}
     )
+    fixture_schedule_monitor_path = chatgpt_dir / "fixture_schedule_monitor.json"
+    fixture_schedule_monitor = (
+        json.loads(fixture_schedule_monitor_path.read_text(encoding="utf-8"))
+        if fixture_schedule_monitor_path.is_file()
+        else {}
+    )
     write_signal_csv(chatgpt_dir / "external_context_signals.csv", context_signals)
     external_summary = context_summary(
         context_signals, source_registry, generated_at
@@ -1710,6 +1716,7 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         season=season,
         chip_rules=chip_rules,
         fixture_projections=projections,
+        fixture_schedule_monitor=fixture_schedule_monitor,
         scoring_rules_version=scoring_rules.get("version"),
         past_seasons=past_seasons,
     )
