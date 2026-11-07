@@ -39,6 +39,21 @@ As of 2026-11-07, the first-half Bench Boost and Triple Captain are still unused
 
 These targets must be re-evaluated from fresh production projections, availability, role/minutes news, squad state and fixture changes. They may be moved when evidence materially supports doing so. However, **do not defer either chip solely on the basis that a better future opportunity may exist**. If the model recommends passing a planned target, record the concrete reason and identify the next specific target before that Gameweek deadline.
 
+## Official Blank/Double Gameweek monitor
+
+A permanent fixture-structure monitor is being added so confirmed Blank and Double Gameweeks cannot sit outside the short projection horizon unnoticed.
+
+Operational contract:
+
+- `data/chatgpt/fixture_schedule_monitor.json` is rebuilt from the official FPL fixture schedule on every normal data refresh.
+- A team with zero official fixtures assigned to a future Gameweek is exposed as blank; more than one is exposed as double.
+- Fixtures not currently assigned to any Gameweek remain visible as unscheduled/postponed fixtures until FPL reschedules them.
+- The full monitor is exposed in `fpl_decisions.json`; the chip optimiser also receives a compact fixture-schedule context.
+- A confirmed relevant DGW/BGW beyond the current projection horizon is a fail-closed timing guardrail for TC/BB/FH. Once it enters the projection horizon, expected-points comparison becomes authoritative.
+- Fixture-schedule changes are material Gameweek-operator changes and are surfaced in `gameweek_report.json` and the Markdown report.
+- This monitor must not create a generic "maybe a better week later" reason to defer chips. Only confirmed official fixture structure may trigger the future-event guardrail.
+
+Current output contracts after this change are `fpl-decisions-2.6` and `fpl-gameweek-operations-1.9`.
 ## Source-of-truth order
 
 1. Current GitHub/CI/runtime state.
