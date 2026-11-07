@@ -2,7 +2,7 @@
 
 This file is the fresh-chat handoff for the repository. Read it before starting new model-development work.
 
-Last updated: 2026-09-17
+Last updated: 2026-11-07
 Repository: `tametheboardgame/fpl-data-model`
 FPL team ID: `39395`
 Season: `2026/27`
@@ -27,6 +27,17 @@ When receiving one of those commands:
 Optimise to win mini-leagues, accepting sensible upside/variance rather than merely minimising median error. Mean expected points remains the accounting basis for reported xPts. Strategic ceiling/rank terms may affect choices but must never fabricate xPts.
 
 Do not hard-code named players or player IDs to solve current-week symptoms. General mechanisms must be justified and tested.
+
+## Provisional first-half chip plan
+
+As of 2026-11-07, the first-half Bench Boost and Triple Captain are still unused and expire at the GW19 deadline. Keep the following as a planning anchor, not a mandatory instruction:
+
+- **Bench Boost target: GW13.** The current fixture structure gives useful fixtures to several likely bench/cheap-squad players, particularly Coventry v Ipswich and Hull v Nottingham Forest. Use GW11-GW12 to improve bench availability/minutes only where transfers are independently worthwhile; do not weaken the normal starting XI merely to force the chip.
+- **Triple Captain target: GW16.** Current preferred use is Haaland at home to Hull. This is the default target while his form, expected minutes and haul probability remain strong.
+- **Triple Captain fallback: GW14.** Bruno Fernandes at home to Coventry is the main earlier alternative if GW16 deteriorates materially.
+- **GW19 is an emergency fallback, not the plan.** Do not intentionally drift to the expiry week merely because a hypothetical better opportunity might appear.
+
+These targets must be re-evaluated from fresh production projections, availability, role/minutes news, squad state and fixture changes. They may be moved when evidence materially supports doing so. However, **do not defer either chip solely on the basis that a better future opportunity may exist**. If the model recommends passing a planned target, record the concrete reason and identify the next specific target before that Gameweek deadline.
 
 ## Source-of-truth order
 
