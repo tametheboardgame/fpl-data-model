@@ -164,7 +164,7 @@ class Phase18ChipOptimiserTests(unittest.TestCase):
         self.assertEqual(target["captain_player_id"], 13)
         self.assertEqual(target["incremental_expected_points"], 5.9)
 
-    def test_expiry_pressure_can_make_best_double_actionable(self) -> None:
+    def test_expiry_pressure_schedules_chips_before_they_expire(self) -> None:
         self.chips["periods"][0]["end_gameweek"] = 11
         result = optimise_chip_plan(
             self.projections(), self.players, self.squad, 25.0,
@@ -175,7 +175,9 @@ class Phase18ChipOptimiserTests(unittest.TestCase):
             len({row["gameweek"] for row in result["schedule"]}),
             len(result["schedule"]),
         )
-        self.assertEqual(result["recommendation"]["action"], "hold")
+        self.assertEqual(result["recommendation"]["action"], "play")
+        self.assertEqual(result["recommendation"]["gameweek"], 10)
+        self.assertTrue(any(row["gameweek"] == 11 for row in result["schedule"]))
 
     def test_wildcard_candidate_exports_target_gameweek_mean_basis(self) -> None:
         result = optimise_chip_plan(
