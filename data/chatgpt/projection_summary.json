@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T06:39:31+00:00",
+  "generated_at": "2026-11-07T13:07:46+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -50,13 +50,13 @@
   "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
   "player_feature_rows": 670,
   "team_feature_rows": 20,
-  "raw_fixture_history_rows": 5890,
+  "raw_fixture_history_rows": 6560,
   "completed_fixture_history_rows": 5890,
   "fixture_projection_rows": 4020,
   "player_horizon_rows": 670,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 48024,
-  "active_external_context_signal_rows": 3752,
+  "active_external_context_signal_rows": 3736,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -346,6 +346,14 @@
       "expected_points_next_3": 12.718
     },
     {
+      "player_id": 346,
+      "web_name": "Calvert-Lewin",
+      "team_name": "Leeds",
+      "position": "Forward",
+      "price": 6.0,
+      "expected_points_next_3": 12.717
+    },
+    {
       "player_id": 362,
       "web_name": "Jacquet",
       "team_name": "Liverpool",
@@ -376,14 +384,6 @@
       "position": "Defender",
       "price": 4.9,
       "expected_points_next_3": 12.563
-    },
-    {
-      "player_id": 472,
-      "web_name": "Murillo",
-      "team_name": "Nott'm Forest",
-      "position": "Defender",
-      "price": 5.5,
-      "expected_points_next_3": 12.373
     }
   ],
   "component_top_next_gameweek": [
