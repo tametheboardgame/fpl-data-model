@@ -175,6 +175,20 @@ class TransformTests(unittest.TestCase):
             self.assertTrue(snapshot_index["latest_daily_snapshot"])
             self.assertTrue((output / snapshot_index["latest_daily_snapshot"]).is_file())
 
+            fixture_monitor = json.loads(
+                (output / "chatgpt" / "fixture_schedule_monitor.json").read_text()
+            )
+            self.assertEqual(fixture_monitor["status"], "ready")
+            self.assertEqual(
+                fixture_monitor["source"], "official_fpl_fixture_schedule"
+            )
+            dataset_paths = {
+                row["path"] for row in manifest.get("datasets", [])
+            }
+            self.assertIn(
+                "data/chatgpt/fixture_schedule_monitor.json", dataset_paths
+            )
+
     def test_unavailable_team_is_non_fatal(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary)
