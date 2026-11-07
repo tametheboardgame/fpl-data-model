@@ -1,9 +1,9 @@
 # FPL Gameweek 11 Deadline Report
 
 Status: ready
-Generated: 2026-11-07T18:50:12+00:00
+Generated: 2026-11-07T21:55:08+00:00
 UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 328.163
+Hours remaining: 325.081
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,27 +16,27 @@ Chip: Hold
 
 ## Starting XI
 
-- Petrović (Bournemouth, 3.328 xPts)
+- Petrović (Bournemouth, 3.321 xPts)
 - Van Hecke (Spurs, 5.722 xPts)
-- De Cuyper (Brighton, 5.428 xPts)
-- Gabriel (Arsenal, 5.294 xPts)
-- Tavernier (Bournemouth, 5.078 xPts)
-- Ødegaard (Arsenal, 4.61 xPts)
-- Haaland (Man City, 7.061 xPts)
-- Silva (Bournemouth, 4.555 xPts)
-- Rogers (Chelsea, 4.46 xPts)
-- Groß (Brighton, 4.364 xPts)
-- Isak (Liverpool, 4.118 xPts)
+- De Cuyper (Brighton, 5.373 xPts)
+- Gabriel (Arsenal, 5.26 xPts)
+- Tavernier (Bournemouth, 5.075 xPts)
+- Ødegaard (Arsenal, 4.585 xPts)
+- Haaland (Man City, 6.998 xPts)
+- Silva (Bournemouth, 4.548 xPts)
+- Rogers (Chelsea, 4.435 xPts)
+- Groß (Brighton, 4.326 xPts)
+- Tarkowski (Everton, 4.128 xPts)
 
-Captain: Haaland (7.061 mean xPts; strategic score 8.3803)
-Vice-captain: Tavernier (5.078 mean xPts; strategic score 5.6255)
+Captain: Haaland (6.998 mean xPts; strategic score 8.3113)
+Vice-captain: Tavernier (5.075 mean xPts; strategic score 5.6222)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Tarkowski (4.105 xPts)
-2. Barry (4.069 xPts)
-3. Slater (2.61 xPts)
+1. Isak (4.102 xPts)
+2. Barry (4.082 xPts)
+3. Slater (2.62 xPts)
 4. Steele (0.007 xPts)
 
 ## Blank/Double Gameweek monitor
@@ -46,12 +46,13 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Changes since previous report
 
-- Chip recommendation changed
+- Starting XI changed
+- Bench order changed
 
 ## Warnings
 
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 44568 external-context signals have expired and are excluded.
+- [LOW] 45480 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 
