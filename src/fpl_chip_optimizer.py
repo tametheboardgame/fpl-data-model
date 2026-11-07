@@ -405,19 +405,20 @@ def candidate_status(
     structure: dict[str, Any],
     horizon_reaches_expiry: bool,
 ) -> tuple[str, str]:
-    relevant_event = {
-        "freehit": structure["type"] in {"blank", "double", "blank_and_double"},
-        "bboost": bool(structure["double_team_count"]),
-        "3xc": bool(structure["double_team_count"]),
-        "wildcard": True,
-    }[chip]
+    free_hit_event = structure["type"] in {"blank", "double", "blank_and_double"}
     threshold = 0.0 if horizon_reaches_expiry else MINIMUM_EDGE[chip]
     if edge <= 0:
         return "reject", "No expected-points gain over the no-chip route."
-    if not relevant_event and chip != "wildcard":
-        return "hold", "No confirmed Blank or Double Gameweek structure supports using this chip."
+    if chip == "freehit" and not free_hit_event:
+        return "hold", "No confirmed Blank or Double Gameweek structure supports using the Free Hit."
     if edge + 1e-9 < threshold:
         return "hold", f"The {edge:.1f}-point edge is below the {threshold:.1f}-point save threshold."
+    if chip in {"bboost", "3xc"} and structure["type"] == "normal":
+        return (
+            "play",
+            "The single-Gameweek projected gain clears the save threshold; "
+            "Bench Boost and Triple Captain do not require a Double Gameweek.",
+        )
     return "play", "The projected gain clears the save threshold within the known horizon."
 
 
