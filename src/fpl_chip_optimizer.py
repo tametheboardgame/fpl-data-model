@@ -1284,8 +1284,8 @@ def optimise_chip_plan(
             "Wildcard uses a permanent budget-legal rebuild over the remaining known horizon.",
             "Wildcard squad search and selection explicitly value weekly captaincy access and bounded upper-tail outcomes.",
             "Ownership is used only as bounded captaincy rank-risk pressure, never as a blanket reason to own a player.",
-            "Bench Boost adds the expected points of the four players outside the optimal XI.",
-            "Triple Captain adds one further copy of the selected captain's expected points.",
+            "Bench Boost adds the expected points of the four players outside the optimal XI and may be used in a strong single or Double Gameweek.",
+            "Triple Captain adds one further copy of the selected captain's expected points and may be used in a strong single or Double Gameweek.",
             "Player prices are held constant across the known planning horizon.",
         ],
     }
