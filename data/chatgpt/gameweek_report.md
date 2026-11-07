@@ -1,9 +1,9 @@
 # FPL Gameweek 11 Deadline Report
 
 Status: ready
-Generated: 2026-11-07T21:55:08+00:00
+Generated: 2026-11-07T22:22:16+00:00
 UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 325.081
+Hours remaining: 324.629
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Petrović (Bournemouth, 3.321 xPts)
+- Petrović (Bournemouth, 3.328 xPts)
 - Van Hecke (Spurs, 5.722 xPts)
-- De Cuyper (Brighton, 5.373 xPts)
-- Gabriel (Arsenal, 5.26 xPts)
-- Tavernier (Bournemouth, 5.075 xPts)
-- Ødegaard (Arsenal, 4.585 xPts)
-- Haaland (Man City, 6.998 xPts)
-- Silva (Bournemouth, 4.548 xPts)
-- Rogers (Chelsea, 4.435 xPts)
-- Groß (Brighton, 4.326 xPts)
-- Tarkowski (Everton, 4.128 xPts)
+- De Cuyper (Brighton, 5.537 xPts)
+- Gabriel (Arsenal, 5.343 xPts)
+- Tavernier (Bournemouth, 5.073 xPts)
+- Ødegaard (Arsenal, 4.649 xPts)
+- Haaland (Man City, 7.174 xPts)
+- Silva (Bournemouth, 4.554 xPts)
+- Rogers (Chelsea, 4.503 xPts)
+- Groß (Brighton, 4.439 xPts)
+- Isak (Liverpool, 4.131 xPts)
 
-Captain: Haaland (6.998 mean xPts; strategic score 8.3113)
-Vice-captain: Tavernier (5.075 mean xPts; strategic score 5.6222)
+Captain: Haaland (7.174 mean xPts; strategic score 8.5039)
+Vice-captain: Tavernier (5.073 mean xPts; strategic score 5.62)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Isak (4.102 xPts)
-2. Barry (4.082 xPts)
-3. Slater (2.62 xPts)
-4. Steele (0.007 xPts)
+1. Tarkowski (4.054 xPts)
+2. Barry (4.036 xPts)
+3. Slater (2.592 xPts)
+4. Steele (0.009 xPts)
 
 ## Blank/Double Gameweek monitor
 
