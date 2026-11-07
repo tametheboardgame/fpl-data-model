@@ -21,7 +21,7 @@ from src.fpl_multiweek import (
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-2.6"
+DECISION_VERSION = "fpl-decisions-2.7"
 MARKET_BLEND_WEIGHT = 0.75
 MINUTES_RISK_WEIGHT = 0.30
 MODEL_DISAGREEMENT_WEIGHT = 0.25
