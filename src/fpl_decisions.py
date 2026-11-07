@@ -21,7 +21,7 @@ from src.fpl_multiweek import (
 from src.fpl_transfers import derive_free_transfer_state, transfer_hit_cost
 
 
-DECISION_VERSION = "fpl-decisions-2.5"
+DECISION_VERSION = "fpl-decisions-2.6"
 MARKET_BLEND_WEIGHT = 0.75
 MINUTES_RISK_WEIGHT = 0.30
 MODEL_DISAGREEMENT_WEIGHT = 0.25
@@ -587,6 +587,7 @@ def build_decision_support(
     season: str | None = None,
     chip_rules: dict[str, Any] | None = None,
     fixture_projections: list[dict[str, Any]] | None = None,
+    fixture_schedule_monitor: dict[str, Any] | None = None,
     scoring_rules_version: str | None = None,
     past_seasons: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
@@ -871,6 +872,7 @@ def build_decision_support(
         multi_gameweek_plan,
         target_gameweek,
         first_gameweek_multiplier=first_gameweek_multiplier,
+        fixture_schedule_monitor=fixture_schedule_monitor,
     )
     initial_squad_plan = build_initial_squad_plan(
         players,
@@ -892,6 +894,7 @@ def build_decision_support(
         "squad_available": bool(squad),
         "bank": round(bank, 1),
         "free_transfer_state": transfer_state,
+        "fixture_schedule_monitor": fixture_schedule_monitor or {},
         "recommended_lineup": starters,
         "bench_order": bench,
         "lineup_correlation": lineup_correlation,
@@ -929,10 +932,12 @@ def build_decision_support(
             ),
             "advisory_only": False,
             "optimisation_status": chip_optimisation.get("status"),
+            "fixture_schedule_context": chip_optimisation.get("fixture_schedule_context"),
             "current_gameweek_recommendation": chip_optimisation.get("recommendation"),
             "reason": (
                 "Phase 18 compares each available chip with the no-chip transfer routes, "
-                "accounts for half-season expiry and enforces one chip per Gameweek."
+                "accounts for half-season expiry, confirmed future Blank/Double Gameweeks "
+                "and enforces one chip per Gameweek."
             ),
         },
         "audit": {
