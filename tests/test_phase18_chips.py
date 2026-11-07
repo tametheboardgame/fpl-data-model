@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from src.fpl_chip_optimizer import (
+    candidate_status,
     fixture_counts,
     gameweek_structure,
     optimise_chip_plan,
@@ -86,6 +87,35 @@ class Phase18ChipOptimiserTests(unittest.TestCase):
         self.assertEqual(gameweek_structure(counts[10])["type"], "blank")
         self.assertEqual(gameweek_structure(counts[11])["type"], "double")
 
+    def test_tc_and_bench_boost_can_be_playable_in_strong_single_gameweek(self) -> None:
+        normal = {
+            "type": "normal",
+            "blank_team_ids": [],
+            "double_team_ids": [],
+            "blank_team_count": 0,
+            "double_team_count": 0,
+        }
+        tc_status, tc_reason = candidate_status("3xc", 8.0, normal, False)
+        bb_status, bb_reason = candidate_status("bboost", 8.5, normal, False)
+        fh_status, _ = candidate_status("freehit", 20.0, normal, False)
+
+        self.assertEqual(tc_status, "play")
+        self.assertIn("do not require a Double Gameweek", tc_reason)
+        self.assertEqual(bb_status, "play")
+        self.assertIn("do not require a Double Gameweek", bb_reason)
+        self.assertEqual(fh_status, "hold")
+
+    def test_single_gameweek_tc_and_bench_boost_still_respect_save_thresholds(self) -> None:
+        normal = {
+            "type": "normal",
+            "blank_team_ids": [],
+            "double_team_ids": [],
+            "blank_team_count": 0,
+            "double_team_count": 0,
+        }
+        self.assertEqual(candidate_status("3xc", 7.4, normal, False)[0], "hold")
+        self.assertEqual(candidate_status("bboost", 7.9, normal, False)[0], "hold")
+
     def test_triple_captain_prefers_double_gameweek(self) -> None:
         result = optimise_chip_plan(
             self.projections(), self.players, self.squad, 25.0,
@@ -134,7 +164,7 @@ class Phase18ChipOptimiserTests(unittest.TestCase):
         self.assertEqual(target["captain_player_id"], 13)
         self.assertEqual(target["incremental_expected_points"], 5.9)
 
-    def test_expiry_pressure_can_make_best_double_actionable(self) -> None:
+    def test_expiry_pressure_schedules_chips_before_they_expire(self) -> None:
         self.chips["periods"][0]["end_gameweek"] = 11
         result = optimise_chip_plan(
             self.projections(), self.players, self.squad, 25.0,
@@ -145,7 +175,9 @@ class Phase18ChipOptimiserTests(unittest.TestCase):
             len({row["gameweek"] for row in result["schedule"]}),
             len(result["schedule"]),
         )
-        self.assertEqual(result["recommendation"]["action"], "hold")
+        self.assertEqual(result["recommendation"]["action"], "play")
+        self.assertEqual(result["recommendation"]["gameweek"], 10)
+        self.assertTrue(any(row["gameweek"] == 11 for row in result["schedule"]))
 
     def test_wildcard_candidate_exports_target_gameweek_mean_basis(self) -> None:
         result = optimise_chip_plan(

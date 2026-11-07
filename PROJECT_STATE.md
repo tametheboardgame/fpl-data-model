@@ -52,8 +52,9 @@ Operational contract:
 - A confirmed relevant DGW/BGW beyond the current projection horizon is a fail-closed timing guardrail for TC/BB/FH. Once it enters the projection horizon, expected-points comparison becomes authoritative.
 - Fixture-schedule changes are material Gameweek-operator changes and are surfaced in `gameweek_report.json` and the Markdown report.
 - This monitor must not create a generic "maybe a better week later" reason to defer chips. Only confirmed official fixture structure may trigger the future-event guardrail.
+- TC and Bench Boost remain eligible in strong single Gameweeks when their expected-points edge clears the normal save threshold. Free Hit remains structurally restricted to confirmed Blank/Double Gameweeks.
 
-Current output contracts after this change are `fpl-decisions-2.6` and `fpl-gameweek-operations-1.9`.
+Current output contracts after the follow-up single-Gameweek chip eligibility correction are `fpl-decisions-2.7` and `fpl-gameweek-operations-1.9`.
 ## Source-of-truth order
 
 1. Current GitHub/CI/runtime state.
