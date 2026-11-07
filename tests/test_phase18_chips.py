@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from src.fpl_chip_optimizer import (
+    candidate_status,
     fixture_counts,
     gameweek_structure,
     optimise_chip_plan,
@@ -85,6 +86,35 @@ class Phase18ChipOptimiserTests(unittest.TestCase):
         counts = fixture_counts(rows, self.players, [10, 11])
         self.assertEqual(gameweek_structure(counts[10])["type"], "blank")
         self.assertEqual(gameweek_structure(counts[11])["type"], "double")
+
+    def test_tc_and_bench_boost_can_be_playable_in_strong_single_gameweek(self) -> None:
+        normal = {
+            "type": "normal",
+            "blank_team_ids": [],
+            "double_team_ids": [],
+            "blank_team_count": 0,
+            "double_team_count": 0,
+        }
+        tc_status, tc_reason = candidate_status("3xc", 8.0, normal, False)
+        bb_status, bb_reason = candidate_status("bboost", 8.5, normal, False)
+        fh_status, _ = candidate_status("freehit", 20.0, normal, False)
+
+        self.assertEqual(tc_status, "play")
+        self.assertIn("do not require a Double Gameweek", tc_reason)
+        self.assertEqual(bb_status, "play")
+        self.assertIn("do not require a Double Gameweek", bb_reason)
+        self.assertEqual(fh_status, "hold")
+
+    def test_single_gameweek_tc_and_bench_boost_still_respect_save_thresholds(self) -> None:
+        normal = {
+            "type": "normal",
+            "blank_team_ids": [],
+            "double_team_ids": [],
+            "blank_team_count": 0,
+            "double_team_count": 0,
+        }
+        self.assertEqual(candidate_status("3xc", 7.4, normal, False)[0], "hold")
+        self.assertEqual(candidate_status("bboost", 7.9, normal, False)[0], "hold")
 
     def test_triple_captain_prefers_double_gameweek(self) -> None:
         result = optimise_chip_plan(
