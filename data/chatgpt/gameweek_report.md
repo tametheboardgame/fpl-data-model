@@ -1,9 +1,9 @@
 # FPL Gameweek 11 Deadline Report
 
 Status: ready
-Generated: 2026-11-08T13:54:40+00:00
+Generated: 2026-11-08T22:10:41+00:00
 UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 309.089
+Hours remaining: 300.822
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Petrović (Bournemouth, 3.328 xPts)
+- Petrović (Bournemouth, 3.313 xPts)
 - Van Hecke (Spurs, 5.722 xPts)
-- De Cuyper (Brighton, 5.54 xPts)
-- Gabriel (Arsenal, 5.362 xPts)
-- Tavernier (Bournemouth, 5.073 xPts)
-- Ødegaard (Arsenal, 4.66 xPts)
-- Haaland (Man City, 7.178 xPts)
-- Silva (Bournemouth, 4.554 xPts)
-- Rogers (Chelsea, 4.51 xPts)
-- Groß (Brighton, 4.441 xPts)
-- Isak (Liverpool, 4.123 xPts)
+- De Cuyper (Brighton, 5.375 xPts)
+- Gabriel (Arsenal, 5.261 xPts)
+- Tavernier (Bournemouth, 5.066 xPts)
+- Ødegaard (Arsenal, 4.586 xPts)
+- Haaland (Man City, 6.994 xPts)
+- Silva (Bournemouth, 4.538 xPts)
+- Rogers (Chelsea, 4.436 xPts)
+- Groß (Brighton, 4.327 xPts)
+- Tarkowski (Everton, 4.125 xPts)
 
-Captain: Haaland (7.178 mean xPts; strategic score 8.5083)
-Vice-captain: Tavernier (5.073 mean xPts; strategic score 5.62)
+Captain: Haaland (6.994 mean xPts; strategic score 8.3069)
+Vice-captain: Tavernier (5.066 mean xPts; strategic score 5.6124)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Tarkowski (4.052 xPts)
-2. Barry (4.036 xPts)
-3. Slater (2.591 xPts)
-4. Steele (0.009 xPts)
+1. Isak (4.083 xPts)
+2. Barry (4.077 xPts)
+3. Slater (2.619 xPts)
+4. Steele (0.007 xPts)
 
 ## Blank/Double Gameweek monitor
 
@@ -52,7 +52,7 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 ## Warnings
 
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 45480 external-context signals have expired and are excluded.
+- [LOW] 47120 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 

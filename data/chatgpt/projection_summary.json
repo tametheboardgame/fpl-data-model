@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T13:54:40+00:00",
+  "generated_at": "2026-11-08T22:10:41+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -48,15 +48,15 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
-  "player_feature_rows": 671,
+  "player_feature_rows": 672,
   "team_feature_rows": 20,
   "raw_fixture_history_rows": 6561,
   "completed_fixture_history_rows": 5890,
-  "fixture_projection_rows": 4026,
-  "player_horizon_rows": 671,
+  "fixture_projection_rows": 4032,
+  "player_horizon_rows": 672,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 48528,
-  "active_external_context_signal_rows": 2992,
+  "active_external_context_signal_rows": 1344,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -492,14 +492,6 @@
       "component_expected_points_next_1": 3.648
     },
     {
-      "player_id": 106,
-      "web_name": "Thiago",
-      "team_name": "Brentford",
-      "position": "Forward",
-      "price": 7.8,
-      "component_expected_points_next_1": 3.647
-    },
-    {
       "player_id": 91,
       "web_name": "Pinnock",
       "team_name": "Coventry City",
@@ -546,6 +538,14 @@
       "position": "Midfielder",
       "price": 5.5,
       "component_expected_points_next_1": 3.46
+    },
+    {
+      "player_id": 40,
+      "web_name": "Rogers",
+      "team_name": "Chelsea",
+      "position": "Midfielder",
+      "price": 8.2,
+      "component_expected_points_next_1": 3.447
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -694,20 +694,20 @@
       "component_expected_points_next_3": 10.252
     },
     {
-      "player_id": 106,
-      "web_name": "Thiago",
-      "team_name": "Brentford",
-      "position": "Forward",
-      "price": 7.8,
-      "component_expected_points_next_3": 10.228
-    },
-    {
       "player_id": 91,
       "web_name": "Pinnock",
       "team_name": "Coventry City",
       "position": "Defender",
       "price": 4.5,
       "component_expected_points_next_3": 10.163
+    },
+    {
+      "player_id": 591,
+      "web_name": "Enciso",
+      "team_name": "Ipswich Town",
+      "position": "Midfielder",
+      "price": 5.5,
+      "component_expected_points_next_3": 10.123
     }
   ],
   "prediction_snapshot_created": null,
