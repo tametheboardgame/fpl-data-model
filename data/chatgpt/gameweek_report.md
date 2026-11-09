@@ -1,43 +1,43 @@
 # FPL Gameweek 11 Deadline Report
 
 Status: ready
-Generated: 2026-11-09T07:16:49+00:00
+Generated: 2026-11-09T22:25:21+00:00
 UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 291.72
+Hours remaining: 276.577
 Advice level: provisional
 Firm advice allowed: False
 
 ## Recommended action
 
-Transfers: Egan to Van Hecke
+Transfers: Tarkowski to Van Hecke
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
 
 ## Starting XI
 
-- Petrović (Bournemouth, 3.328 xPts)
-- Van Hecke (Spurs, 5.722 xPts)
-- De Cuyper (Brighton, 5.523 xPts)
-- Gabriel (Arsenal, 5.35 xPts)
-- Tavernier (Bournemouth, 5.073 xPts)
-- Ødegaard (Arsenal, 4.656 xPts)
-- Haaland (Man City, 7.175 xPts)
-- Silva (Bournemouth, 4.554 xPts)
-- Rogers (Chelsea, 4.502 xPts)
-- Groß (Brighton, 4.433 xPts)
-- Isak (Liverpool, 4.164 xPts)
+- Petrović (Bournemouth, 3.359 xPts)
+- Van Hecke (Spurs, 5.63 xPts)
+- De Cuyper (Brighton, 5.509 xPts)
+- Gabriel (Arsenal, 5.159 xPts)
+- Tavernier (Bournemouth, 5.241 xPts)
+- Groß (Brighton, 4.85 xPts)
+- Haaland (Man City, 6.7 xPts)
+- Ødegaard (Arsenal, 4.681 xPts)
+- Silva (Bournemouth, 4.48 xPts)
+- Barry (Everton, 4.412 xPts)
+- Rogers (Chelsea, 4.401 xPts)
 
-Captain: Haaland (7.175 mean xPts; strategic score 8.505)
-Vice-captain: Tavernier (5.073 mean xPts; strategic score 5.62)
+Captain: Haaland (6.7 mean xPts; strategic score 7.8907)
+Vice-captain: Tavernier (5.241 mean xPts; strategic score 5.8835)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Barry (4.133 xPts)
-2. Tarkowski (4.128 xPts)
-3. Slater (2.594 xPts)
-4. Steele (0.009 xPts)
+1. Isak (4.168 xPts)
+2. Egan (2.847 xPts)
+3. Slater (2.69 xPts)
+4. Steele (0.002 xPts)
 
 ## Blank/Double Gameweek monitor
 
@@ -48,6 +48,8 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 - Starting XI changed
 - Bench order changed
+- Transfer recommendation changed
+- Chip recommendation changed
 
 ## Warnings
 
