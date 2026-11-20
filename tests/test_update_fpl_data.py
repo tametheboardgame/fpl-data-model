@@ -4,9 +4,28 @@ import csv
 import json
 import tempfile
 import unittest
+from unittest.mock import Mock, patch
 from pathlib import Path
 
-from src.update_fpl_data import build_datasets, current_and_next_event, infer_season
+from src.update_fpl_data import FPLAPIError, FPLClient, build_datasets, current_and_next_event, infer_season
+
+
+class FPLClientTests(unittest.TestCase):
+    def test_forbidden_does_not_retry_or_mask_access_denial(self) -> None:
+        client = FPLClient()
+        response = Mock(status_code=403, headers={"Content-Type": "text/html", "Server": "edge"})
+        with patch.object(client.session, "get", return_value=response) as request:
+            with self.assertRaisesRegex(FPLAPIError, "access denied") as error:
+                client.get("bootstrap-static/")
+        request.assert_called_once()
+        self.assertIn("text/html", str(error.exception))
+
+    def test_optional_forbidden_returns_none(self) -> None:
+        client = FPLClient()
+        response = Mock(status_code=403)
+        with patch.object(client.session, "get", return_value=response) as request:
+            self.assertIsNone(client.get("entry/39395/", optional=True))
+        request.assert_called_once()
 
 
 class TransformTests(unittest.TestCase):
