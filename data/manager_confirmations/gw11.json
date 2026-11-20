@@ -3,11 +3,11 @@
   "season": "2026/27",
   "team_id": 39395,
   "target_gameweek": 11,
-  "captured_at_uk": "2026-11-20T06:22:30+00:00",
-  "source": "Manager-supplied screenshot of official FPL Transfers page",
+  "captured_at_uk": "2026-11-20T17:20:00+00:00",
+  "source": "Manager-supplied official FPL screenshots: saved GW11 pitch and Transfers page, 20 November 2026",
   "verification_status": "user_confirmed_pending_public_reconciliation",
-  "bank_millions": 1,
-  "free_transfers": 1,
+  "bank_millions": 3.1,
+  "free_transfers": 0,
   "transfer_cost_points": 0,
   "players_by_position": {
     "goalkeepers": [
@@ -29,7 +29,7 @@
       "Mbeumo"
     ],
     "forwards": [
-      "Thiago",
+      "Barry",
       "Calvert-Lewin",
       "Haaland"
     ]
@@ -44,20 +44,58 @@
     426,
     427,
     411,
-    106,
+    249,
     346,
     111,
     388,
     290,
     173
   ],
-  "notes": "Screenshot confirms 15 players, £1.0m bank and one FT; ids taken from pre-Free-Hit registered squad recorded in GW10 manager confirmation, subject to player-name reconciliation. Never use GW10 Free Hit picks as GW11 permanent squad. Do not infer captain or bench from transfers screen. Production recommendations must be recalculated from this squad; stale outputs unsafe.",
+  "notes": "Manager completed Thiago to Barry transfer (0 pts), bank £3.1m, 0 FT; saved GW11 3-4-3, Haaland captain, Tavernier vice, bench Steele/Slater/Guéhi/Thomas. GW11 is closed for manager action. Forecast from actual confirmed squad, and do not recommend further GW11 moves. Re-optimise future transfer route from this actual state; GW10 Free Hit was temporary.",
   "manager_reaffirmation": {
     "date_uk": "2026-11-20",
-    "source": "Manager explicitly reconfirmed that the previously supplied Transfers-page screenshot represents the current actual squad",
-    "confirmed_squad_unchanged": true,
-    "confirmed_transfer_since_screenshot": false,
-    "confirmation_scope": "Squad shown in screenshot; no new transfer, captaincy, bench or chip action claimed",
+    "source": "Official FPL screenshots showing completed transfer and saved starting XI",
+    "confirmed_squad_unchanged": false,
+    "confirmed_transfer_since_screenshot": true,
+    "confirmation_scope": "GW11 transfer, squad, bank, zero free transfers, saved XI, captain, vice-captain, bench and chips",
     "selling_prices_verified": false
+  },
+  "completed_gameweek": {
+    "gameweek": 11,
+    "status": "manager_confirmed_done",
+    "transfer": {
+      "out": "Thiago",
+      "out_player_id": 106,
+      "in": "Barry",
+      "in_player_id": 249,
+      "cost_points": 0
+    },
+    "formation": "3-4-3",
+    "starting_xi_player_ids": [
+      109,
+      277,
+      31,
+      60,
+      427,
+      68,
+      426,
+      94,
+      346,
+      411,
+      249
+    ],
+    "captain_player_id": 411,
+    "vice_captain_player_id": 68,
+    "bench_player_ids_in_order": [
+      111,
+      290,
+      388,
+      173
+    ],
+    "remaining_free_transfers": 0,
+    "bank_millions": 3.1,
+    "chip_used": null,
+    "saved_lineup": true,
+    "no_further_gw11_actions": true
   }
 }
