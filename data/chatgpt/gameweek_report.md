@@ -1,9 +1,9 @@
 # FPL Gameweek 11 Deadline Report
 
 Status: ready
-Generated: 2026-11-20T06:26:05+00:00
+Generated: 2026-11-20T07:49:52+00:00
 UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 28.565
+Hours remaining: 27.169
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.341 xPts)
+- Verbruggen (Brighton, 4.378 xPts)
 - Van Hecke (Spurs, 5.63 xPts)
-- Hill (Bournemouth, 4.798 xPts)
-- Konsa (Arsenal, 4.338 xPts)
-- Tavernier (Bournemouth, 5.27 xPts)
-- Mbeumo (Man Utd, 4.652 xPts)
-- Haaland (Man City, 6.868 xPts)
-- Calvert-Lewin (Leeds, 4.268 xPts)
-- B.Fernandes (Man Utd, 3.664 xPts)
-- Schade (Brentford, 3.592 xPts)
-- Egan (Hull City, 2.776 xPts)
+- Hill (Bournemouth, 4.827 xPts)
+- Konsa (Arsenal, 4.42 xPts)
+- Tavernier (Bournemouth, 5.265 xPts)
+- Mbeumo (Man Utd, 4.655 xPts)
+- Haaland (Man City, 7.087 xPts)
+- Calvert-Lewin (Leeds, 4.249 xPts)
+- B.Fernandes (Man Utd, 3.666 xPts)
+- Schade (Brentford, 3.612 xPts)
+- Slater (Hull City, 2.64 xPts)
 
-Captain: Haaland (6.868 mean xPts; strategic score 8.0724)
-Vice-captain: Tavernier (5.27 mean xPts; strategic score 5.9154)
+Captain: Haaland (7.087 mean xPts; strategic score 8.3093)
+Vice-captain: Tavernier (5.265 mean xPts; strategic score 5.9099)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Slater (2.668 xPts)
-2. Thomas (1.578 xPts)
+1. Egan (2.626 xPts)
+2. Thomas (1.547 xPts)
 3. Thiago (0.0 xPts)
-4. Steele (0.004 xPts)
+4. Steele (0.006 xPts)
 
 ## Blank/Double Gameweek monitor
 
@@ -48,15 +48,14 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 - Starting XI changed
 - Bench order changed
-- Transfer recommendation changed
-- Chip recommendation changed
-- Availability information changed
 - Data-quality warning state changed
+- Starting XI correlation exposure changed
 
 ## Warnings
 
 - [MEDIUM] Thomas has an availability flag (75% chance): Calf injury - 75% chance of playing.
 - [MEDIUM] Thiago has an availability flag (0% chance): Suspended until 5 Dec.
+- [LOW] The starting XI contains negatively correlated opposing players: Verbruggen / Slater. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
 - [LOW] 47120 external-context signals have expired and are excluded.
 
