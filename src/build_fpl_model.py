@@ -1721,6 +1721,10 @@ def build_model(data_dir: Path) -> dict[str, Any]:
             my_team["squad"] = [{"player_id": player_id} for player_id in confirmed_ids]
             my_team["available"] = True
             my_team["squad_source"] = "manager_confirmed_pending_public_reconciliation"
+            completed = confirmation.get("completed_gameweek") or {}
+            if completed.get("status") == "manager_confirmed_done":
+                my_team["manager_confirmed_closed_gameweek"] = target_gw
+                my_team["manager_confirmed_free_transfers"] = int(confirmation.get("free_transfers", 0))
             my_team["entry_history"] = dict(my_team.get("entry_history") or {})
             my_team["entry_history"]["bank"] = round(10 * confirmation["bank_millions"])
             # Selling prices are not visible on the screenshot. The optimiser
