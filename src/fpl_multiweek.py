@@ -439,6 +439,7 @@ def optimise_multi_gameweek_route(
     discount: float = 0.96,
     first_gameweek_multiplier: dict[int, float] | None = None,
     first_gameweek_captain_scores: dict[int, float] | None = None,
+    locked_first_gameweek: bool = False,
 ) -> dict[str, Any]:
     future_gameweeks = sorted(
         {
@@ -524,7 +525,9 @@ def optimise_multi_gameweek_route(
         }
         next_states: list[RouteState] = []
         for state in states:
-            options = transfer_options(state, player_by_id, candidate_ids, remaining)
+            options = ([(state.squad_ids, dict(state.sale_prices), state.bank, [])]
+                       if locked_first_gameweek and offset == 0
+                       else transfer_options(state, player_by_id, candidate_ids, remaining))
             for new_squad, new_prices, new_bank, transfers in options:
                 transfers_used = len(transfers)
                 paid_transfers = max(0, transfers_used - state.free_transfers)
