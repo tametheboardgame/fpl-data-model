@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T16:56:26+00:00",
+  "generated_at": "2026-11-20T17:11:49+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -378,12 +378,12 @@
       "expected_points_next_3": 12.777
     },
     {
-      "player_id": 79,
-      "web_name": "Evanilson",
-      "team_name": "Bournemouth",
-      "position": "Forward",
-      "price": 6.5,
-      "expected_points_next_3": 12.583
+      "player_id": 356,
+      "web_name": "Virgil",
+      "team_name": "Liverpool",
+      "position": "Defender",
+      "price": 6.4,
+      "expected_points_next_3": 12.625
     }
   ],
   "component_top_next_gameweek": [
@@ -702,21 +702,21 @@
       "component_expected_points_next_3": 10.418
     },
     {
-      "player_id": 334,
-      "web_name": "Muharemovi\u0107",
-      "team_name": "Leeds",
-      "position": "Defender",
-      "price": 5.1,
-      "component_expected_points_next_3": 10.273
+      "player_id": 53,
+      "web_name": "Manzambi",
+      "team_name": "Aston Villa",
+      "position": "Midfielder",
+      "price": 6.2,
+      "component_expected_points_next_3": 10.397
     }
   ],
   "prediction_snapshot_created": null,
   "evaluated_gameweeks": 10,
   "prospective_evaluated_gameweeks": 9,
   "prospective_snapshot_created": null,
-  "gameweek_operations_status": "review_required",
+  "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
-  "gameweek_report_warning_count": 5,
+  "gameweek_report_warning_count": 4,
   "limitations": [
     "Production policy status is holdout_rejected. The frozen 2025/26 holdout rejected the promoted ensemble on the predeclared promotion standard, including worse rank correlation and top-10 hit rate. Production remains on the validated control model until a separately governed prospective promotion is approved.",
     "The challenger player-sim-3.0-candidate is shadow_only; its diagnostic outputs remain available for audit but do not influence production selections when live weights are zero.",
