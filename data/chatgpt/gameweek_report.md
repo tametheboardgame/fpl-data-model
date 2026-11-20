@@ -1,15 +1,15 @@
 # FPL Gameweek 11 Deadline Report
 
 Status: ready
-Generated: 2026-11-20T17:11:49+00:00
+Generated: 2026-11-20T17:24:42+00:00
 UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 17.803
+Hours remaining: 17.588
 Advice level: firm
 Firm advice allowed: True
 
 ## Recommended action
 
-Transfers: Guéhi to Van Hecke
+Transfers: Roll or hold the transfer
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
@@ -17,26 +17,26 @@ Chip: Hold
 ## Starting XI
 
 - Verbruggen (Brighton, 4.34 xPts)
-- Van Hecke (Spurs, 5.63 xPts)
 - Hill (Bournemouth, 4.801 xPts)
-- Konsa (Arsenal, 4.338 xPts)
+- Konsa (Arsenal, 4.336 xPts)
+- Egan (Hull City, 2.779 xPts)
 - Tavernier (Bournemouth, 5.266 xPts)
 - Mbeumo (Man Utd, 4.652 xPts)
-- Haaland (Man City, 6.867 xPts)
+- Haaland (Man City, 6.862 xPts)
+- Barry (Everton, 4.394 xPts)
 - Calvert-Lewin (Leeds, 4.267 xPts)
 - B.Fernandes (Man Utd, 3.664 xPts)
-- Schade (Brentford, 3.591 xPts)
-- Egan (Hull City, 2.776 xPts)
+- Schade (Brentford, 3.59 xPts)
 
-Captain: Haaland (6.867 mean xPts; strategic score 8.0713)
+Captain: Haaland (6.862 mean xPts; strategic score 8.0659)
 Vice-captain: Tavernier (5.266 mean xPts; strategic score 5.911)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
 1. Slater (2.668 xPts)
-2. Thomas (1.578 xPts)
-3. Thiago (0.0 xPts)
+2. Guéhi (1.975 xPts)
+3. Thomas (1.579 xPts)
 4. Steele (0.004 xPts)
 
 ## Blank/Double Gameweek monitor
@@ -46,15 +46,16 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Changes since previous report
 
-- Operational readiness changed
-- Data-quality warning state changed
-- Deadline advice stage changed
-- Firm-advice safety gate changed
+- Starting XI changed
+- Bench order changed
+- Transfer recommendation changed
+- Chip recommendation changed
+- Availability information changed
 
 ## Warnings
 
+- [MEDIUM] Guéhi has an availability flag (75% chance): Hip injury - 75% chance of playing.
 - [MEDIUM] Thomas has an availability flag (75% chance): Calf injury - 75% chance of playing.
-- [MEDIUM] Thiago has an availability flag (0% chance): Suspended until 5 Dec.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
 - [LOW] 47120 external-context signals have expired and are excluded.
 
