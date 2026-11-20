@@ -15,6 +15,10 @@ on:
     paths:
       - ".github/workflows/build-fpl-model.yml"
       - "data/chatgpt/current_gameweek.json"
+      - "data/manager_confirmations/**"
+      - "src/build_fpl_model.py"
+      - "src/fpl_decisions.py"
+      - "src/fpl_multiweek.py"
       - "data/scouting/**"
       - "data/context/**"
       - "data/chatgpt/players.csv"
