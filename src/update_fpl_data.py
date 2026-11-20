@@ -43,8 +43,25 @@ class FPLClient:
                 response = self.session.get(url, timeout=self.timeout)
                 if optional and response.status_code in {401, 403, 404}:
                     return None
+                if response.status_code == 403:
+                    # A forbidden response is usually a policy/access denial.
+                    # Retrying immediately cannot resolve it and risks further blocking.
+                    diagnostics = {
+                        "status": response.status_code,
+                        "content_type": response.headers.get("Content-Type", "unknown"),
+                        "server": response.headers.get("Server", "unknown"),
+                        "retry_after": response.headers.get("Retry-After", "not supplied"),
+                        "request_id": response.headers.get("X-Request-ID", "not supplied"),
+                    }
+                    raise FPLAPIError(
+                        f"FPL API access denied for {url}: {diagnostics}. "
+                        "Check the provider's access policy and GitHub Actions egress; "
+                        "do not mark the snapshot fresh."
+                    )
                 response.raise_for_status()
                 return response.json()
+            except FPLAPIError:
+                raise
             except (requests.RequestException, ValueError) as exc:
                 last_error = exc
                 if attempt < 2:
