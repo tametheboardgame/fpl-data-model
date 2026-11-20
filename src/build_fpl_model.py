@@ -1699,6 +1699,33 @@ def build_model(data_dir: Path) -> dict[str, Any]:
         if fixture_schedule_monitor_path.is_file()
         else {}
     )
+    # The latest public picks can be a one-week Free Hit squad. A manager
+    # confirmation of the editable squad takes precedence for decision inputs,
+    # without modifying the official raw exports or published my_team.json.
+    target_gw = int((current_gameweek.get("next") or {}).get("id") or 0)
+    confirmation_path = data_dir / "manager_confirmations" / f"gw{target_gw:02d}.json"
+    if confirmation_path.is_file():
+        confirmation = json.loads(confirmation_path.read_text(encoding="utf-8"))
+        if (
+            confirmation.get("team_id") == my_team.get("team_id")
+            and confirmation.get("target_gameweek") == target_gw
+            and confirmation.get("verification_status") == "user_confirmed_pending_public_reconciliation"
+        ):
+            confirmed_ids = confirmation.get("registered_squad_player_ids") or []
+            if len(confirmed_ids) != 15 or len(set(confirmed_ids)) != 15:
+                raise ValueError("Manager-confirmed squad must have 15 distinct players")
+            known_ids = {int(player.get("player_id") or 0) for player in players}
+            if not set(confirmed_ids).issubset(known_ids):
+                raise ValueError("Manager-confirmed squad contains unknown player IDs")
+            my_team = dict(my_team)
+            my_team["squad"] = [{"player_id": player_id} for player_id in confirmed_ids]
+            my_team["available"] = True
+            my_team["squad_source"] = "manager_confirmed_pending_public_reconciliation"
+            my_team["entry_history"] = dict(my_team.get("entry_history") or {})
+            my_team["entry_history"]["bank"] = round(10 * confirmation["bank_millions"])
+            # Selling prices are not visible on the screenshot. The optimiser
+            # uses current market prices as a provisional fallback; do not
+            # present transfer affordability as verified until reconciled.
     write_signal_csv(chatgpt_dir / "external_context_signals.csv", context_signals)
     external_summary = context_summary(
         context_signals, source_registry, generated_at
