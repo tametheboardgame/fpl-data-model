@@ -601,6 +601,12 @@ def build_decision_support(
     transfer_state = derive_free_transfer_state(
         manager_history, target_gameweek, season_rules
     )
+    closed_gameweek = integer(my_team.get("manager_confirmed_closed_gameweek")) == target_gameweek
+    if closed_gameweek:
+        transfer_state = dict(transfer_state)
+        transfer_state["available"] = integer(my_team.get("manager_confirmed_free_transfers"))
+        transfer_state["status"] = "manager_confirmed_closed"
+        transfer_state["calculation"] = "Manager completed and closed this gameweek; no further transfer actions."
     by_player = {integer(row.get("player_id")): row for row in players}
     by_horizon = {integer(row.get("player_id")): row for row in horizons}
     fixture = {"gameweek": target_gameweek or 0}
@@ -825,6 +831,7 @@ def build_decision_support(
         target_gameweek,
         first_gameweek_multiplier=first_gameweek_multiplier,
         first_gameweek_captain_scores=first_gameweek_captain_scores,
+        locked_first_gameweek=closed_gameweek,
     )
     audit_player_ids = {integer(row.get("player_id")) for row in starters}
     current_route_move = next(
