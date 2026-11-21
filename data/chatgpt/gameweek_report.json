@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.9",
-  "generated_at": "2026-11-21T19:20:26+00:00",
+  "generated_at": "2026-11-21T19:51:04+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-2.7",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-11-27T18:30:00+00:00",
     "deadline_time_uk": "2026-11-27T18:30:00+00:00",
-    "hours_remaining": 143.159
+    "hours_remaining": 142.649
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -20,7 +20,7 @@
         "team_name": "Brighton",
         "position": "Goalkeeper",
         "price": 4.7,
-        "expected_points": 4.071,
+        "expected_points": 4.083,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -46,7 +46,7 @@
         "team_name": "Bournemouth",
         "position": "Defender",
         "price": 5.6,
-        "expected_points": 4.582,
+        "expected_points": 4.537,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -59,7 +59,7 @@
         "team_name": "Arsenal",
         "position": "Defender",
         "price": 4.9,
-        "expected_points": 3.78,
+        "expected_points": 3.864,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -72,7 +72,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 7.8,
-        "expected_points": 5.375,
+        "expected_points": 5.518,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -85,24 +85,11 @@
         "team_name": "Bournemouth",
         "position": "Midfielder",
         "price": 6.7,
-        "expected_points": 4.916,
+        "expected_points": 4.947,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
         "news_added": ""
-      },
-      {
-        "player_id": 411,
-        "web_name": "Haaland",
-        "team_id": 15,
-        "team_name": "Man City",
-        "position": "Forward",
-        "price": 15.8,
-        "expected_points": 5.324,
-        "availability_status": "a",
-        "chance_of_playing": 100,
-        "news": "",
-        "news_added": "2026-10-19T13:00:10.543876Z"
       },
       {
         "player_id": 346,
@@ -111,11 +98,24 @@
         "team_name": "Leeds",
         "position": "Forward",
         "price": 6.0,
-        "expected_points": 5.236,
+        "expected_points": 5.504,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
         "news_added": "2026-11-05T18:30:07.960444Z"
+      },
+      {
+        "player_id": 411,
+        "web_name": "Haaland",
+        "team_id": 15,
+        "team_name": "Man City",
+        "position": "Forward",
+        "price": 15.8,
+        "expected_points": 5.229,
+        "availability_status": "a",
+        "chance_of_playing": 100,
+        "news": "",
+        "news_added": "2026-10-19T13:00:10.543876Z"
       },
       {
         "player_id": 249,
@@ -124,7 +124,7 @@
         "team_name": "Everton",
         "position": "Forward",
         "price": 5.7,
-        "expected_points": 4.566,
+        "expected_points": 4.516,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -137,7 +137,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 11.6,
-        "expected_points": 4.147,
+        "expected_points": 4.263,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -150,7 +150,7 @@
         "team_name": "Brentford",
         "position": "Midfielder",
         "price": 6.1,
-        "expected_points": 3.604,
+        "expected_points": 3.573,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -165,7 +165,7 @@
         "team_name": "Hull City",
         "position": "Defender",
         "price": 4.1,
-        "expected_points": 3.07,
+        "expected_points": 2.931,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -178,7 +178,7 @@
         "team_name": "Hull City",
         "position": "Midfielder",
         "price": 4.5,
-        "expected_points": 2.654,
+        "expected_points": 2.62,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -191,7 +191,7 @@
         "team_name": "Man City",
         "position": "Defender",
         "price": 5.9,
-        "expected_points": 2.055,
+        "expected_points": 2.048,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -204,7 +204,7 @@
         "team_name": "Brighton",
         "position": "Goalkeeper",
         "price": 3.9,
-        "expected_points": 0.0,
+        "expected_points": 0.001,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -212,30 +212,30 @@
       }
     ],
     "captain": {
-      "player_id": 411,
-      "web_name": "Haaland",
-      "team_id": 15,
-      "team_name": "Man City",
-      "position": "Forward",
-      "price": 15.8,
-      "expected_points": 5.324,
-      "availability_status": "a",
-      "chance_of_playing": 100,
-      "news": "",
-      "news_added": "2026-10-19T13:00:10.543876Z"
-    },
-    "vice_captain": {
       "player_id": 427,
       "web_name": "Mbeumo",
       "team_id": 16,
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 7.8,
-      "expected_points": 5.375,
+      "expected_points": 5.518,
       "availability_status": "a",
       "chance_of_playing": null,
       "news": "",
       "news_added": ""
+    },
+    "vice_captain": {
+      "player_id": 411,
+      "web_name": "Haaland",
+      "team_id": 15,
+      "team_name": "Man City",
+      "position": "Forward",
+      "price": 15.8,
+      "expected_points": 5.229,
+      "availability_status": "a",
+      "chance_of_playing": 100,
+      "news": "",
+      "news_added": "2026-10-19T13:00:10.543876Z"
     },
     "captain_selection_basis": "route_strategic_utility",
     "vice_captain_selection_basis": "decision_strategic_utility",
@@ -253,9 +253,9 @@
     "free_transfers_before": 1,
     "hit_cost": 0,
     "bank_after": 1.6,
-    "expected_points": 55.978,
-    "net_expected_points": 55.978,
-    "six_gameweek_net_gain_vs_hold": 23.029,
+    "expected_points": 56.725,
+    "net_expected_points": 56.725,
+    "six_gameweek_net_gain_vs_hold": 23.289,
     "six_gameweek_total_hit_cost": 0,
     "lineup_correlation": {
       "opposing_pairs": [
@@ -298,48 +298,48 @@
     "utility_version": "strategic-captain-1.0",
     "captain": {
       "utility_version": "strategic-captain-1.0",
-      "player_id": 411,
-      "displayed_mean_xpts": 5.324,
-      "risk_adjusted_mean_input": 5.324,
-      "strategic_score": 6.2729,
+      "player_id": 427,
+      "displayed_mean_xpts": 5.518,
+      "risk_adjusted_mean_input": 5.518,
+      "strategic_score": 6.2379,
       "selection_basis": "route_strategic_utility",
       "components": {
-        "bounded_strategic_bonus": 0.9489,
-        "ceiling_contribution": 0.4989,
-        "rank_pressure_contribution": 0.45,
-        "position_uncertainty_penalty": 0.0,
-        "defensive_exception_margin": 0.0,
-        "selection_risk_penalty": 0.0,
-        "expected_minutes": 88.22,
-        "availability_confidence": 1.0,
-        "points_p90": 8.8162,
-        "probability_10_plus": 0.095,
-        "probability_15_plus": 0.02,
-        "ownership_percent": 78.6
-      },
-      "strategic_utility_available": true,
-      "strategic_bonus_is_expected_points": false
-    },
-    "vice_captain": {
-      "utility_version": "strategic-captain-1.0",
-      "player_id": 427,
-      "displayed_mean_xpts": 5.375,
-      "risk_adjusted_mean_input": 5.375,
-      "strategic_score": 6.0796,
-      "selection_basis": "decision_strategic_utility",
-      "components": {
-        "bounded_strategic_bonus": 0.7046,
-        "ceiling_contribution": 0.7046,
+        "bounded_strategic_bonus": 0.7199,
+        "ceiling_contribution": 0.7199,
         "rank_pressure_contribution": 0.0,
         "position_uncertainty_penalty": 0.0,
         "defensive_exception_margin": 0.0,
         "selection_risk_penalty": 0.0,
         "expected_minutes": 87.81,
         "availability_confidence": 1.0,
-        "points_p90": 10.5248,
+        "points_p90": 10.8048,
         "probability_10_plus": 0.1133,
         "probability_15_plus": 0.0233,
         "ownership_percent": 17.9
+      },
+      "strategic_utility_available": true,
+      "strategic_bonus_is_expected_points": false
+    },
+    "vice_captain": {
+      "utility_version": "strategic-captain-1.0",
+      "player_id": 411,
+      "displayed_mean_xpts": 5.229,
+      "risk_adjusted_mean_input": 5.229,
+      "strategic_score": 6.1709,
+      "selection_basis": "decision_strategic_utility",
+      "components": {
+        "bounded_strategic_bonus": 0.9419,
+        "ceiling_contribution": 0.4919,
+        "rank_pressure_contribution": 0.45,
+        "position_uncertainty_penalty": 0.0,
+        "defensive_exception_margin": 0.0,
+        "selection_risk_penalty": 0.0,
+        "expected_minutes": 88.22,
+        "availability_confidence": 1.0,
+        "points_p90": 8.6589,
+        "probability_10_plus": 0.095,
+        "probability_15_plus": 0.02,
+        "ownership_percent": 78.6
       },
       "strategic_utility_available": true,
       "strategic_bonus_is_expected_points": false
@@ -372,7 +372,7 @@
       16,
       17
     ],
-    "net_gain_vs_hold": 23.029,
+    "net_gain_vs_hold": 23.289,
     "gameweek_plan": [
       {
         "gameweek": 12,
@@ -389,10 +389,10 @@
         "free_transfers_before": 1,
         "hit_cost": 0,
         "bank_after": 1.6,
-        "lineup_expected_points": 55.978,
-        "net_expected_points": 55.978,
-        "captain_player_id": 411,
-        "captain": "Haaland",
+        "lineup_expected_points": 56.725,
+        "net_expected_points": 56.725,
+        "captain_player_id": 427,
+        "captain": "Mbeumo",
         "starter_player_ids": [
           109,
           115,
@@ -400,8 +400,8 @@
           31,
           427,
           68,
-          411,
           346,
+          411,
           249,
           426,
           94
@@ -588,7 +588,7 @@
       "file": "odds_api_status.json",
       "provider": "The Odds API",
       "status": "ok",
-      "generated_at": "2026-11-21T07:24:12+00:00",
+      "generated_at": "2026-11-21T19:27:40+00:00",
       "required_action": null,
       "error": null
     },
@@ -603,8 +603,8 @@
   ],
   "source_freshness": {
     "official_fpl_generated_at": "2026-11-21T19:18:59+00:00",
-    "external_context_generated_at": "2026-11-21T19:20:26+00:00",
-    "active_external_signals": 3088,
+    "external_context_generated_at": "2026-11-21T19:51:04+00:00",
+    "active_external_signals": 3264,
     "expired_external_signals": 49088
   },
   "fixture_schedule_monitor": {
@@ -1515,34 +1515,9 @@
   "automatic_fpl_actions": false,
   "material_changes": [
     {
-      "type": "target_gameweek",
-      "summary": "Target Gameweek changed",
-      "before": 11,
-      "after": 12
-    },
-    {
-      "type": "deadline_time",
-      "summary": "Deadline changed",
-      "before": "2026-11-21T11:00:00+00:00",
-      "after": "2026-11-27T18:30:00+00:00"
-    },
-    {
       "type": "starting_xi",
       "summary": "Starting XI changed",
       "before": [
-        109,
-        60,
-        31,
-        277,
-        68,
-        427,
-        411,
-        249,
-        346,
-        426,
-        94
-      ],
-      "after": [
         109,
         115,
         60,
@@ -1554,1846 +1529,37 @@
         249,
         426,
         94
+      ],
+      "after": [
+        109,
+        115,
+        60,
+        31,
+        427,
+        68,
+        346,
+        411,
+        249,
+        426,
+        94
       ]
     },
     {
-      "type": "bench",
-      "summary": "Bench order changed",
-      "before": [
-        290,
-        388,
-        173,
-        111
-      ],
-      "after": [
-        277,
-        290,
-        388,
-        111
-      ]
+      "type": "captain",
+      "summary": "Captain changed",
+      "before": 411,
+      "after": 427
     },
     {
       "type": "vice_captain",
       "summary": "Vice-captain changed",
-      "before": 68,
-      "after": 427
-    },
-    {
-      "type": "transfers",
-      "summary": "Transfer recommendation changed",
-      "before": [],
-      "after": [
-        [
-          173,
-          115
-        ]
-      ]
-    },
-    {
-      "type": "chip",
-      "summary": "Chip recommendation changed",
-      "before": {
-        "action": "hold",
-        "chip": null,
-        "chip_name": null,
-        "gameweek": 11,
-        "incremental_expected_points": null,
-        "reason": "No available chip has a sufficient edge in the target Gameweek.",
-        "next_planned_use": {
-          "chip": "bboost",
-          "chip_name": "Bench Boost",
-          "gameweek": 15,
-          "incremental_expected_points": 14.557
-        }
-      },
-      "after": {
-        "action": "hold",
-        "chip": null,
-        "chip_name": null,
-        "gameweek": 12,
-        "incremental_expected_points": null,
-        "reason": "No available chip has a sufficient edge in the target Gameweek.",
-        "next_planned_use": {
-          "chip": "bboost",
-          "chip_name": "Bench Boost",
-          "gameweek": 15,
-          "incremental_expected_points": 14.112
-        }
-      }
-    },
-    {
-      "type": "risks",
-      "summary": "Availability information changed",
-      "before": [
-        {
-          "player_id": 388,
-          "web_name": "Guéhi",
-          "role": "bench",
-          "severity": "medium",
-          "availability_status": "d",
-          "chance_of_playing": 75,
-          "news": "Hip injury - 75% chance of playing",
-          "news_added": "2026-11-07T21:30:08.741792Z"
-        },
-        {
-          "player_id": 173,
-          "web_name": "Thomas",
-          "role": "bench",
-          "severity": "medium",
-          "availability_status": "d",
-          "chance_of_playing": 75,
-          "news": "Calf injury - 75% chance of playing",
-          "news_added": "2026-10-24T17:00:09.115906Z"
-        }
-      ],
-      "after": []
-    },
-    {
-      "type": "fixture_signature",
-      "summary": "Fixture information changed",
-      "before": [
-        [
-          11,
-          "101",
-          2,
-          20,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          11,
-          "101",
-          20,
-          2,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          11,
-          "102",
-          3,
-          18,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          11,
-          "102",
-          18,
-          3,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          11,
-          "103",
-          4,
-          9,
-          "2026-11-23T20:00:00Z"
-        ],
-        [
-          11,
-          "103",
-          9,
-          4,
-          "2026-11-23T20:00:00Z"
-        ],
-        [
-          11,
-          "104",
-          6,
-          13,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          11,
-          "104",
-          13,
-          6,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          11,
-          "105",
-          7,
-          8,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          11,
-          "105",
-          8,
-          7,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          11,
-          "106",
-          5,
-          11,
-          "2026-11-22T14:00:00Z"
-        ],
-        [
-          11,
-          "106",
-          11,
-          5,
-          "2026-11-22T14:00:00Z"
-        ],
-        [
-          11,
-          "107",
-          14,
-          16,
-          "2026-11-22T16:30:00Z"
-        ],
-        [
-          11,
-          "107",
-          16,
-          14,
-          "2026-11-22T16:30:00Z"
-        ],
-        [
-          11,
-          "108",
-          10,
-          15,
-          "2026-11-21T12:30:00Z"
-        ],
-        [
-          11,
-          "108",
-          15,
-          10,
-          "2026-11-21T12:30:00Z"
-        ],
-        [
-          11,
-          "109",
-          1,
-          17,
-          "2026-11-21T17:30:00Z"
-        ],
-        [
-          11,
-          "109",
-          17,
-          1,
-          "2026-11-21T17:30:00Z"
-        ],
-        [
-          11,
-          "110",
-          12,
-          19,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          11,
-          "110",
-          19,
-          12,
-          "2026-11-21T15:00:00Z"
-        ],
-        [
-          12,
-          "111",
-          1,
-          15,
-          "2026-11-29T16:30:00Z"
-        ],
-        [
-          12,
-          "111",
-          15,
-          1,
-          "2026-11-29T16:30:00Z"
-        ],
-        [
-          12,
-          "112",
-          5,
-          17,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "112",
-          17,
-          5,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "113",
-          8,
-          11,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "113",
-          11,
-          8,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "114",
-          9,
-          14,
-          "2026-11-29T12:00:00Z"
-        ],
-        [
-          12,
-          "114",
-          14,
-          9,
-          "2026-11-29T12:00:00Z"
-        ],
-        [
-          12,
-          "115",
-          3,
-          10,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "115",
-          10,
-          3,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "116",
-          2,
-          12,
-          "2026-11-28T17:30:00Z"
-        ],
-        [
-          12,
-          "116",
-          12,
-          2,
-          "2026-11-28T17:30:00Z"
-        ],
-        [
-          12,
-          "117",
-          7,
-          13,
-          "2026-11-28T15:00:00Z"
-        ],
-        [
-          12,
-          "117",
-          13,
-          7,
-          "2026-11-28T15:00:00Z"
-        ],
-        [
-          12,
-          "118",
-          4,
-          16,
-          "2026-11-28T15:00:00Z"
-        ],
-        [
-          12,
-          "118",
-          16,
-          4,
-          "2026-11-28T15:00:00Z"
-        ],
-        [
-          12,
-          "119",
-          6,
-          18,
-          "2026-11-27T20:00:00Z"
-        ],
-        [
-          12,
-          "119",
-          18,
-          6,
-          "2026-11-27T20:00:00Z"
-        ],
-        [
-          12,
-          "120",
-          19,
-          20,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "120",
-          20,
-          19,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          13,
-          "121",
-          2,
-          9,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "121",
-          9,
-          2,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "122",
-          3,
-          5,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "122",
-          5,
-          3,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "123",
-          1,
-          4,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "123",
-          4,
-          1,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "124",
-          6,
-          8,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "124",
-          8,
-          6,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "125",
-          7,
-          12,
-          "2026-12-01T20:00:00Z"
-        ],
-        [
-          13,
-          "125",
-          12,
-          7,
-          "2026-12-01T20:00:00Z"
-        ],
-        [
-          13,
-          "126",
-          11,
-          18,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "126",
-          18,
-          11,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "127",
-          14,
-          20,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "127",
-          20,
-          14,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "128",
-          13,
-          15,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "128",
-          15,
-          13,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "129",
-          16,
-          17,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "129",
-          17,
-          16,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "130",
-          10,
-          19,
-          "2026-12-03T20:00:00Z"
-        ],
-        [
-          13,
-          "130",
-          19,
-          10,
-          "2026-12-03T20:00:00Z"
-        ],
-        [
-          14,
-          "131",
-          2,
-          8,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "131",
-          8,
-          2,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "132",
-          3,
-          11,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "132",
-          11,
-          3,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "133",
-          4,
-          15,
-          "2026-12-05T20:00:00Z"
-        ],
-        [
-          14,
-          "133",
-          15,
-          4,
-          "2026-12-05T20:00:00Z"
-        ],
-        [
-          14,
-          "134",
-          6,
-          14,
-          "2026-12-05T12:30:00Z"
-        ],
-        [
-          14,
-          "134",
-          14,
-          6,
-          "2026-12-05T12:30:00Z"
-        ],
-        [
-          14,
-          "135",
-          9,
-          10,
-          "2026-12-06T14:00:00Z"
-        ],
-        [
-          14,
-          "135",
-          10,
-          9,
-          "2026-12-06T14:00:00Z"
-        ],
-        [
-          14,
-          "136",
-          12,
-          13,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "136",
-          13,
-          12,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "137",
-          7,
-          16,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "137",
-          16,
-          7,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "138",
-          17,
-          20,
-          "2026-12-06T14:00:00Z"
-        ],
-        [
-          14,
-          "138",
-          20,
-          17,
-          "2026-12-06T14:00:00Z"
-        ],
-        [
-          14,
-          "139",
-          5,
-          18,
-          "2026-12-05T17:30:00Z"
-        ],
-        [
-          14,
-          "139",
-          18,
-          5,
-          "2026-12-05T17:30:00Z"
-        ],
-        [
-          14,
-          "140",
-          1,
-          19,
-          "2026-12-06T16:30:00Z"
-        ],
-        [
-          14,
-          "140",
-          19,
-          1,
-          "2026-12-06T16:30:00Z"
-        ],
-        [
-          15,
-          "141",
-          1,
-          3,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "141",
-          3,
-          1,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "142",
-          5,
-          9,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "142",
-          9,
-          5,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "143",
-          2,
-          7,
-          "2026-12-13T16:30:00Z"
-        ],
-        [
-          15,
-          "143",
-          7,
-          2,
-          "2026-12-13T16:30:00Z"
-        ],
-        [
-          15,
-          "144",
-          8,
-          16,
-          "2026-12-13T19:00:00Z"
-        ],
-        [
-          15,
-          "144",
-          16,
-          8,
-          "2026-12-13T19:00:00Z"
-        ],
-        [
-          15,
-          "145",
-          4,
-          10,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "145",
-          10,
-          4,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "146",
-          11,
-          19,
-          "2026-12-14T20:00:00Z"
-        ],
-        [
-          15,
-          "146",
-          19,
-          11,
-          "2026-12-14T20:00:00Z"
-        ],
-        [
-          15,
-          "147",
-          12,
-          17,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "147",
-          17,
-          12,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "148",
-          13,
-          14,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "148",
-          14,
-          13,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "149",
-          6,
-          15,
-          "2026-12-12T17:30:00Z"
-        ],
-        [
-          15,
-          "149",
-          15,
-          6,
-          "2026-12-12T17:30:00Z"
-        ],
-        [
-          15,
-          "150",
-          18,
-          20,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "150",
-          20,
-          18,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          16,
-          "151",
-          1,
-          16,
-          "2026-12-20T16:30:00Z"
-        ],
-        [
-          16,
-          "151",
-          16,
-          1,
-          "2026-12-20T16:30:00Z"
-        ],
-        [
-          16,
-          "152",
-          3,
-          7,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "152",
-          7,
-          3,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "153",
-          4,
-          17,
-          "2026-12-19T12:30:00Z"
-        ],
-        [
-          16,
-          "153",
-          17,
-          4,
-          "2026-12-19T12:30:00Z"
-        ],
-        [
-          16,
-          "154",
-          5,
-          12,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "154",
-          12,
-          5,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "155",
-          2,
-          6,
-          "2026-12-21T20:00:00Z"
-        ],
-        [
-          16,
-          "155",
-          6,
-          2,
-          "2026-12-21T20:00:00Z"
-        ],
-        [
-          16,
-          "156",
-          10,
-          13,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "156",
-          13,
-          10,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "157",
-          14,
-          19,
-          "2026-12-19T17:30:00Z"
-        ],
-        [
-          16,
-          "157",
-          19,
-          14,
-          "2026-12-19T17:30:00Z"
-        ],
-        [
-          16,
-          "158",
-          11,
-          15,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "158",
-          15,
-          11,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "159",
-          9,
-          18,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "159",
-          18,
-          9,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "160",
-          8,
-          20,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "160",
-          20,
-          8,
-          "2026-12-20T14:00:00Z"
-        ]
-      ],
-      "after": [
-        [
-          12,
-          "111",
-          1,
-          15,
-          "2026-11-29T16:30:00Z"
-        ],
-        [
-          12,
-          "111",
-          15,
-          1,
-          "2026-11-29T16:30:00Z"
-        ],
-        [
-          12,
-          "112",
-          5,
-          17,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "112",
-          17,
-          5,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "113",
-          8,
-          11,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "113",
-          11,
-          8,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "114",
-          9,
-          14,
-          "2026-11-29T12:00:00Z"
-        ],
-        [
-          12,
-          "114",
-          14,
-          9,
-          "2026-11-29T12:00:00Z"
-        ],
-        [
-          12,
-          "115",
-          3,
-          10,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "115",
-          10,
-          3,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "116",
-          2,
-          12,
-          "2026-11-28T17:30:00Z"
-        ],
-        [
-          12,
-          "116",
-          12,
-          2,
-          "2026-11-28T17:30:00Z"
-        ],
-        [
-          12,
-          "117",
-          7,
-          13,
-          "2026-11-28T15:00:00Z"
-        ],
-        [
-          12,
-          "117",
-          13,
-          7,
-          "2026-11-28T15:00:00Z"
-        ],
-        [
-          12,
-          "118",
-          4,
-          16,
-          "2026-11-28T15:00:00Z"
-        ],
-        [
-          12,
-          "118",
-          16,
-          4,
-          "2026-11-28T15:00:00Z"
-        ],
-        [
-          12,
-          "119",
-          6,
-          18,
-          "2026-11-27T20:00:00Z"
-        ],
-        [
-          12,
-          "119",
-          18,
-          6,
-          "2026-11-27T20:00:00Z"
-        ],
-        [
-          12,
-          "120",
-          19,
-          20,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          12,
-          "120",
-          20,
-          19,
-          "2026-11-29T14:05:00Z"
-        ],
-        [
-          13,
-          "121",
-          2,
-          9,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "121",
-          9,
-          2,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "122",
-          3,
-          5,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "122",
-          5,
-          3,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "123",
-          1,
-          4,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "123",
-          4,
-          1,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "124",
-          6,
-          8,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "124",
-          8,
-          6,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "125",
-          7,
-          12,
-          "2026-12-01T20:00:00Z"
-        ],
-        [
-          13,
-          "125",
-          12,
-          7,
-          "2026-12-01T20:00:00Z"
-        ],
-        [
-          13,
-          "126",
-          11,
-          18,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "126",
-          18,
-          11,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "127",
-          14,
-          20,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "127",
-          20,
-          14,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "128",
-          13,
-          15,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "128",
-          15,
-          13,
-          "2026-12-02T19:30:00Z"
-        ],
-        [
-          13,
-          "129",
-          16,
-          17,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "129",
-          17,
-          16,
-          "2026-12-02T20:15:00Z"
-        ],
-        [
-          13,
-          "130",
-          10,
-          19,
-          "2026-12-03T20:00:00Z"
-        ],
-        [
-          13,
-          "130",
-          19,
-          10,
-          "2026-12-03T20:00:00Z"
-        ],
-        [
-          14,
-          "131",
-          2,
-          8,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "131",
-          8,
-          2,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "132",
-          3,
-          11,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "132",
-          11,
-          3,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "133",
-          4,
-          15,
-          "2026-12-05T20:00:00Z"
-        ],
-        [
-          14,
-          "133",
-          15,
-          4,
-          "2026-12-05T20:00:00Z"
-        ],
-        [
-          14,
-          "134",
-          6,
-          14,
-          "2026-12-05T12:30:00Z"
-        ],
-        [
-          14,
-          "134",
-          14,
-          6,
-          "2026-12-05T12:30:00Z"
-        ],
-        [
-          14,
-          "135",
-          9,
-          10,
-          "2026-12-06T14:00:00Z"
-        ],
-        [
-          14,
-          "135",
-          10,
-          9,
-          "2026-12-06T14:00:00Z"
-        ],
-        [
-          14,
-          "136",
-          12,
-          13,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "136",
-          13,
-          12,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "137",
-          7,
-          16,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "137",
-          16,
-          7,
-          "2026-12-05T15:00:00Z"
-        ],
-        [
-          14,
-          "138",
-          17,
-          20,
-          "2026-12-06T14:00:00Z"
-        ],
-        [
-          14,
-          "138",
-          20,
-          17,
-          "2026-12-06T14:00:00Z"
-        ],
-        [
-          14,
-          "139",
-          5,
-          18,
-          "2026-12-05T17:30:00Z"
-        ],
-        [
-          14,
-          "139",
-          18,
-          5,
-          "2026-12-05T17:30:00Z"
-        ],
-        [
-          14,
-          "140",
-          1,
-          19,
-          "2026-12-06T16:30:00Z"
-        ],
-        [
-          14,
-          "140",
-          19,
-          1,
-          "2026-12-06T16:30:00Z"
-        ],
-        [
-          15,
-          "141",
-          1,
-          3,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "141",
-          3,
-          1,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "142",
-          5,
-          9,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "142",
-          9,
-          5,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "143",
-          2,
-          7,
-          "2026-12-13T16:30:00Z"
-        ],
-        [
-          15,
-          "143",
-          7,
-          2,
-          "2026-12-13T16:30:00Z"
-        ],
-        [
-          15,
-          "144",
-          8,
-          16,
-          "2026-12-13T19:00:00Z"
-        ],
-        [
-          15,
-          "144",
-          16,
-          8,
-          "2026-12-13T19:00:00Z"
-        ],
-        [
-          15,
-          "145",
-          4,
-          10,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "145",
-          10,
-          4,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "146",
-          11,
-          19,
-          "2026-12-14T20:00:00Z"
-        ],
-        [
-          15,
-          "146",
-          19,
-          11,
-          "2026-12-14T20:00:00Z"
-        ],
-        [
-          15,
-          "147",
-          12,
-          17,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "147",
-          17,
-          12,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "148",
-          13,
-          14,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "148",
-          14,
-          13,
-          "2026-12-12T15:00:00Z"
-        ],
-        [
-          15,
-          "149",
-          6,
-          15,
-          "2026-12-12T17:30:00Z"
-        ],
-        [
-          15,
-          "149",
-          15,
-          6,
-          "2026-12-12T17:30:00Z"
-        ],
-        [
-          15,
-          "150",
-          18,
-          20,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          15,
-          "150",
-          20,
-          18,
-          "2026-12-13T14:00:00Z"
-        ],
-        [
-          16,
-          "151",
-          1,
-          16,
-          "2026-12-20T16:30:00Z"
-        ],
-        [
-          16,
-          "151",
-          16,
-          1,
-          "2026-12-20T16:30:00Z"
-        ],
-        [
-          16,
-          "152",
-          3,
-          7,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "152",
-          7,
-          3,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "153",
-          4,
-          17,
-          "2026-12-19T12:30:00Z"
-        ],
-        [
-          16,
-          "153",
-          17,
-          4,
-          "2026-12-19T12:30:00Z"
-        ],
-        [
-          16,
-          "154",
-          5,
-          12,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "154",
-          12,
-          5,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "155",
-          2,
-          6,
-          "2026-12-21T20:00:00Z"
-        ],
-        [
-          16,
-          "155",
-          6,
-          2,
-          "2026-12-21T20:00:00Z"
-        ],
-        [
-          16,
-          "156",
-          10,
-          13,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "156",
-          13,
-          10,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "157",
-          14,
-          19,
-          "2026-12-19T17:30:00Z"
-        ],
-        [
-          16,
-          "157",
-          19,
-          14,
-          "2026-12-19T17:30:00Z"
-        ],
-        [
-          16,
-          "158",
-          11,
-          15,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "158",
-          15,
-          11,
-          "2026-12-19T15:00:00Z"
-        ],
-        [
-          16,
-          "159",
-          9,
-          18,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "159",
-          18,
-          9,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "160",
-          8,
-          20,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          16,
-          "160",
-          20,
-          8,
-          "2026-12-20T14:00:00Z"
-        ],
-        [
-          17,
-          "161",
-          2,
-          13,
-          "2026-12-26T12:30:00Z"
-        ],
-        [
-          17,
-          "161",
-          13,
-          2,
-          "2026-12-26T12:30:00Z"
-        ],
-        [
-          17,
-          "162",
-          6,
-          7,
-          "2026-12-27T14:00:00Z"
-        ],
-        [
-          17,
-          "162",
-          7,
-          6,
-          "2026-12-27T14:00:00Z"
-        ],
-        [
-          17,
-          "163",
-          1,
-          8,
-          "2026-12-27T19:00:00Z"
-        ],
-        [
-          17,
-          "163",
-          8,
-          1,
-          "2026-12-27T19:00:00Z"
-        ],
-        [
-          17,
-          "164",
-          9,
-          20,
-          "2026-12-26T15:00:00Z"
-        ],
-        [
-          17,
-          "164",
-          20,
-          9,
-          "2026-12-26T15:00:00Z"
-        ],
-        [
-          17,
-          "165",
-          5,
-          10,
-          "2026-12-26T15:00:00Z"
-        ],
-        [
-          17,
-          "165",
-          10,
-          5,
-          "2026-12-26T15:00:00Z"
-        ],
-        [
-          17,
-          "166",
-          11,
-          14,
-          "2026-12-26T17:30:00Z"
-        ],
-        [
-          17,
-          "166",
-          14,
-          11,
-          "2026-12-26T17:30:00Z"
-        ],
-        [
-          17,
-          "167",
-          4,
-          12,
-          "2026-12-26T15:00:00Z"
-        ],
-        [
-          17,
-          "167",
-          12,
-          4,
-          "2026-12-26T15:00:00Z"
-        ],
-        [
-          17,
-          "168",
-          16,
-          18,
-          "2026-12-27T16:30:00Z"
-        ],
-        [
-          17,
-          "168",
-          18,
-          16,
-          "2026-12-27T16:30:00Z"
-        ],
-        [
-          17,
-          "169",
-          15,
-          17,
-          "2026-12-26T20:00:00Z"
-        ],
-        [
-          17,
-          "169",
-          17,
-          15,
-          "2026-12-26T20:00:00Z"
-        ],
-        [
-          17,
-          "170",
-          3,
-          19,
-          "2026-12-26T15:00:00Z"
-        ],
-        [
-          17,
-          "170",
-          19,
-          3,
-          "2026-12-26T15:00:00Z"
-        ]
-      ]
-    },
-    {
-      "type": "warning_codes",
-      "summary": "Data-quality warning state changed",
-      "before": [
-        [
-          "expired_context",
-          "low"
-        ],
-        [
-          "player_availability",
-          "medium"
-        ],
-        [
-          "player_availability",
-          "medium"
-        ],
-        [
-          "provider_plan_blocked",
-          "low"
-        ]
-      ],
-      "after": [
-        [
-          "expired_context",
-          "low"
-        ],
-        [
-          "opposing_player_correlation",
-          "low"
-        ],
-        [
-          "provider_plan_blocked",
-          "low"
-        ]
-      ]
-    },
-    {
-      "type": "advice_level",
-      "summary": "Deadline advice stage changed",
-      "before": "final",
-      "after": "provisional"
-    },
-    {
-      "type": "firm_advice_allowed",
-      "summary": "Firm-advice safety gate changed",
-      "before": true,
-      "after": false
-    },
-    {
-      "type": "lineup_correlation",
-      "summary": "Starting XI correlation exposure changed",
-      "before": 0,
-      "after": 0.2537
+      "before": 427,
+      "after": 411
     }
   ],
   "material_change": true,
-  "change_summary": "Target Gameweek changed Deadline changed Starting XI changed Bench order changed Vice-captain changed Transfer recommendation changed Chip recommendation changed Availability information changed Fixture information changed Data-quality warning state changed Deadline advice stage changed Firm-advice safety gate changed Starting XI correlation exposure changed",
-  "decision_fingerprint": "256e1cbc39cca51bc3f1257a48e8621c7e4e5b53a9f1f64936193c46a3196798",
-  "archive_created_this_run": "operations/gw12/20261121T192026Z.json",
-  "archive_markdown_created_this_run": "operations/gw12/20261121T192026Z.md"
+  "change_summary": "Starting XI changed Captain changed Vice-captain changed",
+  "decision_fingerprint": "53185ec85c5b3d3ef4260dfbbdeb6be4c440faa2cd4a1a24b241a2eddf76947e",
+  "archive_created_this_run": "operations/gw12/20261121T195104Z.json",
+  "archive_markdown_created_this_run": "operations/gw12/20261121T195104Z.md"
 }

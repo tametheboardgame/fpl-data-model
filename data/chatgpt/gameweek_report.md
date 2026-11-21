@@ -1,9 +1,9 @@
 # FPL Gameweek 12 Deadline Report
 
 Status: ready
-Generated: 2026-11-21T19:20:26+00:00
+Generated: 2026-11-21T19:51:04+00:00
 UK deadline: 2026-11-27T18:30:00+00:00
-Hours remaining: 143.159
+Hours remaining: 142.649
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.071 xPts)
+- Verbruggen (Brighton, 4.083 xPts)
 - De Cuyper (Brighton, 4.858 xPts)
-- Hill (Bournemouth, 4.582 xPts)
-- Konsa (Arsenal, 3.78 xPts)
-- Mbeumo (Man Utd, 5.375 xPts)
-- Tavernier (Bournemouth, 4.916 xPts)
-- Haaland (Man City, 5.324 xPts)
-- Calvert-Lewin (Leeds, 5.236 xPts)
-- Barry (Everton, 4.566 xPts)
-- B.Fernandes (Man Utd, 4.147 xPts)
-- Schade (Brentford, 3.604 xPts)
+- Hill (Bournemouth, 4.537 xPts)
+- Konsa (Arsenal, 3.864 xPts)
+- Mbeumo (Man Utd, 5.518 xPts)
+- Tavernier (Bournemouth, 4.947 xPts)
+- Calvert-Lewin (Leeds, 5.504 xPts)
+- Haaland (Man City, 5.229 xPts)
+- Barry (Everton, 4.516 xPts)
+- B.Fernandes (Man Utd, 4.263 xPts)
+- Schade (Brentford, 3.573 xPts)
 
-Captain: Haaland (5.324 mean xPts; strategic score 6.2729)
-Vice-captain: Mbeumo (5.375 mean xPts; strategic score 6.0796)
+Captain: Mbeumo (5.518 mean xPts; strategic score 6.2379)
+Vice-captain: Haaland (5.229 mean xPts; strategic score 6.1709)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Egan (3.07 xPts)
-2. Slater (2.654 xPts)
-3. Guéhi (2.055 xPts)
-4. Steele (0.0 xPts)
+1. Egan (2.931 xPts)
+2. Slater (2.62 xPts)
+3. Guéhi (2.048 xPts)
+4. Steele (0.001 xPts)
 
 ## Blank/Double Gameweek monitor
 
@@ -46,19 +46,9 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Changes since previous report
 
-- Target Gameweek changed
-- Deadline changed
 - Starting XI changed
-- Bench order changed
+- Captain changed
 - Vice-captain changed
-- Transfer recommendation changed
-- Chip recommendation changed
-- Availability information changed
-- Fixture information changed
-- Data-quality warning state changed
-- Deadline advice stage changed
-- Firm-advice safety gate changed
-- Starting XI correlation exposure changed
 
 ## Warnings
 
