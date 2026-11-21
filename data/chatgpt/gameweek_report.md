@@ -1,43 +1,43 @@
-# FPL Gameweek 11 Deadline Report
+# FPL Gameweek 12 Deadline Report
 
 Status: ready
-Generated: 2026-11-21T07:45:54+00:00
-UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 3.235
-Advice level: final
-Firm advice allowed: True
+Generated: 2026-11-21T19:20:26+00:00
+UK deadline: 2026-11-27T18:30:00+00:00
+Hours remaining: 143.159
+Advice level: provisional
+Firm advice allowed: False
 
 ## Recommended action
 
-Transfers: Roll or hold the transfer
+Transfers: Thomas to De Cuyper
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.396 xPts)
-- Hill (Bournemouth, 4.92 xPts)
-- Konsa (Arsenal, 4.418 xPts)
-- Egan (Hull City, 2.635 xPts)
-- Tavernier (Bournemouth, 5.236 xPts)
-- Mbeumo (Man Utd, 4.6 xPts)
-- Haaland (Man City, 7.21 xPts)
-- Barry (Everton, 4.36 xPts)
-- Calvert-Lewin (Leeds, 4.245 xPts)
-- B.Fernandes (Man Utd, 3.622 xPts)
-- Schade (Brentford, 3.609 xPts)
+- Verbruggen (Brighton, 4.071 xPts)
+- De Cuyper (Brighton, 4.858 xPts)
+- Hill (Bournemouth, 4.582 xPts)
+- Konsa (Arsenal, 3.78 xPts)
+- Mbeumo (Man Utd, 5.375 xPts)
+- Tavernier (Bournemouth, 4.916 xPts)
+- Haaland (Man City, 5.324 xPts)
+- Calvert-Lewin (Leeds, 5.236 xPts)
+- Barry (Everton, 4.566 xPts)
+- B.Fernandes (Man Utd, 4.147 xPts)
+- Schade (Brentford, 3.604 xPts)
 
-Captain: Haaland (7.21 mean xPts; strategic score 8.4423)
-Vice-captain: Tavernier (5.236 mean xPts; strategic score 5.878)
+Captain: Haaland (5.324 mean xPts; strategic score 6.2729)
+Vice-captain: Mbeumo (5.375 mean xPts; strategic score 6.0796)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Slater (2.636 xPts)
-2. Guéhi (2.019 xPts)
-3. Thomas (1.548 xPts)
-4. Steele (0.007 xPts)
+1. Egan (3.07 xPts)
+2. Slater (2.654 xPts)
+3. Guéhi (2.055 xPts)
+4. Steele (0.0 xPts)
 
 ## Blank/Double Gameweek monitor
 
@@ -46,23 +46,34 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Changes since previous report
 
-- No material changes
+- Target Gameweek changed
+- Deadline changed
+- Starting XI changed
+- Bench order changed
+- Vice-captain changed
+- Transfer recommendation changed
+- Chip recommendation changed
+- Availability information changed
+- Fixture information changed
+- Data-quality warning state changed
+- Deadline advice stage changed
+- Firm-advice safety gate changed
+- Starting XI correlation exposure changed
 
 ## Warnings
 
-- [MEDIUM] Guéhi has an availability flag (75% chance): Hip injury - 75% chance of playing.
-- [MEDIUM] Thomas has an availability flag (75% chance): Calf injury - 75% chance of playing.
+- [LOW] The starting XI contains negatively correlated opposing players: Konsa / Haaland. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 47120 external-context signals have expired and are excluded.
+- [LOW] 49088 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 
-Status: required_before_action
+Status: not_due
 API-Football is plan-blocked, so check official club news and trusted predicted line-ups before applying the recommendation.
 
 ## Deadline snapshot
 
-Freeze status: frozen
-Immutable snapshot: prospective/gw11/20261121T074554Z.json
+Freeze status: waiting_for_freeze_window
+Immutable snapshot: Not yet available
 
 This report is advisory only. No transfers, chips or team changes are made automatically.
