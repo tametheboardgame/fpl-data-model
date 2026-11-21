@@ -1,10 +1,10 @@
 # FPL Gameweek 11 Deadline Report
 
 Status: ready
-Generated: 2026-11-20T20:47:45+00:00
+Generated: 2026-11-21T07:14:36+00:00
 UK deadline: 2026-11-21T11:00:00+00:00
-Hours remaining: 14.204
-Advice level: firm
+Hours remaining: 3.757
+Advice level: final
 Firm advice allowed: True
 
 ## Recommended action
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.397 xPts)
-- Hill (Bournemouth, 4.844 xPts)
-- Konsa (Arsenal, 4.424 xPts)
-- Egan (Hull City, 2.633 xPts)
-- Tavernier (Bournemouth, 5.259 xPts)
-- Mbeumo (Man Utd, 4.625 xPts)
-- Haaland (Man City, 7.175 xPts)
-- Barry (Everton, 4.36 xPts)
-- Calvert-Lewin (Leeds, 4.25 xPts)
-- B.Fernandes (Man Utd, 3.642 xPts)
-- Schade (Brentford, 3.609 xPts)
+- Verbruggen (Brighton, 4.35 xPts)
+- Hill (Bournemouth, 4.81 xPts)
+- Konsa (Arsenal, 4.334 xPts)
+- Egan (Hull City, 2.795 xPts)
+- Tavernier (Bournemouth, 5.262 xPts)
+- Mbeumo (Man Utd, 4.632 xPts)
+- Haaland (Man City, 6.905 xPts)
+- Barry (Everton, 4.394 xPts)
+- Calvert-Lewin (Leeds, 4.269 xPts)
+- B.Fernandes (Man Utd, 3.647 xPts)
+- Schade (Brentford, 3.587 xPts)
 
-Captain: Haaland (7.175 mean xPts; strategic score 8.4045)
-Vice-captain: Tavernier (5.259 mean xPts; strategic score 5.9033)
+Captain: Haaland (6.905 mean xPts; strategic score 8.1124)
+Vice-captain: Tavernier (5.262 mean xPts; strategic score 5.9066)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Slater (2.636 xPts)
-2. Guéhi (2.043 xPts)
-3. Thomas (1.539 xPts)
-4. Steele (0.007 xPts)
+1. Slater (2.668 xPts)
+2. Guéhi (1.968 xPts)
+3. Thomas (1.576 xPts)
+4. Steele (0.005 xPts)
 
 ## Blank/Double Gameweek monitor
 
@@ -46,7 +46,8 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Changes since previous report
 
-- No material changes
+- Chip recommendation changed
+- Deadline advice stage changed
 
 ## Warnings
 
@@ -62,7 +63,7 @@ API-Football is plan-blocked, so check official club news and trusted predicted 
 
 ## Deadline snapshot
 
-Freeze status: waiting_for_freeze_window
-Immutable snapshot: Not yet available
+Freeze status: frozen
+Immutable snapshot: prospective/gw11/20261121T071436Z.json
 
 This report is advisory only. No transfers, chips or team changes are made automatically.
