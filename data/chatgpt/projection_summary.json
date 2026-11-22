@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T19:51:04+00:00",
+  "generated_at": "2026-11-22T06:54:51+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -48,15 +48,15 @@
   },
   "simulations_per_player_fixture": 600,
   "method": "Production uses player-sim-2.0 for mean and haul-probability forecasts. Production policy is holdout_rejected; challenger player-sim-3.0-candidate is shadow_only with mean weight 0.000 and 6+/10+/15+ weights 0.000/0.000/0.000. Qualitative and timestamped external context remain separately audited decision layers.",
-  "player_feature_rows": 672,
+  "player_feature_rows": 674,
   "team_feature_rows": 20,
   "raw_fixture_history_rows": 7234,
   "completed_fixture_history_rows": 6562,
-  "fixture_projection_rows": 4032,
-  "player_horizon_rows": 672,
+  "fixture_projection_rows": 4044,
+  "player_horizon_rows": 674,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 52864,
-  "active_external_context_signal_rows": 3264,
+  "active_external_context_signal_rows": 2968,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -132,7 +132,7 @@
       "web_name": "Trafford",
       "team_name": "Leeds",
       "position": "Goalkeeper",
-      "price": 5.0,
+      "price": 5.1,
       "expected_points_next_1": 4.792
     },
     {
@@ -188,7 +188,7 @@
       "web_name": "Van Hecke",
       "team_name": "Spurs",
       "position": "Defender",
-      "price": 5.1,
+      "price": 5.2,
       "expected_points_next_1": 4.505
     },
     {
@@ -262,7 +262,7 @@
       "web_name": "Van Hecke",
       "team_name": "Spurs",
       "position": "Defender",
-      "price": 5.1,
+      "price": 5.2,
       "expected_points_next_3": 14.637
     },
     {
@@ -326,7 +326,7 @@
       "web_name": "Trafford",
       "team_name": "Leeds",
       "position": "Goalkeeper",
-      "price": 5.0,
+      "price": 5.1,
       "expected_points_next_3": 13.128
     },
     {
@@ -350,7 +350,7 @@
       "web_name": "Evanilson",
       "team_name": "Bournemouth",
       "position": "Forward",
-      "price": 6.5,
+      "price": 6.6,
       "expected_points_next_3": 12.947
     },
     {
@@ -440,7 +440,7 @@
       "web_name": "Evanilson",
       "team_name": "Bournemouth",
       "position": "Forward",
-      "price": 6.5,
+      "price": 6.6,
       "component_expected_points_next_1": 4.028
     },
     {
@@ -456,7 +456,7 @@
       "web_name": "Trafford",
       "team_name": "Leeds",
       "position": "Goalkeeper",
-      "price": 5.0,
+      "price": 5.1,
       "component_expected_points_next_1": 3.963
     },
     {
@@ -504,7 +504,7 @@
       "web_name": "Van Hecke",
       "team_name": "Spurs",
       "position": "Defender",
-      "price": 5.1,
+      "price": 5.2,
       "component_expected_points_next_1": 3.742
     },
     {
@@ -528,7 +528,7 @@
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 8.2,
+      "price": 8.3,
       "component_expected_points_next_1": 3.563
     },
     {
@@ -586,7 +586,7 @@
       "web_name": "Van Hecke",
       "team_name": "Spurs",
       "position": "Defender",
-      "price": 5.1,
+      "price": 5.2,
       "component_expected_points_next_3": 11.932
     },
     {
@@ -594,7 +594,7 @@
       "web_name": "Evanilson",
       "team_name": "Bournemouth",
       "position": "Forward",
-      "price": 6.5,
+      "price": 6.6,
       "component_expected_points_next_3": 11.867
     },
     {
@@ -698,7 +698,7 @@
       "web_name": "Rogers",
       "team_name": "Chelsea",
       "position": "Midfielder",
-      "price": 8.2,
+      "price": 8.3,
       "component_expected_points_next_3": 10.653
     },
     {

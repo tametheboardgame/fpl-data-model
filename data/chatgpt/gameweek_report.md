@@ -1,9 +1,9 @@
 # FPL Gameweek 12 Deadline Report
 
 Status: ready
-Generated: 2026-11-21T19:51:04+00:00
+Generated: 2026-11-22T06:54:51+00:00
 UK deadline: 2026-11-27T18:30:00+00:00
-Hours remaining: 142.649
+Hours remaining: 131.586
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.083 xPts)
+- Verbruggen (Brighton, 4.076 xPts)
 - De Cuyper (Brighton, 4.858 xPts)
-- Hill (Bournemouth, 4.537 xPts)
-- Konsa (Arsenal, 3.864 xPts)
-- Mbeumo (Man Utd, 5.518 xPts)
-- Tavernier (Bournemouth, 4.947 xPts)
-- Calvert-Lewin (Leeds, 5.504 xPts)
-- Haaland (Man City, 5.229 xPts)
-- Barry (Everton, 4.516 xPts)
-- B.Fernandes (Man Utd, 4.263 xPts)
-- Schade (Brentford, 3.573 xPts)
+- Hill (Bournemouth, 4.585 xPts)
+- Konsa (Arsenal, 3.807 xPts)
+- Mbeumo (Man Utd, 5.375 xPts)
+- Tavernier (Bournemouth, 4.921 xPts)
+- Haaland (Man City, 5.3 xPts)
+- Calvert-Lewin (Leeds, 5.244 xPts)
+- Barry (Everton, 4.565 xPts)
+- B.Fernandes (Man Utd, 4.147 xPts)
+- Schade (Brentford, 3.602 xPts)
 
-Captain: Mbeumo (5.518 mean xPts; strategic score 6.2379)
-Vice-captain: Haaland (5.229 mean xPts; strategic score 6.1709)
+Captain: Haaland (5.3 mean xPts; strategic score 6.2472)
+Vice-captain: Mbeumo (5.375 mean xPts; strategic score 6.0796)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Egan (2.931 xPts)
-2. Slater (2.62 xPts)
-3. Guéhi (2.048 xPts)
-4. Steele (0.001 xPts)
+1. Egan (3.065 xPts)
+2. Slater (2.653 xPts)
+3. Guéhi (2.034 xPts)
+4. Steele (0.0 xPts)
 
 ## Blank/Double Gameweek monitor
 
@@ -49,12 +49,13 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 - Starting XI changed
 - Captain changed
 - Vice-captain changed
+- Chip recommendation changed
 
 ## Warnings
 
 - [LOW] The starting XI contains negatively correlated opposing players: Konsa / Haaland. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 49088 external-context signals have expired and are excluded.
+- [LOW] 49416 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 
