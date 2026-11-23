@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T08:19:59+00:00",
+  "generated_at": "2026-11-23T23:57:43+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -56,7 +56,7 @@
   "player_horizon_rows": 674,
   "scouting_observation_rows": 0,
   "external_context_signal_rows": 53368,
-  "active_external_context_signal_rows": 2888,
+  "active_external_context_signal_rows": 2872,
   "decision_support_status": "ready",
   "initial_squad_status": "not_applicable_after_gameweek_1",
   "launch_validation_status": null,
@@ -370,20 +370,20 @@
       "expected_points_next_3": 12.945
     },
     {
-      "player_id": 229,
-      "web_name": "Tarkowski",
-      "team_name": "Everton",
-      "position": "Defender",
-      "price": 6.2,
-      "expected_points_next_3": 12.857
-    },
-    {
       "player_id": 472,
       "web_name": "Murillo",
       "team_name": "Nott'm Forest",
       "position": "Defender",
       "price": 5.5,
       "expected_points_next_3": 12.843
+    },
+    {
+      "player_id": 91,
+      "web_name": "Pinnock",
+      "team_name": "Coventry City",
+      "position": "Defender",
+      "price": 4.5,
+      "expected_points_next_3": 12.81
     }
   ],
   "component_top_next_gameweek": [
