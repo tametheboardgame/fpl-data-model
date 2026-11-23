@@ -1,9 +1,9 @@
 # FPL Gameweek 12 Deadline Report
 
 Status: ready
-Generated: 2026-11-22T20:00:17+00:00
+Generated: 2026-11-23T07:44:25+00:00
 UK deadline: 2026-11-27T18:30:00+00:00
-Hours remaining: 118.495
+Hours remaining: 106.76
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,27 +16,27 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.092 xPts)
+- Verbruggen (Brighton, 4.081 xPts)
 - De Cuyper (Brighton, 4.858 xPts)
-- Hill (Bournemouth, 4.533 xPts)
-- Konsa (Arsenal, 3.879 xPts)
-- Mbeumo (Man Utd, 5.497 xPts)
-- Tavernier (Bournemouth, 4.937 xPts)
-- Calvert-Lewin (Leeds, 5.546 xPts)
-- Haaland (Man City, 5.216 xPts)
-- Barry (Everton, 4.511 xPts)
-- B.Fernandes (Man Utd, 4.245 xPts)
-- Schade (Brentford, 3.586 xPts)
+- Hill (Bournemouth, 4.584 xPts)
+- Konsa (Arsenal, 3.814 xPts)
+- Mbeumo (Man Utd, 5.355 xPts)
+- Tavernier (Bournemouth, 4.913 xPts)
+- Haaland (Man City, 5.295 xPts)
+- Calvert-Lewin (Leeds, 5.258 xPts)
+- Barry (Everton, 4.564 xPts)
+- B.Fernandes (Man Utd, 4.131 xPts)
+- Schade (Brentford, 3.611 xPts)
 
-Captain: Mbeumo (5.497 mean xPts; strategic score 6.2147)
-Vice-captain: Calvert-Lewin (5.546 mean xPts; strategic score 6.1958)
+Captain: Haaland (5.295 mean xPts; strategic score 6.2418)
+Vice-captain: Mbeumo (5.355 mean xPts; strategic score 6.0574)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Egan (2.917 xPts)
-2. Slater (2.618 xPts)
-3. Guéhi (2.037 xPts)
+1. Egan (3.063 xPts)
+2. Slater (2.654 xPts)
+3. Guéhi (2.027 xPts)
 4. Steele (0.001 xPts)
 
 ## Blank/Double Gameweek monitor
@@ -54,7 +54,7 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 - [LOW] The starting XI contains negatively correlated opposing players: Konsa / Haaland. This affects variance, not mean expected points.
 - [LOW] API-Football is unavailable under the current plan; recommendations use the remaining sources.
-- [LOW] 49760 external-context signals have expired and are excluded.
+- [LOW] 50392 external-context signals have expired and are excluded.
 
 ## Manual late-news check
 
