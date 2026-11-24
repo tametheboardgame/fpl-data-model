@@ -1,9 +1,9 @@
 # FPL Gameweek 12 Deadline Report
 
 Status: ready
-Generated: 2026-11-24T22:30:09+00:00
+Generated: 2026-11-24T22:48:29+00:00
 UK deadline: 2026-11-27T18:30:00+00:00
-Hours remaining: 67.998
+Hours remaining: 67.692
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,27 +16,27 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.159 xPts)
+- Verbruggen (Brighton, 4.174 xPts)
 - Van Hecke (Spurs, 4.965 xPts)
-- Hill (Bournemouth, 4.848 xPts)
-- Konsa (Arsenal, 3.674 xPts)
-- B.Fernandes (Man Utd, 4.992 xPts)
-- Tavernier (Bournemouth, 4.899 xPts)
-- Haaland (Man City, 5.502 xPts)
-- Calvert-Lewin (Leeds, 5.455 xPts)
-- Mbeumo (Man Utd, 4.574 xPts)
-- Barry (Everton, 4.374 xPts)
-- Schade (Brentford, 2.876 xPts)
+- Hill (Bournemouth, 4.782 xPts)
+- Konsa (Arsenal, 3.731 xPts)
+- B.Fernandes (Man Utd, 5.147 xPts)
+- Tavernier (Bournemouth, 4.881 xPts)
+- Calvert-Lewin (Leeds, 5.81 xPts)
+- Haaland (Man City, 5.437 xPts)
+- Mbeumo (Man Utd, 4.711 xPts)
+- Barry (Everton, 4.325 xPts)
+- Schade (Brentford, 2.846 xPts)
 
-Captain: Haaland (5.502 mean xPts; strategic score 6.5545)
-Vice-captain: Calvert-Lewin (5.455 mean xPts; strategic score 6.1915)
+Captain: Calvert-Lewin (5.81 mean xPts; strategic score 6.5873)
+Vice-captain: Haaland (5.437 mean xPts; strategic score 6.4838)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Slater (2.659 xPts)
-2. Thomas (2.111 xPts)
-3. Guéhi (1.928 xPts)
+1. Slater (2.627 xPts)
+2. Thomas (1.969 xPts)
+3. Guéhi (1.899 xPts)
 4. Steele (0.002 xPts)
 
 ## Blank/Double Gameweek monitor
@@ -49,7 +49,6 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 - Starting XI changed
 - Captain changed
 - Vice-captain changed
-- Chip recommendation changed
 
 ## Warnings
 
