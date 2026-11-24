@@ -1,46 +1,46 @@
 {
   "prospective_version": "fpl-prospective-1.1",
-  "generated_at": "2026-11-24T10:31:08+00:00",
+  "generated_at": "2026-11-24T22:31:14+00:00",
   "status": "ready",
-  "evaluated_gameweeks": 9,
-  "skipped_unfinalised_gameweeks": 1,
+  "evaluated_gameweeks": 10,
+  "skipped_unfinalised_gameweeks": 0,
   "minimum_gameweeks_for_evidence": 10,
   "arms": [
     {
       "arm_id": "full_context_selection",
-      "evaluated_gameweeks": 9,
-      "total_actual_points": 484.0,
-      "average_actual_points": 53.778
+      "evaluated_gameweeks": 10,
+      "total_actual_points": 528.0,
+      "average_actual_points": 52.8
     },
     {
       "arm_id": "no_external_selection",
-      "evaluated_gameweeks": 9,
-      "total_actual_points": 484.0,
-      "average_actual_points": 53.778
+      "evaluated_gameweeks": 10,
+      "total_actual_points": 528.0,
+      "average_actual_points": 52.8
     },
     {
       "arm_id": "no_odds_selection",
-      "evaluated_gameweeks": 9,
-      "total_actual_points": 484.0,
-      "average_actual_points": 53.778
+      "evaluated_gameweeks": 10,
+      "total_actual_points": 528.0,
+      "average_actual_points": 52.8
     },
     {
       "arm_id": "ownership_baseline",
-      "evaluated_gameweeks": 9,
-      "total_actual_points": 492.0,
-      "average_actual_points": 54.667
+      "evaluated_gameweeks": 10,
+      "total_actual_points": 536.0,
+      "average_actual_points": 53.6
     },
     {
       "arm_id": "quantitative_only_selection",
-      "evaluated_gameweeks": 9,
-      "total_actual_points": 484.0,
-      "average_actual_points": 53.778
+      "evaluated_gameweeks": 10,
+      "total_actual_points": 528.0,
+      "average_actual_points": 52.8
     },
     {
       "arm_id": "system_strategy",
-      "evaluated_gameweeks": 9,
-      "total_actual_points": 529.0,
-      "average_actual_points": 58.778
+      "evaluated_gameweeks": 10,
+      "total_actual_points": 573.0,
+      "average_actual_points": 57.3
     }
   ],
   "comparisons": [
@@ -48,49 +48,49 @@
       "comparison_id": "all_context_value",
       "treatment": "full_context_selection",
       "control": "no_external_selection",
-      "paired_gameweeks": 9,
+      "paired_gameweeks": 10,
       "average_points_delta": 0.0,
       "treatment_win_rate": 0.0,
-      "status": "insufficient_evidence"
+      "status": "inconclusive"
     },
     {
       "comparison_id": "odds_value",
       "treatment": "full_context_selection",
       "control": "no_odds_selection",
-      "paired_gameweeks": 9,
+      "paired_gameweeks": 10,
       "average_points_delta": 0.0,
       "treatment_win_rate": 0.0,
-      "status": "insufficient_evidence"
+      "status": "inconclusive"
     },
     {
       "comparison_id": "qualitative_value",
       "treatment": "no_external_selection",
       "control": "quantitative_only_selection",
-      "paired_gameweeks": 9,
+      "paired_gameweeks": 10,
       "average_points_delta": 0.0,
       "treatment_win_rate": 0.0,
-      "status": "insufficient_evidence"
+      "status": "inconclusive"
     },
     {
       "comparison_id": "model_vs_ownership",
       "treatment": "full_context_selection",
       "control": "ownership_baseline",
-      "paired_gameweeks": 9,
-      "average_points_delta": -0.889,
+      "paired_gameweeks": 10,
+      "average_points_delta": -0.8,
       "treatment_win_rate": 0.0,
-      "status": "insufficient_evidence"
+      "status": "inconclusive"
     },
     {
       "comparison_id": "strategy_vs_ownership",
       "treatment": "system_strategy",
       "control": "ownership_baseline",
-      "paired_gameweeks": 9,
-      "average_points_delta": 4.111,
-      "treatment_win_rate": 0.7778,
-      "status": "insufficient_evidence"
+      "paired_gameweeks": 10,
+      "average_points_delta": 3.7,
+      "treatment_win_rate": 0.7,
+      "status": "positive_evidence"
     }
   ],
-  "latest_gameweek": 10,
+  "latest_gameweek": 11,
   "finality_requirement": "finished=true and data_checked=true",
   "finality_source": "raw/latest/bootstrap-static.json",
   "governance": "Evidence is reported prospectively; source weights are not changed automatically."

@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-11-24T10:31:10+00:00",
+  "generated_at": "2026-11-24T22:31:15+00:00",
   "evaluation_version": "external-context-evaluation-1.0",
-  "evaluated_signals": 47120,
+  "evaluated_signals": 50752,
   "skipped_at_or_after_kickoff": 0,
-  "skipped_unfinalised": 6568,
+  "skipped_unfinalised": 2936,
   "by_source_and_type": [
     {
       "source_id": "odds_api_market",
       "signal_type": "clean_sheet_probability",
       "metric": "brier_score",
-      "evaluated_signals": 11780,
-      "score": 0.191854
+      "evaluated_signals": 12688,
+      "score": 0.194522
     },
     {
       "source_id": "odds_api_market",
       "signal_type": "match_win_probability",
       "metric": "brier_score",
-      "evaluated_signals": 11780,
-      "score": 0.204964
+      "evaluated_signals": 12688,
+      "score": 0.206616
     },
     {
       "source_id": "odds_api_market",
       "signal_type": "team_expected_goals",
       "metric": "brier_score",
-      "evaluated_signals": 11780,
-      "score": 1.38151
+      "evaluated_signals": 12688,
+      "score": 1.428721
     },
     {
       "source_id": "odds_api_market",
       "signal_type": "team_score_probability",
       "metric": "brier_score",
-      "evaluated_signals": 11780,
-      "score": 0.191854
+      "evaluated_signals": 12688,
+      "score": 0.194522
     }
   ],
   "principle": "Only signals timestamped before kickoff are scored, and production evaluation waits for finished=true and data_checked=true.",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T10:29:17+00:00",
+  "generated_at": "2026-11-24T22:30:09+00:00",
   "model_version": "player-sim-2.0",
   "control_model_version": "player-sim-2.0",
   "challenger_model_version": "player-sim-3.0-candidate",
@@ -144,20 +144,20 @@
       "expected_points_next_1": 4.767
     },
     {
-      "player_id": 426,
-      "web_name": "B.Fernandes",
-      "team_name": "Man Utd",
-      "position": "Midfielder",
-      "price": 11.6,
-      "expected_points_next_1": 4.762
-    },
-    {
       "player_id": 332,
       "web_name": "Justin",
       "team_name": "Leeds",
       "position": "Defender",
       "price": 4.5,
       "expected_points_next_1": 4.737
+    },
+    {
+      "player_id": 426,
+      "web_name": "B.Fernandes",
+      "team_name": "Man Utd",
+      "position": "Midfielder",
+      "price": 11.6,
+      "expected_points_next_1": 4.707
     },
     {
       "player_id": 79,
@@ -189,15 +189,15 @@
       "team_name": "Liverpool",
       "position": "Midfielder",
       "price": 7.4,
-      "expected_points_next_1": 4.488
+      "expected_points_next_1": 4.478
     },
     {
-      "player_id": 427,
-      "web_name": "Mbeumo",
-      "team_name": "Man Utd",
-      "position": "Midfielder",
-      "price": 7.8,
-      "expected_points_next_1": 4.4
+      "player_id": 249,
+      "web_name": "Barry",
+      "team_name": "Everton",
+      "position": "Forward",
+      "price": 5.7,
+      "expected_points_next_1": 4.43
     },
     {
       "player_id": 202,
@@ -216,12 +216,12 @@
       "expected_points_next_1": 4.352
     },
     {
-      "player_id": 166,
-      "web_name": "N.Jackson",
-      "team_name": "Aston Villa",
-      "position": "Forward",
-      "price": 7.3,
-      "expected_points_next_1": 4.302
+      "player_id": 427,
+      "web_name": "Mbeumo",
+      "team_name": "Man Utd",
+      "position": "Midfielder",
+      "price": 7.8,
+      "expected_points_next_1": 4.322
     }
   ],
   "top_next_three_gameweeks": [
@@ -231,7 +231,7 @@
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.8,
-      "expected_points_next_3": 17.46
+      "expected_points_next_3": 17.813
     },
     {
       "player_id": 68,
@@ -263,7 +263,7 @@
       "team_name": "Arsenal",
       "position": "Defender",
       "price": 8.1,
-      "expected_points_next_3": 14.972
+      "expected_points_next_3": 14.652
     },
     {
       "player_id": 346,
@@ -290,12 +290,20 @@
       "expected_points_next_3": 13.847
     },
     {
+      "player_id": 249,
+      "web_name": "Barry",
+      "team_name": "Everton",
+      "position": "Forward",
+      "price": 5.7,
+      "expected_points_next_3": 13.82
+    },
+    {
       "player_id": 426,
       "web_name": "B.Fernandes",
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 11.6,
-      "expected_points_next_3": 13.758
+      "expected_points_next_3": 13.703
     },
     {
       "player_id": 566,
@@ -311,7 +319,7 @@
       "team_name": "Liverpool",
       "position": "Midfielder",
       "price": 7.4,
-      "expected_points_next_3": 13.393
+      "expected_points_next_3": 13.383
     },
     {
       "player_id": 124,
@@ -335,7 +343,7 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 7.8,
-      "expected_points_next_3": 13.132
+      "expected_points_next_3": 13.053
     },
     {
       "player_id": 166,
@@ -343,7 +351,7 @@
       "team_name": "Aston Villa",
       "position": "Forward",
       "price": 7.3,
-      "expected_points_next_3": 12.955
+      "expected_points_next_3": 12.967
     },
     {
       "player_id": 356,
@@ -351,7 +359,7 @@
       "team_name": "Liverpool",
       "position": "Defender",
       "price": 6.4,
-      "expected_points_next_3": 12.892
+      "expected_points_next_3": 12.883
     },
     {
       "player_id": 385,
@@ -376,14 +384,6 @@
       "position": "Defender",
       "price": 4.5,
       "expected_points_next_3": 12.657
-    },
-    {
-      "player_id": 504,
-      "web_name": "Vuskovic",
-      "team_name": "Brighton",
-      "position": "Defender",
-      "price": 5.3,
-      "expected_points_next_3": 12.637
     }
   ],
   "component_top_next_gameweek": [
@@ -444,6 +444,14 @@
       "component_expected_points_next_1": 3.93
     },
     {
+      "player_id": 249,
+      "web_name": "Barry",
+      "team_name": "Everton",
+      "position": "Forward",
+      "price": 5.7,
+      "component_expected_points_next_1": 3.92
+    },
+    {
       "player_id": 542,
       "web_name": "E.Le F\u00e9e",
       "team_name": "Sunderland",
@@ -465,7 +473,7 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 7.8,
-      "component_expected_points_next_1": 3.838
+      "component_expected_points_next_1": 3.817
     },
     {
       "player_id": 334,
@@ -500,20 +508,20 @@
       "component_expected_points_next_1": 3.78
     },
     {
-      "player_id": 426,
-      "web_name": "B.Fernandes",
-      "team_name": "Man Utd",
-      "position": "Midfielder",
-      "price": 11.6,
-      "component_expected_points_next_1": 3.73
-    },
-    {
       "player_id": 566,
       "web_name": "Silva",
       "team_name": "Bournemouth",
       "position": "Defender",
       "price": 5.1,
       "component_expected_points_next_1": 3.707
+    },
+    {
+      "player_id": 426,
+      "web_name": "B.Fernandes",
+      "team_name": "Man Utd",
+      "position": "Midfielder",
+      "price": 11.6,
+      "component_expected_points_next_1": 3.705
     },
     {
       "player_id": 504,
@@ -538,14 +546,6 @@
       "position": "Defender",
       "price": 8.1,
       "component_expected_points_next_1": 3.635
-    },
-    {
-      "player_id": 129,
-      "web_name": "Ayari",
-      "team_name": "Brighton",
-      "position": "Midfielder",
-      "price": 5.5,
-      "component_expected_points_next_1": 3.623
     }
   ],
   "component_top_next_three_gameweeks": [
@@ -582,6 +582,14 @@
       "component_expected_points_next_3": 12.337
     },
     {
+      "player_id": 249,
+      "web_name": "Barry",
+      "team_name": "Everton",
+      "position": "Forward",
+      "price": 5.7,
+      "component_expected_points_next_3": 12.25
+    },
+    {
       "player_id": 112,
       "web_name": "Van Hecke",
       "team_name": "Spurs",
@@ -590,20 +598,12 @@
       "component_expected_points_next_3": 12.03
     },
     {
-      "player_id": 4,
-      "web_name": "Gabriel",
-      "team_name": "Arsenal",
-      "position": "Defender",
-      "price": 8.1,
-      "component_expected_points_next_3": 11.763
-    },
-    {
       "player_id": 427,
       "web_name": "Mbeumo",
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 7.8,
-      "component_expected_points_next_3": 11.72
+      "component_expected_points_next_3": 11.698
     },
     {
       "player_id": 566,
@@ -612,6 +612,14 @@
       "position": "Defender",
       "price": 5.1,
       "component_expected_points_next_3": 11.645
+    },
+    {
+      "player_id": 4,
+      "web_name": "Gabriel",
+      "team_name": "Arsenal",
+      "position": "Defender",
+      "price": 8.1,
+      "component_expected_points_next_3": 11.533
     },
     {
       "player_id": 166,
@@ -627,7 +635,7 @@
       "team_name": "Man Utd",
       "position": "Midfielder",
       "price": 11.6,
-      "component_expected_points_next_3": 11.425
+      "component_expected_points_next_3": 11.4
     },
     {
       "player_id": 542,
@@ -659,7 +667,7 @@
       "team_name": "Liverpool",
       "position": "Midfielder",
       "price": 7.4,
-      "component_expected_points_next_3": 10.843
+      "component_expected_points_next_3": 10.84
     },
     {
       "player_id": 334,
@@ -668,14 +676,6 @@
       "position": "Defender",
       "price": 5.1,
       "component_expected_points_next_3": 10.74
-    },
-    {
-      "player_id": 249,
-      "web_name": "Barry",
-      "team_name": "Everton",
-      "position": "Forward",
-      "price": 5.7,
-      "component_expected_points_next_3": 10.677
     },
     {
       "player_id": 330,
@@ -711,8 +711,8 @@
     }
   ],
   "prediction_snapshot_created": null,
-  "evaluated_gameweeks": 10,
-  "prospective_evaluated_gameweeks": 9,
+  "evaluated_gameweeks": 11,
+  "prospective_evaluated_gameweeks": 10,
   "prospective_snapshot_created": null,
   "gameweek_operations_status": "ready",
   "gameweek_report_material_change": true,
@@ -726,7 +726,7 @@
     "Bonus and rare disciplinary events use simplified distributions rather than a full event-level match model.",
     "Qualitative observations are prospective signals and must be timestamped before they can be evaluated honestly."
   ],
-  "evaluated_external_context_signals": 47120,
+  "evaluated_external_context_signals": 50752,
   "chip_state_status": "ready",
   "free_transfer_state_status": "ready"
 }
