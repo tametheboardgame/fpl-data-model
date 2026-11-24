@@ -1,42 +1,42 @@
 # FPL Gameweek 12 Deadline Report
 
 Status: ready
-Generated: 2026-11-24T00:26:16+00:00
+Generated: 2026-11-24T09:58:55+00:00
 UK deadline: 2026-11-27T18:30:00+00:00
-Hours remaining: 90.062
+Hours remaining: 80.518
 Advice level: provisional
 Firm advice allowed: False
 
 ## Recommended action
 
-Transfers: Thomas to De Cuyper
+Transfers: Egan to Van Hecke
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.103 xPts)
-- De Cuyper (Brighton, 4.858 xPts)
-- Hill (Bournemouth, 4.539 xPts)
-- Konsa (Arsenal, 3.876 xPts)
-- Mbeumo (Man Utd, 5.453 xPts)
-- Tavernier (Bournemouth, 4.945 xPts)
-- Calvert-Lewin (Leeds, 5.577 xPts)
-- Haaland (Man City, 5.219 xPts)
-- Barry (Everton, 4.446 xPts)
-- B.Fernandes (Man Utd, 4.21 xPts)
-- Schade (Brentford, 3.609 xPts)
+- Verbruggen (Brighton, 4.163 xPts)
+- Van Hecke (Spurs, 4.965 xPts)
+- Hill (Bournemouth, 4.839 xPts)
+- Konsa (Arsenal, 3.684 xPts)
+- B.Fernandes (Man Utd, 5.078 xPts)
+- Tavernier (Bournemouth, 4.901 xPts)
+- Haaland (Man City, 5.492 xPts)
+- Calvert-Lewin (Leeds, 5.443 xPts)
+- Mbeumo (Man Utd, 4.678 xPts)
+- Barry (Everton, 3.51 xPts)
+- Schade (Brentford, 2.67 xPts)
 
-Captain: Calvert-Lewin (5.577 mean xPts; strategic score 6.2299)
-Vice-captain: Mbeumo (5.453 mean xPts; strategic score 6.1659)
+Captain: Haaland (5.492 mean xPts; strategic score 6.5436)
+Vice-captain: Calvert-Lewin (5.443 mean xPts; strategic score 6.1781)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Egan (2.928 xPts)
-2. Slater (2.621 xPts)
-3. Guéhi (2.036 xPts)
+1. Slater (2.653 xPts)
+2. Thomas (2.109 xPts)
+3. Guéhi (1.923 xPts)
 4. Steele (0.002 xPts)
 
 ## Blank/Double Gameweek monitor
@@ -47,7 +47,12 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 ## Changes since previous report
 
 - Starting XI changed
+- Bench order changed
 - Captain changed
+- Vice-captain changed
+- Transfer recommendation changed
+- Chip recommendation changed
+- Starting XI correlation exposure changed
 
 ## Warnings
 
