@@ -1,11 +1,11 @@
 # FPL Gameweek 12 Deadline Report
 
 Status: ready
-Generated: 2026-11-26T08:57:22+00:00
+Generated: 2026-11-26T21:37:55+00:00
 UK deadline: 2026-11-27T18:30:00+00:00
-Hours remaining: 33.544
-Advice level: provisional
-Firm advice allowed: False
+Hours remaining: 20.868
+Advice level: firm
+Firm advice allowed: True
 
 ## Recommended action
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.17 xPts)
+- Verbruggen (Brighton, 4.15 xPts)
 - Van Hecke (Spurs, 4.965 xPts)
-- Hill (Bournemouth, 4.8 xPts)
-- Konsa (Arsenal, 3.73 xPts)
-- B.Fernandes (Man Utd, 5.137 xPts)
-- Tavernier (Bournemouth, 4.888 xPts)
-- Calvert-Lewin (Leeds, 5.824 xPts)
-- Haaland (Man City, 5.437 xPts)
-- Mbeumo (Man Utd, 4.701 xPts)
-- Barry (Everton, 4.321 xPts)
-- Schade (Brentford, 2.849 xPts)
+- Hill (Bournemouth, 4.866 xPts)
+- Konsa (Arsenal, 3.67 xPts)
+- B.Fernandes (Man Utd, 4.971 xPts)
+- Tavernier (Bournemouth, 4.907 xPts)
+- Haaland (Man City, 5.507 xPts)
+- Calvert-Lewin (Leeds, 5.482 xPts)
+- Mbeumo (Man Utd, 4.555 xPts)
+- Barry (Everton, 4.363 xPts)
+- Schade (Brentford, 2.883 xPts)
 
-Captain: Calvert-Lewin (5.824 mean xPts; strategic score 6.6029)
-Vice-captain: Haaland (5.437 mean xPts; strategic score 6.4838)
+Captain: Haaland (5.507 mean xPts; strategic score 6.5599)
+Vice-captain: Calvert-Lewin (5.482 mean xPts; strategic score 6.2216)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Slater (2.63 xPts)
-2. Thomas (1.966 xPts)
-3. Guéhi (1.9 xPts)
-4. Steele (0.002 xPts)
+1. Slater (2.663 xPts)
+2. Thomas (2.108 xPts)
+3. Guéhi (1.927 xPts)
+4. Steele (0.001 xPts)
 
 ## Blank/Double Gameweek monitor
 
@@ -46,8 +46,11 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Changes since previous report
 
+- Starting XI changed
 - Captain changed
 - Vice-captain changed
+- Deadline advice stage changed
+- Firm-advice safety gate changed
 
 ## Warnings
 
@@ -57,7 +60,7 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Manual late-news check
 
-Status: not_due
+Status: required_before_action
 API-Football is plan-blocked, so check official club news and trusted predicted line-ups before applying the recommendation.
 
 ## Deadline snapshot
