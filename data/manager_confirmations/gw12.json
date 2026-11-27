@@ -1,0 +1,104 @@
+{
+  "schema": "fpl-manager-current-squad-v1",
+  "season": "2026/27",
+  "team_id": 39395,
+  "target_gameweek": 12,
+  "captured_at_uk": "2026-11-27T14:23:07+00:00",
+  "source": "Manager's explicit 'done!' confirmation and attached FPL Pick Team screenshot; timestamp from screenshot filename.",
+  "verification_status": "user_confirmed_pending_public_reconciliation",
+  "bank_millions": 8.4,
+  "bank_verification_status": "estimated_from_prior_bank_3.1_and_indicated_market_prices_11.6_minus_6.3; actual selling price and bank not visible; reconcile before future affordability advice",
+  "free_transfers": 0,
+  "transfer_cost_points": 0,
+  "players_by_position": {
+    "goalkeepers": [
+      "Verbruggen",
+      "Steele"
+    ],
+    "defenders": [
+      "Guéhi",
+      "Konsa",
+      "Hill",
+      "Thomas",
+      "Egan"
+    ],
+    "midfielders": [
+      "Mbeumo",
+      "Tavernier",
+      "Groß",
+      "Schade",
+      "Slater"
+    ],
+    "forwards": [
+      "Calvert-Lewin",
+      "Haaland",
+      "Barry"
+    ]
+  },
+  "registered_squad_player_ids": [
+    109,
+    388,
+    31,
+    60,
+    427,
+    68,
+    124,
+    94,
+    346,
+    411,
+    249,
+    111,
+    290,
+    173,
+    277
+  ],
+  "notes": "Manager confirmed recommended Fernandes to Groß transfer and saved XI. Bank estimated, not screenshot-verified. Use actual confirmed squad, not Egan to Van Hecke recommendation. GW12 manager action complete; no repeat routine advice. Reconcile official picks/transfers/bank following deadline. Recalculate future route from actual state.",
+  "manager_reaffirmation": {
+    "date_uk": "2026-11-27",
+    "source": "Explicit confirmation and FPL Pick Team screenshot",
+    "confirmed_squad_unchanged": false,
+    "confirmed_transfer_since_screenshot": false,
+    "confirmation_scope": "Transfer and saved XI, bench, captain and vice-captain; no chip or hit intended per agreed plan",
+    "selling_prices_verified": false,
+    "bank_verified": false
+  },
+  "completed_gameweek": {
+    "gameweek": 12,
+    "status": "manager_confirmed_done",
+    "transfer": {
+      "out": "Bruno Fernandes",
+      "out_player_id": 426,
+      "in": "Groß",
+      "in_player_id": 124,
+      "cost_points": 0
+    },
+    "formation": "3-4-3",
+    "starting_xi_player_ids": [
+      109,
+      388,
+      31,
+      60,
+      427,
+      68,
+      124,
+      94,
+      346,
+      411,
+      249
+    ],
+    "captain_player_id": 411,
+    "vice_captain_player_id": 346,
+    "bench_player_ids_in_order": [
+      111,
+      290,
+      173,
+      277
+    ],
+    "remaining_free_transfers": 0,
+    "bank_millions": 8.4,
+    "bank_verified": false,
+    "chip_used": null,
+    "saved_lineup": true,
+    "no_further_gw12_actions": true
+  }
+}
