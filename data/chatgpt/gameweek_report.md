@@ -1,42 +1,42 @@
 # FPL Gameweek 12 Deadline Report
 
 Status: ready
-Generated: 2026-11-27T09:09:45+00:00
+Generated: 2026-11-27T14:24:25+00:00
 UK deadline: 2026-11-27T18:30:00+00:00
-Hours remaining: 9.338
+Hours remaining: 4.093
 Advice level: firm
 Firm advice allowed: True
 
 ## Recommended action
 
-Transfers: Egan to Van Hecke
+Transfers: Roll or hold the transfer
 Recommendation source: registered_team
 Hit cost: 0 points
 Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 4.172 xPts)
-- Van Hecke (Spurs, 4.965 xPts)
-- Hill (Bournemouth, 4.822 xPts)
-- Konsa (Arsenal, 3.731 xPts)
-- B.Fernandes (Man Utd, 5.141 xPts)
-- Tavernier (Bournemouth, 4.902 xPts)
-- Calvert-Lewin (Leeds, 5.772 xPts)
-- Haaland (Man City, 5.436 xPts)
-- Mbeumo (Man Utd, 4.704 xPts)
-- Barry (Everton, 4.279 xPts)
-- Schade (Brentford, 2.851 xPts)
+- Verbruggen (Brighton, 4.162 xPts)
+- Hill (Bournemouth, 4.849 xPts)
+- Konsa (Arsenal, 3.703 xPts)
+- Egan (Hull City, 2.185 xPts)
+- Tavernier (Bournemouth, 4.909 xPts)
+- Groß (Brighton, 4.772 xPts)
+- Calvert-Lewin (Leeds, 5.619 xPts)
+- Haaland (Man City, 5.469 xPts)
+- Mbeumo (Man Utd, 4.634 xPts)
+- Barry (Everton, 4.307 xPts)
+- Schade (Brentford, 2.866 xPts)
 
-Captain: Calvert-Lewin (5.772 mean xPts; strategic score 6.5449)
-Vice-captain: Haaland (5.436 mean xPts; strategic score 6.4827)
+Captain: Haaland (5.469 mean xPts; strategic score 6.5186)
+Vice-captain: Calvert-Lewin (5.619 mean xPts; strategic score 6.3743)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Slater (2.631 xPts)
-2. Thomas (1.973 xPts)
-3. Guéhi (1.901 xPts)
+1. Slater (2.646 xPts)
+2. Thomas (2.04 xPts)
+3. Guéhi (1.914 xPts)
 4. Steele (0.002 xPts)
 
 ## Blank/Double Gameweek monitor
@@ -49,6 +49,8 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 - Starting XI changed
 - Captain changed
 - Vice-captain changed
+- Transfer recommendation changed
+- Chip recommendation changed
 
 ## Warnings
 
@@ -63,7 +65,7 @@ API-Football is plan-blocked, so check official club news and trusted predicted 
 
 ## Deadline snapshot
 
-Freeze status: waiting_for_freeze_window
-Immutable snapshot: Not yet available
+Freeze status: frozen
+Immutable snapshot: prospective/gw12/20261127T142425Z.json
 
 This report is advisory only. No transfers, chips or team changes are made automatically.

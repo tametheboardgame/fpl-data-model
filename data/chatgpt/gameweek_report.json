@@ -1,6 +1,6 @@
 {
   "operations_version": "fpl-gameweek-operations-1.9",
-  "generated_at": "2026-11-27T09:09:45+00:00",
+  "generated_at": "2026-11-27T14:24:25+00:00",
   "status": "ready",
   "decision_status": "ready",
   "decision_version": "fpl-decisions-2.7",
@@ -8,7 +8,7 @@
   "deadline": {
     "deadline_time": "2026-11-27T18:30:00+00:00",
     "deadline_time_uk": "2026-11-27T18:30:00+00:00",
-    "hours_remaining": 9.338
+    "hours_remaining": 4.093
   },
   "recommendation": {
     "selection_source": "registered_team",
@@ -20,24 +20,11 @@
         "team_name": "Brighton",
         "position": "Goalkeeper",
         "price": 4.7,
-        "expected_points": 4.172,
+        "expected_points": 4.162,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
         "news_added": ""
-      },
-      {
-        "player_id": 112,
-        "web_name": "Van Hecke",
-        "team_id": 19,
-        "team_name": "Spurs",
-        "position": "Defender",
-        "price": 5.2,
-        "expected_points": 4.965,
-        "availability_status": "a",
-        "chance_of_playing": 100,
-        "news": "",
-        "news_added": "2026-09-30T16:00:09.552205Z"
       },
       {
         "player_id": 60,
@@ -46,7 +33,7 @@
         "team_name": "Bournemouth",
         "position": "Defender",
         "price": 5.7,
-        "expected_points": 4.822,
+        "expected_points": 4.849,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -59,20 +46,20 @@
         "team_name": "Arsenal",
         "position": "Defender",
         "price": 4.9,
-        "expected_points": 3.731,
+        "expected_points": 3.703,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
         "news_added": "2026-11-05T20:30:09.025008Z"
       },
       {
-        "player_id": 426,
-        "web_name": "B.Fernandes",
-        "team_id": 16,
-        "team_name": "Man Utd",
-        "position": "Midfielder",
-        "price": 11.6,
-        "expected_points": 5.141,
+        "player_id": 277,
+        "web_name": "Egan",
+        "team_id": 11,
+        "team_name": "Hull City",
+        "position": "Defender",
+        "price": 4.0,
+        "expected_points": 2.185,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -85,7 +72,20 @@
         "team_name": "Bournemouth",
         "position": "Midfielder",
         "price": 6.8,
-        "expected_points": 4.902,
+        "expected_points": 4.909,
+        "availability_status": "a",
+        "chance_of_playing": null,
+        "news": "",
+        "news_added": ""
+      },
+      {
+        "player_id": 124,
+        "web_name": "Groß",
+        "team_id": 5,
+        "team_name": "Brighton",
+        "position": "Midfielder",
+        "price": 6.3,
+        "expected_points": 4.772,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -98,7 +98,7 @@
         "team_name": "Leeds",
         "position": "Forward",
         "price": 6.0,
-        "expected_points": 5.772,
+        "expected_points": 5.619,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -111,7 +111,7 @@
         "team_name": "Man City",
         "position": "Forward",
         "price": 15.7,
-        "expected_points": 5.436,
+        "expected_points": 5.469,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -124,7 +124,7 @@
         "team_name": "Man Utd",
         "position": "Midfielder",
         "price": 7.8,
-        "expected_points": 4.704,
+        "expected_points": 4.634,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -137,7 +137,7 @@
         "team_name": "Everton",
         "position": "Forward",
         "price": 5.7,
-        "expected_points": 4.279,
+        "expected_points": 4.307,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -150,7 +150,7 @@
         "team_name": "Brentford",
         "position": "Midfielder",
         "price": 6.1,
-        "expected_points": 2.851,
+        "expected_points": 2.866,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -165,7 +165,7 @@
         "team_name": "Hull City",
         "position": "Midfielder",
         "price": 4.5,
-        "expected_points": 2.631,
+        "expected_points": 2.646,
         "availability_status": "a",
         "chance_of_playing": null,
         "news": "",
@@ -178,7 +178,7 @@
         "team_name": "Coventry City",
         "position": "Defender",
         "price": 4.0,
-        "expected_points": 1.973,
+        "expected_points": 2.04,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -191,7 +191,7 @@
         "team_name": "Man City",
         "position": "Defender",
         "price": 5.9,
-        "expected_points": 1.901,
+        "expected_points": 1.914,
         "availability_status": "a",
         "chance_of_playing": 100,
         "news": "",
@@ -212,50 +212,41 @@
       }
     ],
     "captain": {
-      "player_id": 346,
-      "web_name": "Calvert-Lewin",
-      "team_id": 13,
-      "team_name": "Leeds",
-      "position": "Forward",
-      "price": 6.0,
-      "expected_points": 5.772,
-      "availability_status": "a",
-      "chance_of_playing": 100,
-      "news": "",
-      "news_added": "2026-11-05T18:30:07.960444Z"
-    },
-    "vice_captain": {
       "player_id": 411,
       "web_name": "Haaland",
       "team_id": 15,
       "team_name": "Man City",
       "position": "Forward",
       "price": 15.7,
-      "expected_points": 5.436,
+      "expected_points": 5.469,
       "availability_status": "a",
       "chance_of_playing": 100,
       "news": "",
       "news_added": "2026-10-19T13:00:10.543876Z"
     },
+    "vice_captain": {
+      "player_id": 346,
+      "web_name": "Calvert-Lewin",
+      "team_id": 13,
+      "team_name": "Leeds",
+      "position": "Forward",
+      "price": 6.0,
+      "expected_points": 5.619,
+      "availability_status": "a",
+      "chance_of_playing": 100,
+      "news": "",
+      "news_added": "2026-11-05T18:30:07.960444Z"
+    },
     "captain_selection_basis": "route_strategic_utility",
     "vice_captain_selection_basis": "decision_strategic_utility",
-    "transfers": [
-      {
-        "sell_player_id": 277,
-        "sell": "Egan",
-        "buy_player_id": 112,
-        "buy": "Van Hecke",
-        "sell_price": 4.0,
-        "buy_price": 5.2
-      }
-    ],
-    "transfer_action": "make_transfers",
-    "free_transfers_before": 1,
+    "transfers": [],
+    "transfer_action": "roll_or_hold",
+    "free_transfers_before": 0,
     "hit_cost": 0,
-    "bank_after": 1.9,
-    "expected_points": 56.58,
-    "net_expected_points": 56.58,
-    "six_gameweek_net_gain_vs_hold": 26.433,
+    "bank_after": 8.4,
+    "expected_points": 52.945,
+    "net_expected_points": 52.945,
+    "six_gameweek_net_gain_vs_hold": 21.24,
     "six_gameweek_total_hit_cost": 0,
     "lineup_correlation": {
       "opposing_pairs": [
@@ -283,14 +274,14 @@
       94,
       109,
       111,
-      112,
+      124,
       173,
       249,
+      277,
       290,
       346,
       388,
       411,
-      426,
       427
     ]
   },
@@ -298,48 +289,48 @@
     "utility_version": "strategic-captain-1.0",
     "captain": {
       "utility_version": "strategic-captain-1.0",
-      "player_id": 346,
-      "displayed_mean_xpts": 5.772,
-      "risk_adjusted_mean_input": 5.772,
-      "strategic_score": 6.5449,
+      "player_id": 411,
+      "displayed_mean_xpts": 5.469,
+      "risk_adjusted_mean_input": 5.469,
+      "strategic_score": 6.5186,
       "selection_basis": "route_strategic_utility",
       "components": {
-        "bounded_strategic_bonus": 0.7729,
-        "ceiling_contribution": 0.7729,
-        "rank_pressure_contribution": 0.0,
-        "position_uncertainty_penalty": 0.0,
-        "defensive_exception_margin": 0.0,
-        "selection_risk_penalty": 0.0,
-        "expected_minutes": 88.53,
-        "availability_confidence": 1.0,
-        "points_p90": 11.6889,
-        "probability_10_plus": 0.1117,
-        "probability_15_plus": 0.0117,
-        "ownership_percent": 18.5
-      },
-      "strategic_utility_available": true,
-      "strategic_bonus_is_expected_points": false
-    },
-    "vice_captain": {
-      "utility_version": "strategic-captain-1.0",
-      "player_id": 411,
-      "displayed_mean_xpts": 5.436,
-      "risk_adjusted_mean_input": 5.436,
-      "strategic_score": 6.4827,
-      "selection_basis": "decision_strategic_utility",
-      "components": {
-        "bounded_strategic_bonus": 1.0467,
-        "ceiling_contribution": 0.5967,
+        "bounded_strategic_bonus": 1.0496,
+        "ceiling_contribution": 0.5996,
         "rank_pressure_contribution": 0.45,
         "position_uncertainty_penalty": 0.0,
         "defensive_exception_margin": 0.0,
         "selection_risk_penalty": 0.0,
         "expected_minutes": 88.08,
         "availability_confidence": 1.0,
-        "points_p90": 9.676,
+        "points_p90": 9.7348,
         "probability_10_plus": 0.1117,
         "probability_15_plus": 0.02,
-        "ownership_percent": 76.1
+        "ownership_percent": 75.7
+      },
+      "strategic_utility_available": true,
+      "strategic_bonus_is_expected_points": false
+    },
+    "vice_captain": {
+      "utility_version": "strategic-captain-1.0",
+      "player_id": 346,
+      "displayed_mean_xpts": 5.619,
+      "risk_adjusted_mean_input": 5.619,
+      "strategic_score": 6.3743,
+      "selection_basis": "decision_strategic_utility",
+      "components": {
+        "bounded_strategic_bonus": 0.7553,
+        "ceiling_contribution": 0.7553,
+        "rank_pressure_contribution": 0.0,
+        "position_uncertainty_penalty": 0.0,
+        "defensive_exception_margin": 0.0,
+        "selection_risk_penalty": 0.0,
+        "expected_minutes": 88.53,
+        "availability_confidence": 1.0,
+        "points_p90": 11.3791,
+        "probability_10_plus": 0.1117,
+        "probability_15_plus": 0.0117,
+        "ownership_percent": 18.9
       },
       "strategic_utility_available": true,
       "strategic_bonus_is_expected_points": false
@@ -358,8 +349,8 @@
     "next_planned_use": {
       "chip": "bboost",
       "chip_name": "Bench Boost",
-      "gameweek": 17,
-      "incremental_expected_points": 11.042
+      "gameweek": 15,
+      "incremental_expected_points": 9.573
     }
   },
   "six_gameweek_plan": {
@@ -372,10 +363,34 @@
       16,
       17
     ],
-    "net_gain_vs_hold": 26.433,
+    "net_gain_vs_hold": 21.24,
     "gameweek_plan": [
       {
         "gameweek": 12,
+        "transfers": [],
+        "free_transfers_before": 0,
+        "hit_cost": 0,
+        "bank_after": 8.4,
+        "lineup_expected_points": 52.945,
+        "net_expected_points": 52.945,
+        "captain_player_id": 411,
+        "captain": "Haaland",
+        "starter_player_ids": [
+          109,
+          60,
+          31,
+          277,
+          68,
+          124,
+          346,
+          411,
+          427,
+          249,
+          94
+        ]
+      },
+      {
+        "gameweek": 13,
         "transfers": [
           {
             "sell_player_id": 277,
@@ -388,42 +403,9 @@
         ],
         "free_transfers_before": 1,
         "hit_cost": 0,
-        "bank_after": 1.9,
-        "lineup_expected_points": 56.58,
-        "net_expected_points": 56.58,
-        "captain_player_id": 346,
-        "captain": "Calvert-Lewin",
-        "starter_player_ids": [
-          109,
-          112,
-          60,
-          31,
-          426,
-          68,
-          346,
-          411,
-          427,
-          249,
-          94
-        ]
-      },
-      {
-        "gameweek": 13,
-        "transfers": [
-          {
-            "sell_player_id": 94,
-            "buy_player_id": 542,
-            "sell_price": 6.1,
-            "buy_price": 5.7,
-            "sell": "Schade",
-            "buy": "E.Le Fée"
-          }
-        ],
-        "free_transfers_before": 1,
-        "hit_cost": 0,
-        "bank_after": 2.3,
-        "lineup_expected_points": 56.892,
-        "net_expected_points": 56.892,
+        "bank_after": 7.2,
+        "lineup_expected_points": 54.938,
+        "net_expected_points": 54.938,
         "captain_player_id": 411,
         "captain": "Haaland",
         "starter_player_ids": [
@@ -432,31 +414,31 @@
           60,
           31,
           68,
-          542,
+          427,
           411,
           249,
-          426,
           346,
-          427
+          124,
+          94
         ]
       },
       {
         "gameweek": 14,
         "transfers": [
           {
-            "sell_player_id": 388,
+            "sell_player_id": 173,
             "buy_player_id": 4,
-            "sell_price": 5.9,
+            "sell_price": 4.0,
             "buy_price": 8.1,
-            "sell": "Guéhi",
+            "sell": "Thomas",
             "buy": "Gabriel"
           }
         ],
         "free_transfers_before": 1,
         "hit_cost": 0,
-        "bank_after": 0.1,
-        "lineup_expected_points": 59.727,
-        "net_expected_points": 59.727,
+        "bank_after": 3.1,
+        "lineup_expected_points": 59.037,
+        "net_expected_points": 59.037,
         "captain_player_id": 411,
         "captain": "Haaland",
         "starter_player_ids": [
@@ -465,22 +447,31 @@
           4,
           112,
           68,
-          426,
+          124,
           411,
           346,
           249,
           427,
-          542
+          31
         ]
       },
       {
         "gameweek": 15,
-        "transfers": [],
+        "transfers": [
+          {
+            "sell_player_id": 290,
+            "buy_player_id": 542,
+            "sell_price": 4.5,
+            "buy_price": 5.7,
+            "sell": "Slater",
+            "buy": "E.Le Fée"
+          }
+        ],
         "free_transfers_before": 1,
         "hit_cost": 0,
-        "bank_after": 0.1,
-        "lineup_expected_points": 57.14,
-        "net_expected_points": 57.14,
+        "bank_after": 1.9,
+        "lineup_expected_points": 56.945,
+        "net_expected_points": 56.945,
         "captain_player_id": 411,
         "captain": "Haaland",
         "starter_player_ids": [
@@ -489,7 +480,7 @@
           4,
           60,
           542,
-          426,
+          124,
           411,
           427,
           68,
@@ -500,11 +491,11 @@
       {
         "gameweek": 16,
         "transfers": [],
-        "free_transfers_before": 2,
+        "free_transfers_before": 1,
         "hit_cost": 0,
-        "bank_after": 0.1,
-        "lineup_expected_points": 60.598,
-        "net_expected_points": 60.598,
+        "bank_after": 1.9,
+        "lineup_expected_points": 61.595,
+        "net_expected_points": 61.595,
         "captain_player_id": 411,
         "captain": "Haaland",
         "starter_player_ids": [
@@ -513,22 +504,22 @@
           4,
           31,
           68,
-          542,
+          124,
           411,
           249,
+          542,
           346,
-          112,
-          426
+          112
         ]
       },
       {
         "gameweek": 17,
         "transfers": [],
-        "free_transfers_before": 3,
+        "free_transfers_before": 2,
         "hit_cost": 0,
-        "bank_after": 0.1,
-        "lineup_expected_points": 58.193,
-        "net_expected_points": 58.193,
+        "bank_after": 1.9,
+        "lineup_expected_points": 58.238,
+        "net_expected_points": 58.238,
         "captain_player_id": 411,
         "captain": "Haaland",
         "starter_player_ids": [
@@ -542,7 +533,7 @@
           249,
           346,
           427,
-          426
+          124
         ]
       }
     ]
@@ -584,13 +575,13 @@
     }
   ],
   "source_freshness": {
-    "official_fpl_generated_at": "2026-11-27T08:38:54+00:00",
-    "external_context_generated_at": "2026-11-27T09:09:45+00:00",
-    "active_external_signals": 3576,
+    "official_fpl_generated_at": "2026-11-27T12:42:49+00:00",
+    "external_context_generated_at": "2026-11-27T14:24:25+00:00",
+    "active_external_signals": 3496,
     "expired_external_signals": 50752
   },
   "fixture_schedule_monitor": {
-    "generated_at": "2026-11-27T08:38:54+00:00",
+    "generated_at": "2026-11-27T12:42:49+00:00",
     "status": "ready",
     "source": "official_fpl_fixture_schedule",
     "monitored_from_gameweek": 12,
@@ -1459,9 +1450,10 @@
     ]
   ],
   "deadline_freeze": {
-    "status": "waiting_for_freeze_window",
+    "status": "frozen",
     "window_hours": 8,
-    "immutable_snapshot": null
+    "immutable_snapshot": "prospective/gw12/20261127T142425Z.json",
+    "snapshot_created_this_run": "prospective/gw12/20261127T142425Z.json"
   },
   "decision_validation": {
     "status": "passed",
@@ -1506,19 +1498,19 @@
         31,
         426,
         68,
-        411,
         346,
+        411,
         427,
         249,
         94
       ],
       "after": [
         109,
-        112,
         60,
         31,
-        426,
+        277,
         68,
+        124,
         346,
         411,
         427,
@@ -1529,19 +1521,62 @@
     {
       "type": "captain",
       "summary": "Captain changed",
-      "before": 411,
-      "after": 346
+      "before": 346,
+      "after": 411
     },
     {
       "type": "vice_captain",
       "summary": "Vice-captain changed",
-      "before": 346,
-      "after": 411
+      "before": 411,
+      "after": 346
+    },
+    {
+      "type": "transfers",
+      "summary": "Transfer recommendation changed",
+      "before": [
+        [
+          277,
+          112
+        ]
+      ],
+      "after": []
+    },
+    {
+      "type": "chip",
+      "summary": "Chip recommendation changed",
+      "before": {
+        "action": "hold",
+        "chip": null,
+        "chip_name": null,
+        "gameweek": 12,
+        "incremental_expected_points": null,
+        "reason": "No available chip has a sufficient edge in the target Gameweek.",
+        "next_planned_use": {
+          "chip": "bboost",
+          "chip_name": "Bench Boost",
+          "gameweek": 17,
+          "incremental_expected_points": 11.042
+        }
+      },
+      "after": {
+        "action": "hold",
+        "chip": null,
+        "chip_name": null,
+        "gameweek": 12,
+        "incremental_expected_points": null,
+        "reason": "No available chip has a sufficient edge in the target Gameweek.",
+        "next_planned_use": {
+          "chip": "bboost",
+          "chip_name": "Bench Boost",
+          "gameweek": 15,
+          "incremental_expected_points": 9.573
+        }
+      }
     }
   ],
   "material_change": true,
-  "change_summary": "Starting XI changed Captain changed Vice-captain changed",
-  "decision_fingerprint": "4dac340cf4fefe03e9aaeb4cbac681b05dc06e6eb3706d9b401fafe7f044eb54",
-  "archive_created_this_run": "operations/gw12/20261127T090945Z.json",
-  "archive_markdown_created_this_run": "operations/gw12/20261127T090945Z.md"
+  "change_summary": "Starting XI changed Captain changed Vice-captain changed Transfer recommendation changed Chip recommendation changed",
+  "decision_fingerprint": "9fe8efadf58cc6dd04d2c02d63f431813f6ef231c3a94748d734602e60fd14cd",
+  "archive_created_this_run": "operations/gw12/20261127T142425Z.json",
+  "archive_markdown_created_this_run": "operations/gw12/20261127T142425Z.md"
 }
