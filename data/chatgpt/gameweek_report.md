@@ -1,9 +1,9 @@
 # FPL Gameweek 13 Deadline Report
 
 Status: ready
-Generated: 2026-11-27T21:21:42+00:00
+Generated: 2026-11-27T21:41:25+00:00
 UK deadline: 2026-12-01T18:30:00+00:00
-Hours remaining: 93.138
+Hours remaining: 92.81
 Advice level: provisional
 Firm advice allowed: False
 
@@ -16,28 +16,28 @@ Chip: Hold
 
 ## Starting XI
 
-- Verbruggen (Brighton, 3.353 xPts)
+- Verbruggen (Brighton, 3.433 xPts)
 - Van Hecke (Spurs, 5.312 xPts)
-- Hill (Bournemouth, 4.915 xPts)
-- Konsa (Arsenal, 4.068 xPts)
-- Tavernier (Bournemouth, 4.845 xPts)
-- Mbeumo (Man Utd, 4.369 xPts)
-- Haaland (Man City, 6.497 xPts)
-- Barry (Everton, 4.591 xPts)
-- Calvert-Lewin (Leeds, 4.109 xPts)
-- Groß (Brighton, 4.058 xPts)
-- Schade (Brentford, 2.78 xPts)
+- Hill (Bournemouth, 4.89 xPts)
+- Konsa (Arsenal, 4.151 xPts)
+- Tavernier (Bournemouth, 4.768 xPts)
+- Mbeumo (Man Utd, 4.54 xPts)
+- Haaland (Man City, 6.624 xPts)
+- Barry (Everton, 4.575 xPts)
+- Calvert-Lewin (Leeds, 4.082 xPts)
+- Groß (Brighton, 4.077 xPts)
+- Schade (Brentford, 2.735 xPts)
 
-Captain: Haaland (6.497 mean xPts; strategic score 7.6711)
-Vice-captain: Tavernier (4.845 mean xPts; strategic score 5.3756)
+Captain: Haaland (6.624 mean xPts; strategic score 7.8087)
+Vice-captain: Tavernier (4.768 mean xPts; strategic score 5.2916)
 Captaincy note: strategic utility selects who is doubled; strategic bonuses are not added to displayed xPts.
 
 ## Bench order
 
-1. Thomas (2.611 xPts)
-2. Guéhi (2.563 xPts)
-3. Slater (2.562 xPts)
-4. Steele (0.007 xPts)
+1. Guéhi (2.602 xPts)
+2. Slater (2.537 xPts)
+3. Thomas (2.523 xPts)
+4. Steele (0.012 xPts)
 
 ## Blank/Double Gameweek monitor
 
@@ -46,17 +46,7 @@ Captaincy note: strategic utility selects who is doubled; strategic bonuses are 
 
 ## Changes since previous report
 
-- Target Gameweek changed
-- Deadline changed
-- Starting XI changed
 - Bench order changed
-- Vice-captain changed
-- Transfer recommendation changed
-- Chip recommendation changed
-- Fixture information changed
-- Deadline advice stage changed
-- Firm-advice safety gate changed
-- Starting XI correlation exposure changed
 
 ## Warnings
 
